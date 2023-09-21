@@ -21,6 +21,6 @@ social: false  # includes social icons at the bottom of the page
 
 Hey, I'm Ben! Welcome to my place on the web for my life, works, projects, sports and anything else I want to show the world.
 
-Check out the projects page to see a highlight of my open-source work, and the blog for my IT notes and tutorials.
+Check out the Blog page for my IT notes and tutorials, and the projects page to see a highlight of my open-source work.
 
-My site has no ads, no affiliate links, no tracking or analytics, no sponsored posts, and no paywall. 
+My site has no ads, no affiliate links, no tracking or analytics, no sponsored posts, and no paywall. Just a place for myself to review, refresh, renew the skill, technique, knowledge of my life and work. 
