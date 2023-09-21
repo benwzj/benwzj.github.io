@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://benwzj.github.io/me/sitemap.xml
+Sitemap: https://benwzj.github.io/sitemap.xml
