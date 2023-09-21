@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: <a href='#'>Software Professional</a>
+subtitle: Software Professional
 
 profile:
   align: right
@@ -19,13 +19,8 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false  # includes social icons at the bottom of the page
 ---
 
-Hey, I'm Ben! Welcome to my place on the web for my life, works, projects, sports and anything else I want to show the world. Check out the blog for my tutorials and more.
+Hey, I'm Ben! Welcome to my place on the web for my life, works, projects, sports and anything else I want to show the world.
 
+Check out the projects page to see a highlight of my open-source work, and the blog for my IT notes and tutorials.
 
-I was Born and grown up in China. And now moved to Australia according to the spirit. I create, deploy, maintain software for all of Australian and the rest of the world.
-
-
-Sharing space and time with my two little kids is the best thing in my world. 
-And all these are happening now :)
-
-
+My site has no ads, no affiliate links, no tracking or analytics, no sponsored posts, and no paywall. 
