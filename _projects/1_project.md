@@ -1,9 +1,10 @@
 ---
 layout: page
-title: project 1
-description: a project with a background image
+title: Sunnyday Calendar
+description: A demo for react native calendars
 img: assets/img/12.jpg
 importance: 1
+redirect: https://github.com/benwzj/sunnydayCalendar
 category: work
 related_publications: einstein1956investigations, einstein1950meaning
 ---
