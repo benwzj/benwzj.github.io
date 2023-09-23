@@ -6,9 +6,11 @@ tags: markdown MD
 category: HTML
 ---
 
-Markdown Language can do everything, and good for human reading.
+Markdown was designed for the web, and also easy be read as plaintext.
+Basically, we need a parser to transfer markdown into HTML.
+There are many parsers for markdown, like kramdown, Python Markdown, etc. So, they might work differently.
 
-## It can embad HTML tags
+## It can embed HTML tags
 
 #### Direct link:
  <a href="https://en.wikipedia.org/">wikipedia</a> 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: calcuator app
-description: A calcuator dome for iPhone
+description: A calcuator demo for iPhone
 img: assets/img/7.jpg
 redirect: https://github.com/benwzj/calculator
 importance: 3
