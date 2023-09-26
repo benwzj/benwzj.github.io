@@ -747,6 +747,9 @@ pre {
   background-color: var(--global-code-bg-color);
   border-radius: 6px;
   padding: 6px 12px;
+  border-color: var(--global-code-border-color);
+  border-style: solid;
+  border-width: 1px;
 
   pre,
   code {
