@@ -123,8 +123,13 @@ If you’re publishing your Jekyll site on GitHub Pages, note that GitHub Pages 
 ## How Jekyll implement style on post
 
 **Kramdown** is the default Markdown renderer for Jekyll. You can also configure Kramdown options.
-
 **Kramdown** parse markdown file into HTML, and embed CSS style class for each HTML tag. 
+
+### `_layouts` directory 
+
+`_layouts` directory play main role on style of each website page.
+Each page contain layouts information at `front matter`. 
+For example, Every post page usually use `post` layout. You can change layout style on your specific post by using different layout.
 
 ### Syntax highlighting for code blocks
 

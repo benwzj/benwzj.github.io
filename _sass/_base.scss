@@ -737,6 +737,7 @@ footer.sticky-bottom {
   }
 }
 
+// ------------------------------------------------------------------
 // Rouge Color Customization
 figure.highlight {
   margin: 0 0 1rem;
@@ -747,7 +748,6 @@ pre {
   background-color: var(--global-code-bg-color);
   border-radius: 6px;
   padding: 6px 12px;
-
 
   pre,
   code {
@@ -769,7 +769,7 @@ code {
 
 }
 
-
+// ------------------------------------------------------------------
 // Transitioning Themes
 html.transition,
 html.transition *,
@@ -779,6 +779,7 @@ html.transition *:after {
   transition-delay: 0 !important;
 }
 
+// ------------------------------------------------------------------
 // Extra Markdown style (post Customization)
 .post {
   .post-meta {
@@ -802,7 +803,22 @@ html.transition *:after {
       }
     }
   }
-
+  h1, h2 {
+    font-weight: 700;
+  }
+  h3, h4 {
+    font-weight: 300;
+  }
+  h2 {
+    padding-bottom: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--global-divider-color);
+  }
+  p, li{
+    font-size: 1.2em; // sans-serif;
+    font-weight: 400;
+  }
   .post-content {
     blockquote {
       border-left: 5px solid var(--global-theme-color);
@@ -812,6 +828,7 @@ html.transition *:after {
         margin-bottom: 0;
       }
     }
+    
   }
 }
 
@@ -870,6 +887,7 @@ progress::-moz-progress-bar {
   height: inherit;
 }
 
+// ------------------------------------------------------------------
 /* Copy button */
 .code-display-wrapper {
   position: relative;
@@ -942,6 +960,7 @@ progress::-moz-progress-bar {
   }
 }
 
+// ------------------------------------------------------------------
 /* Table of Contents */
 nav[data-toggle="toc"] {
   top: 5rem;
@@ -982,6 +1001,7 @@ nav[data-toggle="toc"] {
   }
 }
 
+// ------------------------------------------------------------------
 /* Tips, warnings, and dangers blockquotes */
 .post .post-content blockquote {
   &.block-tip {
@@ -1024,6 +1044,8 @@ nav[data-toggle="toc"] {
   }
 }
 
+// ------------------------------------------------------------------
+// category and tag in post-list page
 .category-container{
   margin-bottom: 15px;
   margin-top: 5px;
