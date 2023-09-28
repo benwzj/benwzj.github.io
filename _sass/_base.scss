@@ -807,17 +807,18 @@ html.transition *:after {
     font-weight: 700;
   }
   h3, h4 {
-    font-weight: 300;
+    font-weight: 400;
   }
   h2 {
-    padding-bottom: 20px;
-    padding-bottom: 20px;
+    padding-top: 25px;
+    padding-bottom: 15px;
     margin-bottom: 10px;
     border-bottom: 1px solid var(--global-divider-color);
   }
+
   p, li{
-    font-size: 1.2em; // sans-serif;
-    font-weight: 400;
+    font-size: 1.1rem;
+    font-weight: 300;
   }
   .post-content {
     blockquote {

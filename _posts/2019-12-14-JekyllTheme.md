@@ -13,9 +13,7 @@ In this post, I will talk about what is website theme, What is Jekyll theme syst
 ## What is website theme
 
 A website theme manages the front-end design, establishing the overall appearance and functionality by managing its front-end design. 
-
 Themes determine all design components: page layouts, backgrounds, color palettes, headers and footers, positioning, sizing, and typography. 
-
 There are a word call theming. theming can be separate from functioning of the website. there are a separate position which is profession at creating website theming.
 
 ### How Do Website Themes Work?
@@ -129,6 +127,7 @@ If you’re publishing your Jekyll site on GitHub Pages, note that GitHub Pages 
 
 `_layouts` directory play main role on style of each website page.
 Each page contain layouts information at `front matter`. 
+
 For example, Every post page usually use `post` layout. You can change layout style on your specific post by using different layout.
 
 ### Syntax highlighting for code blocks
