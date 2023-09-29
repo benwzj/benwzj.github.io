@@ -2,6 +2,7 @@
  * Styles for the base elements of the theme.
  ******************************************************************************/
 
+// ------------------------------------------------------------------
 // Typography
 
 p,
@@ -65,6 +66,7 @@ blockquote {
   font-size: 1.2rem;
 }
 
+// ------------------------------------------------------------------
 // Math
 
 .equation {
@@ -72,6 +74,7 @@ blockquote {
   text-align: center;
 }
 
+// ------------------------------------------------------------------
 // Caption
 
 .caption {
@@ -81,6 +84,7 @@ blockquote {
   text-align: center;
 }
 
+// ------------------------------------------------------------------
 // Card
 
 .card {
@@ -105,6 +109,7 @@ blockquote {
   }
 }
 
+// ------------------------------------------------------------------
 // Citation
 
 .citation,
@@ -112,6 +117,7 @@ blockquote {
   color: var(--global-theme-color);
 }
 
+// ------------------------------------------------------------------
 // Profile
 
 .profile {
@@ -163,7 +169,7 @@ blockquote {
   }
 }
 
-
+// ------------------------------------------------------------------
 // Navbar customization
 
 .navbar {
@@ -299,6 +305,7 @@ blockquote {
   }
 }
 
+// ------------------------------------------------------------------
 // Social (bottom)
 
 .social {
@@ -326,7 +333,7 @@ blockquote {
   }
 }
 
-
+// ------------------------------------------------------------------
 // Footer
 footer.fixed-bottom {
   background-color: var(--global-footer-bg-color);
@@ -355,6 +362,7 @@ footer.sticky-bottom {
   font-size: 0.9rem;
 }
 
+// ------------------------------------------------------------------
 // CV
 
 .cv {
@@ -390,6 +398,7 @@ footer.sticky-bottom {
   }
 }
 
+// ------------------------------------------------------------------
 // Blog
 
 .header-bar {
@@ -505,7 +514,109 @@ footer.sticky-bottom {
   }
 }
 
+// category and tag in post-list page
+.category-container{
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+.tags-container{
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.category-item {
+  display: flex;
+  &:hover div{
+    color: var(--global-theme-color);
+  }
+  .category-name{
+    flex-grow: 12;
+    text-align: left;
+    font-weight: 500;
+  }
+  .category-count{
+    flex-grow: 1;
+    text-align: right;
+    font-weight: 500;
+  }
+}
 
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  a {
+    text-decoration: none; 
+  }
+  .tag {
+    background: var(--global-post-tag-bg-color)!important;
+    border: 1px solid var(--global-post-tag-border-color);
+    border-radius: 20px 10px;
+    color: var(--global-post-tag-color);
+    font-size: .8rem;
+    font-weight: 400;
+    padding: 0.2rem 0.4rem;
+    margin: 2px;
+    &:hover{
+      border-color: var(--global-theme-color);
+    }
+  }
+}
+
+// Extra Markdown style (post Customization)
+.post {
+  .post-meta {
+    color: var(--global-text-color-light);
+    font-size: 0.875rem;
+    margin-bottom: 0;
+  }
+
+  .post-tags {
+    color: var(--global-text-color-light);
+    font-size: 0.875rem;
+    padding-top: 0.25rem;
+    padding-bottom: 1rem;
+
+    a {
+      color: var(--global-text-color-light);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--global-theme-color);
+      }
+    }
+  }
+  h1 {
+    font-family: Georgia, serif;
+    font-weight: 700;
+  }
+  h3, h4 {
+    padding-top: 25px;
+    font-weight: 400;
+  }
+  h2 {
+    font-weight: 700;
+    padding-top: 25px;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--global-divider-color);
+  }
+
+  p, li{
+    font-size: 1.1rem;
+    font-weight: normal;
+  }
+  .post-content {
+    blockquote {
+      border-left: 5px solid var(--global-theme-color);
+      padding: 8px;
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+    
+  }
+}
+// ------------------------------------------------------------------
 // Distill
 
 .distill {
@@ -515,7 +626,7 @@ footer.sticky-bottom {
   }
 }
 
-
+// ------------------------------------------------------------------
 // Projects
 
 .projects {
@@ -561,7 +672,7 @@ footer.sticky-bottom {
   }
 }
 
-
+// ------------------------------------------------------------------
 // Publications
 
 .publications {
@@ -738,7 +849,7 @@ footer.sticky-bottom {
 }
 
 // ------------------------------------------------------------------
-// Rouge Color Customization
+// Syntax highlight Rouge Color Customization
 figure.highlight {
   margin: 0 0 1rem;
 }
@@ -777,60 +888,6 @@ html.transition *:before,
 html.transition *:after {
   transition: all 750ms !important;
   transition-delay: 0 !important;
-}
-
-// ------------------------------------------------------------------
-// Extra Markdown style (post Customization)
-.post {
-  .post-meta {
-    color: var(--global-text-color-light);
-    font-size: 0.875rem;
-    margin-bottom: 0;
-  }
-
-  .post-tags {
-    color: var(--global-text-color-light);
-    font-size: 0.875rem;
-    padding-top: 0.25rem;
-    padding-bottom: 1rem;
-
-    a {
-      color: var(--global-text-color-light);
-      text-decoration: none;
-
-      &:hover {
-        color: var(--global-theme-color);
-      }
-    }
-  }
-  h1, h2 {
-    font-weight: 700;
-  }
-  h3, h4 {
-    font-weight: 400;
-  }
-  h2 {
-    padding-top: 25px;
-    padding-bottom: 15px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid var(--global-divider-color);
-  }
-
-  p, li{
-    font-size: 1.1rem;
-    font-weight: 300;
-  }
-  .post-content {
-    blockquote {
-      border-left: 5px solid var(--global-theme-color);
-      padding: 8px;
-
-      p {
-        margin-bottom: 0;
-      }
-    }
-    
-  }
 }
 
 progress {
@@ -1041,54 +1098,6 @@ nav[data-toggle="toc"] {
 
     h1, h2, h3, h4, h5, h6 {
       color: var(--global-danger-block-title);
-    }
-  }
-}
-
-// ------------------------------------------------------------------
-// category and tag in post-list page
-.category-container{
-  margin-bottom: 15px;
-  margin-top: 5px;
-}
-.tags-container{
-  margin-bottom: 5px;
-  margin-top: 5px;
-}
-.category-item {
-  display: flex;
-  &:hover div{
-    color: var(--global-theme-color);
-  }
-  .category-name{
-    flex-grow: 12;
-    text-align: left;
-    font-weight: 500;
-  }
-  .category-count{
-    flex-grow: 1;
-    text-align: right;
-    font-weight: 500;
-  }
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  a {
-    text-decoration: none; 
-  }
-  .tag {
-    background: var(--global-post-tag-bg-color)!important;
-    border: 1px solid var(--global-post-tag-border-color);
-    border-radius: 20px 10px;
-    color: var(--global-post-tag-color);
-    font-size: .8rem;
-    font-weight: 400;
-    padding: 0.2rem 0.4rem;
-    margin: 2px;
-    &:hover{
-      border-color: var(--global-theme-color);
     }
   }
 }

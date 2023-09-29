@@ -54,7 +54,7 @@ function myFunction() {
 }
 </script>
 ```
-Alternative way is using ` element.classList.add()` and ` element.classList.remove()` instead of `element.classList.toggle`. 
+Alternative way is using `element.classList.add()` and `element.classList.remove()` instead of `element.classList.toggle`. 
 
 #### Use CSS Attribute selector
 
@@ -123,7 +123,7 @@ If you’re publishing your Jekyll site on GitHub Pages, note that GitHub Pages 
 **Kramdown** is the default Markdown renderer for Jekyll. You can also configure Kramdown options.
 **Kramdown** parse markdown file into HTML, and embed CSS style class for each HTML tag. 
 
-### `_layouts` directory 
+### **_layouts** directory 
 
 `_layouts` directory play main role on style of each website page.
 Each page contain layouts information at `front matter`. 
