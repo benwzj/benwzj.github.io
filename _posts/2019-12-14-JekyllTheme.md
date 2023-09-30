@@ -123,12 +123,15 @@ If you’re publishing your Jekyll site on GitHub Pages, note that GitHub Pages 
 **Kramdown** is the default Markdown renderer for Jekyll. You can also configure Kramdown options.
 **Kramdown** parse markdown file into HTML, and embed CSS style class for each HTML tag. 
 
-### **_layouts** directory 
-
-`_layouts` directory play main role on style of each website page.
+### Layout
+**_layouts** directory play **main** role on style of each website page.
 Each page contain layouts information at `front matter`. 
 
-For example, Every post page usually use `post` layout. You can change layout style on your specific post by using different layout.
+For example, Every blog post page usually use `post` layout. You can change layout style on your specific post by using different layout.
+
+### CSS
+All CSS file will locate at assets/css/. And Jekyll use SASS to manage CSS.
+The **_sass** folder is for Sass partials. Every file in here should begin with an underscore, and it will compile into main.scss in the css folder.
 
 ### Syntax highlighting for code blocks
 
