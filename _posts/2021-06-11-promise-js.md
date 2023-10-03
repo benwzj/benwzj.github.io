@@ -12,7 +12,25 @@ Firstly, Why Promise? It make using callback easier.
 
 A promise represents the completion of an asynchronous function. It is an object that might return a value in the future. It accomplishes the same basic goal as a callback function, but with many additional features and a more readable syntax. 
 
-I conclude some promise features: 
+### A Promise is in one of these states:
+- pending: initial state, and keep in this state untill fulfilled or rejected.
+- fulfilled: meaning that the operation completed successfully.
+- rejected: meaning that the operation failed.
+
+### Promise and thenable  
+“promise” is an object or function with a then method whose behavior conforms to the specification.
+[“thenable”](https://promisesaplus.com/) is an object or function that defines a then method.
+
+A promise must provide a then method to access its current or eventual value or reason.
+A promise’s then method accepts two arguments:
+```javascript
+promise.then(onFulfilled, onRejected)
+```
+
+A Promise is a proxy for a value not necessarily known when the promise is created. 
+The Promise object represents the eventual completion (or failure) of an asynchronous operation, and its resulting value.
+
+### I conclude some promise features: 
 - We can define a Promise as an object that can produce a single value at some time in the future, either a value or the reason why it could not be resolved.
 - A promise is an object returned by an asynchronous function, which represents the current state of the operation. 
 - At the time the promise is returned to the caller, the operation often isn't finished, but the promise object provides methods to handle the eventual success or failure of the operation.
@@ -28,14 +46,6 @@ C, multi callback can be added;
   - chaining: call back can be called one by one by one...
   - chaining after catch: It can be chain after failure. Using catch().then()	
 
-### What is Promise object 
-A Promise is a proxy for a value not necessarily known when the promise is created. 
-The Promise object represents the eventual completion (or failure) of an asynchronous operation, and its resulting value.
-
-A Promise is in one of these states:
-- pending: initial state, neither fulfilled nor rejected.
-- fulfilled: meaning that the operation completed successfully.
-- rejected: meaning that the operation failed.
 
 ## Promise constructor
 
@@ -154,12 +164,13 @@ function myAsyncFunction(url) {
 ```
 
 ## Understand then()
-(`Promise.prototype.then()` is the core function of promise. )
+(`Promise.prototype.then()` is the **core** function of promise. )
 
 `then()` itself returns a promise, which will be completed with the result of the handler function that was passed to it. 
 
 It takes up to two arguments: callback functions for the success and failure cases of the Promise. And each callback function has a input argument! 
 Syntax: 
+
 ```javascript
 p.then(value => {
   // fulfillment
@@ -184,18 +195,20 @@ if handler ...
 
 Terminologies include **pending**; **fulfilled**; **rejected, settled, resolved**.
 
-This Promise terminology is come from this [Wonderful Blog](https://thenewtoys.dev/blog/2021/02/08/lets-talk-about-how-to-talk-about-promises/).
+This Promise terminology is come from this Wonderful Blog: [Let's talk about how to talk about promises](https://thenewtoys.dev/blog/2021/02/08/lets-talk-about-how-to-talk-about-promises/).
 
-A promises's primary state is one of three mutually-exclusive values:
+A promises's primary ***state*** is one of three mutually-exclusive values:
 - **pending** - the initial state of most promises, it hasn't been fulfilled or rejected
 - **fulfilled** - the promise has been fulfilled with a fulfillment value
 - **rejected** - the promise has been rejected with a rejection reason (saying why the promise can't be fulfilled)
 
 **"settled"** is the collective term which means **"fulfilled or rejected."**. 
-Till now we know pending, fulfilled, rejected, settled. But what is resolved.
+Till now we know pending, fulfilled, rejected, settled. And they are easy to understand. But How about **"resolved"**.
 
-### What is resolved.
+### What is "resolved".
 When you resolve a promise, you determine what will happen to that promise from then on. 
+***"resolved"*** is NOT a state of a promise.
+
 When you resolve a promise with something like `42` or `"answer"` or `{"example": "result"}`, yes, you do fulfill the promise with that value. But if you resolve your promise to another promise (or more generally a thenable), you're telling your promise to follow that other promise and do what it does:
 - If the other promise is fulfilled, your original promise will fulfill itself with the other promise's fulfillment value
 - If the other promise is rejected, your original promise will reject itself with the other promise's rejection reason
@@ -203,12 +216,11 @@ When you resolve a promise with something like `42` or `"answer"` or `{"example"
 
 Regardless of what happens, though, there's nothing further you can do to the promise to affect the outcome. The promise is resolved to the other promise, irrevocably. Any attempt to resolve it again, or to reject it, will have no effect.
 
-A promise is resolved if it is settled, **OR** if it has been "locked in" to follow the state of another promise.
-Contrary to popular belief, resolving a promise doesn't necessarily change its primary state. In fact, it often doesn't. Promise resolution is a separate concept from promise fulfillment.
-
+Now I try to make it simple to remember: A promise is resolved if it is settled, **OR** if it has been "locked in" to follow the state of another promise.
+So, it is contrary to popular belief, resolving a promise doesn't necessarily change its primary state. In fact, it often doesn't. Promise resolution is a separate concept from promise fulfillment.
 
 ### "Why use the word 'resolved' when things are still up in the air?" 
-It's because of the irrevocability I mentioned earlier: once a promise is resolved, nothing can change what's going to happen to it. If it's resolved with a non-promise value, it's fulfilled with that value and that's that. If it's resolved to a promise, it's going to follow that other promise and that's that. You can't change its resolution, or reject it directly. 
+It's because of the irrevocability: once a promise is resolved, nothing can change what's going to happen to it. If it's resolved with a non-promise value, it's fulfilled with that value and that's that. If it's resolved to a promise, it's going to follow that other promise and that's that. You can't change its resolution, or reject it directly. 
 
 ### Three ways to resolve a promise
 1. calling the resolve function you get from new Promise and 
