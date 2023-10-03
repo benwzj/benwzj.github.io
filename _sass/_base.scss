@@ -446,6 +446,7 @@ footer.sticky-bottom {
   padding-top: 8px;
 
   .post-year {
+    font-family: Georgia, serif;
     color: var(--global-post-title-color);
     text-decoration: none;
     font-weight: 700;
@@ -590,9 +591,10 @@ footer.sticky-bottom {
   }
   h3, h4 {
     padding-top: 25px;
-    font-weight: 400;
+    font-weight: 500;
   }
   h2 {
+    font-family: Georgia, serif;
     font-weight: 700;
     padding-top: 25px;
     padding-bottom: 15px;

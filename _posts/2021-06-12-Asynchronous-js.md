@@ -1,13 +1,15 @@
 ---
 layout: post
 title: "Asynchronous Programming in JS"
-date: 2020-06-12
+date: 2021-06-12
 categories: JavaScript
 tags: Call-back Promise Queue Asynchronous
 ---
 
 JavaScript is a single thread language. It use event loop to build Asynchronous programming.
 Callbacks used to be the main way asynchronous functions were implemented in JavaScript. Now Promise is the main one.
+Check another blogs for callback and promise concepts.
+
 
 
 ## async/await
@@ -74,6 +76,7 @@ async function fetchProducts() {
   console.log(json[0].name);
 }
 ```
+
 ### Async functions and execution order
 
 When there are many promise and many await in async function. The execution order will follow the promise.then order.
@@ -131,3 +134,8 @@ addEventListener("message", message => {
   doSometing(message.data); //message.data is 'Ali'
   postMessage('Done with Ali');
 });
+
+### Q&A
+
+- Is worker a part of JavaScript?
+No, worker is web API. It run outside of the event loop, outside of the JavaScript Runtime.

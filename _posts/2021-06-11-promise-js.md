@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "Understand Promise in JS"
-date: 2020-06-11
+date: 2021-06-11
 categories: JavaScript
 tags: Promise Asynchronous
 ---
 
 ## What is Promises
 
-Firstly, Why Promise? Make using callback easier.
+Firstly, Why Promise? It make using callback easier.
 
 A promise represents the completion of an asynchronous function. It is an object that might return a value in the future. It accomplishes the same basic goal as a callback function, but with many additional features and a more readable syntax. 
 
@@ -20,11 +20,11 @@ I conclude some promise features:
 - Promises are the foundation of asynchronous programming in modern JavaScript. 
 - Compare to callback, a promise is a returned object to which you attach callbacks, instead of passing callbacks into a function.
 - The main tricky thing of promise is that, it can resolve promise with a specific value, or another promise! 
-- Promise VS old fashioned Callback, promise have some greater feather: 
+- Promise VS old fashioned Callback, promise have some greater features: 
   - guarantees: 
-A, Callback never call before current run
-B, callback added with then()
-C, multi callback can be added
+A, Callback never call before current run; 
+B, callback added with then(); 
+C, multi callback can be added; 
   - chaining: call back can be called one by one by one...
   - chaining after catch: It can be chain after failure. Using catch().then()	
 
@@ -182,18 +182,30 @@ if handler ...
 
 ## Promise terminology
 
-(pending; fulfilled; rejected, settled, resolved)
-This Promise terminology is conclude from Blog:
-https://thenewtoys.dev/blog/2021/02/08/lets-talk-about-how-to-talk-about-promises/
+Terminologies include **pending**; **fulfilled**; **rejected, settled, resolved**.
 
-A promise can be in one of three states: **pending**; **fulfilled**; **rejected**. (settled to cover both fulfilled and rejected.)
+This Promise terminology is come from this [Wonderful Blog](https://thenewtoys.dev/blog/2021/02/08/lets-talk-about-how-to-talk-about-promises/).
+
+A promises's primary state is one of three mutually-exclusive values:
+- **pending** - the initial state of most promises, it hasn't been fulfilled or rejected
+- **fulfilled** - the promise has been fulfilled with a fulfillment value
+- **rejected** - the promise has been rejected with a rejection reason (saying why the promise can't be fulfilled)
+
+**"settled"** is the collective term which means **"fulfilled or rejected."**. 
+Till now we know pending, fulfilled, rejected, settled. But what is resolved.
 
 ### What is resolved.
+When you resolve a promise, you determine what will happen to that promise from then on. 
+When you resolve a promise with something like `42` or `"answer"` or `{"example": "result"}`, yes, you do fulfill the promise with that value. But if you resolve your promise to another promise (or more generally a thenable), you're telling your promise to follow that other promise and do what it does:
+- If the other promise is fulfilled, your original promise will fulfill itself with the other promise's fulfillment value
+- If the other promise is rejected, your original promise will reject itself with the other promise's rejection reason
+- If the other promise never settles, your original promise won't either
+
+Regardless of what happens, though, there's nothing further you can do to the promise to affect the outcome. The promise is resolved to the other promise, irrevocably. Any attempt to resolve it again, or to reject it, will have no effect.
+
 A promise is resolved if it is settled, **OR** if it has been "locked in" to follow the state of another promise.
 Contrary to popular belief, resolving a promise doesn't necessarily change its primary state. In fact, it often doesn't. Promise resolution is a separate concept from promise fulfillment.
- 
-When you resolve a promise, you determine what will happen to that promise from then on. When you resolve a promise with something like 42 or "answer" or {"example": "result"}, yes, you do fulfill the promise with that value. 
-But if you resolve your promise to another promise (or more generally a thenable), you're telling your promise to follow that other promise and do what it does!
+
 
 ### "Why use the word 'resolved' when things are still up in the air?" 
 It's because of the irrevocability I mentioned earlier: once a promise is resolved, nothing can change what's going to happen to it. If it's resolved with a non-promise value, it's fulfilled with that value and that's that. If it's resolved to a promise, it's going to follow that other promise and that's that. You can't change its resolution, or reject it directly. 
@@ -372,3 +384,62 @@ Promise.race([promise1, promise2]).then((value) => {
 - Usually, in our daily promise usage is consume promise. 
 - Using Promise constructor to implement promise.
 - Miscrotask queue is the underneath support of promise. It enqueue all promise callbacks to miscrotask queue. 
+
+## FQA
+
+### What is the relationship between asynchronous programming and event loop.
+In JavaScript, all asynchronous programming is running with event loop. They are using either macrotask queue or microtask queue.
+For example, setTimeout() is using macrotask. Promise is using microtask.
+
+### Why promise can solve callback hell problem?
+promise chaining can flat ever-increasing levels of indentation when we need to make consecutive asynchronous function calls.
+
+### callbacks vs. event loop?
+If the callbacks don’t use event loop and callback queue, they are just synchronous. Your callback functions run in the same thread of your main function. 
+For example defines two functions in JS and pass one function as parameter to another function and run. This kind of callback is synchronous. 
+When your callbacks is APIs and run in other thread and it will setup your callback function into callback queue and event loop. Then it is async.  
+
+### What is the thenable object
+usually refer to the thenable object. Looks like:
+```javascript
+{
+	then: function (resolve, error) {...} 
+}
+```
+just like the then function. 
+
+> Pay attention to thenable fucntion 's parameters: TWO of them: first one is success, second one is fail. Just like the constructor : new Promise(executor)
+{: .block-warning }
+
+Example: 
+```javascript
+// Promise.resolve() cast thenable object into a promise.
+var p1 = Promise.resolve({ 
+  then: function(onFulfill, onReject) { onFulfill('fulfilled!'); }
+});
+console.log(p1 instanceof Promise) // true, object casted to a Promise
+		
+// this promise object's then () function works following thenable object:
+p1.then(function(v) {
+  console.log(v); // "fulfilled!"
+}, function(e) {
+  // not called
+});
+```
+
+### Promise and setTimeout, which first? promise! why?
+```javascript
+setTimeout(()=>{console.log('Timeout')}, 0)
+Promise.resolve('promise').then((value)=>console.log(value));
+console.log( 'now' );
+// get: 
+> "now"
+> "promise"
+> "Timeout"
+```
+
+### Did you know...
+- that "fulfilling" a promise and "resolving" a promise aren't the same thing?
+- that a promise can be both "pending" and "resolved" at the same time?
+- that lots of your code is creating these pending resolved promises?
+- that when you resolve a promise you might be rejecting it rather than fulfilling it (or neither)?

@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Understand Event Loop in JavaScript"
-date: 2020-06-01
+title: "Understand Event Loop in JS"
+date: 2021-06-01
 categories: JavaScript
 tags: Event-loop
 ---
