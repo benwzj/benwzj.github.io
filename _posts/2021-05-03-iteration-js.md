@@ -3,7 +3,7 @@ layout: post
 title: "The Iteration in JS"
 date: 2021-05-03
 categories: JavaScript
-tags: Iterable Iterator 
+tags: Iterable Iterator Generator
 ---
 
 	

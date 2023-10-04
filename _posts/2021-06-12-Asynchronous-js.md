@@ -10,8 +10,6 @@ JavaScript is a single thread language. It use event loop to build Asynchronous 
 Callbacks used to be the main way asynchronous functions were implemented in JavaScript. Now Promise is the main one.
 Check another blogs for callback and promise concepts.
 
-
-
 ## async/await
 
 ### What is async/await

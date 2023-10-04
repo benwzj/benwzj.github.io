@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Bootstrap Main points
-date: 2022-09-23
+date: 2020-01-09
 tags: CSS website 
 tag: web design
 category: HTML
