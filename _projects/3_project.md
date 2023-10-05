@@ -1,8 +1,8 @@
 ---
 layout: page
-title: calcuator app
-description: A calcuator demo for iPhone
-img: assets/img/7.jpg
+title: Calcuator App
+description: A Calculator App for iPhone. Using Swift.
+img: assets/img/3.jpg
 redirect: https://github.com/benwzj/calculator
 importance: 3
 category: work

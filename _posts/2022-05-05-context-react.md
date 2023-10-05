@@ -75,7 +75,8 @@ In a very small application, you might be able to get away with just using Conte
 
 ## Important Caveats
 Context uses reference identity to determine when to re-render, there are some gotchas that could trigger unintentional renders in consumers when a provider’s parent re-renders. 
-For example, the code below will re-render all consumers every time the Provider re-renders because a new object is always created for value:
+For example, the code below will re-render all consumers every time the Provider re-renders because a new object is always created for value.
+Class component example:
 ```javascript
 class App extends React.Component {
   render() {

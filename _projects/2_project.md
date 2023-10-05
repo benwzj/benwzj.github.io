@@ -1,12 +1,11 @@
 ---
 layout: page
 title: benwen.link
-description: a source of this website
-img: assets/img/3.jpg
+description: A source of this website. It is Static website using Jekyll
+img: assets/img/2.jpg
 importance: 2
 redirect: https://github.com/benwzj/me
 category: work
-giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

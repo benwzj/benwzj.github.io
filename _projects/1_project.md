@@ -1,12 +1,11 @@
 ---
 layout: page
 title: Sunnyday Calendar
-description: A demo for react native calendars
-img: assets/img/12.jpg
+description: A Calendars App for iOS and Android. Using React Native.
+img: assets/img/1.jpg
 importance: 1
 redirect: https://github.com/benwzj/sunnydayCalendar
 category: work
-related_publications: einstein1956investigations, einstein1950meaning
 ---
 
 Every project has a beautiful feature showcase page.
