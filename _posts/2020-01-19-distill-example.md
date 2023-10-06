@@ -2,10 +2,11 @@
 layout: distill
 title: a distill-style blog post
 description: an example of a distill-style blog post and main elements
-tags: distill formatting
+tags: distill formatting CSS
 giscus_comments: true
 date: 2020-01-19
 featured: true
+categories: Markdown
 
 authors:
   - name: Albert Einstein

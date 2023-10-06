@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How for loop iterate an iterable in Python"
+title: "How <code>for loop</code> iterate an iterable in Python"
 date: 2023-05-12
 categories: Python
 tags: Iteration for-in

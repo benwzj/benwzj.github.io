@@ -2,9 +2,8 @@
 layout: post
 title: Bootstrap Main points
 date: 2020-01-09
-tags: CSS website 
-tag: web design
-category: HTML
+tags: HTML Website 
+category: CSS
 ---
 
 ## What is Bootstrap

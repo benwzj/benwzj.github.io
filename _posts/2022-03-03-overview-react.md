@@ -3,52 +3,19 @@ layout: post
 title: "My Overview of React"
 date: 2022-03-03
 categories: React
-tags: Hook Redux
+tags: Hook Redux Overview
 ---
 
 ## What is React
 
 React is a JavaScript library. It provide a framework for you to build your interactive UIs. React is a declarative, Non-opinionated, flexible, efficient library. It lets you compose complex UIs from small and isolated pieces of code called “components”.
-Some features:
+
+### Here are some key features:
 - React is using component composition for code reuse.
 - React provides a declarative API so that you don’t have to worry about exactly what changes on every UI update. This makes writing applications a lot easier.
 - React create a virtual DOM in memory. 
 - React only change what need to be changed. 
 - React can work without node.js, just need some tools. like npm, Babel, Webpack
-
-## How to use React
-
-Runing React application, means using React APIs which locate in React library. React is the entry point to the React library. If you don’t use bundler and you just load React from a `<script>` tag, these top-level APIs are available on the React global. 
-- If you use ES6 with npm, you can write `import React from 'react'`. 
-- If you use ES5 with npm, you can write `var React = require('react')`.
-
-### How do react applications work within browsers
-
-React app usually have one index.html and many js files. React use Webpack tool to bundle all the js files into one bundle.js file. 
-
-When browsers visit React app, it will return index.html file. And also, return the bundle js file! Browser will execute the bundle file!
-
-### How do react work with the backend
-React is front end application framework. Just like HTML file, it can connect to backend through Hyperlinks, Ajax, etc. 
-
-### How do react deploy
-
-- Create React App
-Using Create React App to create React Application. and you can use it with any backend you want. 
-Under the hood, Create React App uses Babel and webpack, but you don’t need to know anything about them.
-When you’re ready to deploy to production, running npm run build will create an optimized build of your app in the build folder. 
-
-- Vercel
-There are many services which provide web application deployment. Like Vercel. 
-Vercel is free and easy to use. Sign in and Run CLI to deploy your code to Vercel. after done, you can get a public link like: https//yourapplicationname.vercel.app
-Under the hood, Vercel use `npm run build` to build your app.
-
-- Next.js framework
-You can use Next.js to build Node.js applications built with React. 
-It includes styling and routing solutions out of the box.
-
-## Basic rules
-
 - React’s one-way data flow (also called one-way binding) keeps everything modular and fast.
 - Using JSX, which can be translated by Babel.
 - There are two types of “model” data in React: props and state.  
@@ -65,12 +32,10 @@ const element = <Welcome name="Sara" />;
 root.render(element);
 ```
 
-## Ajax in React
+### Ajax in React
 You can use any AJAX library you like with React. Like Axios, jQuery AJAX, and the browser built-in `window.fetch`.
 
 You should populate data with AJAX calls in the componentDidMount lifecycle method. This is so you can use setState to update your component when the data is retrieved.
-
-## Library
 
 ### React library
 All top-level APIs come from ‘react’ library, including hooks.
@@ -89,15 +54,15 @@ import ReactDOM from 'react-dom';
 ReactDOM.render(<App />, document.querySelector('#root'));
 ```
 
-## Instances
-
-Instances have much less importance in React than in most object-oriented UI frameworks.
+## What is Instances in React
 
 We let React create, update, and destroy instances. We describe them with elements we return from the components, and React takes care of managing the instances.
 
 Only components declared as classes have instances, and you never create them directly: React does that for you. The Only reason to use this instance is for imperative actions (such as setting focus on a field), and should generally be avoided.
 
-## Element
+Instances have much less importance in React than in most object-oriented UI frameworks.
+
+## What is Element in React
 
 Unlike browser DOM elements, React elements are plain objects, and are cheap to create. React DOM takes care of updating the DOM to match the React elements.
 
@@ -172,12 +137,12 @@ We let React create, update, and destroy instances. We describe them with elemen
 HTML elements (or call DOM elements) are created by tag, like` <div> <a>` etc.
 React elements are plain objects.
 
-## Props 
+### Props 
 
 - props are a way of passing data from parent to child. 
 - props contains information set by the parent component (although defaults can be set) and should not be changed.
 
-## State
+### State
 
 - State is reserved only for interactivity, Static version don't need state.
 - State is private and fully controled by component. e.g. initialise, change.
@@ -209,6 +174,38 @@ Redux serves as a centralized store for state that needs to be used across your 
 {% include figure.html path="assets/img/redux-overview.png" class="img-fluid rounded z-depth-1" %}
 
 > Redux is not just for react, it can be used to other JS application.
+
+
+## How to use React
+
+Runing React application, means using React APIs which locate in React library. React is the entry point to the React library. If you don’t use bundler and you just load React from a `<script>` tag, these top-level APIs are available on the React global. 
+- If you use ES6 with npm, you can write `import React from 'react'`. 
+- If you use ES5 with npm, you can write `var React = require('react')`.
+
+### How do react applications work within browsers
+
+React app usually have one index.html and many js files. React use Webpack tool to bundle all the js files into one bundle.js file. 
+
+When browsers visit React app, it will return index.html file. And also, return the bundle js file! Browser will execute the bundle file!
+
+### How do react work with the backend
+React is front end application framework. Just like HTML file, it can connect to backend through Hyperlinks, Ajax, etc. 
+
+### How to deploy react
+
+- Create React App
+Using Create React App to create React Application. and you can use it with any backend you want. 
+Under the hood, Create React App uses Babel and webpack, but you don’t need to know anything about them.
+When you’re ready to deploy to production, running npm run build will create an optimized build of your app in the build folder. 
+
+- Vercel
+There are many services which provide web application deployment. Like Vercel. 
+Vercel is free and easy to use. Sign in and Run CLI to deploy your code to Vercel. after done, you can get a public link like: https//yourapplicationname.vercel.app
+Under the hood, Vercel use `npm run build` to build your app.
+
+- Next.js framework
+You can use Next.js to build Node.js applications built with React. 
+It includes styling and routing solutions out of the box.
 
 ## How to design React applications?
 

@@ -2,8 +2,8 @@
 layout: post
 title: "Implement SASS in a project"
 date: 2020-02-17
-categories: HTML
-tags: CSS SASS Jekyll
+categories: CSS
+tags: SASS Jekyll HTML
 ---
 
 
