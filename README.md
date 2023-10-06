@@ -32,7 +32,9 @@ After you pushing the change to repo, and then run **bin/deploy** script.
 
 **_config**: the config file which contain almost all the configuration.
 
-**_post**: Contain the index HTML file for blogs. It contain the LIST for all the blogs and provide categories and tags index.
+**_blog**: Contain the index HTML file for blogs. It contain the LIST for all the blogs and provide categories and tags index.
+
+**_post**: Contain all blog posts.
 
 **_page**: Contain ALL website pages except blogs.
 
@@ -44,6 +46,7 @@ After you pushing the change to repo, and then run **bin/deploy** script.
 
 **_data**: Contain external data, any data you want. 
 
+**_assets**: contain images, css, js, webfonts, etc.
 
 
 

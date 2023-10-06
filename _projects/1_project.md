@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Sunnyday Calendar
+title: Calendar App
 description: A Calendars App for iOS and Android. Using React Native.
 img: assets/img/1.jpg
 importance: 1

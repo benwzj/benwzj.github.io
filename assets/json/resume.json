@@ -49,9 +49,20 @@
       "name": "TCL Mobile communication Co.",
       "position": "SOFTWARE ENGINEER",
       "url": "https://www.tclcom.com/",
-      "startDate": "2006-03-05",
+      "startDate": "2008-06-02",
       "endDate": "2012-02-16",
       "summary": "Developed software for mobile models based on Qualcomm solutions",
+      "highlights": [
+        "BREW UI System",
+        "Hardware driver"
+      ]
+    },
+    {
+      "name": "JRD Communication Inc.",
+      "position": "SOFTWARE ENGINEER",
+      "startDate": "2006-03-05",
+      "endDate": "2008-06-01",
+      "summary": "Developed software for mobile models. Including embedded peripheral drivers, BREWUI App",
       "highlights": [
         "BREW UI System",
         "Hardware driver"

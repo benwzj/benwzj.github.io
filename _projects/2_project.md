@@ -2,7 +2,7 @@
 layout: page
 title: benwen.link
 description: A source of this website. It is Static website using Jekyll
-img: assets/img/2.jpg
+img: assets/img/12.jpg
 importance: 2
 redirect: https://github.com/benwzj/me
 category: work
