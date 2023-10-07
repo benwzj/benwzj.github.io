@@ -2,8 +2,8 @@
 layout: post
 title: How to make MarkDown file looks better
 date: 2023-09-23
-tags: markdown MD CSS
-category: HTML
+tags: HTML CSS
+category: Markdown
 ---
 
 We know that, there are a markdown parsers to convert markdown file into HTML. Markdown have it's own syntax for the transform. For example,` # Headline` convert to `<h1>Headline</h1>`. But how about the style?
@@ -22,7 +22,6 @@ There are two ways:
 ```
 
 - you can use CSS styles in markdown content
-
 ```markdown
 <style>
 .heading1 {
@@ -38,11 +37,10 @@ There are two ways:
 </style>
 
 # Markdown heading styles {#identifier .heading1}
-## Markdown heading styles {#identifier .heading2}
-
+## Markdown heading styles {#identifier .heading2}  
 ```
-- Define CSS styles using selector
 
+- Define CSS styles using selector
 ```markdown
 <style>
 red { color: red }

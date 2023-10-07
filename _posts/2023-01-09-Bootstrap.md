@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Bootstrap Main points
-date: 2020-01-09
-tags: HTML Website 
+title: "Bootstrap Main points"
+date: 2023-01-09
 category: CSS
+tags: HTML Website SASS
 ---
 
 ## What is Bootstrap
@@ -11,9 +11,15 @@ category: CSS
 Bootstrap is popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first websites. It includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels and many other, as well as optional JavaScript plugins.
 Bootstrap is focus on the look of webpage! single page. mainly use CSS and partly use javascript for some effect. It is completely free to download and use!
 
-Bootstrap is Writen in HTML, CSS, Less, Sass and JS, Originally named Twitter Blueprint.
+Bootstrap is Writen in HTML, CSS, Less, **Sass** and JS, Originally named Twitter Blueprint.
 
 Bootstrap 3 was released in 2013. Bootstrap 4 (released 2018) and Bootstrap 5 (released 2021).
+
+### What Bootstrap can do
+
+Once Bootstrap is added to a project, it provides basic style definitions for all HTML elements. 
+The result is a uniform appearance for prose, tables and form elements across web browsers.
+In addition, developers can take advantage of CSS classes defined in Bootstrap to further customize the appearance of their contents. 
 
 ### To use BootStrap, just take following: 
 ```html
@@ -22,12 +28,6 @@ Bootstrap 3 was released in 2013. Bootstrap 4 (released 2018) and Bootstrap 5 (r
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 ```
-
-## What Bootstrap can do
-
-Once Bootstrap is added to a project, it provides basic style definitions for all HTML elements. 
-The result is a uniform appearance for prose, tables and form elements across web browsers.
-In addition, developers can take advantage of CSS classes defined in Bootstrap to further customize the appearance of their contents. 
 
 ## Using Bootstrap 4
 
@@ -41,7 +41,7 @@ Main points:
 - allows up to 12 columns across the page.
 - is responsive, and the columns will re-arrange automatically depending on the screen size.
 
-### Basic Structure
+### Basic Structure Example
 
 ```html
 <div class="row">
@@ -50,9 +50,9 @@ Main points:
   <div class="col-*-*"></div>
 </div>
  ```
-first star (*) represents the responsiveness: `sm`, `md`, `lg` or `xl`, 
-second star represents a number, which should add up to 12 for each row.
-`sm` means small devices - screen width `>= 576px` and `< 768px`.
+- first star (*) represents the responsiveness: `sm`, `md`, `lg` or `xl`, 
+- second star represents a number, which should add up to 12 for each row.
+- `sm` means small devices - screen width `>= 576px` and `< 768px`.
 
 ### Why we need sm, md, lg, xl?
 This is for helping re-arrange display according to the width of screen.
@@ -72,7 +72,6 @@ When screen width is less than `575px`, it will use another class which make 4 c
 If change `col-sm-3` to `col-lg-3`, then they will stack when screen width less than `992px`
 
 ### Code Example 2
-
 ```html
 <div class="container-fluid">
   <div class="row">

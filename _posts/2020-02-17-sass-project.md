@@ -9,7 +9,8 @@ tags: SASS Jekyll HTML
 
 You can organize Sass into your project. Instead of having one huge CSS file that becomes hard to maintain, you can compartmentalize all the components of your site into multiple files known as partials, and compile them into one, minified CSS file. Any change made to these partials will be detected, and the main file will be updated.
 
-Jekyll use sass!
+Jekyll use SASS!
+Bootstrap use SASS
 
 ## Let's make a simple example
 
@@ -36,11 +37,11 @@ It's good to organize and separate your content, but I also wouldn't go overboar
     - _sections.scss
 
 
-In this example, I'm putting all my global variables and mixins in the base directory, along with any resets I might need. In the components directory, I'll put all the styles for grid, navigation, typography, etc. I'll use _sections.scss to put my code for individual sections of the page. If your project is very large, you might create a more specific directories.
+In this example, I'm putting all my global variables and mixins in the base directory, along with any resets I might need. In the components directory, I'll put all the styles for grid, navigation, typography, etc. I'll use ___sections.scss__ to put my code for individual sections of the page. If your project is very large, you might create a more specific directories.
 
-The `main.scss` file will import all the partials from all the directories. You won't need to add the underscore or extension when importing the filenames - instead of "_variables.scss" you will simply write "variables".
+The __main.scss__ file will import all the partials from all the directories. You won't need to add the underscore or extension when importing the filenames - instead of "_variables.scss" you will simply write "variables".
 
-Here's how the main.scss file will look for this particular project.
+Here's how the __main.scss__ file will look for this particular project.
 
 ```javascript
 // Base
@@ -59,9 +60,11 @@ Here's how the main.scss file will look for this particular project.
 
 ```
 Now I can watch this entire project and compile everything into one, minified CSS file with a single command.
-```
+
+```console
 $sass --watch sass:css --style compressed
 ```
+
 With this command, I'm watching the entire sass directory for changes, and telling it compile into the css directory, and compress the output.
 ```
 > > > Sass is watching for changes. Press Ctrl-C to stop.

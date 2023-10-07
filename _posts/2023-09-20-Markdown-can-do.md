@@ -2,8 +2,8 @@
 layout: post
 title: What Markdown can do
 date: 2023-09-20
-tags: markdown MD
-category: HTML
+tags: HTML CSS
+category: Markdown
 ---
 
 Markdown was designed for the web, and also easy be read as plaintext.

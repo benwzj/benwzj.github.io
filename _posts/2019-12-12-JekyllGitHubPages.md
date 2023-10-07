@@ -4,7 +4,7 @@ title: " Introduce Jekyll and GitHub Pages "
 date: 2019-12-12
 featured: true
 categories: Website
-tag: gitHub pages HTML Jekyll
+tags: GitHub-pages HTML Jekyll Markdown
 ---
 
 ## **What is Jekyll**

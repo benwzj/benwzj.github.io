@@ -3,7 +3,7 @@ layout: post
 title: "Introduce Liquid Template"
 date: 2020-01-14
 categories: HTML
-tags: MathJax Template Overview
+tags: Template Overview Jekyll
 ---
 
 ## What is Liquid
