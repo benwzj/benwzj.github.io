@@ -8,12 +8,16 @@ tags: Component
 
 ## Component Basic
 
+Components are one of the core concepts of React. 
+Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen. React lets you combine your markup, CSS, and JavaScript into custom “components”, reusable UI elements for your app. Just like with HTML tags, you can **compose**, order and nest components to design whole pages. 
+
+
 ### Component Features
 - Component is independent and reuseable code.
 - Component can be in another Component.  
-- Component serve the same purpose as JavaScript. But work isolation and return HTML by render function. 
-- Component work as two ways: class and function. 
+- Component work as two ways: **class** and **function**. 
 - __state__ and __prop__ are key properties for components.
+- Compoents' names must start with a capital letter or they won’t work!
 
 ### Props 
 
@@ -60,8 +64,8 @@ event element:
 
 ## Class vs. Function Component
 
-These two kinds of components are equivalent from React’s point of view. (How?)
-
+These two kinds of components are equivalent from React’s point of view.
+But React recommend defining components as functions instead of classes.
 - The function of the Function Component is run through with each render. (But `useRef()` can return the same object for each time render)
 - Class component instance keep alive. the `instance.render()` with will run with each render
 
