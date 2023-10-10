@@ -76,6 +76,7 @@ function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 ```
+
 - A class component requires you to extend from React.Component and create a render function which returns a React element.
 ```js
 class Welcome extends React.Component {
@@ -84,6 +85,7 @@ class Welcome extends React.Component {
   }
 }
 ```
+
 ### prop
 Props are passed from outside into the components.
 - For Class component, Props are passed as arguments to the constructor and also should be passed to the parent component class by calling `super(props)`. this.props are accessible throughout the life of the object.

@@ -6,7 +6,7 @@ tags: HTML CSS
 category: Markdown
 ---
 
-We know that, there are a markdown parsers to convert markdown file into HTML. Markdown have it's own syntax for the transform. For example,`# Headline` convert to `<h1>Headline</h1>`. But how about the style?
+We know that, there are a markdown parsers to convert markdown file into HTML. Markdown have it's own syntax for the transform. For example,`#Headline` convert to `<h1>Headline</h1>`. But how about the style?
 
 There are two ways to style your markdown file: 
 1. Embed HTML code in markdown files (Most markdown parsers support).

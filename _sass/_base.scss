@@ -520,10 +520,6 @@ footer.sticky-bottom {
   margin-bottom: 15px;
   margin-top: 5px;
 }
-.tags-container{
-  margin-bottom: 5px;
-  margin-top: 5px;
-}
 .category-item {
   display: flex;
   &:hover div{
@@ -540,7 +536,10 @@ footer.sticky-bottom {
     font-weight: 500;
   }
 }
-
+.tags-container{
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -618,6 +617,12 @@ footer.sticky-bottom {
     strong {
       font-size: 1.5rem;
       font-weight: 800;
+    }
+    ol, ul {
+      padding-inline-start: 20px;
+    }
+    ::marker { 
+      color: SlateBlue;
     }
   }
 }

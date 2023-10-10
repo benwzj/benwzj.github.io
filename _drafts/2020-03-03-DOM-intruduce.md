@@ -3,21 +3,31 @@ layout: post
 title: "Understand DOM"
 date: 2020-03-03
 categories: HTML
-tags: Website JavaSript CSS Browser
+tags: Website JavaSript CSS Browser DOM
 ---
 
-
-Introduction
-The Document Object Model, usually referred to as the DOM, is an essential part of making websites interactive. It is an interface that allows a programming language to manipulate the content, structure, and style of a website. JavaScript is the client-side scripting language that connects to the DOM in an internet browser.
-
-Almost any time a website performs an action, such as rotating between a slideshow of images, displaying an error when a user attempts to submit an incomplete form, or toggling a navigation menu, it is the result of JavaScript accessing and manipulating the DOM. In this article, we will learn what the DOM is, how to work with the document object, and the difference between HTML source code and the DOM.
-
-Note: Although the DOM is language agnostic, or created to be independent from a particular programming language, throughout this resource we will focus on and refer to JavaScript's implementation of the HTML DOM.
-
-Prerequisites
-In order to effectively understand the DOM and how it relates to working with the web, it is necessary to have an existing knowledge of HTML and CSS. It is also beneficial to have familiarity with fundamental JavaScript syntax and code structure.
-
 ## What is the DOM
+
+The DOM (Document Object Model) is a **programming interface** for web documents. 
+- Programming interface means API.
+- Web document mean web page. web page is document.
+
+The DOM represents the document as nodes and objects; that way, programming languages, e.g. JavaScrpt, can interact with the page, can change the document structure, style, and content though DOM. 
+
+
+## What is a DOM tree
+## difference between HTML source code and the DOM 
+When a web browser parses an HTML document, it builds a DOM tree and then uses it to display the document.
+
+- The **core DOM** defines the entities describing any document and the objects within it. For example, `document`, `window` are most popular interfaces to access page.
+- HTML DOM API adds support for representing HTML documents to the core DOM, 
+- SVG API adds support for representing SVG documents.
+
+## DOM and JavaScript
+
+DOM is not a language, it is interface for language, like JavaScript, which want to interact with the page.
+The DOM is not part of the JavaScript language, but is instead a Web API used to build websites.
+JavaScript a language, which uses the DOM to access the document and its elements.
 
 At the most basic level, a website consists of an HTML document. The browser that you use to view the website is a program that interprets HTML and CSS and renders the style, content, and structure into the page that you see.
 
