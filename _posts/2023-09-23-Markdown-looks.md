@@ -6,23 +6,31 @@ tags: HTML CSS
 category: Markdown
 ---
 
-We know that, there are a markdown parsers to convert markdown file into HTML. Markdown have it's own syntax for the transform. For example,` # Headline` convert to `<h1>Headline</h1>`. But how about the style?
+We know that, there are a markdown parsers to convert markdown file into HTML. Markdown have it's own syntax for the transform. For example,`# Headline` convert to `<h1>Headline</h1>`. But how about the style?
 
-There are two ways: 
+There are two ways to style your markdown file: 
 1. Embed HTML code in markdown files (Most markdown parsers support).
 2. Find a specific markdown perser.
 
 ## Embed HTML code in markdown files
 
-- You can use inline HTML in Markdown for styles:
+#### inline HTML
+You can use inline HTML in Markdown for styles:
 ```html
 <span style="color:green;font-weight:700;font-size:20px">
     markdown color font styles
 </span>
 ```
+Your output looks like this:
 
-- you can use CSS styles in markdown content
-```markdown
+<span style="color:green;font-weight:700;font-size:20px">
+    markdown color font styles
+</span>
+
+#### Embed CSS styles
+You can use CSS styles in markdown content
+
+``` md
 <style>
 .heading1 {
     color: red;
@@ -38,16 +46,29 @@ There are two ways:
 
 # Markdown heading styles {#identifier .heading1}
 ## Markdown heading styles {#identifier .heading2}  
+
 ```
 
-- Define CSS styles using selector
-```markdown
+#### Use selector
+Define CSS styles using selector
+
+```md
 <style>
 red { color: red }
-yellow { color: yellow }
+olive { color: olive }
 </style>
 
 <red> red color markdown text</red>
-<yellow> red color markdown text</yellow>
+
+<olive> olive color markdown text</olive>
 ```
 
+Your output looks like this:
+<style>
+red { color: red }
+olive { color: olive }
+</style>
+
+<red> red color markdown text</red>
+<br>
+<olive> olive color markdown text</olive>

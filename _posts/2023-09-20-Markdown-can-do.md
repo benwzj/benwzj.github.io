@@ -45,7 +45,6 @@ responsive format:
     </div>
 </div>
 
-
 ## Display programm code
 
 #### You have to do is wrap your code in markdown code tags:

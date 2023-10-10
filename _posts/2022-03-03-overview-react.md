@@ -17,7 +17,7 @@ React is a JavaScript library. It provide a framework for you to build your inte
 - React only change what need to be changed. 
 - React can work without node.js, just need some tools. like npm, Babel, Webpack
 - React’s one-way data flow (also called one-way binding) keeps everything modular and fast.
-- Using JSX, which can be translated by Babel.
+- Using **JSX**, which can be translated by Babel.
 - There are two types of “model” data in React: props and state.  
 - In React components, code reuse is primarily achieved through composition rather than inheritance.
 
