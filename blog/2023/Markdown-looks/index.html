@@ -7,17 +7,19 @@
     font-weight:700;
     font-size: 35px;
 }
-.heading2 {
+.heading3 {
     color: blue;
     font-weight:700;
     font-size: 30px;
 }
 <span class="nt">&lt;/style&gt;</span>
 
-<span class="gh"># Markdown heading styles {#identifier .heading1}</span>
-<span class="gu">## Markdown heading styles {#identifier .heading2}  </span>
+<span class="gh"># Markdown heading styles </span>
+{: .heading1}
+<span class="gu">### Markdown heading styles </span>
+{: .heading3}  
 
-</code></pre></div></div> <h4 id="use-selector">Use selector</h4> <p>Define CSS styles using selector</p> <div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+</code></pre></div></div> <p>Your output looks like this:</p> <style>.heading1{color:red;font-weight:700;font-size:35px}.heading3{color:blue;font-weight:700;font-size:30px}</style> <h1 class="heading1" id="markdown-heading-styles">Markdown heading styles</h1> <h3 class="heading3" id="markdown-heading-styles-1">Markdown heading styles</h3> <h4 id="use-selector">Use selector</h4> <p>Define CSS styles using selector</p> <div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
 red { color: red }
 olive { color: olive }
 <span class="nt">&lt;/style&gt;</span>
