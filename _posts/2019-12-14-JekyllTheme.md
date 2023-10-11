@@ -138,7 +138,7 @@ The **_sass** folder is for Sass partials. Every file in here should begin with 
 By default, code blocks on your site will be highlighted by Jekyll. Jekyll uses the **Rouge** highlighter.
 But you can use another highlighter, such as highlight.js, you must disable Jekyll's syntax highlighting by updating your project's `_config.yml` file.
 
-### Some Syntax highlighting snippet exmaple
+#### Some Syntax highlighting snippet exmaple
 Jekyll create `.highlight .k .n` etc. CSS class for Syntax highlighting `<code>` part. 
 - `.highlight` wrap whole `<code>` tag
 - `.k` class refer to keyword:

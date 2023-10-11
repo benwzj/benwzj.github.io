@@ -3,7 +3,7 @@ layout: post
 title: "Understand DOM"
 date: 2020-03-03
 categories: HTML
-tags: Website JavaSript CSS Browser DOM
+tags: Web-page JavaSript CSS Browser DOM
 ---
 
 ## What is the DOM
@@ -12,114 +12,107 @@ The DOM (Document Object Model) is a **programming interface** for web documents
 - Programming interface means API.
 - Web document mean web page. web page is document.
 
-The DOM represents the document as nodes and objects; that way, programming languages, e.g. JavaScrpt, can interact with the page, can change the document structure, style, and content though DOM. 
+The DOM represents the document with a **logical tree**. Each branch of the tree ends in a node, and each node contains objects. That way, programming languages, e.g. JavaScrpt, can interact with the document, can change the document structure, style, and content. Nodes can have event handlers attached to them. Once an event is triggered, the event handlers get executed.
 
+### DOM tree
 
-## What is a DOM tree
-## difference between HTML source code and the DOM 
+In mang situation, the DOM is referred to as the DOM tree.
+A DOM tree is a tree structure whose nodes represent an HTML or XML document's contents. 
+
+> ##### NOTE
+>
+> Each HTML or XML document has a DOM tree representation. 
+{: .block-tip}  
+
 When a web browser parses an HTML document, it builds a DOM tree and then uses it to display the document.
 
-- The **core DOM** defines the entities describing any document and the objects within it. For example, `document`, `window` are most popular interfaces to access page.
-- HTML DOM API adds support for representing HTML documents to the core DOM, 
-- SVG API adds support for representing SVG documents.
-
-## DOM and JavaScript
-
-DOM is not a language, it is interface for language, like JavaScript, which want to interact with the page.
-The DOM is not part of the JavaScript language, but is instead a Web API used to build websites.
-JavaScript a language, which uses the DOM to access the document and its elements.
-
-At the most basic level, a website consists of an HTML document. The browser that you use to view the website is a program that interprets HTML and CSS and renders the style, content, and structure into the page that you see.
-
-In addition to parsing the style and structure of the HTML and CSS, the browser creates a representation of the document known as the Document Object Model. This model allows JavaScript to access the text content and elements of the website document as objects.
-
-
-> Note: .
-
-JavaScript is an interactive language, and it is easier to understand new concepts by doing. Let's create a very simple website. Create an index.html and save it in a new project directory.
+Example: 
 ```html
-<!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Learning the DOM</title>
+    <title>My Document</title>
   </head>
-
   <body>
-    <h1>Document Object Model</h1>
+    <h1>Header</h1>
+    <p>Paragraph</p>
   </body>
 </html>
 ```
-This code is the familiar HTML source of a new website skeleton. It contains the absolute most essential aspects of a website document - a doctype, and an html tag with the head and body nested inside.
+It has a DOM tree that looks like this:
+{% include figure.html path="assets/img/using_the_w3c_dom_level_1_core-doctree.jpg" class="img-fluid rounded z-depth-1" %}
 
-Open index.html with your browser of choice. You'll see a plain website with our heading displaying "Document Object Model". Right click anywhere on the page and select "Inspect". This will open up Developer Tools.
+### DOM API
 
-Under the Elements tab, you'll see the DOM.
+The DOM API, also sometimes called the Document API, allows you to modify a DOM tree in any way you want.
 
-the dom
+DOM API including: 
+- **core DOM**: defines the entities describing any document and the objects within it. For example, `document`, `window` are most popular interfaces to access page.
+- HTML DOM API: adds support for representing HTML documents to the core DOM, 
+- SVG API: adds support for representing SVG documents.
 
-In this case, it looks exactly the same as the HTML source code we just wrote - a doctype, and the few other HTML tags that we added. Hovering over each element will highlight the respective element in the rendered website. Little arrows to the left of the HTML elements allow you to toggle the view of nested elements.
+## The Terminology
 
-The Document Object
-The document object is a built-in object that has many properties and methods that we can use to access and modify websites. In order to understand how to work with the DOM, you must understand how objects work in JavaScript. Review Understanding Objects in JavaScript if you don't feel comfortable with the concept of objects.
+### DOM and HTML source code 
 
-In Developer Tools on index.html, move to the Console tab. Type document into the console and press ENTER. You will see that what is output is the same as what you see in the Elements tab.
+It seems that HTML source code and the DOM are the same thing.
+But NOT. They are totally different things. They are in defferent level. You can regard web page represented by the DOM tree. DOM tree conposite with HTML, CSS, JavaScript, etc. And DOM is the thing who implement DOM tree.
 
-document;
-Console
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Learning the DOM</title>
-  </head>
+### DOM and JavaScript
 
-  <body>
-    <h1>Document Object Model</h1>
-  </body>
-</html>
-Typing document and otherwise working directly in the console is not something that you'll generally ever do outside of debugging, but it helps solidify exactly what the document object is and how to modify it, as we will discover below.
+DOM is not a language, you can say it is interface for language, like JavaScript, which want to interact with the page.
+The DOM is not part of the JavaScript language, but is instead a Web API used to build webpage.
+> ##### NOTE
+>
+> JavaScript is a language, DOM is the entity which are really accessing the page. And you use the language to access DOM so that you can control the document and its elements.
+{: .block-tip}  
 
-What is the Difference Between the DOM and HTML Source Code?
-Currently, with this example, it seems that HTML source code and the DOM are the exact same thing. There are two instances in which the browser-generated DOM will be different than HTML source code:
+### DOM and Node
+All items in the DOM are defined as nodes. There are many types of nodes, but there are three main ones that we work with most often:
 
-The DOM is modified by client-side JavaScript
-The browser automatically fixes errors in the source code
-Let's demonstrate how the DOM can be modified by client-side JavaScript. Type the following into the console:
+- Element nodes
+- Text nodes
+- Comment nodes
 
-document.body;
-The console will respond with this output:
+When an HTML element is an item in the DOM, it is referred to as an element node. Any lone text outside of an element is a text node, and an HTML comment is a comment node. In addition to these three node types, the `document` itself is a document node, which is the root of all other nodes.
 
-Console
-<body>
-  <h1>Document Object Model</h1>
-</body>
-document is an object, body is a property of that object that we have accessed with dot notation. Submitting document.body to the console outputs the body element and everything inside of it.
+Every node in a document has a node type, which can be accessed through the `nodeType` property.
 
-In the console, we can change some of the live properties of the body object on this website. We'll edit the style attribute, changing the background color to fuchsia. Type this into the console:
+Below is a chart of the most common node types:
 
-document.body.style.backgroundColor = 'fuchsia';
-After typing and submitting the above code, you'll see the live update to the site, as the background color changes.
+| Node           | Type Value | Example                            |
+| :------------- | :--------- | :--------------------------------- |
+| `ELEMENT_NODE` | 1          | The `<body>` element               |
+| `TEXT_NODE`    | 3          | Text that is not part of an element|
+| `COMMENT_NODE` | 8          | `<!-- an HTML comment -->`         |
 
-modifying the dom
+### DOM and HTML element.
+```html
+<a href="index.html">Home</a>
+```
+Here we have an anchor element, which is a link to `index.html`.
 
-Switching to the Elements tab, or typing document.body into the console again, you will see that the DOM has changed.
+- `a` is the tag
+- `href` is the attribute
+- `index.html` is the attribute value
+- `Home` is the text.
+Everything between the opening and closing tag combined make the entire HTML element.
+The simplest way to access an element with JavaScript is by the `id` attribute, using the `getElementById()` method.
 
-Console
-<body style="background-color: fuchsia;">
-  <h1>Document Object Model</h1>
-</body>
-Note: In order to change the background-color CSS property, we had to type backgroundColor in the JavaScript. Any hyphenated CSS property will be written in camelCase in JavaScript.
+### DOM and Event
+Every Node support specific events and can have event handlers attached to their events. Once an event is triggered, the event handlers get executed.
 
-The JavaScript code we typed, assigning fuchsia to the background color of the body, is now a part of the DOM.
+### DOM and Browser
 
-However, right click on the page and select "View Page Source". You will notice that the source of the website does not contain the new style attribute we added via JavaScript. The source of a website will not change and will never be affected by client-side JavaScript. If you refresh the page, the new code we added in the console will disappear.
+Browser the software which implement DOM, run JavaScript, display page.
 
-The other instance in which the DOM might have a different output than HTML source code is when there are errors in the source code. One common example of this is the table tag - a tbody tag is required inside a table, but developers often fail to include it in their HTML. The browser will automatically correct the error and add the tbody, modifying the DOM. The DOM will also fix tags that have not been closed.
+### DOM and Document
+- DOM is Document Object Model.
+- The DOM API, also sometimes called the Document API.
 
-Conclusion
-In this tutorial, we defined the DOM, accessed the document object, used JavaScript and the console to update a property of the document object, and went over the difference between HTML source code and the DOM. For more in-depth information on the DOM, review the Document Object Model (DOM) page on the Mozilla Developer Network.
+The Document also refer to `Document` interface.
+The `Document` interface represents any web page loaded in the browser and serves as an **entry point** into the web page's content, which is the DOM tree.
 
-In the next tutorial, we will review important HTML terminology, learn about the DOM tree, discover what nodes are, learn about the most common types of nodes, and begin creating interactive scripts with JavaScript.
-
+The Document interface describes the common properties and methods for any kind of document. Depending on the document's type (e.g. HTML, XML, SVG, …), a larger API is available: HTML documents, served with the "text/html" content type, also implement the HTMLDocument interface, whereas XML and SVG documents implement the XMLDocument interface.
 
 ## Reference
 [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)

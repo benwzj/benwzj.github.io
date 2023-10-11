@@ -37,17 +37,36 @@ You can use CSS styles in markdown content
     font-weight:700;
     font-size: 35px;
 }
-.heading2 {
+.heading3 {
     color: blue;
     font-weight:700;
     font-size: 30px;
 }
 </style>
 
-# Markdown heading styles {#identifier .heading1}
-## Markdown heading styles {#identifier .heading2}  
+# Markdown heading styles 
+{: .heading1}
+### Markdown heading styles 
+{: .heading3}  
 
 ```
+Your output looks like this:
+<style>
+.heading1 {
+    color: red;
+    font-weight:700;
+    font-size: 35px;
+}
+.heading3 {
+    color: blue;
+    font-weight:700;
+    font-size: 30px;
+}
+</style>
+# Markdown heading styles 
+{: .heading1}
+### Markdown heading styles 
+{: .heading3}  
 
 #### Use selector
 Define CSS styles using selector

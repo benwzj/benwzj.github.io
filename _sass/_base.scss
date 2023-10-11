@@ -480,7 +480,7 @@ footer.sticky-bottom {
       }
     }
     time {
-      color: gray;
+      color: var(--global-post-list-time-color);
       text-decoration: none;
       font-size: .8rem;
       font-weight: 100;
@@ -515,27 +515,36 @@ footer.sticky-bottom {
   }
 }
 
-// category and tag in post-list page
+// category in post-list page var(--global-card-bg-color);
 .category-container{
   margin-bottom: 15px;
   margin-top: 5px;
 }
-.category-item {
-  display: flex;
-  &:hover div{
-    color: var(--global-theme-color);
+.category-item-container{
+  border: 1px solid transparent;
+  padding: 0.1rem 0.3rem;
+  border-radius: 10px 10px;
+  &:hover {
+    border-color: var(--global-theme-color);
   }
-  .category-name{
-    flex-grow: 12;
-    text-align: left;
-    font-weight: 500;
+  a {
+    text-decoration: none; 
   }
-  .category-count{
-    flex-grow: 1;
-    text-align: right;
-    font-weight: 500;
+  .category-item {
+    display: flex;
+    .category-name{
+      flex-grow: 12;
+      text-align: left;
+      font-weight: 500;
+    }
+    .category-count{
+      flex-grow: 1;
+      text-align: right;
+      font-weight: 500;
+    }
   }
 }
+// tag in post-list page
 .tags-container{
   margin-bottom: 5px;
   margin-top: 5px;
@@ -622,7 +631,14 @@ footer.sticky-bottom {
       padding-inline-start: 20px;
     }
     ::marker { 
-      color: SlateBlue;
+      color: LightSalmon;
+    }
+    .table th{
+      padding: 5px;
+      background-color: white;
+    }
+    .table td {
+      padding: 5px;
     }
   }
 }
@@ -887,7 +903,8 @@ pre {
 }
 
 code {
-  color: var(--global-theme-color);
+  color: MediumPurple;
+  font-size: 1.1rem;
   background-color: var(--global-code-bg-color);
   border-radius: 3px;
   padding: 3px 3px;
@@ -1085,6 +1102,7 @@ nav[data-toggle="toc"] {
     }
 
     h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
       color: var(--global-tip-block-title);
     }
   }

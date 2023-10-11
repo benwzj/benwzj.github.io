@@ -21,6 +21,7 @@
   --global-post-tag-bg-color: #{$grey-color-light};
   --global-post-tag-color: #{$grey-color};
   --global-post-tag-border-color: #{$grey-color-medium};
+  --global-post-list-time-color: gray;
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;
@@ -68,9 +69,10 @@ html[data-theme='dark'] {
   --global-divider-color: #424246;
   --global-card-bg-color: #{$grey-900};
   --global-post-title-color: white;
-  --global-post-tag-bg-color: #{$grey-color-deep};
-  --global-post-tag-color: #ffe0e0;
-  --global-post-tag-border-color: #{$grey-color-medium};
+  --global-post-tag-bg-color: #{$grey-color-deep-2};
+  --global-post-tag-color: #fafffc;
+  --global-post-tag-border-color: #{$grey-color-deep};
+  --global-post-list-time-color: #40b681;
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;

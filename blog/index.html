@@ -47,12 +47,14 @@ pagination:
             <h4 class="card-title">CATEGORIES</h4>
             {% for category in site.categories %}
             {%- assign category_count = category[1] | size -%}
-            <a href="{{ category[0] | slugify | prepend: '/blog/category/' | relative_url }}">
-              <div class="category-item">
-                <div class="category-name"> {{category[0]}}</div> 
-                <div class="category-count">{{category_count}}</div> 
+              <div class="category-item-container">
+                <a href="{{ category[0] | slugify | prepend: '/blog/category/' | relative_url }}">
+                  <div class="category-item">
+                    <div class="category-name"> {{category[0]}}</div> 
+                    <div class="category-count">{{category_count}}</div> 
+                  </div>
+                </a>
               </div>
-            </a>
             {% endfor %}
           </div>
         </div>
