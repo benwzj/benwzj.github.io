@@ -3,7 +3,7 @@ layout: post
 title: "Talk about Context in React"
 date: 2022-05-05
 categories: React
-tags: Context Redux
+tags: Context Redux React
 ---
 
 ## What is Context

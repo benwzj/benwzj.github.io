@@ -3,7 +3,7 @@ layout: post
 title: "Understand Callback Concept in JS"
 date: 2021-06-10
 categories: JavaScript
-tags: Call-back Event-loop Asynchronous
+tags: Call-back Event-loop Asynchronous JavaScript
 ---
 
 ## Callback concept

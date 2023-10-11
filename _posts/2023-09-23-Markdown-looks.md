@@ -2,7 +2,7 @@
 layout: post
 title: How to make MarkDown file looks better
 date: 2023-09-23
-tags: HTML CSS
+tags: HTML CSS Markdown
 category: Markdown
 ---
 

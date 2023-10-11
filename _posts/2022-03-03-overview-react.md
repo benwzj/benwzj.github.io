@@ -3,7 +3,7 @@ layout: post
 title: "My Overview of React"
 date: 2022-03-03
 categories: React
-tags: Hook Redux Overview
+tags: Hook Redux Overview React
 ---
 
 ## What is React

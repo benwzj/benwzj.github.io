@@ -3,7 +3,7 @@ layout: post
 title: "React Component Detail"
 date: 2022-03-04
 categories: React
-tags: Component
+tags: Component React
 ---
 
 ## Component Basic

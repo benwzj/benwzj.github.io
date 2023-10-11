@@ -3,7 +3,7 @@ layout: post
 title: "How <code>for loop</code> iterate an iterable in Python"
 date: 2023-05-12
 categories: Python
-tags: Iteration for-in
+tags: Iteration Python
 ---
 
 **In short:**

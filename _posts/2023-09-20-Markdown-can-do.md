@@ -2,7 +2,7 @@
 layout: post
 title: What Markdown can do
 date: 2023-09-20
-tags: HTML CSS
+tags: HTML CSS Markdown
 category: Markdown
 ---
 

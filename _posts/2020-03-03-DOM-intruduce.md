@@ -3,7 +3,7 @@ layout: post
 title: "Understand DOM"
 date: 2020-03-03
 categories: HTML
-tags: Web-page JavaSript CSS Browser DOM
+tags: Web-page JavaSript CSS DOM
 ---
 
 ## What is the DOM
@@ -16,7 +16,7 @@ The DOM represents the document with a **logical tree**. Each branch of the tree
 
 ### DOM tree
 
-In mang situation, the DOM is referred to as the DOM tree.
+In many situation, DOM is referred to as the DOM tree.
 A DOM tree is a tree structure whose nodes represent an HTML or XML document's contents. 
 
 > ##### NOTE

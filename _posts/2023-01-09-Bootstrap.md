@@ -3,7 +3,7 @@ layout: post
 title: "Bootstrap Main points"
 date: 2023-01-09
 category: CSS
-tags: HTML Website SASS
+tags: HTML Website SASS CSS
 ---
 
 ## What is Bootstrap

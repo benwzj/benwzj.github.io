@@ -3,7 +3,7 @@ layout: post
 title: "Iteration in Python"
 date: 2023-05-13
 categories: Python
-tags: Iterable Iterator Iteration Generator
+tags: Iterable Iterator Iteration Generator Python
 ---
 
 **In short:**
