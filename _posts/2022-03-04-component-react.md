@@ -157,7 +157,6 @@ Just this method: `componentWillUnmount()`
 
 ### Questions
 - It is easier to understand function components, which return react element. But how to understand Class component which use `render()`? 
-
 - Why `render()` function happen both in mounting and updating phrase?
 
 ## React.PureComponent vs. React.Component
