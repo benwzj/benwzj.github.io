@@ -1096,7 +1096,7 @@ nav[data-toggle="toc"] {
   &.block-tip {
     border-color: var(--global-tip-block);
     background-color: var(--global-tip-block-bg);
-
+    border-radius: 5px;
     p {
       color: var(--global-tip-block-text);
     }
@@ -1110,7 +1110,7 @@ nav[data-toggle="toc"] {
   &.block-warning {
     border-color: var(--global-warning-block);
     background-color: var(--global-warning-block-bg);
-
+    border-radius: 5px;
     p {
       color: var(--global-warning-block-text);
     }
@@ -1123,7 +1123,7 @@ nav[data-toggle="toc"] {
   &.block-danger {
     border-color: var(--global-danger-block);
     background-color: var(--global-danger-block-bg);
-
+    border-radius: 5px;
     p {
       color: var(--global-danger-block-text);
     }

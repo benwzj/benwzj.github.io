@@ -8,6 +8,22 @@ tags: React Web-page Chrome DevTools Network
 
 
 ## Chrome DevTools
+
+If you have clear concepts in HTML, CSS, JavaScript. Chrome DevTools is handy and easy to use. It can help you edit pages on-the-fly and diagnose problems quickly, which helps you build better websites, faster.
+
+Here some points for starting:
+- The top-level tabs are called panels. there are also have Drawer.
+- right-click an element on the page and select Inspect to jump into the Elements panel which work on the DOM or CSS.
+- Command+Option+J (Mac) to jump straight into the Console panel which for JavaScript. 
+- Useful shortcut: command + shift + p
+- Chrome DevTools provide many functionality:
+  - View and Change the DOM
+  - View and Change a Page's Styles   (CSS)
+  - Debug JavaScript
+  - View Messages and Run JavaScript in the Console
+  - Optimize Website Speed
+  - Inspect Network Activity
+
 ### What Chrome DevTools can do
 - Debugging CSS, DevTools provide many comvenient ways for you debug CSS.
   - `inspect` your selected element, 
@@ -44,19 +60,18 @@ tags: React Web-page Chrome DevTools Network
     - Event listener breakpoints
 
 - Analyzing Load performance
-  - Start with **Audits** Panel
-  - Analyze further with Coverage tag, performace panel, or Network panel depond on the resule of audit panel results.
+  - Start with **Lighthouse** Panel
+  - Analyze further with Coverage tag, performace panel, or Network panel depond on the resule of Lighthouse panel results.
 
 
 
 ### How to use Chrome DevTools
-Usful shortcut: command+shift+p
-It have Panel, Drawer, 
+
 
 ## Questions
 - What is Site Speed Test
 - What is routing, data fetching, and generating HTML
-- What is Network Waterfall.
+- What is Network Waterfall. How to read waterfall charts.
 Network Waterfall charts show what network requests are made when loading a web page. They are often used to analyze website speed and identify opportunities for optimization. Many DevTools provide Network Waterfall charts, Like Chrome DevTools.
 
 It provides you with a visual representation of how all the assets on your website load. This includes CSS, JavaScript, HTML, images, plugins, and third-party content.
@@ -65,5 +80,5 @@ It provides you with a visual representation of how all the assets on your websi
 
 
 ## Reference
-
+- [Chrome DevTools Overview](https://developer.chrome.com/docs/devtools/overview)
 - [Build better sites faster with Chrome DevTools](https://www.youtube.com/watch?v=VYyQv0CSZOE&t=2s)
