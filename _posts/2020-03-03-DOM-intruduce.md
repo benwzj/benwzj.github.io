@@ -16,7 +16,6 @@ The DOM represents the document with a **logical tree**. Each branch of the tree
 
 ### DOM tree
 
-In many situation, DOM is referred to as the DOM tree.
 A DOM tree is a tree structure whose nodes represent an HTML or XML document's contents. 
 
 > ##### NOTE
@@ -113,6 +112,11 @@ The Document also refer to `Document` interface.
 The `Document` interface represents any web page loaded in the browser and serves as an **entry point** into the web page's content, which is the DOM tree.
 
 The Document interface describes the common properties and methods for any kind of document. Depending on the document's type (e.g. HTML, XML, SVG, …), a larger API is available: HTML documents, served with the "text/html" content type, also implement the HTMLDocument interface, whereas XML and SVG documents implement the XMLDocument interface.
+
+## Conclusion
+
+In many situation, DOM is referred to as the DOM tree. 
+But DOM tree just part of DOM. DOM also include the interfaces which used to interact with DOM tree.
 
 ## Reference
 [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
