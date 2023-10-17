@@ -58,7 +58,9 @@ Main points:
 This is for helping re-arrange display according to the width of screen.
 For example, when screen width is `576px`, it use `sm` class. 
 
-### Code Example 1
+It is good to explain what it is by examples:
+- Code Example 1
+
 ```html
 <div class="row">
   <div class="col-sm-3">.col-sm-3</div>
@@ -71,7 +73,8 @@ When screen width is equal to or greater than `575px`, 4 columns in one row.
 When screen width is less than `575px`, it will use another class which make 4 columns stack together.
 If change `col-sm-3` to `col-lg-3`, then they will stack when screen width less than `992px`
 
-### Code Example 2
+- Code Example 2
+
 ```html
 <div class="container-fluid">
   <div class="row">

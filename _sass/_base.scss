@@ -560,7 +560,7 @@ footer.sticky-bottom {
   .tag {
     background: var(--global-post-tag-bg-color)!important;
     border: 1px solid var(--global-post-tag-border-color);
-    border-radius: 20px 10px;
+    border-radius: 5px;
     color: var(--global-post-tag-color);
     font-size: .8rem;
     font-weight: 400;
@@ -572,29 +572,40 @@ footer.sticky-bottom {
   }
 }
 
-// Extra Markdown style (post Customization)
-.post {
-  .post-meta {
-    color: var(--global-text-color-light);
-    font-size: 0.875rem;
-    margin-bottom: 0;
-  }
+.post-side-container {
+  margin-bottom: 5px;
+  margin-top: 5px;
 
-  .post-tags {
-    color: var(--global-text-color-light);
-    font-size: 0.875rem;
-    padding-top: 0.25rem;
-    padding-bottom: 1rem;
-
+  .post-side-detail{
+    color: var(--global-post-tag-color);
+    font-size: .9rem;
+    padding: 1rem 0.8rem;
+    margin: 2px;
     a {
-      color: var(--global-text-color-light);
-      text-decoration: none;
-
+      color: var(--global-post-tag-color);
       &:hover {
         color: var(--global-theme-color);
       }
     }
+    .detail-item{
+      margin-bottom: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      .item-title{
+        font-weight: normal;
+      }
+      .item-content{
+        font-weight: lighter;
+        color: var(--global-post-tag-color);
+        padding-left: 4px;
+      }
+    }
   }
+}
+
+// Extra Markdown style (post Customization)
+.post {
+
   h1 {
     font-family: Georgia, serif;
     font-weight: 700;

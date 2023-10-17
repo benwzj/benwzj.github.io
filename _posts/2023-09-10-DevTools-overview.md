@@ -4,42 +4,67 @@ title: Chrome DevTools Overview
 date: 2023-09-10
 category: Website
 tags: Web-page Chrome DevTools Network
----
+giscus_comments: true
+toc:
+  - name: Some points for starting
+  - name: What DevTools can do
+  - name: Go a bit deep on BreakPoints
+  - name: Panel Overview
 
+---
+<style>
+keyboard {     
+  display: inline-block;
+  box-sizing: inherit;
+  white-space: nowrap;
+  overflow-wrap: break-word;
+  border: 1px solid #adb3b9;
+  background-color: #e1e3e5;
+  border-radius: 3px;
+  color: #242729;
+  font-family: Arial;
+  font-size: 11px;
+  line-height: 1.4;
+  margin: 0 .1em;
+  padding: .1em .6em;
+  text-shadow: 0 1px 0 #FFF;
+  box-shadow: 0 1px 2px hsla(210,8%,5%,0.75); 
+}
+</style>
 
 If you clear the concepts in HTML, CSS, JavaScript. Chrome DevTools is handy and easy to use. Chrome DevTools is a set of web developer tools built directly into the Google Chrome browser. It can help you edit pages on-the-fly and diagnose problems quickly, which helps you build better websites, faster.
 
-## Here some points for starting:
+## Some points for starting
 - The top-level tabs are called panels. There are also tab called Drawer, pane in this blog.
 - right-click an element on the page and select Inspect to jump into the Elements panel which work on the DOM or CSS.
-- Command+Option+J (Mac) to jump straight into the Console panel which for JavaScript. 
-- Useful shortcut: command + shift + p
+- Shortcut: <keyboard>Command</keyboard>+<keyboard>Option</keyboard>+<keyboard>J</keyboard> (Mac) to jump straight into the Console panel which for JavaScript. 
+- Shortcut: <keyboard>Command</keyboard>+<keyboard>shift</keyboard>+<keyboard>P</keyboard> to reach more Feature!
 - Chrome DevTools provide many functionality:
   - View and Change the DOM
-  - View and Change a Page's Styles   (CSS)
+  - View and Change a Page's Styles (CSS)
   - Debug JavaScript
   - View Messages and Run JavaScript in the Console
   - Optimize Website Speed
   - Inspect Network Activity
 
-## What Chrome DevTools can do
+## What DevTools can do
 
 ### Debugging CSS
 DevTools provide many comvenient ways for you debug CSS. Here list some main points: 
 - You can `Inspect` the CSS of your selected element. 
-- The __Styles__ panel show all CSS declaration. It is good for check cascade order problem.
-- The __Computed__ panel tell you what final sytle it use. 
+- The *Styles* panel show all CSS declaration. It is good for check cascade order problem.
+- The *Computed* panel tell you what final sytle it use. 
 - It provide methods for you to search your elements.
-- It provide tools to control, optimize your **animaitons**. check __Animation__ Panel.
+- It provide tools to control, optimize your **animaitons**. check Animation Panel.
 
 ### Prototyping CSS
 It is tedious to edit CSS. But with Chrome DevTools, you can edit the CSS and check the result. 
-- Basic idea is `inspect` your selected element, and **eidt** it.
+- Basic idea is `Inspect` your selected element, and **eidt** it.
 - Add style directly to the element.
 - Add CSS class to the elemeny.
 - Provide Contrast ratio suggestion.
 - **Copy element style**. For example you see a fancy style on a webpage, you can copy the style and make it yours. 
-  1. select your fance element and `inspcet` it.
+  1. select your fance element and `Inspcet` it.
   2. Right click the element in the Element panel, and select `copy` -> `copy style`.
   3. apply it to your element.
 - Screenshots, you can screen shot whole page, your select area, ro one node in the DOM Tree, etc.
@@ -57,7 +82,7 @@ How to debug with source panel? Here are some hihts and tips:
 - Use **Scope** pane. When you're paused on a line of code, the Scope pane shows you what local and global variables are currently defined, along with the value of each variable. It also shows closure variables, when applicable. Double-click a variable value to edit it. 
 - Run JavaScript contextually in the Drawer(Console panel)
 - Live Expressions (turn it on by click the eye logo)
-- Add Logpoints. (just like console.log(), but don't need to write it to code)
+- Add Logpoints. (just like `console.log()`, but don't need to write it to code)
 - Store the output of Logpoints as global variables.
 
 ### Analyzing Load performance
@@ -68,7 +93,7 @@ How to debug with source panel? Here are some hihts and tips:
 - [Chrome DevTools Overview](https://developer.chrome.com/docs/devtools/overview)
 - [Build better sites faster with Chrome DevTools](https://www.youtube.com/watch?v=VYyQv0CSZOE&t=2s)
 
-## Let's go a little bit deep on BreakPoints
+## Go a bit deep on BreakPoints
 The most well-known type of breakpoint is line-of-code. But with a large codebase it is good idea to know how and when to use the other types of breakpoints.
 
 | Breakpoint Type	        | Use this when you want to ...                                                 |
@@ -96,7 +121,7 @@ Such breakpoints are useful when you want to skip breaks that are irrelevant to 
 
 ### Log line-of-code breakpoints
 
-Use log line-of-code breakpoints (logpoints) to log messages to the Console without pausing the execution and without cluttering up your code with console.log() calls.
+Use log line-of-code breakpoints (logpoints) to log messages to the Console without pausing the execution and without cluttering up your code with `console.log()` calls.
 
 Also, you can use the Breakpoints pane to disable, edit, or remove line-of-code breakpoints.
 
@@ -154,7 +179,7 @@ You can view **DOM nodes** in the Elements Panel.
 Some skills:
 - Inspect a node: 
   - Right-click ELEMENT and select Inspect.
-  - Click the Inspect icon in the __top-left corner__ of DevTools. And then the selected element in the viewport will be highlighted in the DOM Tree.
+  - Click the Inspect icon in the *top-left corner* of DevTools. And then the selected element in the viewport will be highlighted in the DOM Tree.
 - Navigate the DOM Tree with a keyboard
   - Once you've selected a node in the DOM Tree, you can navigate the DOM Tree with your keyboard.
 - Scroll into view:
@@ -163,7 +188,7 @@ Some skills:
   - With rulers, you can measure the width and height of an element when you hover over it in the Elements panel.
   - Enable the rulers: Settings > Preferences > Elements > Show rulers on hover.
 - Search for nodes:
-  - You can search the DOM Tree by __string__, __CSS selector__, or __XPath selector__.
+  - You can search the DOM Tree by *string*, *CSS selector*, or *XPath selector*.
   - Press Control+F or Command+F (Mac). The Search bar opens at the bottom of the DOM Tree.
 - Edit the DOM
   - You can edit the DOM on the fly and see how those changes affect the page.
@@ -186,21 +211,21 @@ Some skills:
 - Delete a node
   - Press Delete to delete a node.
 - View the properties of DOM objects
-  - Select a node the DOM tree, you can find __Properties__ pane. 
+  - Select a node the DOM tree, you can find Properties pane. 
   - [Check here](https://developer.chrome.com/docs/devtools/dom/properties/)
 - Badges reference
   - Toggle various overlays and speed up DOM tree navigation with this comprehensive reference of badges in the Elements panel.
-  - What is badge? It is small __badge sign__ that can give you more information. For example, you can find `flex` badge after a `<div>`, that mean the `display` of this `<div>` is `flex`.
+  - What is badge? It is small *badge sign* that can give you more information. For example, you can find `flex` badge after a `<div>`, that mean the `display` of this `<div>` is `flex`.
   - Right-click an element in the DOM tree and select Badge settings
 
 DevTools provides a few shortcuts for accessing DOM nodes from the Console, or getting JavaScript references to them.
 - Reference the currently-selected node with `$0`
-  - When you inspect a node, the `== $0` text next to the node means that you can reference this node in the __Console__ with the variable `$0`.
+  - When you inspect a node, the `== $0` text next to the node means that you can reference this node in the Console with the variable `$0`.
 - Store as global variable
   - If you need to refer back to a node many times, store it as a global variable.
 - Copy JS path
   - Copy the JavaScript path to a node when you need to reference it in an automated test.
-  - Right-click __Element__ in the DOM Tree and select `Copy > Copy JS Path`.
+  - Right-click Element in the DOM Tree and select `Copy > Copy JS Path`.
 
 You can view and change CSS in element Panel.
 - In the Elements > Styles pane!
@@ -253,4 +278,5 @@ The Rendering tab helps you:
 - Apply other useful effects. Highlight ad frames, emulate focus on a page, disable local fonts and image formats, enable an automatic dark theme, and emulate vision deficiencies.
 
 ### Reference 
-[overview](https://developer.chrome.com/docs/devtools/overview/)
+[Chrome DevTools Overview](https://developer.chrome.com/docs/devtools/overview/)
+

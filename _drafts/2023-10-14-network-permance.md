@@ -15,8 +15,5 @@ Network Waterfall charts show what network requests are made when loading a web 
 It provides you with a visual representation of how all the assets on your website load. This includes CSS, JavaScript, HTML, images, plugins, and third-party content.
 {% include figure.html path="assets/img/waterfall-chart.png" class="img-fluid rounded z-depth-1" width="60%" %}
 
-
-
 ## Reference
-- [Chrome DevTools Overview](https://developer.chrome.com/docs/devtools/overview)
-- [Build better sites faster with Chrome DevTools](https://www.youtube.com/watch?v=VYyQv0CSZOE&t=2s)
+
