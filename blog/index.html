@@ -21,31 +21,33 @@ pagination:
       <h1 class="post-year">{{blog_curr_year}}</h1>
     </div>
     {%- for post in paginator.posts -%}
-    {%- assign blog_year = post.date | date: '%Y' -%}
-    {%- if blog_year != blog_curr_year -%}
-    {%- assign blog_curr_year = blog_year -%}
-    <div>
-      <h1 class="post-year">{{blog_curr_year}}</h1>
-    </div>
-    {% endif %}
-    <div class="each-li"i>
-      <div>
-        <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        <time>{{ post.date | date: '%b %d' }}</time>
+      {%- assign blog_year = post.date | date: '%Y' -%}
+      {%- if blog_year != blog_curr_year -%}
+        {%- assign blog_curr_year = blog_year -%}
+        <div>
+          <h1 class="post-year">{{blog_curr_year}}</h1>
+        </div>
+      {% endif %}
+      <div class="each-li">
+        <div class="title">
+          <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </div>
+        <div class="time">
+          {{ post.date | date: '%b %d' }}
+        </div>
       </div>
-    </div>
     {%- endfor -%}
   </div>
   {% include pagination.html %}
 
   <div class="col-lg-4">
     <div class="column">
-      <div class="category-container">
-        <div class="card hoverable">
+      <div class="card hoverable">
+        <div class="category-container">
           <div class="card-body">
-            <h4 class="card-title">CATEGORIES</h4>
+            <h5 class="card-title">Categories</h5>
             {% for category in site.categories %}
-            {%- assign category_count = category[1] | size -%}
+              {%- assign category_count = category[1] | size -%}
               <div class="category-item-container">
                 <a href="{{ category[0] | slugify | prepend: '/blog/category/' | relative_url }}">
                   <div class="category-item">
@@ -58,10 +60,11 @@ pagination:
           </div>
         </div>
       </div>
-      <div class="tags-container">
-        <div class="card hoverable">
+      <br>
+      <div class="card hoverable">
+        <div class="tags-container">
           <div class="card-body">
-            <h4 class="card-title">TAGS</h4>
+            <h5 class="card-title">Tags</h5>
             <div class="tags">
               {% for tag in site.tags %}
               <a href="{{ tag[0] | slugify | prepend: '/blog/tag/' | relative_url }}">

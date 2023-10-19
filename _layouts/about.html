@@ -1,15 +1,25 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
 
-<!-- about.html -->
-      <div class="post">
-        <header class="post-header">
-          <h1 class="post-title" >
-            <span class="font-weight-bold">About me</span> 
-          </h1>
-          <p style="font-weight: bold;">{{ page.subtitle }}</p>
-        </header>
+  <!-- Head -->
+  <head>
+  {%- if page.redirect -%}
+    <meta http-equiv="refresh" content="3; url={{ site.baseurl }}/" />
+  {%- endif -%}
+  {% include head.html %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro&family=Young+Serif&family=Yuji+Hentaigana+Akari&display=swap" rel="stylesheet">
+</head>
+
+  <!-- Body -->
+  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+
+    <!-- Header -->
+    {%- include header.html %}
+    <div class="container mt-5">
+      <!-- about.html -->
+      <div class="about">
 
         <article>
           {% if page.profile -%}
@@ -36,8 +46,7 @@ layout: default
             {%- endif %}
           </div>
           {%- endif %}
-
-          <div class="clearfix" style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: 1.3rem; font-weight: normal;">
+          <div class="clearfix description">
             {{ content }}
           </div>
 
@@ -49,7 +58,7 @@ layout: default
 
           <!-- Latest posts -->
           {% if page.latest_posts -%}
-            <h2><a href="{{ '/blog/' | relative_url }}" style="color: inherit;">latest posts</a></h2>
+            <h2><a href="{{ '/blog/' | relative_url }}" style="color: inherit;">My Latest Posts</a></h2>
             {%- include latest_posts.html %}
           {%- endif %}
 
@@ -65,13 +74,19 @@ layout: default
               <div class="contact-icons">
                 {% include social.html %}
               </div>
-
               <div class="contact-note">
                 {{ site.contact_note }}
               </div>
-
             </div>
           {%- endif %}
         </article>
 
-</div>
+      </div>
+    </div> 
+    <!-- Footer -->
+    {%- include footer.html %}
+
+    <!-- JavaScripts -->
+
+  </body>
+</html>

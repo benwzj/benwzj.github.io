@@ -35,10 +35,10 @@ keyboard {
 If you clear the concepts in HTML, CSS, JavaScript. Chrome DevTools is handy and easy to use. Chrome DevTools is a set of web developer tools built directly into the Google Chrome browser. It can help you edit pages on-the-fly and diagnose problems quickly, which helps you build better websites, faster.
 
 ## Some points for starting
-- The top-level tabs are called panels. There are also tab called Drawer, pane in this blog.
+- The top-level tabs are called panels. There are also panes, drawers.
 - right-click an element on the page and select Inspect to jump into the Elements panel which work on the DOM or CSS.
 - Shortcut: <keyboard>Command</keyboard>+<keyboard>Option</keyboard>+<keyboard>J</keyboard> (Mac) to jump straight into the Console panel which for JavaScript. 
-- Shortcut: <keyboard>Command</keyboard>+<keyboard>shift</keyboard>+<keyboard>P</keyboard> to reach more Feature!
+- Shortcut: <keyboard>Command</keyboard>+<keyboard>shift</keyboard>+<keyboard>P</keyboard> to reach more Feature from the Drawer.
 - Chrome DevTools provide many functionality:
   - View and Change the DOM
   - View and Change a Page's Styles (CSS)
