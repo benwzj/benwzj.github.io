@@ -121,10 +121,6 @@ blockquote {
 
 // ------------------------------------------------------------------
 // About Me
-@font-face {
-  font-family: myFirstFont;
-  src: url(sansation_light.woff);
-}
 .about {
   h2 {
     font-family: Georgia, serif;
@@ -138,7 +134,7 @@ blockquote {
     p {
       font-family: 'Anonymous Pro', monospace;
       font-size: 1.6rem; 
-      font-weight: 400; 
+      font-weight: 700; 
     }
   }
 }
@@ -150,9 +146,10 @@ blockquote {
   .address {
     margin-bottom: 5px;
     margin-top: 5px;
-    font-family: monospace;
-
-    p {
+    p {    
+      font-family: monospace;
+      font-weight: lighter;
+      color: var(--global-post-tag-color);
       display: inline-block;
       margin: 0;
     }
@@ -720,7 +717,11 @@ footer.sticky-bottom {
       align-items: center;
     }
   }
-
+  .project-card-text {
+    color: var(--global-post-tag-color);
+    font-size: .9rem;
+    font-weight: 400;
+  }
   .grid-sizer,
   .grid-item {
     width: 250px;

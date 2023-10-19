@@ -9,7 +9,7 @@ profile:
   image: ben-profile-small.png
   image_circular: false # crops the image to make it circular
   address: >
-    <p>Ferntree Gully, Victoria</p>
+    <p>Ferntree Gully,</p>
     <p>Foot of Mount Dandenong</p>
     <p></p>
 
