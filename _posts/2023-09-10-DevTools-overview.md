@@ -12,33 +12,19 @@ toc:
   - name: Panel Overview
 
 ---
-<style>
-keyboard {     
-  display: inline-block;
-  box-sizing: inherit;
-  white-space: nowrap;
-  overflow-wrap: break-word;
-  border: 1px solid #adb3b9;
-  background-color: #e1e3e5;
-  border-radius: 3px;
-  color: #242729;
-  font-family: Arial;
-  font-size: 11px;
-  line-height: 1.4;
-  margin: 0 .1em;
-  padding: .1em .6em;
-  text-shadow: 0 1px 0 #FFF;
-  box-shadow: 0 1px 2px hsla(210,8%,5%,0.75); 
-}
-</style>
 
 If you clear the concepts in HTML, CSS, JavaScript. Chrome DevTools is handy and easy to use. Chrome DevTools is a set of web developer tools built directly into the Google Chrome browser. It can help you edit pages on-the-fly and diagnose problems quickly, which helps you build better websites, faster.
 
 ## Some points for starting
-- The top-level tabs are called panels. There are also panes, drawers.
-- right-click an element on the page and select Inspect to jump into the Elements panel which work on the DOM or CSS.
+
+- Right-click an element on the page and select Inspect to jump into the Elements panel which work on the DOM or CSS.
 - Shortcut: <keyboard>Command</keyboard>+<keyboard>Option</keyboard>+<keyboard>J</keyboard> (Mac) to jump straight into the Console panel which for JavaScript. 
 - Shortcut: <keyboard>Command</keyboard>+<keyboard>shift</keyboard>+<keyboard>P</keyboard> to reach more Feature from the Drawer.
+- The top-level tabs are called panels. Like Console, Network, Sources, etc.
+- Press <keyboard>esc</keyboard> to open or close the Drawer. The Drawer contains many hidden features.
+- You can Change DevTools placement, default is vertical.
+- When you use DevTools a lot, you might *Customize keyboard shortcuts*.
+- DevTools only logs network activity while it's open.
 - Chrome DevTools provide many functionality:
   - View and Change the DOM
   - View and Change a Page's Styles (CSS)

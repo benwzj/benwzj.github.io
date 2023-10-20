@@ -14,7 +14,7 @@ It is design to help to optimize website speed. It provide two important functio
 - It creates a baseline for you to measure subsequent changes against.
 - It gives you actionable tips on what changes will have the most impact.
 
-### Establish a baseline
+### Build Initial Report
 The baseline is a record of how the site performed before you made any performance improvements.
 *Analyze page load* to create a report at the very first.
 
@@ -28,7 +28,7 @@ The report will
 - Diagnostics section provides more information about factors that contribute to the page's load time.
 - Passed audits section shows you what the site is doing correctly. 
 
-some tips:
+Some tips:
 - Enabling *Clear Storage checkbox* clears all storage associated with the page, This will audit how first-time visitors experience your site.
 
 ### Actions according to Report
@@ -71,12 +71,56 @@ Check [here](https://web.dev/articles/optimize-lcp) for more info to Optimize LC
 CLS is a measure of the largest burst of layout shift scores for every unexpected layout shift that occurs during the entire lifespan of a page.
 Check [here](https://web.dev/articles/cls) for more info to Optimize CLS.
 
-## Performance panel 
+## Performance Panel 
 the Performance panel is the most common way to understand what activity your site does as it loads, and find ways to remove unnecessary activity.
 
 
-## Network panel
+## Network Panel
 
+Network Panel only logs network activity while it’s open.
+
+### The Network Log
+
+Each row of the Network Log represents a **resource**. By default the resources are listed chronologically. The top resource is usually the main HTML document. The bottom resource is whatever was requested last.
+
+Let's take a look at default columes:
+- Status. The HTTP response code.
+- Type. The resource type.
+- Initiator. What caused a resource to be requested. Clicking a link in the Initiator column takes you to the source code that caused the request.
+- Time. How long the request took.
+- Waterfall. A graphical representation of the different stages of the request. Hover over a Waterfall to see a breakdown.
+
+### Some tips
+- Simulate a slower network connection
+By throttling the page you can get a better idea of how long a page takes to load on a mobile device.
+Find the Throttling menu,(it is No Throttling by default)
+
+- Empty Cache And Hard Reload
+On repeat visits, the browser usually serves some files from its cache, which speeds up the page load. Empty Cache And Hard Reload forces the browser to go the network for all resources. This is helpful when you want to see how a first-time visitor experiences a page load.
+
+- Capture screenshots
+Tick *Capture Screenshots* Capture Screenshots. 
+
+- Inspect a resource's details
+Click a resource to learn more information about it. 
+  - Use **Headers** tab to inspect HTTP headers.
+  - Click the Preview tab. A basic rendering of the HTML is shown.
+  - Click the Response tab. The HTML source code is shown.
+  - Click the Timing tab. A breakdown of the network activity for this resource is shown.
+
+- Use the **Search** pane when you need to search the *HTTP headers* and *responses* of all resources for a certain string or regular expression.
+
+- Filter resources
+DevTools provides numerous workflows for filtering out resources that aren't relevant to the task at hand.
+
+- Block requests
+How does a page look and behave when some of its resources aren't available? Does it fail completely, or is it still somewhat functional? Block requests to find out:
+  - Command+Shift+P (Mac) to open the Command Menu.
+  - Type `block`, select Show Request Blocking, and press Enter.
+  - Click Add Pattern
+  - Then Reload the page.
+
+Reload the page again via the Empty Cache And Hard Reload workflow
 ## Questions
 - What is Site Speed Test
 - What is routing, data fetching, and generating HTML
