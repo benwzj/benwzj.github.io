@@ -79,9 +79,9 @@ the Performance panel is the most common way to understand what activity your si
 
 Network Panel only logs network activity while it’s open.
 
-### The Network Log
+### Network Log Overview
 
-Each row of the Network Log represents a **resource**. By default the resources are listed chronologically. The top resource is usually the main HTML document. The bottom resource is whatever was requested last.
+Each row of the Network Log represents a **resource** or call **request**. By default the resources are listed chronologically. The top resource is usually the main HTML document. The bottom resource is whatever was requested last.
 
 Let's take a look at default columes:
 - Status. The HTTP response code.
@@ -90,7 +90,10 @@ Let's take a look at default columes:
 - Time. How long the request took.
 - Waterfall. A graphical representation of the different stages of the request. Hover over a Waterfall to see a breakdown.
 
+You can display more columes, like Protocol, domain, etc.
+
 ### Some tips
+
 - Simulate a slower network connection
 By throttling the page you can get a better idea of how long a page takes to load on a mobile device.
 Find the Throttling menu,(it is No Throttling by default)
@@ -101,6 +104,7 @@ On repeat visits, the browser usually serves some files from its cache, which sp
 - Capture screenshots
 Tick *Capture Screenshots* Capture Screenshots. 
 
+- You can Save requests across page loads. check the *Preserve log* checkbox 
 - Inspect a resource's details
 Click a resource to learn more information about it. 
   - Use **Headers** tab to inspect HTTP headers.
@@ -115,12 +119,32 @@ DevTools provides numerous workflows for filtering out resources that aren't rel
 
 - Block requests
 How does a page look and behave when some of its resources aren't available? Does it fail completely, or is it still somewhat functional? Block requests to find out:
-  - Command+Shift+P (Mac) to open the Command Menu.
-  - Type `block`, select Show Request Blocking, and press Enter.
-  - Click Add Pattern
+  - Shortcut <keyboard>Command</keyboard>+<keyboard>Shift</keyboard>+<keyboard>P</keyboard> (Mac) to open the Command Menu.
+  - Type `block`, select Show Request Blocking, and press <keyboard>Enter</keyboard>.
+  - Click *Add* Pattern
   - Then Reload the page.
 
-Reload the page again via the Empty Cache And Hard Reload workflow
+- Replay XHR request
+Select the XMLHttpRequest(XHR), Right-click the request and select Replay XHR.
+
+- Throttling
+  - Emulate offline. When you develop Progressive Web Apps, this is helpful.
+  - You can even create custom throttling profiles!
+  - In addition to HTTP requests, you can throttle WebSocket connections.
+ 
+- Override HTTP response headers
+With local overrides, you can override HTTP response headers and web content, including XHR and fetch requests, to mock remote resources even if you don't have access to them. This lets you prototype changes without waiting for the backend to support them. Local overrides also lets you keep the changes you make in DevTools across page loads.
+How it works:
+  - When you make changes in DevTools, DevTools saves a copy of the modified file to a folder you specify.
+  - When you reload the page, DevTools serves the local, modified file, rather than the network resource.
+- Override the user agent
+- Powerful Filter function on requests
+- Export requests data
+
+### How to Read a Request Waterfall Chart
+They are often used to analyze site speed and identify opportunities for optimization.
+
+
 ## Questions
 - What is Site Speed Test
 - What is routing, data fetching, and generating HTML
