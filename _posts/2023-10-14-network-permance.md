@@ -1,20 +1,17 @@
 ---
 layout: post
-title: Network and Performance
+title: Chrome DevTools Lighthouse
 date: 2023-10-14
 category: Website
-tags: Web-page Chrome DevTools Network
+tags: Web-page Chrome DevTools Lighthouse
 ---
 
-Here will try to a bit deep dive in **Lighthouse**, **Network** and **performance** panel in Chrome DevTools.
 
-## Lighthouse
-
-It is design to help to optimize website speed. It provide two important functions:
+**Lighthouse** is design to help to optimize website speed. It provide two important functions:
 - It creates a baseline for you to measure subsequent changes against.
 - It gives you actionable tips on what changes will have the most impact.
 
-### Build Initial Report
+## Build Initial Report
 The baseline is a record of how the site performed before you made any performance improvements.
 *Analyze page load* to create a report at the very first.
 
@@ -31,128 +28,47 @@ The report will
 Some tips:
 - Enabling *Clear Storage checkbox* clears all storage associated with the page, This will audit how first-time visitors experience your site.
 
-### Actions according to Report
+## Actions according to Report
 
-- Enable text compression
+#### Enable text compression
 Go to Network panel to check!
-  - Compare download size anf uncompression size.
-  - Search file Response Headers section for a `content-encoding` header.
+- Compare download size anf uncompression size.
+- Search file Response Headers section for a `content-encoding` header.
 
 If haven't compression, then use commpression. For example, if you are using Node Express, then install the Node.js compression middleware via `npm compression`. 
 
-- Resize images
+#### Resize images
 Create multiple sizes of each image during the build process and then use srcset in your code. At runtime, the browser takes care of choosing what size is best for the device it's running on. 
 
-- Eliminate render-blocking resources
+#### Eliminate render-blocking resources
 A render-blocking resource is an external JavaScript or CSS file that the browser must download, parse, and execute before it can show the page. 
 The goal is to only run the core CSS and JavaScript code that is required to display the page properly.
   - The `Coverage tab` provides an overview of how much of the code in js files,like main.js, bundle.js, jquery.js, and lodash.js is being executed while the page loads. The `Coverage tab` can help you analyze your code, line-by-line, and only ship the code that's needed for page load.
   - The` Request Blocking tab` can show you what happens when resources aren't available. Which can help you remove the thing we don't need.
 
-- Do less main thread work
+#### Do less main thread work
 The main thread is where the browser does most of the work needed to display a page, such as parsing and executing HTML, CSS, and JavaScript.
-  - Diagnostics section in the Lighthouse report will show you the main thread activity.
-  - The goal is to use the `Performance panel` to analyze what work the main thread is doing while the page loads, and find ways to defer or remove unnecessary work.
+- Diagnostics section in the Lighthouse report will show you the main thread activity.
+- The goal is to use the `Performance panel` to analyze what work the main thread is doing while the page loads, and find ways to defer or remove unnecessary work.
 
-- Improve Largest Contentful Paint (LCP)
+#### Improve Largest Contentful Paint (LCP)
 
 LCP represents how quickly the main content of a web page is loaded. Specifically, LCP measures the time from when the user initiates loading the page until the largest image or text block is rendered within the viewport.
 To provide a good user experience, sites should strive to have an LCP of **2.5 seconds** or less for at least 75% of page visits.
 To improve LCP, breakdown it and looking at two:
-  - The initial HTML document
-  - The LCP resource
+- The initial HTML document
+- The LCP resource
 
 {% include figure.html path="assets/img/a-breakdown-lcp-showing.png" class="img-fluid rounded z-depth-1" width="80%" %}
 
 Check [here](https://web.dev/articles/optimize-lcp) for more info to Optimize LCP.
 
-- Reduce Cumulative Layout Shift (CLS)
+#### Reduce Cumulative Layout Shift (CLS)
 
 CLS is a measure of the largest burst of layout shift scores for every unexpected layout shift that occurs during the entire lifespan of a page.
 Check [here](https://web.dev/articles/cls) for more info to Optimize CLS.
 
-## Performance Panel 
-the Performance panel is the most common way to understand what activity your site does as it loads, and find ways to remove unnecessary activity.
-
-
-## Network Panel
-
-Network Panel only logs network activity while it’s open.
-
-### Network Log Overview
-
-Each row of the Network Log represents a **resource** or call **request**. By default the resources are listed chronologically. The top resource is usually the main HTML document. The bottom resource is whatever was requested last.
-
-Let's take a look at default columes:
-- Status. The HTTP response code.
-- Type. The resource type.
-- Initiator. What caused a resource to be requested. Clicking a link in the Initiator column takes you to the source code that caused the request.
-- Time. How long the request took.
-- Waterfall. A graphical representation of the different stages of the request. Hover over a Waterfall to see a breakdown.
-
-You can display more columes, like Protocol, domain, etc.
-
-### Some tips
-
-- Simulate a slower network connection
-By throttling the page you can get a better idea of how long a page takes to load on a mobile device.
-Find the Throttling menu,(it is No Throttling by default)
-
-- Empty Cache And Hard Reload
-On repeat visits, the browser usually serves some files from its cache, which speeds up the page load. Empty Cache And Hard Reload forces the browser to go the network for all resources. This is helpful when you want to see how a first-time visitor experiences a page load.
-
-- Capture screenshots
-Tick *Capture Screenshots* Capture Screenshots. 
-
-- You can Save requests across page loads. check the *Preserve log* checkbox 
-- Inspect a resource's details
-Click a resource to learn more information about it. 
-  - Use **Headers** tab to inspect HTTP headers.
-  - Click the Preview tab. A basic rendering of the HTML is shown.
-  - Click the Response tab. The HTML source code is shown.
-  - Click the Timing tab. A breakdown of the network activity for this resource is shown.
-
-- Use the **Search** pane when you need to search the *HTTP headers* and *responses* of all resources for a certain string or regular expression.
-
-- Filter resources
-DevTools provides numerous workflows for filtering out resources that aren't relevant to the task at hand.
-
-- Block requests
-How does a page look and behave when some of its resources aren't available? Does it fail completely, or is it still somewhat functional? Block requests to find out:
-  - Shortcut <keyboard>Command</keyboard>+<keyboard>Shift</keyboard>+<keyboard>P</keyboard> (Mac) to open the Command Menu.
-  - Type `block`, select Show Request Blocking, and press <keyboard>Enter</keyboard>.
-  - Click *Add* Pattern
-  - Then Reload the page.
-
-- Replay XHR request
-Select the XMLHttpRequest(XHR), Right-click the request and select Replay XHR.
-
-- Throttling
-  - Emulate offline. When you develop Progressive Web Apps, this is helpful.
-  - You can even create custom throttling profiles!
-  - In addition to HTTP requests, you can throttle WebSocket connections.
- 
-- Override HTTP response headers
-With local overrides, you can override HTTP response headers and web content, including XHR and fetch requests, to mock remote resources even if you don't have access to them. This lets you prototype changes without waiting for the backend to support them. Local overrides also lets you keep the changes you make in DevTools across page loads.
-How it works:
-  - When you make changes in DevTools, DevTools saves a copy of the modified file to a folder you specify.
-  - When you reload the page, DevTools serves the local, modified file, rather than the network resource.
-- Override the user agent
-- Powerful Filter function on requests
-- Export requests data
-
-### How to Read a Request Waterfall Chart
-They are often used to analyze site speed and identify opportunities for optimization.
-
-
-## Questions
-- What is Site Speed Test
-- What is routing, data fetching, and generating HTML
-- What is Network Waterfall. How to read waterfall charts.
-Network Waterfall charts show what network requests are made when loading a web page. They are often used to analyze website speed and identify opportunities for optimization. Many DevTools provide Network Waterfall charts, Like Chrome DevTools.
-
-It provides you with a visual representation of how all the assets on your website load. This includes CSS, JavaScript, HTML, images, plugins, and third-party content.
-{% include figure.html path="assets/img/waterfall-chart.png" class="img-fluid rounded z-depth-1" width="70%" %}
-
 ## Reference
+[Chrome DevTools Doc](https://developer.chrome.com/docs/devtools/lighthouse/)
+https://developer.chrome.com/docs/devtools/lighthouse/
 
