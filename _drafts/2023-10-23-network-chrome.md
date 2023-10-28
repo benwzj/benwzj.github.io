@@ -72,8 +72,11 @@ How it works:
 - Powerful Filter function on requests
 - Export requests data
 
-## How to Read a Request Waterfall Chart
+## Understand Waterfall Chart
+
 They are often used to analyze site speed and identify opportunities for optimization.
+
+#### Server connections
 
 
 ## Questions
