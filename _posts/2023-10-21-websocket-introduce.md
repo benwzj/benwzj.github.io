@@ -19,14 +19,14 @@ To achieve compatibility, the WebSocket handshake uses the HTTP Upgrade header t
 The WebSocket protocol enables interaction between a web browser (or other client application) and a web server with lower overhead than half-duplex alternatives such as HTTP polling, facilitating real-time data transfer from and to the server. 
 This is made possible by providing a standardized way for the server to send content to the client without being first requested by the client.
 
-## Websocket Test
+## Test Websocket
 
 ### Websocket Client Testers
 
-- Testing using browser through[piesocket](https://www.piesocket.com/websocket-tester) or [socketsbay](https://socketsbay.com/test-websockets)
-- Using `zsh` test: **wscat** 
+- Using browser as Client Tester: 1, [piesocket](https://www.piesocket.com/websocket-tester) or 2, [socketsbay](https://socketsbay.com/test-websockets)
+- Using `zsh` as Client Tester: `wscat`. 
 
-### WebSocket server
+### Public WebSocket server
 
 - websocket-echo.com is a simple echo websocket server. support ws and wss.
 ```
@@ -46,7 +46,7 @@ wscat -c wss://socketsbay.com/wss/v2/1/1f437d249c2ca2eb3c415b9f92df92c8/
 ## Uing AWS WebSocket API Gateway Create Group Chat application
 This example will show how to create Group Chat applicatin using AWS WebSocket API Gateway.
 
-### Overview
+### Group Chat App Overview
 1, Clients join the chat room as they connect to the WebSocket API.
 2, The backend can send messages to specific users via a callback URL that is provided after the user is connected to the WebSocket API.
 3, Users can send messages to the room.
