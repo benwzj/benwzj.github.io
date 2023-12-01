@@ -20,8 +20,8 @@ If you clear the concepts in HTML, CSS, JavaScript. Chrome DevTools is handy and
 - Right-click an element on the page and select Inspect to jump into the Elements panel which work on the DOM or CSS.
 - Shortcut: <keyboard>Command</keyboard>+<keyboard>Option</keyboard>+<keyboard>J</keyboard> (Mac) to jump straight into the Console panel which for JavaScript. 
 - Shortcut: <keyboard>Command</keyboard>+<keyboard>shift</keyboard>+<keyboard>P</keyboard> to reach more Feature from the Drawer.
-- The top-level tabs are called panels. Like Console, Network, Sources, etc.
-- Press <keyboard>esc</keyboard> to open or close the Drawer. The Drawer contains many hidden features.
+- The top-level tabs are called **Panels**. Like Console, Network, Sources, etc.
+- The **Drawer** contains many hidden features. Press <keyboard>esc</keyboard> to open or close the Drawer. 
 - You can Change DevTools placement, default is vertical.
 - When you use DevTools a lot, you might *Customize keyboard shortcuts*.
 - DevTools only logs network activity while it's open.
