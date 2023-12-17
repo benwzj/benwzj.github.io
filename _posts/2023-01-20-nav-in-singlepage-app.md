@@ -3,12 +3,14 @@ layout: post
 title: How Single-Page App Navigate
 date: 2023-01-20
 category: React
-tags: SPA Single-page Navigation
+tags: SPA Single-page Navigation Vue
 ---
 
 A single-page application (SPA) is a web application that re-renders its content in response to navigation actions (e.g. clicking a link) without making a request to the server to fetch new HTML.
 
 SPA rely on the browser behavior and native APIs to enable the core functionality.
+
+Currently, the most popular SPA frameworks are ReactJS, AngularJS, Ember.js, Vue.js, and Svelte.
 
 ## Traditional Browser Navigation
 
@@ -16,7 +18,7 @@ When a user click a link to make a Get request in a browser to myapp.com, the we
 
 This is Traditional Browser Navigation process. it is HTML-focused design.
 
-> ##### It is important to know
+> ##### Important To Know
 >
 > Whenever browser gets a new HTML document, all of the existing JavaScript variables, all the existing code, everything related to JavaScript is completely dumped from the current page. This is a standard browser behavior.
 {: .block-warning }
@@ -62,7 +64,15 @@ React are using Browser API `window.location` to get detail of the address bar.
 For example, `window.location.pathname` can tell you where the user want to go.
 {% include figure.html path="assets/img/url-parts.png" class="img-fluid rounded z-depth-1" %}
 
-React have already setup router for you to prepare your components for each route. For example the route `/dashboard`, What you need to do just connect thie route to your components.
+You can do this to update current path
+```js
+const [currentPath, setCurrentPath] = useState(window.location.pathname);
+window.addEventListener('popstate', event => {
+  // update curren path
+  setCurrentPath(window.location.pathname)
+}, false);
+```
 
+But React have already setup router for you to prepare your components for each route. You don't have to do that.
 
-
+If you want to get more informatin about the process of navigation in SPA, you can check `History` and `Location` APIs.
