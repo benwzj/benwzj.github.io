@@ -6,6 +6,9 @@ tags: React Web-page
 category: React
 ---
 
+I have writen a React Overview years ago, but that was based on Class Component. Now React have ditched Class Component and focus on Function Component and Hooks. 
+
+This Overview will follow new trend of React. 
 
 Components are one of the core concepts of React.
 Components are the foundation upon which you build user interfaces (UI).
@@ -32,4 +35,5 @@ The React application begins at a “root” component. Usually, it is created a
 React components are regular JavaScript functions, but their names must start with a capital letter or they won’t work!
 React don't recommend to use Class components for new code.
 
+## Hooks
 
