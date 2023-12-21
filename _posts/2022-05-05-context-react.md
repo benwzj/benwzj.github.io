@@ -32,7 +32,9 @@ Context is not limited to static values. If you pass a different value on the ne
 
 ### Context Concepts
 
-#### `createContext()` API 
+`createContext()` API, `Context` object, `useContext()` Hook.
+
+#### `createContext()` API
 createContext lets you create a `context` that components can provide or read.
 ```js
 const SomeContext = createContext(defaultValue)

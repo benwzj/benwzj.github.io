@@ -2,7 +2,7 @@
 layout: post
 title: React Overview (update)
 date: 2023-10-12
-tags: React Web-page
+tags: React Web-page Redux
 category: React
 ---
 
@@ -35,5 +35,42 @@ The React application begins at a “root” component. Usually, it is created a
 React components are regular JavaScript functions, but their names must start with a capital letter or they won’t work!
 React don't recommend to use Class components for new code.
 
-## Hooks
+## React State system
+
+Call `useState` at the top level of your component to declare a state variable.
+
+```js
+const [state, setState] = useState(initialState);
+```
+useState returns an array with exactly two items:
+1. The current state of this state variable, initially set to the initial state you provided.
+2. The set function that lets you change it to any other value in response to interaction.
+
+### setState function
+
+The set function returned by `useState` lets you update the state to a different value and trigger a re-render. You can pass the next state directly, OR a function that calculates it from the previous state.
+
+```js
+const [name, setName] = useState('Edward');
+const [age, setAge] = useState(28);
+
+function handleClick() {
+  setName('Taylor');
+  setAge(a => a + 1);
+  // ...
+}
+```
+
+**Caveats** 
+- The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call.
+
+- If the new value you provide is identical to the current state, as determined by an Object.is comparison, React will skip re-rendering the component and its children. 
+
+- React batches state updates. It updates the screen after all the event handlers have run and have called their set functions. 
+
+- Calling the set function during rendering is only allowed from within the currently rendering component. React will discard its output and immediately attempt to render it again with the new state. This pattern is rarely needed, but you can use it to store information from the previous renders.
+
+- In Strict Mode, React will call your updater function twice in order to help you find accidental impurities. This is development-only behavior and does not affect production.
+
+
 
