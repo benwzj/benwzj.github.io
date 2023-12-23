@@ -6,8 +6,9 @@ categories: React
 tags: Context Redux React
 ---
 
-Usually, you will pass information from a parent component to a child component via props. And if you can use props to solve the problems, use props. **BUT** using Context is necessary in some cases.
+Usually, you will pass information from a parent component to a child component via props. And if you can use props to solve the problems, use props. **BUT** using Context is necessary in some cases. 
 
+For example: 
 - Theming: If your app lets the user change its appearance (e.g. dark mode), you can put a context provider at the top of your app, and use that context in components that need to adjust their visual look.
 - Current account: Many components might need to know the currently logged in user. Putting it in context makes it convenient to read it anywhere in the tree. Some apps also let you operate multiple accounts at the same time (e.g. to leave a comment as a different user). In those cases, it can be convenient to wrap a part of the UI into a nested provider with a different current account value.
 - Routing: Most routing solutions use context internally to hold the current route. This is how every link “knows” whether it’s active or not. If you build your own router, you might want to do it too.
@@ -19,7 +20,7 @@ Context is an alternative to passing props. Context lets the parent component ma
 
 Context is not limited to static values. If you pass a different value on the next render, React will update all the components reading it below! This is why context is often used in combination with state.
 
-### Let's make a conclusion first
+### Let's sum up first
 
 - Context lets a component provide some information to the entire tree below it.
 - To pass context:
@@ -123,7 +124,6 @@ It is not recommend, but you can do something like Redux:
 3. design state as object which contain functions. Then children can use function reference to change states.
 
 In a very small application, you might be able to get away with just using Context for most of your global data storage needs, but in a large-scale production environment, you're likely using Redux for global state management. Redux still provides improved performance, improved debugging capabilities, architectural consistency, the ability to use middleware. Therefore, Context is not a replacement for a proper global state management system.
-
 
 ## Important Caveat
 

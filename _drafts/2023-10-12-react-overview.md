@@ -73,4 +73,9 @@ function handleClick() {
 - In Strict Mode, React will call your updater function twice in order to help you find accidental impurities. This is development-only behavior and does not affect production.
 
 
+## Questions
+
+- What is render(), How render works.
+- When will execute Function Component's function.
+
 
