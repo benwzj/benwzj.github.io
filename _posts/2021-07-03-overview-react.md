@@ -8,9 +8,9 @@ tags: Hook Redux Overview React
 
 ## What is React
 
-React is a JavaScript library. It provide a framework for you to build your interactive UIs. React is a declarative, Non-opinionated, flexible, efficient library. It lets you compose complex UIs from small and isolated pieces of code called “components”.
+React is a JavaScript library. It provide a framework for you to build your interactive UIs. It is a declarative library. It lets you compose complex UIs from small and isolated pieces of code called “components”.
 
-### Here are some key features:
+### Here are some key features of React:
 - React is using component composition for code reuse.
 - React provides a declarative API so that you don’t have to worry about exactly what changes on every UI update. This makes writing applications a lot easier.
 - React create a virtual DOM in memory. 
@@ -32,13 +32,8 @@ const element = <Welcome name="Sara" />;
 root.render(element);
 ```
 
-### Ajax in React
-You can use any AJAX library you like with React. Like Axios, jQuery AJAX, and the browser built-in `window.fetch`.
-
-You should populate data with AJAX calls in the componentDidMount lifecycle method. This is so you can use setState to update your component when the data is retrieved.
-
 ### React library
-All top-level APIs come from ‘react’ library, including hooks.
+All top-level APIs come from 'react' library, including hooks.
 So, you need to always import react!
 `import React, { useState, useEffect } from 'react';`
 
@@ -54,7 +49,25 @@ import ReactDOM from 'react-dom';
 ReactDOM.render(<App />, document.querySelector('#root'));
 ```
 
-## What is Instances in React
+### Ajax in React
+You can use any AJAX library you like with React. Like Axios, jQuery AJAX, and the browser built-in `window.fetch`.
+
+You should populate data with AJAX calls in the `componentDidMount` lifecycle method. This is so you can use `setState` to update your component when the data is retrieved.
+
+## Concepts
+
+Component is core concept in React. We also need to clear what is React Instances, React Element.
+
+### Components Encapsulate Element Trees.
+For a React component, props are the input, and an element tree is the output.
+
+The returned element tree can contain both elements describing DOM nodes, and elements describing other components. This lets you compose independent parts of UI without relying on their internal DOM structure.
+
+whether functions or classes, fundamentally they are all components to React. They take the props as their input, and return the elements as their output.
+
+We let React create, update, and destroy instances. We describe them with elements we return from the components, and React takes care of managing the instances.
+
+### What is React Instances
 
 We let React create, update, and destroy instances. We describe them with elements we return from the components, and React takes care of managing the instances.
 
@@ -62,7 +75,7 @@ Only components declared as classes have instances, and you never create them di
 
 Instances have much less importance in React than in most object-oriented UI frameworks.
 
-## What is Element in React
+### What is React Element
 
 Unlike browser DOM elements, React elements are plain objects, and are cheap to create. React DOM takes care of updating the DOM to match the React elements.
 
@@ -99,7 +112,7 @@ console.log(App());
 // }
 ```
 
-### Elements Describe the Tree
+### React Elements Describe the Tree
 In React, An element contains only information about the component type (for example, a Button), its properties (for example, its color), and any child elements inside it.
 
 An element is not an actual instance. Rather, it is a way to tell React what you want to see on the screen. It’s just an immutable description object with fields like: 
@@ -112,20 +125,7 @@ React elements are easy to traverse, don’t need to be parsed, and of course th
 
 An element describing a component is also an element, just like an element describing the DOM node. They can be nested and mixed with each other.
 
-## Component
-
-Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. 
-
-### Components Encapsulate Element Trees.
-For a React component, props are the input, and an element tree is the output.
-
-The returned element tree can contain both elements describing DOM nodes, and elements describing other components. This lets you compose independent parts of UI without relying on their internal DOM structure.
-
-whether functions or classes, fundamentally they are all components to React. They take the props as their input, and return the elements as their output.
-
-We let React create, update, and destroy instances. We describe them with elements we return from the components, and React takes care of managing the instances.
-
-## React component vs. React element vs. component instance
+### React component vs. React element vs. component instance
 
 - Rendering a component happens whenever we use this component as a React element with angle brackets (e.g.` <Greeting />`) in another component:
 `const this_is_element = <ThisIsComponent />`
@@ -136,6 +136,16 @@ We let React create, update, and destroy instances. We describe them with elemen
 
 HTML elements (or call DOM elements) are created by tag, like` <div> <a>` etc.
 React elements are plain objects.
+
+### Web component vs. React component
+
+- Web component and React component are in different scope. Web Component is a web technology, that means it is a specification of w3c. While React component is a concept in React.
+- Web Components are custom elements that you can define and reuse in your Web apps.
+- React and Web Components are built to solve different problems. Web Components provide strong encapsulation for reusable components, while React provides a declarative library that keeps the DOM in sync with your data. The two goals are complementary. You can use React in your Web Components, or to use Web Components in React.
+
+## Component Detail
+
+Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. 
 
 ### Props 
 
@@ -149,6 +159,85 @@ React elements are plain objects.
 - setState() can cause re-render.
 - setState() use asychronous nature. React may batch multiple setState() calls into a single update for performance.
 
+### Class vs. Function Component
+
+These two kinds of components are equivalent from React’s point of view.
+
+- The function of the Function Component is run through with each render. (But useRef() can return the same object for each time render)
+- Class component instance keep alive. the instance.render() with will run with each render
+
+Syntax:
+- A functional component is just a plain JavaScript pure function that accepts props as an argument and returns a React element(JSX).
+```js
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+```
+
+- A class component requires you to extend from React.Component and create a render function which returns a React element.
+```js
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+```
+
+**Props** are passed from outside into the components:
+- For Class component, Props are passed as arguments to the constructor and also should be passed to the parent component class by calling super(props). this.props are accessible throughout the life of the object.
+- For Function component, props are passed as arguments into the function. 
+
+Handing **state**:
+- For Class component, React.Component objects have property state, so it is stateful.
+- For Function components, although they are known as stateless components, but you can use hook useState() to manage state. 
+
+Life cycle
+- For Class component, React lifecycle methods can be used inside class components (for example, componentDidMount).
+- For Function component, you can use hook useEffect() to manage lifecycle.
+
+Life time
+- Functional component run from top to bottom and once the function is returned it can’t be kept alive. There are no instance object kept alive. 
+- Class component is instantiated and different life cycle method is kept alive and being run and invoked depending on phase of class component.
+
+Render
+- For Function component, It have not instance, When it need to render, the function component gets called which returns a set of instructions for creating DOM.
+- For Class component, When it need to render, instance’s render method gets called which returns a set of instructions for creating DOM.
+
+### Component Life cycle
+
+There are three phases which are: Mounting, Updating, and Unmounting.
+{% include figure.html path="assets/img/ComponentLiftCycle.png" class="img-fluid rounded z-depth-1" %}
+
+#### Mounting: four built-in methods that gets called, in this order:
+
+1. `constructor()` optional, handle the props, and pass props to super(props);
+2. static `getDerivedStateFromProps()`, rare use
+3. **`render()`**, is required, and is the method that actually outputs the HTML to the DOM.
+4. **`componentDidMount()`**, is called after the component is rendered.
+
+#### Updating
+
+A component is updated whenever there is a change in the component's state or props.
+five built-in methods that gets called
+1. `getDerivedStateFromProps()`
+2. `shouldComponentUpdate()`
+3. **`render()`**
+4. `getSnapshotBeforeUpdate()`
+5. **`componentDidUpdate()`**, Use this as an opportunity to operate on the DOM when the component has been updated.
+```js
+componentDidUpdate(prevProps) {
+  // Typical usage (don't forget to compare props):
+  if (this.props.userID !== prevProps.userID) {
+    this.fetchData(this.props.userID);
+  }
+}
+```
+You may call `setState()` immediately in `componentDidUpdate() `but note that it must be wrapped in a condition.
+
+#### UnMounting
+
+Just use this method:
+`componentWillUnmount()`
 
 ## Hook
 

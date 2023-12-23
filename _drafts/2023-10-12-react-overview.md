@@ -1,6 +1,6 @@
 ---
 layout: post
-title: React Overview (update)
+title: React Overview with Hook
 date: 2023-10-12
 tags: React Web-page Redux
 category: React
@@ -61,7 +61,8 @@ function handleClick() {
 }
 ```
 
-**Caveats** 
+**setState function Caveats** 
+
 - The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call.
 
 - If the new value you provide is identical to the current state, as determined by an Object.is comparison, React will skip re-rendering the component and its children. 
