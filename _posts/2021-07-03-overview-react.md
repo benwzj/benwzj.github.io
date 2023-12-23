@@ -245,9 +245,9 @@ Hooks are a new addition in React 16.8. They let you use state and other React f
 
 Hooks are functions that let you “hook into” React state and lifecycle features from function components. 
 
-- useState() is a Hook. We call it inside a function component to add some local state to it.
+- `useState()` is a Hook. We call it inside a function component to add some local state to it.
 
-- useEffect() adds the ability to perform side effects from a function component. It serves the same purpose as componentDidMount, componentDidUpdate, and componentWillUnmount in React classes
+- `useEffect()` adds the ability to perform side effects from a function component. It serves the same purpose as componentDidMount, componentDidUpdate, and componentWillUnmount in React classes
 
 Rules of Using Hook:
 1. Only Call Hooks at the Top Level

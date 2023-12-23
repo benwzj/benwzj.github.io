@@ -46,9 +46,23 @@ useState returns an array with exactly two items:
 1. The current state of this state variable, initially set to the initial state you provided.
 2. The set function that lets you change it to any other value in response to interaction.
 
+> #### Important
+> 
+> Calling the set function does not change the current state in the already executing code:
+> ```js
+function handleClick() {
+  setName('Robin');
+  console.log(name); // Still "Taylor"!
+}
+```
+
+
 ### setState function
 
-The set function returned by `useState` lets you update the state to a different value and trigger a re-render. You can pass the next state directly, OR a function that calculates it from the previous state.
+The set function returned by `useState` lets you update the state to a different value and trigger a re-render. 
+You can pass 
+1. the next state directly, OR 
+2. a 'updater function' that calculates it from the previous state.
 
 ```js
 const [name, setName] = useState('Edward');
@@ -63,7 +77,7 @@ function handleClick() {
 
 **setState function Caveats** 
 
-- The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call.
+- The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call. It is Async.
 
 - If the new value you provide is identical to the current state, as determined by an Object.is comparison, React will skip re-rendering the component and its children. 
 
