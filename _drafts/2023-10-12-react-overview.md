@@ -46,18 +46,14 @@ useState returns an array with exactly two items:
 1. The current state of this state variable, initially set to the initial state you provided.
 2. The set function that lets you change it to any other value in response to interaction.
 
-> #### Important
+> ##### **Important**
 > 
-> Calling the set function does not change the current state in the already executing code:
-> ```js
-function handleClick() {
-  setName('Robin');
-  console.log(name); // Still "Taylor"!
-}
-```
+> 1. Calling the set function does not change the current state in the already executing code.
+> 2. State is considered read-only, When state is objects or arrays, you should replace it rather than mutate your existing objects.
+> 3. About the initial state, React saves it once and ignores it on the next renders. So don't do this: `const [todos, setTodos] = useState(createInitialTodos());`, because React run this function every **render** and means nothing. But you can do this: `const [todos, setTodos] = useState(createInitialTodos);`
+{: .block-warning }
 
-
-### setState function
+### `setState` function
 
 The set function returned by `useState` lets you update the state to a different value and trigger a re-render. 
 You can pass 
