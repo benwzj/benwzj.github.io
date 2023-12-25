@@ -49,7 +49,7 @@ useState returns an array with exactly two items:
 > ##### **Important**
 > 
 > 1. Calling the set function does not change the current state in the already executing code.
-> 2. State is considered read-only, When state is objects or arrays, you should replace it rather than mutate your existing objects.
+> 2. State is considered read-only, When state is objects or arrays, you should **replace** it rather than mutate your existing objects.
 > 3. About the initial state, React saves it once and ignores it on the next renders. So don't do this: `const [todos, setTodos] = useState(createInitialTodos());`, because React run this function every **render** and means nothing. But you can do this: `const [todos, setTodos] = useState(createInitialTodos);`
 {: .block-warning }
 
@@ -83,10 +83,42 @@ function handleClick() {
 
 - In Strict Mode, React will call your updater function twice in order to help you find accidental impurities. This is development-only behavior and does not affect production.
 
+- Don't do this:
+```js
+const [fn, setFn] = useState(someFunction);
+
+function handleClick() {
+  setFn(someOtherFunction);
+}
+```
+Uou have to put `() =>` before them in both cases. Then React will store the functions you pass.
+```js
+const [fn, setFn] = useState(() => someFunction);
+
+function handleClick() {
+  setFn(() => someOtherFunction);
+}
+```
+
+## React Rules
+
+### Component Ruels
+
+- Keeping Components Pure
+- If you can, update all the relevant state in the event handlers.
+- If you want to reset the entire component tree’s state, pass a **different key** to your component.
+- Avoid updating state in an effect
+- You can store information from previous renders, but need to use condition, and also, the logic is hard to read. try to avoid.
+- When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the children. 
+- State behaves more like a snapshot. Setting it does not change the state variable you already have, but instead triggers a re-render.
+- React will ignore your update if the next state is equal to the previous state, as determined by an Object.is comparison. 
+- In Strict Mode, React will call some of your functions twice instead of once.
+
 
 ## Questions
 
 - What is render(), How render works.
 - When will execute Function Component's function.
+- What is life cycle of function component.
 
 
