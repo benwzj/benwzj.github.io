@@ -84,6 +84,7 @@ function handleClick() {
 - In Strict Mode, React will call your updater function twice in order to help you find accidental impurities. This is development-only behavior and does not affect production.
 
 - Don't do this:
+
 ```js
 const [fn, setFn] = useState(someFunction);
 
@@ -91,7 +92,7 @@ function handleClick() {
   setFn(someOtherFunction);
 }
 ```
-Uou have to put `() =>` before them in both cases. Then React will store the functions you pass.
+You have to put `() =>` before them in both cases. Then React will store the functions you pass.
 ```js
 const [fn, setFn] = useState(() => someFunction);
 
