@@ -118,8 +118,38 @@ function handleClick() {
 
 ## Questions
 
-- What is render(), How render works.
-- When will execute Function Component's function.
-- What is life cycle of function component.
+### What is render(), How render works.
+
+when states or props change, React will render the component. How to render? Simply say, React will execute the function again. But this process have some rules to follow.
+For exemple, 
+- the initialer of useState will just run at the first time.
+- When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the childre.
+
+### What is life cycle of function component.
+
+### How to Upward Communication
+To communicate from a child to a parent component we can pass a function handler from parent to child.
+
+Take a look at this child component.  Whenever the user clicks on the button, it tries to call a function passed down to it through the props system.
+```js
+function Child({ onFunctionFromParent }) {
+  const handleClick = () => {
+    onFunctionFromParent('i am very good!');
+  }
+ 
+  return <button onClick={handleClick}>Click Here!</button>
+}
+```
+To use this component and be told when a user clicks the button
+```js
+function Parent() {
+  const handleMessageFromChild = (message) => {
+    console.log("message from child is "+ message)
+  }
+ 
+  return <Child onFunctionFromParent={handleMessageFromChild} />
+}
+```
+
 
 
