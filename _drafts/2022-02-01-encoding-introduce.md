@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Encoding Introduction
-date: 2023-12-11
+date: 2022-02-01
 category: Encoding
 tags: Unicode ACSII UTF-16 UTF-8 
 ---
@@ -143,17 +143,17 @@ W2 = 110111xxxxxxxxxx       // 0xDC00 + xxxxxxxxxx
 
 ## Questions about encoding
 
--- What is UTF-16 high surrogate, UTF-16 low surrogate?
+### What is UTF-16 high surrogate, UTF-16 low surrogate?
 High low Surrogate are the ways using which UTF-16 encode Unicode code point in Supplementary Planes
 
--- How about other encoding
+### How about other encoding
 - UTF-32 is a fixed-length encoding used to encode Unicode code points that uses exactly 32 bits (four bytes) per code point.
 - GB18030
 
-- What is glyph
+### What is glyph
 A character is represented on a screen or on paper by a set of graphical elements that’s called a glyph.
 
--- Why UTF-8 don’t care the byte order issue? What is byte oriented encoding?
+### Why UTF-8 don’t care the byte order issue? What is byte oriented encoding?
 Because there are marks on each byte in UTF-8 encoding. According to these marks, we can infer the byte ordering.
 
 ## reference
