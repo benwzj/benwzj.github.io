@@ -15,6 +15,21 @@ Components are the foundation upon which you build user interfaces (UI).
 
 The `export default` prefix lets you mark the main function in a file so that you can later import it from other files. 
 
+## React Rules
+
+### Component Rules
+
+- Keeping Components Pure
+- If you can, update all the relevant state in the event handlers.
+- If you want to reset the entire component tree’s state, pass a **different key** to your component.
+- Avoid updating state in an effect
+- You can store information from previous renders, but need to use condition, and also, the logic is hard to read. try to avoid.
+- When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the children. 
+- State behaves more like a snapshot. Setting it does not change the state variable you already have, but instead triggers a re-render.
+- React will ignore your update if the next state is equal to the previous state, as determined by an Object.is comparison. 
+- In Strict Mode, React will call some of your functions twice instead of once.
+
+
 ## React frameworks
 If you want to build a new app or a new website fully with React, use frameworks. 
 
@@ -28,12 +43,7 @@ Frameworks provide features that most apps and sites eventually need, including 
 - **Gatsby** is a React framework for fast CMS-backed websites
 - **Expo** (for native apps) is a React framework that lets you create universal Android, iOS, and web apps with truly native UIs. 
 
-## root component
-The React application begins at a “root” component. Usually, it is created automatically when you start a new project. For example, if you use CodeSandbox or if you use the framework Next.js, the root component is defined in pages/index.js.
 
-## Defining a component
-React components are regular JavaScript functions, but their names must start with a capital letter or they won’t work!
-React don't recommend to use Class components for new code.
 
 ## React State system
 
@@ -101,20 +111,72 @@ function handleClick() {
 }
 ```
 
-## React Rules
+## synchronize with external system
 
-### Component Ruels
+Some components need to stay connected to the network, some browser API, or a third-party library, while they are displayed on the page. These systems aren’t controlled by React, so they are called external.
 
-- Keeping Components Pure
-- If you can, update all the relevant state in the event handlers.
-- If you want to reset the entire component tree’s state, pass a **different key** to your component.
-- Avoid updating state in an effect
-- You can store information from previous renders, but need to use condition, and also, the logic is hard to read. try to avoid.
-- When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the children. 
-- State behaves more like a snapshot. Setting it does not change the state variable you already have, but instead triggers a re-render.
-- React will ignore your update if the next state is equal to the previous state, as determined by an Object.is comparison. 
-- In Strict Mode, React will call some of your functions twice instead of once.
+If you’re not connecting to any external system, you probably don’t need an Effect.
 
+### Why use `useEffect`?
+useEffect lets you synchronize a component with an external system.
+
+### What is `useEffect？`
+useEffect is a React Hook.
+
+### How do `useEffect` work?
+```js
+useEffect(setup, dependencies?)
+```
+- setup: The function with your Effect’s logic. Your setup function may also optionally return a cleanup function.
+- optional dependencies: The list of all reactive values referenced inside of the setup code. Reactive values include props, state, and all the variables and functions declared directly inside your component body.
+1. If you specify the dependencies, your Effect runs after the initial render and after re-renders with changed dependencies.
+2. If you omit this argument, your Effect will re-run after every re-render of the component.
+3. If dependencies is [], it will only run after the initial render. ##  useEffect vs. useLayoutEffect.
+
+If your Effect wasn’t caused by an interaction (like a click), React will generally let the browser paint the updated screen first before running your Effect. If your Effect is doing something visual (for example, positioning a tooltip), and the delay is noticeable (for example, it flickers), replace useEffect with useLayoutEffect.
+
+### `useEffect` Questions
+
+- When React run `setup` in `useEffect`? the detail!!
+
+- What do render() doing? What do re-render() doing ? what do "paint the updated screen first before running your Effect." means?
+
+- Clear the life cycle of function component around useEffect!
+
+
+## Component life cycle
+
+### Render vs. Mount vs. Re-render
+
+- "Rendering" is any time a function component gets called (or a class-based render method gets called) which returns a set of instructions for creating DOM.
+- "Mounting" is when React "renders" the component for the first time and actually builds the initial DOM from those instructions.
+- A "re-render" is when React calls the function component again to get a new set of instructions on an already mounted component.
+
+## React Under Hood
+
+### Renderer
+The renderer is the part of the React ecosystem responsible for displaying React components on specific platforms (Web, Mobile, CLI).
+There are three officially supported renderers: React Dom, React Native, and React Test.
+In addition, there are MANY custom renderers. 
+
+### Reconciliation
+React’s diffing algorithm is called reconciliation.
+
+Underneath, all renderers share some common logic. That shared part is encapsulated in the Reconciler. This is the core algorithm that is independent from any platform.
+Earlier versions of React were powered by the so-called Stack Reconciler. It has been in use up to version 15 of React. With the release of React 16, we received a greatly improved reconciler algorithm, the Fiber Reconciler.
+
+### keys
+Keys is a way which can help React Reconciliation algorithm to solve the inefficiency issue. Especially in list items.
+
+- Keys should be stable, predictable, and unique. Unstable keys (like those produced by Math.random()) will cause many component instances and DOM nodes to be unnecessarily recreated, which can cause performance degradation and lost state in child components.
+
+#### finding a key for component
+- The element you are going to display may already have a unique ID.
+- you can add a new ID property to your model or hash some parts of the content to generate a key. The key only has to be unique among its siblings, not globally unique.
+- As a last resort, you can pass an item’s index in the array as a key. This can work well if the items are never reordered, but reorders will be slow.
+
+### refs
+Refs provide a way to access DOM nodes or React elements created in the render method.
 
 ## Questions
 
@@ -124,8 +186,6 @@ when states or props change, React will render the component. How to render? Sim
 For exemple, 
 - the initialer of useState will just run at the first time.
 - When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the childre.
-
-### What is life cycle of function component.
 
 ### How to Upward Communication
 To communicate from a child to a parent component we can pass a function handler from parent to child.
@@ -151,5 +211,10 @@ function Parent() {
 }
 ```
 
+### What is Root component
+The React application begins at a “root” component. Usually, it is created automatically when you start a new project. For example, if you use CodeSandbox or if you use the framework Next.js, the root component is defined in pages/index.js.
 
+### What is Defining a component
+React components are regular JavaScript functions, but their names must start with a capital letter or they won’t work!
+React don't recommend to use Class components for new code.
 
