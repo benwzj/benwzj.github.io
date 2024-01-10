@@ -1,6 +1,6 @@
 ---
 layout: post
-title: React Overview with Hook
+title: React Overview with Function Component
 date: 2023-10-12
 tags: React Web-page Redux
 category: React
@@ -43,8 +43,6 @@ Frameworks provide features that most apps and sites eventually need, including 
 - **Gatsby** is a React framework for fast CMS-backed websites
 - **Expo** (for native apps) is a React framework that lets you create universal Android, iOS, and web apps with truly native UIs. 
 
-
-
 ## React State system
 
 Call `useState` at the top level of your component to declare a state variable.
@@ -56,11 +54,11 @@ useState returns an array with exactly two items:
 1. The current state of this state variable, initially set to the initial state you provided.
 2. The set function that lets you change it to any other value in response to interaction.
 
-> ##### **Important**
+> ##### Important
 > 
 > 1. Calling the set function does not change the current state in the already executing code.
-> 2. State is considered read-only, When state is objects or arrays, you should **replace** it rather than mutate your existing objects.
-> 3. About the initial state, React saves it once and ignores it on the next renders. So don't do this: `const [todos, setTodos] = useState(createInitialTodos());`, because React run this function every **render** and means nothing. But you can do this: `const [todos, setTodos] = useState(createInitialTodos);`
+> 2. State is considered read-only, When state is objects or arrays, you should replace it rather than mutate your existing objects.
+> 3. About the initial state, React saves it once and ignores it on the next renders. So don't do this: `const [todos, setTodos] = useState(createInitialTodos());`, because React run this function every render and means nothing. But you can do this: `const [todos, setTodos] = useState(createInitialTodos);`
 {: .block-warning }
 
 ### `setState` function
@@ -111,19 +109,19 @@ function handleClick() {
 }
 ```
 
-## synchronize with external system
+## Synchronize With External System
 
 Some components need to stay connected to the network, some browser API, or a third-party library, while they are displayed on the page. These systems aren’t controlled by React, so they are called external.
 
 If you’re not connecting to any external system, you probably don’t need an Effect.
 
-### Why use `useEffect`?
+### Why use `useEffect`
 useEffect lets you synchronize a component with an external system.
 
 ### What is `useEffect？`
 useEffect is a React Hook.
 
-### How do `useEffect` work?
+### How do `useEffect` work
 ```js
 useEffect(setup, dependencies?)
 ```
@@ -139,7 +137,7 @@ If your Effect wasn’t caused by an interaction (like a click), React will gene
 
 - When React run `setup` in `useEffect`? the detail!!
 
-- What do render() doing? What do re-render() doing ? what do "paint the updated screen first before running your Effect." means?
+- What do "paint the updated screen first before running your Effect." means?
 
 - Clear the life cycle of function component around useEffect!
 

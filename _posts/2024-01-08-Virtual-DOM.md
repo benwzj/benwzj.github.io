@@ -1,13 +1,14 @@
 ---
 layout: post
-title: Virtual DOM concept
+title: Virtual DOM Concept
 date: 2024-01-08
 category: React
 tags: JavaScript DOM SPA Svelte
 ---
 
 ## DOM rendering
-First, Let's get to know a bit about DOM rendering.
+
+Let's get to know a bit about DOM rendering first.
 In traditional rendering, the Browser does the following tasks:
 - The browser parses our HTML and stores it in memory as a **tree structure** of a document, which is also known as DOM (Document Object Model) or sometimes as Real DOM. DOM methods allow programmatic access to the tree. With them, you can change the document’s structure, style, or content.
 - The browser uses DOM to create a render tree. **Render** Tree represents everything that will be rendered on the browser. 
@@ -19,7 +20,7 @@ In traditional rendering, the Browser does the following tasks:
 > Real DOM updation is a slow process (due to reflow and repainting).
 {: .block-warning}
 
-## Why Virtual DOM help
+## Why Virtual DOM can help
 Modern browsers are efficient enough to update only the required elements in the DOM. For example, if I have two 'p' tags and I change the text in one of the p tags using a button click, then only that p tag will be updated by safari (I have verified this using paint flashing). 
 Then why we still need Virtual DOM?
 Virtual DOM is not magic, but it make writing WebApp easier. For example, if there are many tags you need to update when a state change, you will have a headache to figure out what tags to change and how to change. Rebuild the whole DOM can be easier, but it is slow. Virtual DOM is one way to fix this.
@@ -65,6 +66,7 @@ Many people reckon VDOM cut down the performance. Svelte is an example to ditch 
 Svelte regards [Virtual DOM is pure overhead](https://svelte.dev/blog/virtual-dom-is-pure-overhead). 
 
 Firstly, The **diffing** isn't free. Svelte believe the case in the vast majority of updates — the basic structure of the app is unchanged. It would be much more efficient if we could skip the diffing. 
+
 > Svelte is a compiler that knows at build time how things could change in your app, rather than waiting to do the work at run time.
 
 Secondly, the greater overhead is in the **components themselves**. 
@@ -99,3 +101,4 @@ function MoreRealisticComponent(props) {
 
 Svelte achieve a similar programming model without using virtual DOM.
 {% include figure.html path="assets/img/svelte-VS-react.avif" class="img-fluid rounded z-depth-1" %}
+

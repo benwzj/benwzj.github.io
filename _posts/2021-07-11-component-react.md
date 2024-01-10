@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "React Component Detail"
-date: 2022-03-04
+date: 2021-07-11
 categories: React
 tags: Component React
 ---
