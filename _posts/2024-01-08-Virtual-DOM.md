@@ -6,7 +6,6 @@ category: React
 tags: JavaScript DOM SPA Svelte
 ---
 
-
 ## DOM rendering
 First, Let's get to know a bit about DOM rendering.
 In traditional rendering, the Browser does the following tasks:
@@ -25,13 +24,13 @@ Modern browsers are efficient enough to update only the required elements in the
 Then why we still need Virtual DOM?
 Virtual DOM is not magic, but it make writing WebApp easier. For example, if there are many tags you need to update when a state change, you will have a headache to figure out what tags to change and how to change. Rebuild the whole DOM can be easier, but it is slow. Virtual DOM is one way to fix this.
 
-There are two arguments for React's Virtual DOM being easier to build WebApp (not faster):
+There are two arguments for React's Virtual DOM being **easier** to build WebApp (not faster):
 - It updates ONLY those elements that actually need to be updated (using **diff**).
 - It **batches** the updates and hence we update the real DOM only a single time. Thus the repainting is also done only once which otherwise would have been done multiple times.
 
 Here some points need to be clear: 
-- You can use DOM api to directly modify every HTML elements. This way can be more efficient. But it can be too trivial to do that in really App.
-- 
+- You can drop into raw DOM operations and DOM API calls and beat React if you wanted to. This way can be more efficient. But it can be too trivial to do that in real App. 
+- Batching updates is actually the basic for every WebApp. Virtual DOM just make batching is much easier for us.
 
 ## What is React Virtual DOM
 
@@ -44,23 +43,24 @@ React renders JSX components to the Browser DOM, but keeps a copy of the actual 
 
 It's important to understand that virtual DOM isn't a feature. It's a means to an end, the end being **declarative**, state-driven UI development. Virtual DOM is valuable because it allows you to build apps without thinking about state transitions, with performance that is generally good enough. That means less buggy code, and more time spent on creative tasks instead of tedious ones.
 
-### Diffing Algorithm
+### Reconciliation
 
-Some concepts used by this Diffing Algorithm are:
+To get a better understanding, we need to discuss some terminologies before discussing the whole Reconciliation process.
 
-1. Two elements of different types will produce different trees.
-2. Breadth-First Search (BFS) is applied because if a node is found as changed, it will re-render the entire subtree hence Depth First Approach is not exactly optimal.
-3. When comparing two elements of the same type, keep the underlying node as same and only update changes in attributes or styles.
-4. React uses optimizations so that a minimal difference can be calculated in O(N) efficiently using this Algorithm.
+Reconciliation is the process of keeping 2 DOM Trees in sync by a library like ReactDOM. It is done by using **Reconciler** and a **Renderer**.
 
-The Diffing Algorithm for React is Fibre
+**Reconciler** uses Diffing Algorithm to find differences between Current Tree and Work in Progress Tree and sends computed changes to the Renderer.
+
+The **Renderer** is the one that updates the app’s UI. Different devices can have different Renderers while sharing the same Reconciler.
+
+Before React 16, React used to work on Call Stack to keep track of the program’s execution. Hence old reconciler has been given the name Stack Reconciler. 
+In React 16, they created a new Reconciler from scratch which uses a new data structure called fiber. Hence it is called **Fiber Reconciler**. The main aim was to make the reconciler asynchronous and smarter by executing work on the basis of priority.
+
 In [Dan Abramov’s Youtube Video](https://www.youtube.com/watch?v=aS41Y_eyNrU), he explained the motivation of 2 Virtual DOM trees came from The Double Buffering Technique that was used in the earlier days for Game Development.
-
 
 ## Svelte
 
 Many people reckon VDOM cut down the performance. Svelte is an example to ditch VDOM. 
-{% include figure.html path="assets/img/svelte-VS-react.avif" class="img-fluid rounded z-depth-1" %}
 
 Svelte regards [Virtual DOM is pure overhead](https://svelte.dev/blog/virtual-dom-is-pure-overhead). 
 
@@ -97,3 +97,5 @@ function MoreRealisticComponent(props) {
 }
 ```
 
+Svelte achieve a similar programming model without using virtual DOM.
+{% include figure.html path="assets/img/svelte-VS-react.avif" class="img-fluid rounded z-depth-1" %}

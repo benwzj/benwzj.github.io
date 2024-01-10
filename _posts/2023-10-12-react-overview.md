@@ -168,9 +168,9 @@ Earlier versions of React were powered by the so-called Stack Reconciler. It has
 ### keys
 Keys is a way which can help React Reconciliation algorithm to solve the inefficiency issue. Especially in list items.
 
-- Keys should be stable, predictable, and unique. Unstable keys (like those produced by Math.random()) will cause many component instances and DOM nodes to be unnecessarily recreated, which can cause performance degradation and lost state in child components.
+Keys should be stable, predictable, and unique. Unstable keys (like those produced by Math.random()) will cause many component instances and DOM nodes to be unnecessarily recreated, which can cause performance degradation and lost state in child components.
 
-#### finding a key for component
+Finding a key for component:
 - The element you are going to display may already have a unique ID.
 - you can add a new ID property to your model or hash some parts of the content to generate a key. The key only has to be unique among its siblings, not globally unique.
 - As a last resort, you can pass an item’s index in the array as a key. This can work well if the items are never reordered, but reorders will be slow.
