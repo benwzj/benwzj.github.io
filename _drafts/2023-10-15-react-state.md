@@ -1,7 +1,7 @@
 ---
 layout: post
-title: React Hook
-date: 2023-10-12
+title: React State system
+date: 2023-10-15
 tags: React Hook
 category: React
 ---
@@ -65,35 +65,3 @@ function handleClick() {
   setFn(() => someOtherFunction);
 }
 ```
-
-## Synchronize With External System
-
-Some components need to stay connected to the network, some browser API, or a third-party library, while they are displayed on the page. These systems aren’t controlled by React, so they are called external.
-
-If you’re not connecting to any external system, you probably don’t need an Effect.
-
-### Why use `useEffect`
-useEffect lets you synchronize a component with an external system.
-
-### What is `useEffect？`
-useEffect is a React Hook.
-
-### How do `useEffect` work
-```js
-useEffect(setup, dependencies?)
-```
-- setup: The function with your Effect’s logic. Your setup function may also optionally return a cleanup function.
-- optional dependencies: The list of all reactive values referenced inside of the setup code. Reactive values include props, state, and all the variables and functions declared directly inside your component body.
-1. If you specify the dependencies, your Effect runs after the initial render and after re-renders with changed dependencies.
-2. If you omit this argument, your Effect will re-run after every re-render of the component.
-3. If dependencies is [], it will only run after the initial render. ##  useEffect vs. useLayoutEffect.
-
-If your Effect wasn’t caused by an interaction (like a click), React will generally let the browser paint the updated screen first before running your Effect. If your Effect is doing something visual (for example, positioning a tooltip), and the delay is noticeable (for example, it flickers), replace useEffect with useLayoutEffect.
-
-### `useEffect` Questions
-
-- When React run `setup` in `useEffect`? the detail!!
-
-- What do "paint the updated screen first before running your Effect." means?
-
-- Clear the life cycle of function component around useEffect!
