@@ -9,6 +9,8 @@ category: React
 Now React have ditched Class Component and focus on Function Component and Hooks. 
 This Overview focus on Function Component. 
 
+React allows you to write maintainable and performant code by using concept of component. Components allow you to focus on describing the UI you want, rather than focusing on the details of how the UI actually gets inserted in the page.
+
 ## React Rules
 
 ### Component Rules
@@ -22,20 +24,6 @@ This Overview focus on Function Component.
 - State behaves more like a snapshot. Setting it does not change the state variable you already have, but instead triggers a re-render.
 - React will ignore your update if the next state is equal to the previous state, as determined by an Object.is comparison. 
 - In Strict Mode, React will call some of your functions twice instead of once.
-
-
-## React frameworks
-If you want to build a new app or a new website fully with React, use frameworks. 
-
-### Why Frameworks
-If you just want to run React, then what you need just grab react and react-dom from npm. 
-But as a Web App, it still need routing, data fetching, and generating HTML for good performance.
-Frameworks provide features that most apps and sites eventually need, including routing, data fetching, and generating HTML.
-
-- **Next.js** is a full-stack React framework
-- **Remix** is a full-stack React framework with nested routing
-- **Gatsby** is a React framework for fast CMS-backed websites
-- **Expo** (for native apps) is a React framework that lets you create universal Android, iOS, and web apps with truly native UIs. 
 
 ## Component life cycle
 Every React component goes through the same lifecycle:
@@ -75,6 +63,20 @@ Finding a key for component:
 
 ### refs
 Refs provide a way to access DOM nodes or React elements created in the render method.
+
+
+## React frameworks
+If you want to build a new app or a new website fully with React, use frameworks. 
+
+### Why Frameworks
+If you just want to run React, then what you need just grab react and react-dom from npm. 
+But as a Web App, it still need routing, data fetching, and generating HTML for good performance.
+Frameworks provide features that most apps and sites eventually need, including routing, data fetching, and generating HTML.
+
+- **Next.js** is a full-stack React framework
+- **Remix** is a full-stack React framework with nested routing
+- **Gatsby** is a React framework for fast CMS-backed websites
+- **Expo** (for native apps) is a React framework that lets you create universal Android, iOS, and web apps with truly native UIs. 
 
 ## Questions
 

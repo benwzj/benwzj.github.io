@@ -161,6 +161,24 @@ The `Document` interface represents any web page loaded in the browser and serve
 
 The Document interface describes the common properties and methods for any kind of document. Depending on the document's type (e.g. HTML, XML, SVG, …), a larger API is available: HTML documents, served with the "text/html" content type, also implement the HTMLDocument interface, whereas XML and SVG documents implement the XMLDocument interface.
 
+### Virtual DOM and Shadow DOM
+In short, the Shadow DOM is a browser technology whose main objective is to provide encapsulation when creating elements. On the other hand, the Virtual DOM is managed by JavaScript libraries—e.g., React and it’s mostly a strategy to optimize performance.
+
+Virtual DOM
+- VueJS and ReactJS both use Virtual DOM.
+- Virtual DOM, in simple terms, is nothing but the complete and full representation of an actual DOM.
+- Since any changes to the DOM cause the page to re-render more often than not, Virtual DOM primarily attempts to avoid any unnecessary and expensive changes to the DOM.
+- It make following action easier: grouping changes and doing a single re-render instead of several small ones.
+- A copy of the DOM is saved in the memory and is used to compare any changes being done anywhere in the DOM, it’s compared to find differences. Thus, only those parts of the application are re-rendered which are updated instead of re-rendering the entire DOM.
+
+
+Shadow DOM
+- Shadow DOM, on the other hand, relates mostly to the concept of encapsulation. It is a tool that allows developers to overcome DOM encapsulation.
+- It refers to the browser’s potential to add a subtree of DOM elements into the rendering of a document, but not into the DOM tree of the main document.
+- Thus, it isolates the DOM and ensures that the DOM of a component is a separate element that won’t appear in a global DOM.
+- Contrary to the DOM, Shadow DOM occurs in smaller pieces, implying that (unlike the Virtual DOM) it is not a complete representation of the entire DOM.
+- It is also proven to be helpful with CSS scoping. The styles used in an application can overlap which makes it cumbersome to handle them. Shadow DOM ensures that the styles created inside a single Shadow DOM element remain isolated and within their own scope.
+
 ## Conclusion
 
 In many situation, DOM is referred to as the DOM tree. 

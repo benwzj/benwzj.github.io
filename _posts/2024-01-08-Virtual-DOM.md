@@ -22,8 +22,9 @@ In traditional rendering, the Browser does the following tasks:
 
 ## Why Virtual DOM can help
 Modern browsers are efficient enough to update only the required elements in the DOM. For example, if I have two 'p' tags and I change the text in one of the p tags using a button click, then only that p tag will be updated by safari (I have verified this using paint flashing). 
+
 Then why we still need Virtual DOM?
-Virtual DOM is not magic, but it make writing WebApp easier. For example, if there are many tags you need to update when a state change, you will have a headache to figure out what tags to change and how to change. Rebuild the whole DOM can be easier, but it is slow. Virtual DOM is one way to fix this.
+Virtual DOM is not magic, but it make writing WebApp easier. For example, if there are many tags you need to update when a state change, you will have a headache to figure out what tags to change and how to change. Rebuild the whole DOM can be easier, but it is slow process. Virtual DOM is one way to fix this.
 
 There are two arguments for React's Virtual DOM being **easier** to build WebApp (not faster):
 - It updates ONLY those elements that actually need to be updated (using **diff**).
@@ -43,6 +44,8 @@ React renders JSX components to the Browser DOM, but keeps a copy of the actual 
 - Then it updates the Browser DOM with the least number of changes possible without rendering the entire DOM again. This changes the efficiency of an application tremendously.
 
 It's important to understand that virtual DOM isn't a feature. It's a means to an end, the end being **declarative**, state-driven UI development. Virtual DOM is valuable because it allows you to build apps without thinking about state transitions, with performance that is generally good enough. That means less buggy code, and more time spent on creative tasks instead of tedious ones.
+
+
 
 ### Reconciliation
 
