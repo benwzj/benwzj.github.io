@@ -53,8 +53,12 @@ export function getFinalState(baseState, queue) {
 - If the new value you provide is identical to the current state, as determined by an `Object.is` comparison, React will skip re-rendering the component and its children. 
 - Calling the set function during rendering is only allowed from within the currently rendering component. React will discard its output and immediately attempt to render it again with the new state. This pattern is rarely needed, but you can use it to store information from the previous renders.
 - In Strict Mode, React will call your updater function twice in order to help you find accidental impurities. This is development-only behavior and does not affect production.
-- Don't do this:
 
+## Questions
+
+### How to set state to a function
+
+Don't do this:
 ```js
 const [fn, setFn] = useState(someFunction);
 
@@ -62,7 +66,7 @@ function handleClick() {
   setFn(someOtherFunction);
 }
 ```
-You have to put `() =>` before them in both cases. Then React will store the functions you pass.
+Because you’re passing a function, React assumes that someFunction is an initializer function, and that someOtherFunction is an updater function, so it tries to call them and store the result. To actually store a function, you have to put () => before them in both cases. Then React will store the functions you pass.
 ```js
 const [fn, setFn] = useState(() => someFunction);
 
@@ -71,3 +75,4 @@ function handleClick() {
 }
 ```
 
+The different between `someFunction` and `()=>someFunction` is that, executing latter will return former.

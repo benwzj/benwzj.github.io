@@ -24,7 +24,8 @@ React allows you to write maintainable and performant code by using concept of c
 - State behaves more like a snapshot. Setting it does not change the state variable you already have, but instead triggers a re-render.
 - React will ignore your update if the next state is equal to the previous state, as determined by an Object.is comparison. 
 - In Strict Mode, React will call some of your functions twice instead of once.
-- All events **propagate** (or calling bubbles) in React except `onScroll`, which only works on the JSX tag you attach it to. But you can prevent an event from reaching parent component by calling e.stopPropagation()
+- All events **propagate** (or calling bubbles) in React except `onScroll`, which only works on the JSX tag you attach it to. But you can prevent an event from reaching parent component by calling `e.stopPropagation()`. On the other hand, `onClickCapture` is special event, React will travels down, calling all onClickCapture handlers.
+- Some browser events have default behavior associated with them. For example, a `<form>` submit event, which happens when a button inside of it is clicked, will reload the whole page by default. Calling `e.preventDefault()` to prenvent this happen.
 
 ## Component life cycle
 Every React component goes through the same lifecycle:
