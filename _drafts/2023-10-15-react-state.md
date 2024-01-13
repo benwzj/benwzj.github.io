@@ -6,9 +6,12 @@ tags: React Hook
 category: React
 ---
 
-## React State system
+## State Rules
+- Treat all state in React as immutable. This help React run very fast. using Immer for object state is good choice.
+- React batches state updates, it will queue all set functions and execute all set functions one by one before re-render.
+- State behaves as a snapshot. Setting state does not change the state variable you already have, but instead triggers a re-render.
 
-Call `useState` at the top level of your component to declare a state variable.
+## `useState` Hook
 
 ```js
 const [state, setState] = useState(initialState);
@@ -25,27 +28,29 @@ Important to Know:
 ### `setState` function
 
 The set function returned by `useState` lets you update the state to a different value and trigger a re-render. 
-You can pass 
-1. the next state directly, OR 
-2. a 'updater function' that calculates it from the previous state.
 
+You can pass the next **state value** directly, OR a **'updater function'** that calculates it from the previous state. 
+Because **React batches state updates**, it will queue all these set functions and execute all these set functions one by one before re-render. React will treat updater function differently from direct value (`baseState` is current value; `queue` is setfunctions array):
 ```js
-const [name, setName] = useState('Edward');
-const [age, setAge] = useState(28);
+export function getFinalState(baseState, queue) {
+  let finalState = baseState;
 
-function handleClick() {
-  setName('Taylor');
-  setAge(a => a + 1);
-  // ...
+  for (let updater of queue) {
+    if (typeof updater === 'function') {
+      // Apply the updater function.
+      finalState = updater(finalState);
+    } else {
+      // Replace the next state.
+      finalState = updater;
+    }
+  }
+
+  return finalState;
 }
 ```
 
-**setState function Caveats** 
-
 - The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call. It is Async.
-- If the new value you provide is identical to the current state, as determined by an Object.is comparison, React will skip re-rendering the component and its children. 
-- React batches state updates. It updates the screen after all the event handlers have run and have called their set functions. 
-
+- If the new value you provide is identical to the current state, as determined by an `Object.is` comparison, React will skip re-rendering the component and its children. 
 - Calling the set function during rendering is only allowed from within the currently rendering component. React will discard its output and immediately attempt to render it again with the new state. This pattern is rarely needed, but you can use it to store information from the previous renders.
 - In Strict Mode, React will call your updater function twice in order to help you find accidental impurities. This is development-only behavior and does not affect production.
 - Don't do this:
@@ -65,3 +70,4 @@ function handleClick() {
   setFn(() => someOtherFunction);
 }
 ```
+
