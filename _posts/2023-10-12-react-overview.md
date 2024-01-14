@@ -15,15 +15,13 @@ React allows you to write maintainable and performant code by using concept of c
 
 ### Component Rules
 
-- Keeping Components Pure
+- Keeping Components Pure.
+- Only call Hooks at the top level.
 - If you can, update all the relevant state in the event handlers.
 - If you want to reset the entire component tree’s state, pass a **different key** to your component.
-- Avoid updating state in an effect
-- You can store information from previous renders, but need to use condition, and also, the logic is hard to read. try to avoid.
-- When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the children. 
-- State behaves more like a snapshot. Setting it does not change the state variable you already have, but instead triggers a re-render.
-- React will ignore your update if the next state is equal to the previous state, as determined by an Object.is comparison. 
 - In Strict Mode, React will call some of your functions twice instead of once.
+
+### Event Rules
 - All events **propagate** (or calling bubbles) in React except `onScroll`, which only works on the JSX tag you attach it to. But you can prevent an event from reaching parent component by calling `e.stopPropagation()`. On the other hand, `onClickCapture` is special event, React will travels down, calling all onClickCapture handlers.
 - Some browser events have default behavior associated with them. For example, a `<form>` submit event, which happens when a button inside of it is clicked, will reload the whole page by default. Calling `e.preventDefault()` to prenvent this happen.
 
@@ -79,6 +77,10 @@ Frameworks provide features that most apps and sites eventually need, including 
 - **Remix** is a full-stack React framework with nested routing
 - **Gatsby** is a React framework for fast CMS-backed websites
 - **Expo** (for native apps) is a React framework that lets you create universal Android, iOS, and web apps with truly native UIs. 
+
+## Hooks
+
+**eslint-plugin-react-hooks**, This ESLint plugin enforces the Rules of Hooks.
 
 ## Questions
 
