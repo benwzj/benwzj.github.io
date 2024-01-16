@@ -106,17 +106,19 @@ There are two reasons for a component to render:
 - On initial render, React will call the root component.
 - For subsequent renders, React will call the function component whose state update triggered the render.
 
-The default behavior of rendering will render all components nested within the updated component. This might be not optimal for performance if the updated component is very high in the tree. 
+> The default behavior of rendering will render all components nested within the updated component. 
+{: .block-warning }
+
+This might be not optimal for performance if the updated component is very high in the tree. 
 
 #### Step 3: React commits changes to the DOM 
 After rendering (calling) your components, React will modify the DOM.
 - For the initial render, React will use the appendChild() DOM API to put all the DOM nodes it has created on screen.
 - For re-renders, React will apply the minimal necessary operations (calculated while rendering!) to make the DOM match the latest rendering output.
 
-> ##### Important
->
-> React only changes the DOM nodes if there’s a difference between renders.
-{: .block-warning}
+React only changes the DOM nodes if there’s a difference between renders.
+
+After rendering is done and React updated the DOM, the browser will repaint the screen. Although this process is known as “browser rendering”, we’ll refer to it as “painting” to avoid confusion throughout the docs.
 
 ### There are some rules to follow for this process.
 For exemple, 

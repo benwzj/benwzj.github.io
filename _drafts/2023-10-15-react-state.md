@@ -8,13 +8,16 @@ category: React
 
 ## State Rules
 - Treat all state in React as **immutable**. This help React run very fast. using Immer for object state is good choice.
-- React batches state updates, it will queue all set functions and execute all set functions one by one before re-render.
 - State behaves as a **snapshot**. Setting state does not change the state variable you already have, but instead triggers a re-render.
+- States are a component’s memory. State actually “lives” in React itself (as if on a shelf!) outside of your function. When triggering a render, React calls your component, it gives you a snapshot of the state for that particular render. This snapshot of the UI with a fresh set of props and event handlers in its JSX, all calculated using the state values from that render!
+
 - React will ignore your update if the next state is equal to the previous state, as determined by an Object.is comparison. 
 - You can store information from previous renders, but need to use condition, and also, the logic is hard to read. try to avoid.
 - When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the children. 
 - Avoid updating state in an effect (WHY?)
 - Unlike props, state is fully private to the component declaring it. If you render the same component twice, each copy will have completely isolated state! 
+- React batches state updates, it will queue all set functions and execute all set functions one by one before re-render.
+
 
 ## `useState` Hook
 
@@ -118,3 +121,7 @@ function handleClick() {
 ```
 
 The different between `someFunction` and `()=>someFunction` is that, executing latter will return former.
+
+## Questions
+
+### Do React have component instance concept? When placing a component in different place, all of them keep their own states. That means React manage defferent instances of the component.
