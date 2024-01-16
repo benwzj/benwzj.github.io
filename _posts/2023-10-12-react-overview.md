@@ -82,16 +82,48 @@ Frameworks provide features that most apps and sites eventually need, including 
 
 **eslint-plugin-react-hooks**, This ESLint plugin enforces the Rules of Hooks.
 
-## Questions
+## FQA
 
-### What is render, How render works.
+## What Rendering means in React
 
-When states or props change, React will render the component. How to render? Simply say, React will execute the function again(same with render() in class component). But this process have some rules to follow.
+Before your components are displayed on screen, they must be rendered by React. 
+
+There are 3 steps for the whole rendering process: 
+1. Triggering a render.
+2. **Rendering the component.**
+3. Committing to the DOM.
+
+#### Step 1: Trigger a render 
+There are two reasons for a component to render:
+- It’s the component’s initial render. By calling `createRoot` with the target DOM node, and then calling its render method with the component.
+- The component’s (or one of its ancestors’) state has been updated. Updating the component’s state automatically queues a render.
+
+#### Step 2: React renders your components
+
+> 'Rendering' is React calling your components.
+{: .block-warning }
+
+- On initial render, React will call the root component.
+- For subsequent renders, React will call the function component whose state update triggered the render.
+
+The default behavior of rendering will render all components nested within the updated component. This might be not optimal for performance if the updated component is very high in the tree. 
+
+#### Step 3: React commits changes to the DOM 
+After rendering (calling) your components, React will modify the DOM.
+- For the initial render, React will use the appendChild() DOM API to put all the DOM nodes it has created on screen.
+- For re-renders, React will apply the minimal necessary operations (calculated while rendering!) to make the DOM match the latest rendering output.
+
+> ##### Important
+>
+> React only changes the DOM nodes if there’s a difference between renders.
+{: .block-warning}
+
+### There are some rules to follow for this process.
 For exemple, 
 - The initialer of useState will just run at the first time.
 - When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the childre.
 
-### How to Upward Communication
+## How to Upward Communication
 To communicate from a child to a parent component we can pass a function handler from parent to child.
 
 Take a look at this child component.  Whenever the user clicks on the button, it tries to call a function passed down to it through the props system.
@@ -115,12 +147,12 @@ function Parent() {
 }
 ```
 
-### What is Root component
+## What is Root component
 The React application begins at a “root” component. Usually, it is created automatically when you start a new project. For example, if you use CodeSandbox or if you use the framework Next.js, the root component is defined in pages/index.js.
 
-### What is Defining a component
+## What is Defining a component
 React components are regular JavaScript functions, but their names must start with a capital letter or they won’t work!
 React don't recommend to use Class components for new code.
 
-### What is `export default`
+## What is `export default`
 The `export default` prefix lets you mark the main function in a file so that you can later import it from other files. 

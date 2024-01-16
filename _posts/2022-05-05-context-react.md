@@ -131,6 +131,7 @@ Context uses reference identity to determine when to re-render, there are some g
 For example, the code below will re-render all consumers every time the Provider re-renders because a new object is always created for value.
 
 Class component example:
+{% raw %}
 ```js
 class App extends React.Component {
   render() {
@@ -142,6 +143,7 @@ class App extends React.Component {
   }
 }
 ```
+{% endraw %}
 How to fix it? Using global reference, like state. 
 
 ## Think more before apply context

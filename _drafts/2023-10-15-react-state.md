@@ -96,7 +96,7 @@ export function getFinalState(baseState, queue) {
 - Calling the set function during rendering is only allowed from within the currently rendering component. React will discard its output and immediately attempt to render it again with the new state. This pattern is rarely needed, but you can use it to store information from the previous renders.
 - In Strict Mode, React will call your updater function twice in order to help you find accidental impurities. This is development-only behavior and does not affect production.
 
-## Questions
+## FQA
 
 ### How to set state to a function
 
