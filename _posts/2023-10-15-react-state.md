@@ -17,7 +17,7 @@ category: React
 - Unlike props, state is fully private to the component declaring it. If you render the same component twice, each copy will have completely isolated state! 
 - React batches state updates, it will queue all set functions and execute all set functions one by one before re-render.
 
-## `useState` Hook
+## useState Hook
 
 ### Syntax
 ```js
@@ -99,9 +99,7 @@ export function getFinalState(baseState, queue) {
 - Calling the set function during rendering is only allowed from within the currently rendering component. React will discard its output and immediately attempt to render it again with the new state. This pattern is rarely needed, but you can use it to store information from the previous renders.
 - In Strict Mode, React will call your updater function twice in order to help you find accidental impurities. This is development-only behavior and does not affect production.
 
-## FQA
-
-### How to set state to a function?
+### Set State to a function?
 
 Don't do this:
 ```js
@@ -121,6 +119,8 @@ function handleClick() {
 ```
 
 > The different between `someFunction` and `()=>someFunction` is that, executing latter will return former.
+
+## FQA
 
 ### How to understand State behaves as snapshot?
 
