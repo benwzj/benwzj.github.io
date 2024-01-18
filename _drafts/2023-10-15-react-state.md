@@ -163,12 +163,32 @@ When you click, React return a snapshot: `counter: 1`; After 3 seconds, `setCoun
 
 Keep stick to this rule: **Treat all state as immutable**. 
 Object and Array is mutable, but we need to handle it asif it is immutable.
-Here are some ways to handle Object state:
+#### Here are some ways to handle Object state:
 - Copying objects with the **spread syntax**. Like this: ` {...obj, something: 'newValue'}` object spread syntax to create copies of objects. But Spread syntax is shallow.
 - Using `Immer` module for nested object state is a choice. (I don't recommend Immer, because it looks like break the rule and make thing confused.)
 - Create a new array from the original array in your state by calling its non-mutating methods like `filter()` (Removing from an array) and `map()`(Transforming an array, Replacing items in an array).
-- Updating objects inside arrays 
-When updating nested state, you need to create copies from the point where you want to update, and all the way up to the top level.
+
+#### Updating objects inside arrays (nested state)
+You don't have to deep copy all the objects for every update, but you need to create copies from the point where you want to update, and all the way up to the top level. 
+Using `map` and spread `...` can make it. 
+```js
+const initialList = [
+  { id: 0, title: 'Big Bellies', seen: false },
+  { id: 1, title: 'Lunar Landscape', seen: false },
+  { id: 2, title: 'Terracotta Army', seen: true },
+];
+
+const [myList, setMyList] = useState(initialList);
+setMyList(myList.map(artwork => {
+  if (artwork.id === artworkId) {
+    // Create a *new* object with changes
+    return { ...artwork, seen: nextSeen };
+  } else {
+    // No changes
+    return artwork;
+  }
+}));
+```
 
 ### Why `key` is matter?
 
