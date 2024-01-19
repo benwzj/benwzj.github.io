@@ -11,7 +11,7 @@ tags: JavaScript DOM SPA Svelte
 Let's get to know a bit about DOM rendering first.
 In traditional rendering, the Browser does the following tasks:
 - The browser parses our HTML and stores it in memory as a **tree structure** of a document, which is also known as DOM (Document Object Model) or sometimes as Real DOM. DOM methods allow programmatic access to the tree. With them, you can change the document’s structure, style, or content.
-- The browser uses DOM to create a render tree. **Render** Tree represents everything that will be rendered on the browser. 
+- The browser uses DOM to create a render tree. Render Tree represents everything that will be rendered on the browser. 
 - **Layout** Render Tree by calculating the geometry of all elements (sizes & positioning) and placing them.
 - **painting** all individual nodes.
 
@@ -21,9 +21,10 @@ In traditional rendering, the Browser does the following tasks:
 {: .block-warning}
 
 ## Why Virtual DOM can help
-Modern browsers are efficient enough to update only the required elements in the DOM. For example, if I have two 'p' tags and I change the text in one of the p tags using a button click, then only that p tag will be updated by safari (I have verified this using paint flashing). 
+Modern browsers are efficient enough to update only the required elements in the DOM. For example, if I have two 'p' tags and I change the text in one of the p tags using a button click, then only that p tag will be updated by safari (you can verify this using paint flashing). 
 
-Then why we still need Virtual DOM?
+Then why we still need Virtual DOM? 
+
 Virtual DOM is not magic, but it make writing WebApp easier. For example, if there are many tags you need to update when a state change, you will have a headache to figure out what tags to change and how to change. Rebuild the whole DOM can be easier, but it is slow process. Virtual DOM is one way to fix this.
 
 There are two arguments for React's Virtual DOM being **easier** to build WebApp (not faster):
@@ -43,9 +44,7 @@ React renders JSX components to the Browser DOM, but keeps a copy of the actual 
 - After comparing, React goes ahead and creates a new Virtual DOM having the changes. It is to be noted that as many as 200,000 virtual DOM nodes can be produced in a second.
 - Then it updates the Browser DOM with the least number of changes possible without rendering the entire DOM again. This changes the efficiency of an application tremendously.
 
-It's important to understand that virtual DOM isn't a feature. It's a means to an end, the end being **declarative**, state-driven UI development. Virtual DOM is valuable because it allows you to build apps without thinking about state transitions, with performance that is generally good enough. That means less buggy code, and more time spent on creative tasks instead of tedious ones.
-
-
+It's important to understand that virtual DOM isn't a feature for React. It's a means to an end, the end being **declarative**, state-driven UI development. Virtual DOM is valuable because it allows you to build apps without thinking about state transitions, with performance that is generally good enough. That means less buggy code, and more time spent on creative tasks instead of tedious ones.
 
 ### Reconciliation
 

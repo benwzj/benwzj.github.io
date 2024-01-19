@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Introduce Liquid Template"
+title: "Introduce Liquid Template Language"
 date: 2020-01-14
 categories: HTML
 tags: Template Overview Jekyll

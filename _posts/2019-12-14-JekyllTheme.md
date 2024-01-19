@@ -10,7 +10,7 @@ tags: Markdown Jekyll HTML Theme Static-website Theming
 
 In this post, I will talk about what is website theme, What is Jekyll theme system, How Jekyll theme system work.
 
-## What is website theme
+## What is Website Theme
 
 A website theme manages the front-end design, establishing the overall appearance and functionality by managing its front-end design. 
 Themes determine all design components: page layouts, backgrounds, color palettes, headers and footers, positioning, sizing, and typography. 
@@ -74,7 +74,7 @@ document.documentElement.setAttribute("data-theme", theme);
 document.documentElement.removeAttribute("data-theme");
 ```
 
-## Understand Jekyll Gem-based theme
+## Understand Jekyll Gem-based Theme
 
 Jekyll has an **extensive theme system**. This means it allows you to leverage community-maintained templates and styles to customize your site’s presentation. And also allow you override any of your theme's defaults by editing the theme's files. 
 
