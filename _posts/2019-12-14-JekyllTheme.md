@@ -14,12 +14,12 @@ In this post, I will talk about what is website theme, What is Jekyll theme syst
 
 A website theme manages the front-end design, establishing the overall appearance and functionality by managing its front-end design. 
 Themes determine all design components: page layouts, backgrounds, color palettes, headers and footers, positioning, sizing, and typography. 
-There are a word call theming. theming can be separate from functioning of the website. there are a separate position which is profession at creating website theming.
+There are a word call **Theming**. Theming can be separate from functioning of the website. There are a separate position which is profession at creating website theming.
 
 ### How Do Website Themes Work?
 A website theme works via CSS HTML and JS all together! Themes for website should like cloth for human, it should be changable. So when you design a website , theming should be a important part to conside.
 
-### Toggle day night theme
+## Toggle day night theme
 
 Generially, implement theme on website will do these steps:
 
@@ -34,7 +34,7 @@ There are two ways to do step:
 - Use document elements `classList.toggle()` function to toggle theme.
 - Or use CSS Attribute selector to toggle theme.
 
-#### Using classList.toggle()
+### Using classList.toggle()
 
 The main structure:
 ```javascript
@@ -56,7 +56,7 @@ function myFunction() {
 ```
 Alternative way is using `element.classList.add()` and `element.classList.remove()` instead of `element.classList.toggle`. 
 
-#### Use CSS Attribute selector
+### Use CSS Attribute selector
 
 1. First, use `variable` and `Attribute Selector` to implement website theme:
 
@@ -142,6 +142,7 @@ But you can use another highlighter, such as highlight.js, you must disable Jeky
 Jekyll create `.highlight .k .n` etc. CSS class for Syntax highlighting `<code>` part. 
 - `.highlight` wrap whole `<code>` tag
 - `.k` class refer to keyword:
+
 ```css
 .highlight .k {
   font-weight: bold;
