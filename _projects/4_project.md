@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Machine Learning App
+title: ML App
 description: A Machine Learning App for iOS, Using Swift and Core ML
 img: assets/img/4.jpg
 importance: 4

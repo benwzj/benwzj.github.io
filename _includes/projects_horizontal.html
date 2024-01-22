@@ -7,8 +7,8 @@
     <div class="card hoverable">
       <div class="row g-0">
         {%- if project.img -%}
-        <div class="card-img col-md-6">
-          {% include figure.html path=project.img alt="project thumbnail" %}
+        <div class="card-img col-md-6 zoom-image-container">
+          {% include figure.html path=project.img alt="project thumbnail" class="zoom-image" %}
         </div>
         <div class="col-md-6">
         {%- else -%}

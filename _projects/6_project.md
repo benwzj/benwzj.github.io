@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Awesome App
-description: This is React Native app which support iOS and Android. It support Authorization, Shopping Cart function, Map function, Meal Recipt function.
+description: React Native app for Shopping Cart, Map, Meal Recipt.
 img: assets/img/6.jpg
 importance: 6
 redirect: https://github.com/benwzj/AwesomeProject

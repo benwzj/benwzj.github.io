@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Flash-Chat App
-description: An internet based messaging iOS app. It use Firebase Firestore as a backend database. Using Swift
+title: Flash-Chat
+description: An internet based messaging iOS app. Based on Firebase 
 img: assets/img/9.jpg
 importance: 9
 redirect: https://github.com/benwzj/Flash-Chat
