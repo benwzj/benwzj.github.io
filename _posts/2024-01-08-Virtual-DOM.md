@@ -72,32 +72,32 @@ Firstly, The **diffing** isn't free. Svelte believe the case in the vast majorit
 > Svelte is a compiler that knows at build time how things could change in your app, rather than waiting to do the work at run time.
 
 Secondly, the greater overhead is in the **components themselves**. 
-You'd be carelessly recalculating value on every update, regardless of whether props.foo had changed:
+You'd be carelessly recalculating value on every update, regardless of whether props.foo had changed:	
 ```js
 function StrawManComponent(props) {
-	const value = expensivelyCalculateValue(props.foo);
+  const value = expensivelyCalculateValue(props.foo);
 
-	return <p>the value is {value}</p>;
+  return <p>the value is {value}</p>;
 }
 ```
 Or we're generating a new array of virtual `<li>` elements — each with their own inline event handler — on every state change, regardless of whether props.items has changed:
 ```js
 function MoreRealisticComponent(props) {
-	const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(null);
 
-	return (
-		<div>
-			<p>Selected {selected ? selected.name : 'nothing'}</p>
+  return (
+    <div>
+      <p>Selected {selected ? selected.name : 'nothing'}</p>
 
-			<ul>
-				{props.items.map((item) => (
-					<li>
-						<button onClick={() => setSelected(item)}>{item.name}</button>
-					</li>
-				))}
-			</ul>
-		</div>
-	);
+      <ul>
+        {props.items.map((item) => (
+        <li>
+          <button onClick={() => setSelected(item)}>{item.name}</button>
+        </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 ```
 
