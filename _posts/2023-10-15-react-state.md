@@ -4,6 +4,15 @@ title: React State system
 date: 2023-10-15
 tags: React Hook
 category: React
+toc:
+  - name: State Rules
+  - name: useState Hook
+    subsections: 
+      - name: Syntax
+      - name: How React implement `useState` Hook
+      - name: How about `setState`
+      - name: Set State to a function
+  - name: FQA
 ---
 
 ## State Rules
@@ -68,7 +77,7 @@ function useState(initialState) {
 }
 ```
 
-### `setState` function
+### How about `setState`
 
 The set function returned by `useState` lets you update the state to a different value and trigger a re-render. 
 
@@ -99,7 +108,7 @@ export function getFinalState(baseState, queue) {
 - Calling the set function during rendering is only allowed from within the currently rendering component. React will discard its output and immediately attempt to render it again with the new state. This pattern is rarely needed, but you can use it to store information from the previous renders.
 - In Strict Mode, React will call your updater function twice in order to help you find accidental impurities. This is development-only behavior and does not affect production.
 
-### Set State to a function?
+### Set State to a function
 
 Don't do this:
 ```js

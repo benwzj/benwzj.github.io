@@ -106,6 +106,15 @@
                       {{ section.name }}
                     </a>
                   </div>
+                  {% if section.subsections -%}
+                  {% for subsection in section.subsections -%}
+                  <div class="toc-item">
+                    <a href="#{{ subsection.name | slugify }}">
+                      &nbsp;&nbsp;&nbsp;&nbsp;{{ subsection.name }}
+                    </a>
+                  </div>
+                  {% endfor %}
+                  {%- endif -%}
                   {%- endfor %}
                 </div>
               {% endif %}

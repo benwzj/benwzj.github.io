@@ -632,9 +632,17 @@ footer.sticky-bottom {
   flex-wrap: wrap;
   flex-direction: column;
   padding-bottom: .4em;
+  .toc-item {
+    display: flex;
+    flex-wrap: wrap;
+  }
   .toc-item a{
     color: orange;
+    // &:before {
+    //   content: '#';
+    // }
   }
+
 }
 
 // Extra Markdown style (post Customization)
