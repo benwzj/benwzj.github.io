@@ -8,10 +8,13 @@ categories: Website
 tags: GitHub-pages HTML Jekyll Markdown
 toc:
   - name: What is Jekyll
-  - name: Jekyll Main Points
-  - name: Jekyll file system
-  - name: Front Matter
-  - name: Liquid
+  - name: Jekyll file structure
+    subsections: 
+      - name: General Rules
+      - name: Configuration
+      - name: Basic files structure
+  - name: What is Front Matter
+  - name: What is Liquid
   - name: GitHub Pages
   - name: Setup GitHub Pages Steps
   - name: FQA
@@ -48,8 +51,7 @@ For example, When you create a new Jekyll site (by running the `jekyll new <PATH
 └── index.markdown
 ```
 
-
-### General Rules:
+### General Rules
 
 - SCSS (Sass) files into CSS (.scss -> .css), and Markdown into HTML (.md -> .html)
 - The _sass folder is for Sass partials. Every file in here should begin with an underscore, and it will compile into the css folder.

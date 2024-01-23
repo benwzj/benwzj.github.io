@@ -103,14 +103,14 @@
                   {% for section in page.toc -%}
                   <div class="toc-item">
                     <a href="#{{ section.name | slugify }}">
-                      {{ section.name }}
+                      #&nbsp;{{ section.name }}
                     </a>
                   </div>
                   {% if section.subsections -%}
                   {% for subsection in section.subsections -%}
                   <div class="toc-item">
                     <a href="#{{ subsection.name | slugify }}">
-                      &nbsp;&nbsp;&nbsp;&nbsp;{{ subsection.name }}
+                      &nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;{{ subsection.name }}
                     </a>
                   </div>
                   {% endfor %}

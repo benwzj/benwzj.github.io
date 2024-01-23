@@ -633,14 +633,15 @@ footer.sticky-bottom {
   flex-direction: column;
   padding-bottom: .4em;
   .toc-item {
-    display: flex;
-    flex-wrap: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    min-width: 1px;
   }
   .toc-item a{
     color: orange;
-    // &:before {
-    //   content: '#';
-    // }
   }
 
 }

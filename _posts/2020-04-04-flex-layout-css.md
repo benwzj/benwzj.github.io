@@ -27,12 +27,6 @@ Formally, the `display` property sets an element's inner and outer display types
 The [mdn](https://developer.mozilla.org/en-US/docs/Web/CSS/display) document have detail for `display` property.
 
 For example it can be:
-- display: block;
-- display: inline;
-- display: inline-block;
-- display: flex;
-- display: inline-flex;
-- display: grid;
 
 - `display: block` (default for block-level element). 
 A block-level element is the element that always starts on a new line and takes up the full width available (stretches out to the left and right as far as it can). Like `<div> <p> <form><header><footer><section><h1>` etc. 
@@ -49,6 +43,8 @@ Let the element behave like a `<table>` element
 - `display: inline-block `
 Displays an element as an inline-level block container. 
 inline is the base, this container is located inside inline level. And the container inside is block. 
+The element itself is formatted as an inline element, but you can apply height and width values
+When a sentence is inline, it can be broke into two lines. But when it is inline-block, it won’t be broke into two line.
 
 ## Flexbox layout
 
