@@ -3,7 +3,12 @@ layout: post
 title: Flex Layout is wonderful
 date: 2020-04-04
 category: CSS
-tags: Flex Layout
+tags: Flex CSS-Layout
+toc: 
+  - name: The `display` property
+  - name: Flexbox layout
+  - name: Flex Container Properties
+  - name: Flex Item Properties
 ---
 
 Before the Flexbox Layout module, there were four layout modes:
@@ -20,15 +25,15 @@ The Flexible Box Layout Module, makes it easier to design flexible responsive la
 Formally, the `display` property sets an element's inner and outer display types. The outer type sets an element's participation in flow layout; the inner type sets the layout of children. 
 
 The [mdn](https://developer.mozilla.org/en-US/docs/Web/CSS/display) document have detail for `display` property.
+
 For example it can be:
-```css
-display: block;
-display: inline;
-display: inline-block;
-display: flex;
-display: inline-flex;
-display: grid;
-```
+- display: block;
+- display: inline;
+- display: inline-block;
+- display: flex;
+- display: inline-flex;
+- display: grid;
+
 - `display: block` (default for block-level element). 
 A block-level element is the element that always starts on a new line and takes up the full width available (stretches out to the left and right as far as it can). Like `<div> <p> <form><header><footer><section><h1>` etc. 
 - `display: inline` (default for inline-level element).
@@ -45,23 +50,28 @@ Let the element behave like a `<table>` element
 Displays an element as an inline-level block container. 
 inline is the base, this container is located inside inline level. And the container inside is block. 
 
-## Flex layout
+## Flexbox layout
 
-The detail of what happens when `display: flex` is declared is defined in the **CSS Flexible Box Model** specification.
-First, Container need to be `display: flex;`
+The detail of what happens when `display: flex` is declared is defined in the **CSS Flexbox layout Model** specification.
+First, Container need to be `display: flex;`. And then the direct child elements of a flex container automatically becomes flexible (flex) items. 
 
-### flex property
+The flex container properties are:
+- flex-direction
+- flex-wrap
+- flex-flow
+- justify-content
+- align-items
+- align-content
 
-The `flex` property sets the flexible length on flexible items.
-It is a shorthand property for:`flex-grow; flex-shrink;flex-basis;`
+The flex item properties are:
+- order
+- flex-grow
+- flex-shrink
+- flex-basis
+- flex
+- align-self
 
-- flex-grow	
-A number specifying how much the item will grow relative to the rest of the flexible items inside the same container.
-- flex-shrink	
-A number specifying how much the item will shrink relative to the rest of the flexible items
-- flex-basis	
-specifies the initial length of a flexible item.
-Legal values: `"auto", "inherit","initial"` or a number followed by "%", "px", "em" or any other length unit
+## Flex Container Properties
 
 ### flex-direction Property
 It specifies the direction of the flexible items.
@@ -72,11 +82,25 @@ it specifies whether the flexible items should wrap or not.
 It Can be: `nowrap|wrap|wrap-reverse|initial|inherit;`
 
 ### flex-flow property
-It is a shorthand property for: flex-direction and flex-wrap
+It is a shorthand property for: `flex-direction` and `flex-wrap`
 
-## FQA
+## Flex Item Properties
 
-### what is `vw` unit 
-It is 1% of width of viewport. it is working well elegantly!
+### flex property
+
+The `flex` property sets the flexible length on flexible items.
+It is a shorthand property for:`flex-grow; flex-shrink;flex-basis;`
+Fox example: 
+`flex: 1;` let all the flexible items be the same length, regardless of its content.
+
+- flex-grow	
+A number specifying how much the item will grow relative to the rest of the flexible items inside the same container.
+- flex-shrink	
+A number specifying how much the item will shrink relative to the rest of the flexible items
+- flex-basis	
+specifies the initial length of a flexible item.
+Legal values: `"auto", "inherit","initial"` or a number followed by "%", "px", "em" or any other length unit
+
+
 
 
