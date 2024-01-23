@@ -577,6 +577,7 @@ footer.sticky-bottom {
 .tags {
   display: flex;
   flex-wrap: wrap;
+  padding-bottom: .4em;
   a {
     text-decoration: none; 
   }
@@ -606,6 +607,7 @@ footer.sticky-bottom {
     margin: 2px;
     a {
       color: var(--global-post-tag-color);
+      text-decoration: none; 
       &:hover {
         color: var(--global-theme-color);
       }
@@ -623,6 +625,15 @@ footer.sticky-bottom {
         padding-left: 4px;
       }
     }
+  }
+}
+.toc-container{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding-bottom: .4em;
+  .toc-item a{
+    color: orange;
   }
 }
 

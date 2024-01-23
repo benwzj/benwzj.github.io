@@ -4,6 +4,11 @@ title: Virtual DOM Concept
 date: 2024-01-08
 category: React
 tags: JavaScript DOM SPA Svelte
+toc:
+  - name: DOM rendering
+  - name: Why Virtual DOM can help
+  - name: What is React Virtual DOM
+  - name: Svelte
 ---
 
 ## DOM rendering
