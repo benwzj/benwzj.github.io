@@ -7,7 +7,9 @@ tags: Flex CSS-Layout
 toc: 
   - name: Basic Concepts
   - name: Initial Behaviors
-  - name: Flex Item Properties
+  - name: Flex Properties
+  - name: Properties APPLY to Items
+  - name: FQA
 ---
 
 ## Basic Concepts 
