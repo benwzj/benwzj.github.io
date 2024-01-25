@@ -11,12 +11,16 @@ The `display` property is the most important CSS property for controlling layout
 ## The `display` property
 
 Formally, the `display` property sets an element's inner and outer display types. 
-- The outer display type describes whether the element is block-level or inline-level. It sets an element's participation in flow layout; 
-- The inner display type describes how the children of that box behave.
+- The **outer** display type describes whether the element is block-level or inline-level. It sets an element's participation in flow layout; 
+- The **inner** display type describes how the children of that box behave.
 
 One of the first things we learn about CSS is that some elements are block-level and some are inline-level. These are their outer display types. For example, an `<h1>` or a `<p>` are block-level by default, and a `<span>` is inline-level. Using the `display` property we can switch between block and inline.
 
-The [mdn](https://developer.mozilla.org/en-US/docs/Web/CSS/display) document have detail for `display` property.
+What `grid` and `flexbox` demonstrate is that an element has both an outer and an inner display type. The outer display type describes whether the element is block-level or inline-level. The inner display type describes how the children of that box behave.
+
+Because of this, The multi-keyword syntax is **promoted**. For example the `flex` equal to `block flex`. but we still have `inline flex`. The `block` equal to`block flow`(flow is experimental), but we still have `block grid`. The first indicate outside display, the second one indicate inside.
+
+The [mdn document](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display) have more detail for `display` property.
 
 For example it can be:
 

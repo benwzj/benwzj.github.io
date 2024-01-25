@@ -5,10 +5,12 @@ date: 2020-04-04
 category: CSS
 tags: Flex CSS-Layout
 toc: 
-  - name: Flexbox layout
-  - name: Flex Container Properties
+  - name: Basic Concepts
+  - name: Initial Behaviors
   - name: Flex Item Properties
 ---
+
+## Basic Concepts 
 
 Before the Flexbox Layout module, there were four layout modes:
 
@@ -17,59 +19,75 @@ Before the Flexbox Layout module, there were four layout modes:
 - Table, for two-dimensional table data
 - Positioned, for explicit position of an element
 
-The Flexible Box Layout Module, makes it easier to design flexible responsive layout structure without using float or positioning.
+The flexible box layout module, usually referred to as flexbox,  makes it easier to design flexible **responsive** layout structure without using float or positioning. It was designed as a **one-dimensional** layout model, and as a method that could offer space distribution between items in an interface and powerful alignment capabilities. 
 
-## Flexbox layout
+When we describe flexbox as being one-dimensional we are describing the fact that flexbox deals with layout in one dimension at a time — either as a row or as a column. This can be contrasted with the two-dimensional model of CSS Grid Layout, which controls columns and rows together.
 
-The detail of what happens when `display: flex` is declared is defined in the **CSS Flexbox layout Model** specification.
-First, Container need to be `display: flex;`. And then the direct child elements of a flex container automatically becomes flexible (flex) items. 
+We need to know terms of two axes — the **main axis** and the **cross axis**. The main axis is defined by the `flex-direction` property, and the cross axis runs perpendicular to it.
 
-The flex container properties are:
-- flex-direction
-- flex-wrap
-- flex-flow
-- justify-content
-- align-items
-- align-content
+## Initial Behaviors
 
-The flex item properties are:
-- order
-- flex-grow
-- flex-shrink
-- flex-basis
-- flex
-- align-self
+To create a flex container, set the area's `display` property to `flex`. When we do this, the **direct** children of that container become flex items.
 
-## Flex Container Properties
+The contents of a new flex container will behave in the following way:
 
-### flex-direction Property
+- Items display in a row (the flex-direction property's default is `row`).
+- The items start from the start edge of the main axis.
+- The items do not stretch on the main dimension but can shrink.
+- The items will stretch to fill the size of the cross-axis.
+- The `flex-basis` property is set to auto. This means that, in each case, it will be equal to the flex item width in horizontal writing mode, and the flex item height in vertical writing mode. If the corresponding width/height is also set to auto, the flex-basis content value is used instead.
+- The `flex-wrap` property is set to nowrap. This means that the flex items will always remain in a single row or column, overflowing their container if their combined width/height exceeds the containing element width/height.
+
+The result of this is that your items will all line up in a row, using the size of the content as their size in the main axis. If there are more items than can fit in the container, they will not wrap but will instead overflow. If some items are taller than others, all items will stretch along the full length of the cross-axis.
+
+## Flex Properties
+
+### flex-direction
 It specifies the direction of the flexible items.
 It Can be: `row|row-reverse|column|column-reverse|initial|inherit;`
 
-### flex-wrap property 
-it specifies whether the flexible items should wrap or not.
-It Can be: `nowrap|wrap|wrap-reverse|initial|inherit;`
+### flex-wrap 
+The flex-wrap CSS property sets whether flex items are forced onto one line or can wrap onto multiple lines. If wrapping is allowed, it sets the direction that lines are stacked.
+Initial value	is `nowrap`.
 
-### flex-flow property
-It is a shorthand property for: `flex-direction` and `flex-wrap`
+### flex-flow
+Shorthand for: `flex-direction` and `flex-wrap`
 
-## Flex Item Properties
 
-### flex property
+## Properties APPLY to Items
 
-The `flex` property sets the flexible length on flexible items.
+To have more control over flex items we can target them directly. We do this by way of three properties: flex-grow, flex-shrink, flex-basis.
+
+### flex-grow	
+A number specifying how much the item will grow relative to the rest of the flexible items inside the same container.
+Initial value	of grow is `0`. 
+
+### flex-shrink	
+The `flex-shrink` CSS property sets the flex shrink factor of a flex item. If the size of all flex items is larger than the flex container, items shrink to fit according to `flex-shrink`.
+Initial value	of shrink is `1`.
+
+### flex-basis	
+
+Sets the initial main size of a flex item. It sets the size of the content box unless otherwise set with `box-sizing`.
+Legal values: `"auto", "inherit","initial"` or a number followed by "%", "px", "em" or any other length unit.
+The flex-basis property is set to `auto`. This means that, in each case, it will be equal to the flex item width in horizontal writing mode, and the flex item height in vertical writing mode. If the corresponding width/height is also set to auto, the flex-basis content value is used instead.
+
+### flex
+
 It is a shorthand property for:`flex-grow; flex-shrink;flex-basis;`
+
+- initial
+The item is sized according to its width and height properties. It shrinks to its minimum size to fit the container, but does not grow to absorb any extra free space in the flex container. This is equivalent to setting `"flex: 0 1 auto"`.
+- `flex: auto`
+The item is sized according to its width and height properties, but grows to absorb any extra free space in the flex container, and shrinks to its minimum size to fit the container. This is equivalent to setting "flex: 1 1 auto".
+- `flex: none`
+The item is sized according to its width and height properties. It is fully inflexible: it neither shrinks nor grows in relation to the flex container. This is equivalent to setting "flex: 0 0 auto".
+
 Fox example: 
 `flex: 1;` let all the flexible items be the same length, regardless of its content.
 
-- flex-grow	
-A number specifying how much the item will grow relative to the rest of the flexible items inside the same container.
-- flex-shrink	
-A number specifying how much the item will shrink relative to the rest of the flexible items
-- flex-basis	
-specifies the initial length of a flexible item.
-Legal values: `"auto", "inherit","initial"` or a number followed by "%", "px", "em" or any other length unit
+## Reference
 
-
+The [mdn document](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox) give the detail.
 
 
