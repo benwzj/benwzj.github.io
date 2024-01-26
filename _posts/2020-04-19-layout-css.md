@@ -5,14 +5,27 @@ date: 2020-04-21
 category: CSS
 tags: Layout CSS
 toc: 
+  - name: Normal flow
   - name: The `display` property
+  - name: Float
   - name: The `Position` property
   - name: The `z-index` property
-  - name: Float
   - name: The `overflow` property
 ---
 
-The `display` property is the most important CSS property for controlling layout!
+CSS page layout allow us to take elements contained in a web page and control where they're positioned relative to the following factors: their default position in normal layout flow, the other elements around them, their parent container, and the main viewport/window. 
+
+Here are going to introduce some concepts like: normal flow, display settings, positioning, modern layout tools like flexbox and CSS grid.
+
+## Normal flow
+
+Normal flow is how the browser lays out HTML pages by default when you do nothing to control page layout. 
+HTML is displayed in the exact order in which it appears in the source code, with elements stacked on top of one another.
+
+For many of the elements on your page, the normal flow will create exactly the layout you need. However, for more complex layouts you will need to alter this default behavior using some of the tools available to you in CSS. 
+But Starting with a well-structured HTML document is very important because you can then work with the way things are laid out by default rather than fighting against it.
+
+The methods that can change how elements are laid out in CSS are: The display property, float, The position property, Table layout, Multi-column layout.
 
 ## The `display` property
 
@@ -50,56 +63,15 @@ The element itself is formatted as an inline element, but you can apply height a
 When a sentence is inline, it can be broke into two lines. But when it is inline-block, it won’t be broke into two line.
 
 
-## The `Position` property
-
-The `position` property specify the type of positioning method used for an element. 
-
-Totally have 5 values:
-
-### static 
-- default value. not position at special way. 
-- not affected by left, right, top, bottom properties. 
-
-### relative
-- The element is positioned relative to its normal position (static way), so "left:20px" adds 20 pixels to the element's LEFT position.
-
-### absolute
-- The element is positioned relative to the nearest positioned(not static) ancestor (instead of positioned relative to the viewport, like fixed).
-- However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling.
-
-### fixed
-- The element is positioned relative to viewport, which means it always stay at the same location even the page is strolled. 
-- of course, leftrighttopbottom will decide the element position.
-
-### sticky
-- It is funny function. 
-- The element is positioned based on the user's scroll position.
-- A sticky element toggles between relative and fixed, depending on the scroll position.
-- It is positioned relative until a given offset position is met in the viewport , then it "sticks" in place (like position:fixed).
-- need to name top property .
-
-## The `z-index` property
-
-`z-index` specify the stack order of an element when overlapping. 
-
-- only works on positioned elements (position: absolute, position: relative, position: fixed, or position: sticky).
-- `z-index: -1`  means the element always at the bottom.
-
-In the most basic cases, HTML pages can be considered two-dimensional, because text, images, and other elements are arranged on the page without overlapping. In this case, there is a single rendering flow, and all elements are aware of the space taken by others. The z-index attribute lets you adjust the order of the layering of objects when rendering content.
-
-> In CSS 2.1, each box has a position in three dimensions. In addition to their horizontal and vertical positions, boxes lie along a "z-axis" and are formatted one on top of the other. Z-axis positions are particularly relevant when boxes overlap visually.
-
-This means that CSS style rules allow you to position boxes on layers in addition to the default rendering layer (layer 0). The position on an imaginary z-axis of each layer is expressed as an integer representing the stacking order for rendering. Greater numbers mean closer to the observer. Control the position on this z-axis with the CSS z-index property.
-
-Using z-index appears extremely easy: a single property assigned a single integer number with an easy-to-understand behavior.
-
 ## Float
+
+Floating an element changes the behavior of that element and the block level elements that follow it in normal flow. The floated element is moved to the left or right and removed from normal flow, and the surrounding content floats around it.
 
 ### The `float` property
 
 - The CSS float property specifies how an element should float.
 - e.g. let an image float left to the text in a container.
-- float have 4 values: none, left, right, inherit
+- float have 4 values: `none`, `left`, `right`, `inherit`
 
 Common usage: 
 `float` can be used to wrap the text around the image.
@@ -145,6 +117,50 @@ box-sizing: border-box;
 ```
 allow this to all elements is safe and wise. 
 
+
+## The `Position` property
+
+The `position` property specify the type of positioning method used for an element. 
+
+Totally have 5 values:
+
+### static 
+- default value. not position at special way. 
+- not affected by left, right, top, bottom properties. 
+
+### relative
+- The element is positioned relative to its normal position (static way), so "left:20px" adds 20 pixels to the element's LEFT position.
+
+### absolute
+- The element is positioned relative to the nearest positioned(not static) ancestor (instead of positioned relative to the viewport, like fixed).
+- However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling.
+
+### fixed
+- The element is positioned relative to viewport, which means it always stay at the same location even the page is strolled. 
+- of course, leftrighttopbottom will decide the element position.
+
+### sticky
+- It is funny function. 
+- The element is positioned based on the user's scroll position.
+- A sticky element toggles between relative and fixed, depending on the scroll position.
+- It is positioned relative until a given offset position is met in the viewport , then it "sticks" in place (like position:fixed).
+- need to name top property .
+
+## The `z-index` property
+
+`z-index` specify the stack order of an element when overlapping. 
+
+- only works on positioned elements (position: absolute, position: relative, position: fixed, or position: sticky).
+- `z-index: -1`  means the element always at the bottom.
+
+In the most basic cases, HTML pages can be considered two-dimensional, because text, images, and other elements are arranged on the page without overlapping. In this case, there is a single rendering flow, and all elements are aware of the space taken by others. The z-index attribute lets you adjust the order of the layering of objects when rendering content.
+
+> In CSS 2.1, each box has a position in three dimensions. In addition to their horizontal and vertical positions, boxes lie along a "z-axis" and are formatted one on top of the other. Z-axis positions are particularly relevant when boxes overlap visually.
+
+This means that CSS style rules allow you to position boxes on layers in addition to the default rendering layer (layer 0). The position on an imaginary z-axis of each layer is expressed as an integer representing the stacking order for rendering. Greater numbers mean closer to the observer. Control the position on this z-axis with the CSS z-index property.
+
+Using z-index appears extremely easy: a single property assigned a single integer number with an easy-to-understand behavior.
+
 ## The `overflow` property
 
 - specifies what should happen if content overflows an element's box.
@@ -161,3 +177,8 @@ The overflow is clipped, but a scroll-bar is added to see the rest of the conten
 `overflow: auto`
 If overflow is clipped, a scroll-bar should be added to see the rest of the content
 When element is taller than it's container, this property : overflow: auto can make container fit the element inside. 
+
+
+## Reference
+
+[mdn document](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Introduction)
