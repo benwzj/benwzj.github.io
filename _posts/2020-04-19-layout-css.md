@@ -11,6 +11,8 @@ toc:
   - name: The `Position` property
   - name: The `z-index` property
   - name: The `overflow` property
+  - name: Table layout
+  - name: Multi-column layout
 ---
 
 CSS page layout allow us to take elements contained in a web page and control where they're positioned relative to the following factors: their default position in normal layout flow, the other elements around them, their parent container, and the main viewport/window. 
@@ -29,6 +31,10 @@ The methods that can change how elements are laid out in CSS are: The display pr
 
 ## The `display` property
 
+The standard values of `display` such as block, inline or inline-block can change how elements behave in normal flow, for example, by making a block-level element behave like an inline-level element (see Types of CSS boxes for more information). We also have entire layout methods that are enabled via specific display values, for example, CSS **Grid** and **Flexbox**, which alter how child elements are laid out inside their parents.
+
+### multi-keyword syntax
+
 Formally, the `display` property sets an element's inner and outer display types. 
 - The **outer** display type describes whether the element is block-level or inline-level. It sets an element's participation in flow layout; 
 - The **inner** display type describes how the children of that box behave.
@@ -39,9 +45,7 @@ What `grid` and `flexbox` demonstrate is that an element has both an outer and a
 
 Because of this, The multi-keyword syntax is **promoted**. For example the `flex` equal to `block flex`. but we still have `inline flex`. The `block` equal to`block flow`(flow is experimental), but we still have `block grid`. The first indicate outside display, the second one indicate inside.
 
-The [mdn document](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display) have more detail for `display` property.
-
-For example it can be:
+### Value for `display`
 
 - `display: block` (default for block-level element). 
 A block-level element is the element that always starts on a new line and takes up the full width available (stretches out to the left and right as far as it can). Like `<div> <p> <form><header><footer><section><h1>` etc. 
@@ -61,7 +65,6 @@ Displays an element as an inline-level block container.
 inline is the base, this container is located inside inline level. And the container inside is block. 
 The element itself is formatted as an inline element, but you can apply height and width values
 When a sentence is inline, it can be broke into two lines. But when it is inline-block, it won’t be broke into two line.
-
 
 ## Float
 
@@ -120,18 +123,21 @@ allow this to all elements is safe and wise.
 
 ## The `Position` property
 
-The `position` property specify the type of positioning method used for an element. 
+The `position` property allows you to precisely control the placement of boxes inside other boxes. static positioning is the default in normal flow, but you can cause elements to be laid out differently using other values, for example, as fixed to the top of the browser viewport.
 
 Totally have 5 values:
 
 ### static 
-- default value. not position at special way. 
+- default value. not position at special way. it is for normal flow.
 - not affected by left, right, top, bottom properties. 
+- It just means "put the element into its normal position in the document layout flow — nothing special to see here".
 
 ### relative
 - The element is positioned relative to its normal position (static way), so "left:20px" adds 20 pixels to the element's LEFT position.
+- allows you to modify an element's position on the page, moving it relative to its position in normal flow, as well as making it overlap other elements on the page.
 
 ### absolute
+- moves an element completely out of the page's normal layout flow, like it's sitting on its **own separate layer**. From there, you can fix it to a position relative to the edges of its closest positioned ancestor (which becomes <html> if no other ancestors are positioned).
 - The element is positioned relative to the nearest positioned(not static) ancestor (instead of positioned relative to the viewport, like fixed).
 - However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling.
 
@@ -140,7 +146,7 @@ Totally have 5 values:
 - of course, leftrighttopbottom will decide the element position.
 
 ### sticky
-- It is funny function. 
+- makes an element act like `position: relative` until it hits a defined offset from the viewport, at which point it acts like `position: fixed`.
 - The element is positioned based on the user's scroll position.
 - A sticky element toggles between relative and fixed, depending on the scroll position.
 - It is positioned relative until a given offset position is met in the viewport , then it "sticks" in place (like position:fixed).
@@ -178,7 +184,28 @@ The overflow is clipped, but a scroll-bar is added to see the rest of the conten
 If overflow is clipped, a scroll-bar should be added to see the rest of the content
 When element is taller than it's container, this property : overflow: auto can make container fit the element inside. 
 
+## Table layout
+
+```css
+display: table; 
+display: table-row;
+display: table-cell;
+display: table-caption;
+```
+
+Basically, they'll act like HTML table markup.
+
+Many years ago — before even basic CSS was supported reliably across browsers — web developers used to use tables for entire web page layouts, putting their headers, footers, columns, etc. into various table rows and columns. This worked at the time, but it has many problems: table layouts are inflexible, very heavy on markup, difficult to debug, and semantically wrong (e.g., screen reader users have problems navigating table layouts).
+
+Nowaday HTML tables are fine for displaying tabular data. 
+
+## Multi-column layout
+
+The multi-column layout CSS module provides us a way to lay out content in columns, similar to how text flows in a newspaper. While reading up and down columns is less useful in a web context due to the users having to scroll up and down, arranging content into columns can, nevertheless, be a useful technique.
+
+To turn a block into a multi-column container, we use either the `column-count` property, which tells the browser how many columns we would like to have, or the `column-width` property, which tells the browser to fill the container with as many columns as possible of a specified width.
 
 ## Reference
 
 [mdn document](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Introduction)
+The [CSS_display document](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display) have more detail for `display` property.
