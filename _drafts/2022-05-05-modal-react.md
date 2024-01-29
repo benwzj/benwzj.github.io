@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Display Motal in React
+title: Display Modal in React
 date: 2022-05-05
 tags: React Motal
 category: React
