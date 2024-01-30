@@ -6,17 +6,30 @@ tags: React Hook
 category: React
 ---
 
-Some components need to stay connected to the network, some browser API, or a third-party library, while they are displayed on the page. These systems aren’t controlled by React, so they are called external.
+Some components need to stay connected to the **network**, some **browser API**, or a **third-party library** while they are displayed on the page. These systems aren’t controlled by React, so they are called external.
+
+Effects let you run some code after rendering so that you can synchronize your component with some system outside of React. 
 
 If you’re not connecting to any external system, you probably don’t need an Effect.
 
-## Why use `useEffect`
+## What are Effects
+
+When talk about Effect, usually compare to Event. 
+Effects let you specify side effects that are caused by rendering itself, rather than by a particular event. 
+
+> Capitalized “Effect” refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we’ll say “side effect”.
+
+To declare an Effect in your component, you need to import the `useEffect` Hook from React.
+
+## The `useEffect`
+
+### Why use `useEffect`
 useEffect lets you synchronize a component with an external system.
 
-## What is `useEffect？`
+### What is `useEffect？`
 useEffect is a React Hook.
 
-## How do `useEffect` work
+### How do `useEffect` work
 ```js
 useEffect(setup, dependencies?)
 ```
@@ -24,15 +37,13 @@ useEffect(setup, dependencies?)
 - optional dependencies: The list of all reactive values referenced inside of the setup code. Reactive values include props, state, and all the variables and functions declared directly inside your component body.
 1. If you specify the dependencies, your Effect runs after the initial render and after re-renders with changed dependencies.
 2. If you omit this argument, your Effect will re-run after every re-render of the component.
-3. If dependencies is [], it will only run after the initial render. ##  useEffect vs. useLayoutEffect.
+3. If dependencies is [], it will only run after the initial render. 
 
-If your Effect wasn’t caused by an interaction (like a click), React will generally let the browser paint the updated screen first before running your Effect. If your Effect is doing something visual (for example, positioning a tooltip), and the delay is noticeable (for example, it flickers), replace useEffect with useLayoutEffect.
-
-## The Design of useEffect
+### The Design of useEffect
 
 ## Life Cycle of Effect
 
-## `useEffect` Questions
+## FQA
 
 - When React run `setup` in `useEffect`? the detail!!
 
@@ -40,7 +51,10 @@ If your Effect wasn’t caused by an interaction (like a click), React will gene
 
 - Clear the life cycle of function component around useEffect!
 
-- What is `useLayoutEffect` and Why we need it
+### What is `useLayoutEffect` and Why we need it
+
+If your Effect wasn’t caused by an interaction (like a click), React will generally let the browser paint the updated screen first before running your Effect. If your Effect is doing something visual (for example, positioning a tooltip), and the delay is noticeable (for example, it flickers), replace `useEffect` with `useLayoutEffect`.
+
 `useLayoutEffect` is a version of `useEffect` that fires before the browser repaints the screen. But `useLayoutEffect` can hurt performance. Prefer useEffect when possible.
 
 **tooltip** is a good example to tell why we need `useLayoutEffect` in some cases.

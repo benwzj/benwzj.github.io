@@ -4,6 +4,14 @@ title: React Overview with Function Component
 date: 2023-10-12
 tags: React Web-page Redux
 category: React
+toc: 
+  - name: React Rules
+  - name: Component life cycle
+  - name: React Under Hood
+  - name: React frameworks
+  - name: Hooks
+  - name: What Rendering means in React
+  - name: FQA
 ---
 
 Now React have ditched Class Component and focus on Function Component and Hooks. 
@@ -82,8 +90,6 @@ Frameworks provide features that most apps and sites eventually need, including 
 
 **eslint-plugin-react-hooks**, This ESLint plugin enforces the Rules of Hooks.
 
-## FQA
-
 ## What Rendering means in React
 
 Before your components are displayed on screen, they must be rendered by React. 
@@ -94,6 +100,7 @@ There are 3 steps for the whole rendering process:
 3. Committing to the DOM.
 
 #### Step 1: Trigger a render 
+
 There are two reasons for a component to render:
 - It’s the component’s initial render. By calling `createRoot` with the target DOM node, and then calling its render method with the component.
 - The component’s (or one of its ancestors’) state has been updated. Updating the component’s state automatically queues a render.
@@ -118,14 +125,16 @@ After rendering (calling) your components, React will modify the DOM.
 
 React only changes the DOM nodes if there’s a difference between renders.
 
-After rendering is done and React updated the DOM, the browser will repaint the screen. Although this process is known as “browser rendering”, we’ll refer to it as “painting” to avoid confusion throughout the docs.
+After rendering is done and React updated the DOM, the browser will repaint the screen. Although this process is known as “browser rendering”, we’ll refer to it as “painting” to avoid confusion with React rendering.
 
 ### There are some rules to follow for this process.
 For exemple, 
 - The initialer of useState will just run at the first time.
 - When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the childre.
 
-## How to Upward Communication
+## FQA
+
+### How to Upward Communication
 To communicate from a child to a parent component we can pass a function handler from parent to child.
 
 Take a look at this child component.  Whenever the user clicks on the button, it tries to call a function passed down to it through the props system.
@@ -149,12 +158,26 @@ function Parent() {
 }
 ```
 
-## What is Root component
+### What is Root component
 The React application begins at a “root” component. Usually, it is created automatically when you start a new project. For example, if you use CodeSandbox or if you use the framework Next.js, the root component is defined in pages/index.js.
 
-## What is Defining a component
+### What is Defining a component
 React components are regular JavaScript functions, but their names must start with a capital letter or they won’t work!
 React don't recommend to use Class components for new code.
 
-## What is `export default`
+### What is `export default`
 The `export default` prefix lets you mark the main function in a file so that you can later import it from other files. 
+
+### React is declarative UI programming
+
+In imperative programming, the above corresponds directly to how you implement interaction. You have to write the exact instructions to manipulate the UI depending on what just happened.
+
+In React, declarative UI programming, you don’t directly manipulate the UI—meaning you don’t enable, disable, show, or hide components directly. Instead, you declare what you want to show, and React figures out how to update the UI. 
+
+`state` is the key for React to implement declarative programming.
+1. Identify your component’s different visual states
+2. Determine what triggers those state changes
+3. Represent the state in memory using useState
+4. Remove any non-essential state variables
+5. Connect the event handlers to set the state
+
