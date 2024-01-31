@@ -19,9 +19,9 @@ When talking about Effect, usually compare to Event.
 > Effects let you specify side effects that are caused by rendering itself, rather than by a particular event. 
 {: .block-warning }
 
-Effects let you run some code after rendering so that you can synchronize your component with some system outside of React. 
+Capitalized “Effect” refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we’ll say “side effect”.
 
-> Capitalized “Effect” refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we’ll say “side effect”.
+Effects let you run some code after rendering so that you can synchronize your component with some system outside of React. 
 
 ### Understand Effect
 
@@ -41,6 +41,8 @@ To declare an Effect in your component, you need to import the `useEffect` Hook 
 `useEffect` is a React Hook. It lets you synchronize a component with an external system.
 
 Every time your component renders, React will update the screen and then run the code inside `useEffect`. In other words, `useEffect` “delays” a piece of code from running until that render is reflected on the screen.
+
+Each render has its own Effects. You can even think of `useEffect` as “attaching” a piece of behavior to the render output. 
 
 ### Using `useEffect`
 
@@ -68,9 +70,12 @@ useEffect(() => {
 }, [a, b]);
 ```
 
-### Common Patterns 
+You can’t “choose” your `dependencies`. They are determined by the code inside the Effect.
+React will call your `cleanup function` before the Effect runs next time, and during the unmount.
 
-In Strict Mode, Effect will be run twice. That is helpful for development. For example, it can told you that the Effect need `cleanup function` or not.
+### Common Patterns for Effect
+
+In Strict Mode, Effect will be run twice. That is helpful for development. For example, it can tell you that the Effect need `cleanup function` or not.
 
 Most of the Effects you’ll write will fit into one of the common patterns below.
 
@@ -85,9 +90,24 @@ If your Effect fetches something, the cleanup function should either abort the f
 - Sending analytics
 - (Not an Effect): Initializing the application 
 Some logic should only run once when the application starts. You can put it outside your components.
-- 
 
-### The Design of useEffect
+### Classic Bugs: race conditions 
+
+When fetch data from internet in your `useEffect` according to user input, it is easy to cross classic bug race condition. You can fix this by adding flag `ignore`, like this:
+```js
+useEffect(() => {
+  let ignore = false;
+  setBio(null);
+  fetchBio(person).then(result => {
+    if (!ignore) {
+      setBio(result);
+    }
+  });
+  return () => {
+    ignore = true;
+  }
+}, [person]);
+```
 
 ## Life Cycle of Effect
 
@@ -109,9 +129,8 @@ To do this, you need to render in two passes:
 
 All of this needs to happen before the browser repaints the screen.
 
+### When React run `setup` in `useEffect`? the detail!!
 
-- When React run `setup` in `useEffect`? the detail!!
+### What do "paint the updated screen first before running your Effect" means? Why React run in this order. The code inside the useEffect may update the screen as well. Why not run Effect and updated Screen together.
 
-- What do "paint the updated screen first before running your Effect" means? Why React run in this order. The code inside the useEffect may update the screen as well. Why not run Effect and updated Screen together.
-
-- Clear the life cycle of function component around useEffect!
+### Clear the life cycle of function component around useEffect!
