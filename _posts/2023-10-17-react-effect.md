@@ -109,8 +109,6 @@ useEffect(() => {
 }, [person]);
 ```
 
-## Life Cycle of Effect
-
 ## FQA
 
 ### What is `useLayoutEffect` and Why we need it
@@ -133,4 +131,5 @@ All of this needs to happen before the browser repaints the screen.
 
 ### What do "paint the updated screen first before running your Effect" means? Why React run in this order. The code inside the useEffect may update the screen as well. Why not run Effect and updated Screen together.
 
-### Clear the life cycle of function component around useEffect!
+### The life cycle of function component around useEffect?
+
