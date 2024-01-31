@@ -77,13 +77,14 @@ Refs provide a way to access DOM nodes or React elements created in the render m
 If you want to build a new app or a new website fully with React, use frameworks. 
 
 ### Why Frameworks
-If you just want to run React, then what you need just grab react and react-dom from npm. 
-But as a Web App, it still need routing, data fetching, and generating HTML for good performance.
+If you just want to run React, then what you need just grab `react` and `react-dom` from npm. 
+But as a Web App, it still need **routing**, **data fetching**, and **generating HTML** for good performance.
 Frameworks provide features that most apps and sites eventually need, including routing, data fetching, and generating HTML.
 
-- **Next.js** is a full-stack React framework
-- **Remix** is a full-stack React framework with nested routing
-- **Gatsby** is a React framework for fast CMS-backed websites
+- **Create React App (CRA)** ,is an officially supported way to create single-page React applications. It offers a modern build setup with no configuration.
+- **NextJS** is a full-stack React framework, provides server-side rendering (SSR).
+- **Remix** is a full-stack React framework with nested routing.
+- **Gatsby** is a React framework for fast CMS-backed websites.
 - **Expo** (for native apps) is a React framework that lets you create universal Android, iOS, and web apps with truly native UIs. 
 
 ## Hooks
@@ -180,4 +181,27 @@ In React, declarative UI programming, you don’t directly manipulate the UI—m
 3. Represent the state in memory using useState
 4. Remove any non-essential state variables
 5. Connect the event handlers to set the state
+
+### Strict Mode
+
+React Strict Mode lets you find common bugs in your components early during development.
+
+```js
+<StrictMode>
+  <App />
+</StrictMode>
+```
+
+If you are using `Next.js` or `create-react-app` to create your React app. Strict Mode is enabled by default.
+
+Strict Mode enables the following checks in development:
+- Your components will re-render an extra time to find bugs caused by impure rendering.
+- Your components will re-run Effects an extra time to find bugs caused by missing Effect cleanup.
+- Your components will be checked for usage of deprecated APIs.
+All of these checks are development-only and do not impact the production build.
+
+You can turn off Strict Mode to opt out of the development behavior.
+
+
+### TypeScript and React
 

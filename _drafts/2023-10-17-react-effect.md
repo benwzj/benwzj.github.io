@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Synchronize With External System
+title: Effect in React
 date: 2023-10-17
 tags: React Hook
 category: React
@@ -8,48 +8,90 @@ category: React
 
 Some components need to stay connected to the **network**, some **browser API**, or a **third-party library** while they are displayed on the page. These systems aren’t controlled by React, so they are called external.
 
-Effects let you run some code after rendering so that you can synchronize your component with some system outside of React. 
-
-If you’re not connecting to any external system, you probably don’t need an Effect.
+How React Synchronize With External? React provide Effect system!
 
 ## What are Effects
 
-When talk about Effect, usually compare to Event. 
-Effects let you specify side effects that are caused by rendering itself, rather than by a particular event. 
+When talking about Effect, usually compare to Event. 
+
+> ##### The definition
+> 
+> Effects let you specify side effects that are caused by rendering itself, rather than by a particular event. 
+{: .block-warning }
+
+Effects let you run some code after rendering so that you can synchronize your component with some system outside of React. 
 
 > Capitalized “Effect” refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we’ll say “side effect”.
+
+### Understand Effect
+
+To understand Effect, you need to be familiar with two types of logic inside React components:
+1. **Rendering code** lives at the top level of your component. This is where you take the props and state, transform them, and return the JSX you want to see on the screen. Rendering code must be pure.
+2. **Event handlers** are nested functions inside your components that do things rather than just calculate them. Event handlers contain “side effects” (they change the program’s state) caused by a specific user action (for example, a button click or typing).
+
+Beside these two basic logic, React provide Effect logic. It is not on Rendering code or Event handlers. Effect is caused by rendering, and run after rendering. 
+This logic is just designed for Synchronizing with external.
+
+If you’re not connecting to any external system, you probably don’t need an Effect.
 
 To declare an Effect in your component, you need to import the `useEffect` Hook from React.
 
 ## The `useEffect`
 
-### Why use `useEffect`
-useEffect lets you synchronize a component with an external system.
+`useEffect` is a React Hook. It lets you synchronize a component with an external system.
 
-### What is `useEffect？`
-useEffect is a React Hook.
+Every time your component renders, React will update the screen and then run the code inside `useEffect`. In other words, `useEffect` “delays” a piece of code from running until that render is reflected on the screen.
 
-### How do `useEffect` work
+### Using `useEffect`
+
 ```js
 useEffect(setup, dependencies?)
 ```
-- setup: The function with your Effect’s logic. Your setup function may also optionally return a cleanup function.
-- optional dependencies: The list of all reactive values referenced inside of the setup code. Reactive values include props, state, and all the variables and functions declared directly inside your component body.
+- `setup`: The function with your Effect’s logic. Your setup function may also optionally return a cleanup function.
+- optional `dependencies`: The list of all reactive values referenced inside of the setup code. Reactive values include props, state, and all the variables and functions declared directly inside your component body.
 1. If you specify the dependencies, your Effect runs after the initial render and after re-renders with changed dependencies.
 2. If you omit this argument, your Effect will re-run after every re-render of the component.
-3. If dependencies is [], it will only run after the initial render. 
+3. If dependencies is `[]`, it will only run after the initial render. 
+
+Optional `dependencies` rules:
+```js
+useEffect(() => {
+  // This runs after every render
+});
+
+useEffect(() => {
+  // This runs only on mount (when the component appears)
+}, []);
+
+useEffect(() => {
+  // This runs on mount *and also* if either a or b have changed since the last render
+}, [a, b]);
+```
+
+### Common Patterns 
+
+In Strict Mode, Effect will be run twice. That is helpful for development. For example, it can told you that the Effect need `cleanup function` or not.
+
+Most of the Effects you’ll write will fit into one of the common patterns below.
+
+- Controlling non-React widgets 
+Sometimes you need to add UI widgets that aren’t written to React. For example, let’s say you’re adding a map component to your page. It has a setZoomLevel() method, and you’d like to keep the zoom level in sync with a zoomLevel state variable in your React code.
+- Subscribing to events 
+If your Effect subscribes to something, the cleanup function should unsubscribe.
+- Triggering animations 
+If your Effect animates something in, the cleanup function should reset the animation to the initial values.
+- Fetching data 
+If your Effect fetches something, the cleanup function should either abort the fetch or ignore its result. Please note, Fetching data in Effect is not an elegant way. If you use a framework, use its built-in data fetching mechanism. Otherwise, consider using or building a client-side cache. 
+- Sending analytics
+- (Not an Effect): Initializing the application 
+Some logic should only run once when the application starts. You can put it outside your components.
+- 
 
 ### The Design of useEffect
 
 ## Life Cycle of Effect
 
 ## FQA
-
-- When React run `setup` in `useEffect`? the detail!!
-
-- What do "paint the updated screen first before running your Effect." means?
-
-- Clear the life cycle of function component around useEffect!
 
 ### What is `useLayoutEffect` and Why we need it
 
@@ -66,3 +108,10 @@ To do this, you need to render in two passes:
 3. Render the tooltip again in the correct place.
 
 All of this needs to happen before the browser repaints the screen.
+
+
+- When React run `setup` in `useEffect`? the detail!!
+
+- What do "paint the updated screen first before running your Effect" means? Why React run in this order. The code inside the useEffect may update the screen as well. Why not run Effect and updated Screen together.
+
+- Clear the life cycle of function component around useEffect!
