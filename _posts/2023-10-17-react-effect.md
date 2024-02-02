@@ -4,6 +4,11 @@ title: Effect in React
 date: 2023-10-17
 tags: React Hook
 category: React
+toc:
+  - name: What are Effects
+  - name: What is `useEffect`
+  - name: Using `useEffect`
+  - name: FQA
 ---
 
 Some components need to stay connected to the **network**, some **browser API**, or a **third-party library** while they are displayed on the page. These systems aren’t controlled by React, so they are called external.
@@ -19,7 +24,7 @@ When talking about Effect, usually compare to Event.
 > Effects let you specify side effects that are caused by rendering itself, rather than by a particular event. 
 {: .block-warning }
 
-Capitalized “Effect” refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we’ll say “side effect”.
+> Capitalized “Effect” refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we’ll say “side effect”.
 
 Effects let you run some code after rendering so that you can synchronize your component with some system outside of React. 
 
@@ -36,7 +41,7 @@ If you’re not connecting to any external system, you probably don’t need an 
 
 To declare an Effect in your component, you need to import the `useEffect` Hook from React.
 
-## The `useEffect`
+## What is `useEffect`
 
 `useEffect` is a React Hook. It lets you synchronize a component with an external system.
 
@@ -44,7 +49,7 @@ Every time your component renders, React will update the screen and then run the
 
 Each render has its own Effects. You can even think of `useEffect` as “attaching” a piece of behavior to the render output. 
 
-### Using `useEffect`
+## Using `useEffect`
 
 ```js
 useEffect(setup, dependencies?)
@@ -108,6 +113,8 @@ useEffect(() => {
   }
 }, [person]);
 ```
+
+Each render’s Effect has its **own** `ignore` variable. Initially, the `ignore` variable is set to false. However, if an Effect gets cleaned up (such as when you select a different person), its `ignore` variable becomes true. So now it doesn’t matter in which order the requests complete. Only the last person’s Effect will have `ignore` set to false, so it will call `setBio(result)`. 
 
 ## FQA
 
