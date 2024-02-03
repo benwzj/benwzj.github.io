@@ -3,7 +3,7 @@ layout: post
 title: "Understand Promise in JS"
 date: 2021-06-11
 categories: JavaScript
-tags: Promise Asynchronous JavaScript
+tags: Promise Asynchronous JavaScript Microtask
 ---
 
 ## What is Promises
