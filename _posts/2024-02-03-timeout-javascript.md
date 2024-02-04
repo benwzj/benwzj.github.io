@@ -9,7 +9,9 @@ tags: Web-API Timer Recursion
 The `setTimeout()` and `setInterval()` methods allow authors to schedule timer-based callbacks.
 
 - Timers can be nested; after five such nested timers, however, the interval is forced to be at least four milliseconds.
-- This API does not guarantee that timers will run exactly on schedule. Delays due to CPU load, other tasks, etc, are to be expected.
+- This API does not guarantee that timers will run exactly on schedule. Delays due to CPU load, other tasks, nested level, inactive tab, etc, are to be expected.
+- Non-number `delay` values are silently coerced into numbers.
+- You can include a string instead of a function, which is compiled and executed when the timer expires. This syntax is not recommended for the same reasons that make using `eval()` a security risk.
 
 I am not gonna talk about how to use it. But trying to dig a bit deepper.
 
@@ -19,19 +21,19 @@ I am not gonna talk about how to use it. But trying to dig a bit deepper.
 
 `setTimeout()` is web API which means there are standards to define how it work. Becaue it need to make sure all browsers work consistently.
 
-### WindowOrWorkerGlobalScope
-`setTimeout()`s are the functions (a subset) that are common to all workers and to the main thread. They are from WindowOrWorkerGlobalScope. Objects that implement the WindowOrWorkerGlobalScope mixin have a map of active timers, which is a map, initially empty. Each key in this map is an identifier for a timer, and each value is a `DOMHighResTimeStamp`, representing the expiry time for that timer.
+`setTimeout()`s are the functions (a subset) that are common to all workers and to the main thread. They are from `WindowOrWorkerGlobalScope`. Objects that implement the `WindowOrWorkerGlobalScope` mixin have a map of active timers, which is a map, initially empty. Each key in this map is an identifier for a timer, and each value is a `DOMHighResTimeStamp`, representing the expiry time for that timer.
 
 `setTimeout()` will run the [timer initialization steps](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timer-initialisation-steps) and put entries into the map of active timers.
 In completionStep, an algorithm step, which **queues a global task** on the timer task source given global to run task.
 
-- common using way in React
-- What happen if not clearInterval();
-- Ensure that execution duration is shorter than interval frequency, using recursion of setTimeout() instead of setInterval()
-- This API does not guarantee that timers will run exactly on schedule. Delays due to CPU load, other tasks, etc, are to be expected.
-- The "this" problem
-- Working with asynchronous functions
-- can be used in worker object becuase they are defined in a shared mixin (WindowOrWorkerGlobalScope)
+## The "this" problem
+
+Code executed by setTimeout() is called from an execution context separate from the function from which setTimeout was called. 
+If you have not set `this` in the call or with bind, it will default to the window (or global) object. It will not be the same as the `this` value for the function that called setTimeout.
+
+Solutions:
+- A common way to solve the problem is to use a wrapper function that sets `this` to the required value.
+- Alternatively, you can use bind() to set the value of this for all calls to a given function
 
 ## setTimeout and Recursion
 
@@ -97,6 +99,13 @@ If we add new microtasks to microtask queue during the execution of the microtas
 
 So, As a corollary of this sequence we could say that two macrotasks cannot be executed one after the other if, in between, the microtasks tail has elements.
 
+## FQA
+
+- common using way in React
+- What happen if not clearInterval();
+- Ensure that execution duration is shorter than interval frequency, using recursion of setTimeout() instead of setInterval()
+- Working with asynchronous functions
+- can be used in worker object becuase they are defined in a shared mixin (WindowOrWorkerGlobalScope)
 
 ## Reference
 
