@@ -23,7 +23,7 @@ I am not gonna talk about how to use it. But trying to dig a bit deepper.
 `setTimeout()`s are the functions (a subset) that are common to all workers and to the main thread. They are from WindowOrWorkerGlobalScope. Objects that implement the WindowOrWorkerGlobalScope mixin have a map of active timers, which is a map, initially empty. Each key in this map is an identifier for a timer, and each value is a `DOMHighResTimeStamp`, representing the expiry time for that timer.
 
 `setTimeout()` will run the [timer initialization steps](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timer-initialisation-steps) and put entries into the map of active timers.
-
+In completionStep, an algorithm step, which **queues a global task** on the timer task source given global to run task.
 
 - common using way in React
 - What happen if not clearInterval();
