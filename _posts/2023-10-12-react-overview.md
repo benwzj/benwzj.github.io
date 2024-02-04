@@ -74,14 +74,15 @@ Refs provide a way to access DOM nodes or React elements created in the render m
 
 
 ## React frameworks
-If you want to build a new app or a new website fully with React, use frameworks. 
+
+If you want to build a new app or a new website fully with React, React reommend to use frameworks. Like NextJS, Remix, etc. 
 
 ### Why Frameworks
 If you just want to run React, then what you need just grab `react` and `react-dom` from npm. 
 But as a Web App, it still need **routing**, **data fetching**, and **generating HTML** for good performance.
 Frameworks provide features that most apps and sites eventually need, including routing, data fetching, and generating HTML.
 
-- **Create React App (CRA)** ,is an officially supported way to create single-page React applications. It offers a modern build setup with no configuration.
+- **Create React App (CRA)** ,is an officially supported way to create single-page React applications. It offers a modern build setup with no configuration. Usually, we use CRA to start React app. But React reommend to use framework, like NextJS, to build app. And React work as dependence.
 - **NextJS** is a full-stack React framework, provides server-side rendering (SSR).
 - **Remix** is a full-stack React framework with nested routing.
 - **Gatsby** is a React framework for fast CMS-backed websites.

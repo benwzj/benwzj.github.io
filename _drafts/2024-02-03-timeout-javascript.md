@@ -3,15 +3,28 @@ layout: post
 title: About Timer in JavaScript
 date: 2024-02-03
 category: JavaScript
-tags: Web-API Timer
+tags: Web-API Timer Recursion
 ---
 
 The `setTimeout()` and `setInterval()` methods allow authors to schedule timer-based callbacks.
+
+- Timers can be nested; after five such nested timers, however, the interval is forced to be at least four milliseconds.
+- This API does not guarantee that timers will run exactly on schedule. Delays due to CPU load, other tasks, etc, are to be expected.
+
 I am not gonna talk about how to use it. But trying to dig a bit deepper.
 
-`setTimeout()` and `setInterval()` methods arevery similiar, or can say, same.
+`setTimeout()` and `setInterval()` methods are very similiar, or you can say, same. So I will focus on `setTimeout()`.
 
-- How it work underhood
+## How it work underhood
+
+`setTimeout()` is web API which means there are standards to define how it work. Becaue it need to make sure all browsers work consistently.
+
+### WindowOrWorkerGlobalScope
+`setTimeout()`s are the functions (a subset) that are common to all workers and to the main thread. They are from WindowOrWorkerGlobalScope. Objects that implement the WindowOrWorkerGlobalScope mixin have a map of active timers, which is a map, initially empty. Each key in this map is an identifier for a timer, and each value is a `DOMHighResTimeStamp`, representing the expiry time for that timer.
+
+`setTimeout()` will run the [timer initialization steps](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timer-initialisation-steps) and put entries into the map of active timers.
+
+
 - common using way in React
 - What happen if not clearInterval();
 - Ensure that execution duration is shorter than interval frequency, using recursion of setTimeout() instead of setInterval()
@@ -19,8 +32,44 @@ I am not gonna talk about how to use it. But trying to dig a bit deepper.
 - The "this" problem
 - Working with asynchronous functions
 - can be used in worker object becuase they are defined in a shared mixin (WindowOrWorkerGlobalScope)
-- settimeout and recursion
 
+## setTimeout and Recursion
+
+The act of a function calling itself, recursion is used to solve problems that contain smaller sub-problems. A recursive function can receive two inputs: a base case (ends recursion) or a recursive case (resumes recursion).
+
+To understand Recursion, you need to understand closure, call stack, etc. 
+
+In JavaScript, Recursion is limited by stack size. It is easy to explode call stack.
+For example: Function below returns the maximum size of the call stack available in the JavaScript runtime in which the code is run.
+
+```js
+const getMaxCallStackSize = (i) => {
+  try {
+    return getMaxCallStackSize(++i);
+  } catch {
+    return i;
+  }
+};
+
+console.log(getMaxCallStackSize(0));
+```
+
+But if call function itself in setTimeout(), it is still Recursion? just like below:
+```js
+let count = 10;
+const timer = ()=>{
+  count --;
+  let currentTime = new Date().getMilliseconds();
+  if (count > 0){
+    setTimeout (()=>{
+      let executionTime = new Date().getMilliseconds();
+      writeLog(currentTime, executionTime);
+      timer();
+    }, 0);
+  }
+}
+```
+It is still call recursion. But their implement is different. 
 
 ## Understand the execution order
 
@@ -51,5 +100,6 @@ So, As a corollary of this sequence we could say that two macrotasks cannot be e
 
 ## Reference
 
-[MDN doc](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+- [MDN doc](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+- [html.spec](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html)
 
