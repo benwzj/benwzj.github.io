@@ -5,6 +5,7 @@ date: 2023-10-15
 tags: React Hook
 category: React
 toc:
+  - name: Understand State in React
   - name: State Rules
   - name: useState Hook
     subsections: 
@@ -14,6 +15,48 @@ toc:
       - name: Set State to a function
   - name: FQA
 ---
+
+## Understand State in React
+
+### State behaves as snapshot?
+
+State actually “lives” in React itself outside of your function. When triggering a render, React calls your component, it gives you a snapshot of the state for that particular render. 
+
+This snapshot of the UI with a fresh set of props and event handlers in its JSX, all calculated using the state values from that render!
+
+But how to understand this component:
+```js 
+export default function Counter() {
+  const [counter, setCounter] = useState(0);
+  async function handleClick() {
+    setCounter(counter + 1);
+    await delay(3000);
+    setCounter(counter - 1);
+  }
+  return (
+    <>
+      <h3>
+        counter: {counter}
+      </h3>
+      <button onClick={handleClick}>
+        add it     
+      </button>
+    </>
+  );
+}
+function delay(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}
+
+// It will display "counter: -1" when click the button.
+```
+
+It still make sense like this: 
+When you click, cause a re-render, React return a second snapshot: `counter: 1` for the new render; After 3 seconds, `setCounter(counter - 1);` executed and trigger a new render as well but this code is executed in the first Call Stack Context, and the counter is 0. That means it use previous snapshot instead of the current one. It still trigger a render and create a new snapshot: `counter: -1`; In this case, React just manage one memory for this component because it is in the same place.
+
+Don't read the latest state from an asynchronous operation like a timeout. It is confused!
 
 ## State Rules
 - Treat all state in React as **immutable**. This help React run very fast. 
@@ -131,42 +174,6 @@ function handleClick() {
 
 ## FQA
 
-### How to understand State behaves as snapshot?
-
-State actually “lives” in React itself outside of your function. When triggering a render, React calls your component, it gives you a snapshot of the state for that particular render. 
-This snapshot of the UI with a fresh set of props and event handlers in its JSX, all calculated using the state values from that render!
-
-But how to understand this component:
-```js 
-export default function Counter() {
-  const [counter, setCounter] = useState(0);
-  async function handleClick() {
-    setCounter(counter + 1);
-    await delay(3000);
-    setCounter(counter - 1);
-  }
-  return (
-    <>
-      <h3>
-        counter: {counter}
-      </h3>
-      <button onClick={handleClick}>
-        add it     
-      </button>
-    </>
-  );
-}
-function delay(ms) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
-}
-
-// It will display "counter: -1" when click the button.
-```
-
-It still make sense like this: 
-When you click, React return a snapshot: `counter: 1`; After 3 seconds, `setCounter(counter - 1);` trigger another render, and the counter is 0 because it used previuos Call Stack. That means it use previous snapshot instead of the current one. But it still trigger a render and create a new snapshot: `counter: -1`; In this case, React just manage one memory for this component because it is in the same place.
 
 ### How to handle Object and Array STATE?
 

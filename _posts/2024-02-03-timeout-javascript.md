@@ -4,6 +4,15 @@ title: About Timer in JavaScript
 date: 2024-02-03
 category: JavaScript
 tags: Web-API Timer Recursion
+toc:
+  - name: How it work underhood
+  - name: The "this" problem
+  - name: setTimeout and Recursion
+  - name: Understand the execution order
+  - name: The `setInterval()`
+  - name: Common using way in React
+  - name: FQA
+  - name: Reference
 ---
 
 The `setTimeout()` and `setInterval()` methods allow authors to schedule timer-based callbacks.
@@ -15,7 +24,7 @@ The `setTimeout()` and `setInterval()` methods allow authors to schedule timer-b
 
 I am not gonna talk about how to use it. But trying to dig a bit deepper.
 
-`setTimeout()` and `setInterval()` methods are very similiar, or you can say, same. 
+`setTimeout()` and `setInterval()` methods work in a very similiar machanism. 
 
 ## How it work underhood
 
@@ -120,7 +129,6 @@ In these cases, a recursive `setTimeout()` pattern is preferred:
 ```
 loop() is recursively called inside setTimeout() after the logic has completed executing. While this pattern does not guarantee execution on a fixed interval, it does guarantee that the previous interval has completed before recursing.
 
-### What happen if not `clearInterval()`
 
 ## Common using way in React
 
@@ -167,15 +175,11 @@ export default function Stopwatch() {
     </>
   );
 }
-
 ```
-
 
 ## FQA
 
-- Ensure that execution duration is shorter than interval frequency, using recursion of setTimeout() instead of setInterval()
-- Working with asynchronous functions
-- can be used in worker object becuase they are defined in a shared mixin (WindowOrWorkerGlobalScope)
+### What happen if not `clearInterval()`
 
 ## Reference
 
