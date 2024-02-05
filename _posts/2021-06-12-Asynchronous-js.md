@@ -3,7 +3,7 @@ layout: post
 title: "Asynchronous Programming in JS"
 date: 2021-06-12
 categories: JavaScript
-tags: Call-back Promise Queue Asynchronous JavaScript
+tags: Call-back Promise Asynchronous JavaScript
 ---
 
 JavaScript is a single thread language. It use event loop to build Asynchronous programming.
@@ -133,7 +133,7 @@ addEventListener("message", message => {
   postMessage('Done with Ali');
 });
 
-### Q&A
+## FQA
 
-- Is worker a part of JavaScript?
+### Is worker a part of JavaScript Engine?
 No, worker is web API. It run outside of the event loop, outside of the JavaScript Runtime.

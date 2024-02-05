@@ -15,11 +15,11 @@ The `setTimeout()` and `setInterval()` methods allow authors to schedule timer-b
 
 I am not gonna talk about how to use it. But trying to dig a bit deepper.
 
-`setTimeout()` and `setInterval()` methods are very similiar, or you can say, same. So I will focus on `setTimeout()`.
+`setTimeout()` and `setInterval()` methods are very similiar, or you can say, same. 
 
 ## How it work underhood
 
-`setTimeout()` is web API which means there are standards to define how it work. Becaue it need to make sure all browsers work consistently.
+`setTimeout()` is web API which means there are standards to define how it work. Becaue it need to make sure all browsers work consistently. Timers are described in the timers section of [HTML Living Standard](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html).
 
 `setTimeout()`s are the functions (a subset) that are common to all workers and to the main thread. They are from `WindowOrWorkerGlobalScope`. Objects that implement the `WindowOrWorkerGlobalScope` mixin have a map of active timers, which is a map, initially empty. Each key in this map is an identifier for a timer, and each value is a `DOMHighResTimeStamp`, representing the expiry time for that timer.
 
@@ -71,7 +71,7 @@ const timer = ()=>{
   }
 }
 ```
-It is still call recursion. But their implement is different. 
+It is still called recursion, or called nested setTimeout. But their implement is different. 
 
 ## Understand the execution order
 
@@ -99,10 +99,80 @@ If we add new microtasks to microtask queue during the execution of the microtas
 
 So, As a corollary of this sequence we could say that two macrotasks cannot be executed one after the other if, in between, the microtasks tail has elements.
 
+## The `setInterval()`
+
+The `setInterval()` function is commonly used to set a delay for functions that are executed again and again, such as animations. You can cancel the interval using `clearInterval()`.
+
+Ensure that execution duration is shorter than interval frequency when using `setInterval()`. 
+If there is a possibility that your logic could take longer to execute than the interval time, it is recommended that you recursively call a named function using `setTimeout()`. 
+
+For example, if using `setInterval()` to poll a remote server every 5 seconds, network latency, an unresponsive server, and a host of other issues could prevent the request from completing in its allotted time. As such, you may find yourself with queued up XHR requests that won't necessarily return in order.
+
+In these cases, a recursive `setTimeout()` pattern is preferred:
+```js
+(function loop() {
+  setTimeout(() => {
+    // Your logic here
+
+    loop();
+  }, delay);
+})();
+```
+loop() is recursively called inside setTimeout() after the logic has completed executing. While this pattern does not guarantee execution on a fixed interval, it does guarantee that the previous interval has completed before recursing.
+
+### What happen if not `clearInterval()`
+
+## Common using way in React
+
+- Using `ref` to mark intervalID. 
+- `clearInterval(theOldInterval)` before start a new interval.
+
+Example: building a stopwatch
+```js
+import { useState, useRef } from 'react';
+
+export default function Stopwatch() {
+  const [startTime, setStartTime] = useState(null);
+  const [now, setNow] = useState(null);
+  const intervalRef = useRef(null);
+
+  function handleStart() {
+    setStartTime(Date.now());
+    setNow(Date.now());
+
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setNow(Date.now());
+    }, 10);
+  }
+
+  function handleStop() {
+    clearInterval(intervalRef.current);
+  }
+
+  let secondsPassed = 0;
+  if (startTime != null && now != null) {
+    secondsPassed = (now - startTime) / 1000;
+  }
+
+  return (
+    <>
+      <h1>Time passed: {secondsPassed.toFixed(3)}</h1>
+      <button onClick={handleStart}>
+        Start
+      </button>
+      <button onClick={handleStop}>
+        Stop
+      </button>
+    </>
+  );
+}
+
+```
+
+
 ## FQA
 
-- common using way in React
-- What happen if not clearInterval();
 - Ensure that execution duration is shorter than interval frequency, using recursion of setTimeout() instead of setInterval()
 - Working with asynchronous functions
 - can be used in worker object becuase they are defined in a shared mixin (WindowOrWorkerGlobalScope)
