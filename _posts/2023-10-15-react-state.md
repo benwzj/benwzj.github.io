@@ -18,9 +18,9 @@ toc:
 
 ## Understand State in React
 
-### State behaves as snapshot?
+### State behaves as snapshot
 
-State actually “lives” in React itself outside of your function. When triggering a render, React calls your component, it gives you a snapshot of the state for that particular render. 
+States are a component’s memory. State actually “lives” in React itself (as if on a shelf!) outside of your function. When triggering a render, React calls your component, it gives you a snapshot of the state for that particular render. 
 
 This snapshot of the UI with a fresh set of props and event handlers in its JSX, all calculated using the state values from that render!
 
@@ -54,15 +54,32 @@ function delay(ms) {
 ```
 
 It still make sense like this: 
-When you click, cause a re-render, React return a second snapshot: `counter: 1` for the new render; After 3 seconds, `setCounter(counter - 1);` executed and trigger a new render as well but this code is executed in the first Call Stack Context, and the counter is 0. That means it use previous snapshot instead of the current one. It still trigger a render and create a new snapshot: `counter: -1`; In this case, React just manage one memory for this component because it is in the same place.
+When you click, cause a re-render, React return a second snapshot: `counter: 1` for the new render; After 3 seconds, `setCounter(counter - 1);` executed and trigger a new render as well but this code is executed based on the old snapshot:  `counter: 0`. It still trigger a render and create a new snapshot: `counter: -1`; 
+In this case, React just manage one memory for this component because it is in the same place.
 
-Don't read the latest state from an asynchronous operation like a timeout. It is confused!
+> So, Don't read the latest state from an asynchronous operation, like a timeout. It is confused!
+{: .block-warning}
+
+### State vs Ref
+
+State and Ref are comparable. React use them for different purpose.
+
+- Mutating `state` cause re-render. Mutating `ref` won't.
+- `state` and `ref` could point to anything: a string, an object, or even a function. 
+- `state` and `refs` both are live outside of your component.
+- `state` and `refs` both are retained by React between re-renders. 
+- `state` works as snapshot for each render; But `ref` won't be affected by render.
+- `state` is ”Immutable” — you must use the state setting function to modify state variables to queue a re-render; `ref` is mutable, it is a **plain** JavaScript object that you can read and modify.
+- You shouldn’t read (or write) the `ref.current` value during rendering. But You can read `state` any time. 
+- You aren't supposed to read `state` in asynchronous manner(because easily confused); But you can handle `ref` asynchronously.
+
 
 ## State Rules
 - Treat all state in React as **immutable**. This help React run very fast. 
 - State behaves as a **snapshot**. Setting state does not change the state variable you already have, but instead triggers a re-render.
-- States are a component’s memory. State actually “lives” in React itself (as if on a shelf!) outside of your function. When triggering a render, React calls your component, it gives you a snapshot of the state for that particular render. This snapshot of the UI with a fresh set of props and event handlers in its JSX, all calculated using the state values from that render!
-
+- State actually “lives” in React itself outside of your function. 
+- When triggering a render, React calls your component, it gives you a snapshot of the state for that particular render. 
+- This new snapshot of the UI with a fresh set of props and event handlers in its JSX, all calculated using the state values from that render!
 - React will ignore your update if the next state is equal to the previous state, as determined by an Object.is comparison. 
 - You can store information from previous renders, but need to use condition, and also, the logic is hard to read. try to avoid.
 - When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the children. 
