@@ -64,15 +64,13 @@ In this case, React just manage one memory for this component because it is in t
 
 State and Ref are comparable. React use them for different purpose.
 
-- Mutating `state` cause re-render. Mutating `ref` won't.
 - `state` and `ref` could point to anything: a string, an object, or even a function. 
 - `state` and `refs` both are live outside of your component.
 - `state` and `refs` both are retained by React between re-renders. 
-- `state` works as snapshot for each render; But `ref` won't be affected by render.
+- Mutating `state` cause re-render. Mutating `ref` won't.
+- `state` works as snapshot for each render, You can't get latest state from an asynchronous operation; But `ref` won't be affected by render, you can read the latest ref anytime.
 - `state` is ”Immutable” — you must use the state setting function to modify state variables to queue a re-render; `ref` is mutable, it is a **plain** JavaScript object that you can read and modify.
 - You shouldn’t read (or write) the `ref.current` value during rendering. But You can read `state` any time. 
-- You aren't supposed to read `state` in asynchronous manner(because easily confused); But you can handle `ref` asynchronously.
-
 
 ## State Rules
 - Treat all state in React as **immutable**. This help React run very fast. 
