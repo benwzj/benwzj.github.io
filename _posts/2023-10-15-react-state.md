@@ -5,8 +5,12 @@ date: 2023-10-15
 tags: React Hook
 category: React
 toc:
-  - name: Understand State in React
   - name: State Rules
+  - name: Understand State in React
+    subsections: 
+      - name: State vs Ref
+      - name: State behaves as snapshot
+      - name: How React update states
   - name: useState Hook
     subsections: 
       - name: Syntax
@@ -15,6 +19,19 @@ toc:
       - name: Set State to a function
   - name: FQA
 ---
+
+## State Rules
+
+- Treat all state in React as **immutable**. This help React run very fast. 
+- State behaves as a **snapshot**. Setting state does not change the state variable you already have, but instead triggers a re-render.
+- State actually “lives” in React itself outside of your function. 
+- When triggering a render, React calls your component, it gives you a snapshot of the state for that particular render. 
+- This new snapshot of the UI with a fresh set of props and event handlers in its JSX, all calculated using the state values from that render!
+- React will ignore your update if the next state is equal to the previous state, as determined by an Object.is comparison. 
+- You can store information from previous renders, but need to use condition, and also, the logic is hard to read. try to avoid.
+- When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the children. 
+- Unlike props, state is fully private to the component declaring it. If you render the same component twice, each copy will have completely isolated state! 
+- React batches state updates, it will queue all set functions and execute all set functions one by one before re-render.
 
 ## Understand State in React
 
@@ -108,18 +125,6 @@ flushSync(() => {
 });
 listRef.current.lastChild.scrollIntoView();
 ```
-
-## State Rules
-- Treat all state in React as **immutable**. This help React run very fast. 
-- State behaves as a **snapshot**. Setting state does not change the state variable you already have, but instead triggers a re-render.
-- State actually “lives” in React itself outside of your function. 
-- When triggering a render, React calls your component, it gives you a snapshot of the state for that particular render. 
-- This new snapshot of the UI with a fresh set of props and event handlers in its JSX, all calculated using the state values from that render!
-- React will ignore your update if the next state is equal to the previous state, as determined by an Object.is comparison. 
-- You can store information from previous renders, but need to use condition, and also, the logic is hard to read. try to avoid.
-- When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the children. 
-- Unlike props, state is fully private to the component declaring it. If you render the same component twice, each copy will have completely isolated state! 
-- React batches state updates, it will queue all set functions and execute all set functions one by one before re-render.
 
 ## useState Hook
 
