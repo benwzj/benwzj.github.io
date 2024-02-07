@@ -18,6 +18,18 @@ toc:
 
 ## Understand State in React
 
+### State vs Ref
+
+State and Ref are comparable. React use them for different purpose.
+
+- `state` and `ref` could point to anything: a string, an object, or even a function. 
+- `state` and `refs` both are live outside of your component.
+- `state` and `refs` both are retained by React between re-renders. 
+- Mutating `state` cause re-render. Mutating `ref` won't.
+- `state` works as snapshot for each render, You can't get latest state from an asynchronous operation; But `ref` won't be affected by render, you can read the latest ref anytime.
+- `state` is ”Immutable” — you must use the state setting function to modify state variables to queue a re-render; `ref` is mutable, it is a **plain** JavaScript object that you can read and modify.
+- You shouldn’t read (or write) the `ref.current` value during rendering. But You can read `state` any time. 
+
 ### State behaves as snapshot
 
 States are a component’s memory. State actually “lives” in React itself (as if on a shelf!) outside of your function. When triggering a render, React calls your component, it gives you a snapshot of the state for that particular render. 
@@ -60,17 +72,42 @@ In this case, React just manage one memory for this component because it is in t
 > So, Don't read the latest state from an asynchronous operation, like a timeout. It is confused!
 {: .block-warning}
 
-### State vs Ref
+### How React update states
 
-State and Ref are comparable. React use them for different purpose.
+- If you have many states need to be updated. React **batches** state updates. That means State updates are queued. This lets you update multiple state variables without triggering too many re-renders.
+- React waits until all code in the event handlers has run before processing your state updates. 
 
-- `state` and `ref` could point to anything: a string, an object, or even a function. 
-- `state` and `refs` both are live outside of your component.
-- `state` and `refs` both are retained by React between re-renders. 
-- Mutating `state` cause re-render. Mutating `ref` won't.
-- `state` works as snapshot for each render, You can't get latest state from an asynchronous operation; But `ref` won't be affected by render, you can read the latest ref anytime.
-- `state` is ”Immutable” — you must use the state setting function to modify state variables to queue a re-render; `ref` is mutable, it is a **plain** JavaScript object that you can read and modify.
-- You shouldn’t read (or write) the `ref.current` value during rendering. But You can read `state` any time. 
+Understand **queue** the state udpate: 
+```js 
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    <>
+      <h1>{number}</h1>
+      <button onClick={() => {
+        setNumber(number + 5);
+        setNumber(n => n + 1);
+      }}>You will get 6</button>
+      <button onClick={() => {
+        setNumber(n => n + 1);
+        setNumber(n => n + 1);
+        setNumber(n => n + 1);
+      }}>You will get 1</button>
+    </>
+  )
+}
+```
+
+#### flushSync()
+you can force React to update (or call 'flush') the DOM **synchronously** according to state update. 
+To do this, import flushSync from react-dom and wrap the state update into a `flushSync` call:
+```js 
+flushSync(() => {
+  setTodos([ ...todos, newTodo]);
+});
+listRef.current.lastChild.scrollIntoView();
+```
 
 ## State Rules
 - Treat all state in React as **immutable**. This help React run very fast. 
@@ -188,7 +225,6 @@ function handleClick() {
 > The different between `someFunction` and `()=>someFunction` is that, executing latter will return former.
 
 ## FQA
-
 
 ### How to handle Object and Array STATE?
 
