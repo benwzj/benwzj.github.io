@@ -6,8 +6,12 @@ tags: React Hook
 category: React
 toc:
   - name: What are Effects
+  - name: Understand Effect
   - name: What is `useEffect`
   - name: Using `useEffect`
+    subsections: 
+      - name: Common Patterns for Effect
+      - name: Classic Bugs - race conditions
   - name: FQA
 ---
 
@@ -28,7 +32,7 @@ When talking about Effect, usually compare to Event.
 
 Effects let you run some code after rendering so that you can synchronize your component with some system outside of React. 
 
-### Understand Effect
+## Understand Effect
 
 To understand Effect, you need to be familiar with two types of logic inside React components:
 1. **Rendering code** lives at the top level of your component. This is where you take the props and state, transform them, and return the JSX you want to see on the screen. Rendering code must be pure.
@@ -96,7 +100,7 @@ If your Effect fetches something, the cleanup function should either abort the f
 - (Not an Effect): Initializing the application 
 Some logic should only run once when the application starts. You can put it outside your components.
 
-### Classic Bugs: race conditions 
+### Classic Bugs - race conditions 
 
 When fetch data from internet in your `useEffect` according to user input, it is easy to cross classic bug race condition. You can fix this by adding flag `ignore`, like this:
 ```js
