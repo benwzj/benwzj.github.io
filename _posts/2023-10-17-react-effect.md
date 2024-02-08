@@ -16,8 +16,9 @@ toc:
 ---
 
 Some components need to stay connected to the **network**, some **browser API**, or a **third-party library** while they are displayed on the page. These systems aren’t controlled by React, so they are called external.
-
 How React Synchronize With External? React provide Effect system!
+
+But always keep this in mind: Effects are an escape hatch from the React paradigm. Don't use it unless you have to.
 
 ## What are Effects
 
@@ -119,6 +120,10 @@ useEffect(() => {
 ```
 
 Each render’s Effect has its **own** `ignore` variable. Initially, the `ignore` variable is set to false. However, if an Effect gets cleaned up (such as when you select a different person), its `ignore` variable becomes true. So now it doesn’t matter in which order the requests complete. Only the last person’s Effect will have `ignore` set to false, so it will call `setBio(result)`. 
+
+The keys to understand this race conditions' resolusion are:
+- Clear the design of effect's `cleanup function`.
+- Clear asynchronous pattern and closure pattern in javascript.
 
 ## FQA
 
