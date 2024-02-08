@@ -1,9 +1,19 @@
 ---
 layout: post
-title: "Understand Promise in JS"
+title: Understand Promise in JS
 date: 2021-06-11
 categories: JavaScript
 tags: Promise Asynchronous JavaScript Microtask
+toc:
+  - name: What is Promises
+  - name: Promise constructor
+  - name: Understand then()
+  - name: Promise terminology
+  - name: Promise and event loop
+  - name: Promise methods
+  - name: Promise conclusion
+  - name: FQA
+  - name: Reference
 ---
 
 ## What is Promises
@@ -34,18 +44,17 @@ The Promise object represents the eventual completion (or failure) of an asynchr
 - We can define a Promise as an object that can produce a single value at some time in the future, either a value or the reason why it could not be resolved.
 - A promise is an object returned by an asynchronous function, which represents the current state of the operation. 
 - At the time the promise is returned to the caller, the operation often isn't finished, but the promise object provides methods to handle the eventual success or failure of the operation.
-- A great feature is chaining. Need to have a good understanding of then().
+- A great feature is chaining. Need to have a good understanding of `then()`.
 - Promises are the foundation of asynchronous programming in modern JavaScript. 
 - Compare to callback, a promise is a returned object to which you attach callbacks, instead of passing callbacks into a function.
 - The main tricky thing of promise is that, it can resolve promise with a specific value, or another promise! 
 - Promise VS old fashioned Callback, promise have some greater features: 
   - guarantees: 
-A, Callback never call before current run; 
-B, callback added with then(); 
-C, multi callback can be added; 
+    - A, Callback never call before current run; 
+    - B, callback added with `then()`; 
+    - C, multi callback can be added; 
   - chaining: call back can be called one by one by one...
-  - chaining after catch: It can be chain after failure. Using catch().then()	
-
+  - chaining after catch: It can be chain after failure. Using `catch().then()`	
 
 ## Promise constructor
 
@@ -70,7 +79,7 @@ The `executor` is executed immediately. But `resolve` or `reject` function was n
 ### Why ‘second and third time of resolve’ are missing in below code?
 ```javascript
 const promise1 = new Promise((resolve, reject) => {
-  console.log(start of executor')
+  console.log('start of executor');
   resolve ('first time of resolve');
   resolve ('second time of resolve');
   setTimeout(() => {
@@ -83,9 +92,9 @@ promise1.then((value) => {
   console.log(value);
 });
 
-> "start of executor"
-> "end of executor"
-> "first time of resolve"
+// > "start of executor"
+// > "end of executor"
+// > "first time of resolve"
 ```
 Because there is mechanism by which the code within the executor has effect is as follows:
 
@@ -106,8 +115,8 @@ Let prom = new Promise(resolve => {
     }, 2000)
   });
 prom.then (message=>console.log(message));
-> this is ending
-> resolved now
+// > this is ending
+// > resolved now
 ```
 
 ### Summary of the executor typical flow:
@@ -146,8 +155,8 @@ Let prom = new Promise(resolve => {
     }, 2000)
   });
 prom.then (message=>console.log(message));
-> this is ending
-> resolved now
+// > this is ending
+// > resolved now
 ```
 
 ### Provide a function with promise functionality, have it return a promise:
@@ -194,8 +203,6 @@ if handler ...
 ## Promise terminology
 
 Terminologies include **pending**; **fulfilled**; **rejected, settled, resolved**.
-
-This Promise terminology is come from this Wonderful Blog: [Let's talk about how to talk about promises](https://thenewtoys.dev/blog/2021/02/08/lets-talk-about-how-to-talk-about-promises/).
 
 A promises's primary ***state*** is one of three mutually-exclusive values:
 - **pending** - the initial state of most promises, it hasn't been fulfilled or rejected
@@ -354,7 +361,7 @@ Promise.resolve()
     console.log("I am always called even if the prior then's promise rejects");
   });.
 ```
-in fact, calling obj.catch(onRejected) internally calls obj.then(undefined, onRejected)). 
+in fact, calling `obj.catch(onRejected)` internally calls `obj.then(undefined, onRejected)`. 
 
 ### Promise.all()
 Sometimes you need all the promises to be fulfilled, but they don't depend on each other. In a case like that it's much more efficient to start them all off together, then be notified when they have all fulfilled. The Promise.all() method is what you need here. It takes an array of promises, and returns a single promise.
@@ -455,3 +462,8 @@ console.log( 'now' );
 - that a promise can be both "pending" and "resolved" at the same time?
 - that lots of your code is creating these pending resolved promises?
 - that when you resolve a promise you might be rejecting it rather than fulfilling it (or neither)?
+
+## Reference
+
+This Promise terminology is come from this Wonderful Blog: [Let's talk about how to talk about promises](https://thenewtoys.dev/blog/2021/02/08/lets-talk-about-how-to-talk-about-promises/).
+[“thenable”](https://promisesaplus.com/)

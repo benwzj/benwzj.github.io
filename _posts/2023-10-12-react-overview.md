@@ -11,6 +11,7 @@ toc:
   - name: React frameworks
   - name: Hooks
   - name: What Rendering means in React
+  - name: Inverse Data Flow
   - name: FQA
 ---
 
@@ -26,7 +27,7 @@ React allows you to write maintainable and performant code by using concept of c
 - Keeping Components Pure.
 - Only call Hooks at the top level.
 - If you can, update all the relevant state in the event handlers.
-- If you want to reset the entire component tree’s state, pass a **different key** to your component.
+- If you want to reset the entire component tree’s state, pass a **different key** `prop` to your component.
 - In Strict Mode, React will call some of your functions twice instead of once.
 
 ### Event Rules
@@ -134,12 +135,16 @@ For exemple,
 - The initialer of useState will just run at the first time.
 - When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the childre.
 
-## FQA
+## Inverse Data Flow
 
-### How to Upward Communication
-To communicate from a child to a parent component we can pass a function handler from parent to child.
+This is a very common thing you will do in your React App. When you design your app structure, you may prefer to put your `state` in parent component, and it's children component can easily get `state`. And if the children component change the `state`, you just simply pass the `setState()` handler to children. The children then use `setState())` handler to change `state`. This is called Iverse Data Flow.
 
-Take a look at this child component.  Whenever the user clicks on the button, it tries to call a function passed down to it through the props system.
+> ##### The Definition: 
+> To communicate from a child to a parent component we can pass a function handler from parent to child.
+{: .block-warning}
+
+Let's take a look the example.
+Whenever the user clicks on the button, it tries to call a function passed down to it through the props system.
 ```js
 function Child({ onFunctionFromParent }) {
   const handleClick = () => {
@@ -159,6 +164,8 @@ function Parent() {
   return <Child onFunctionFromParent={handleMessageFromChild} />
 }
 ```
+
+## FQA
 
 ### What is Root component
 The React application begins at a “root” component. Usually, it is created automatically when you start a new project. For example, if you use CodeSandbox or if you use the framework Next.js, the root component is defined in pages/index.js.
