@@ -76,7 +76,50 @@ The `executor` is executed immediately. But `resolve` or `reject` function was n
 1. The executor return value is ignored.
 2. If an error is thrown in the executor, the promise is rejected.
 
+### Basic Sample: 
+
+Syntax:
+
+```javascript
+const myFirstPromise = new Promise((resolve, reject) => {
+  // do something asynchronous which eventually calls either:
+  //
+  //   resolve(someValue)        // fulfilled
+  // or
+  //   reject("failure reason")  // rejected
+});
+```
+
+Simple basic example: 
+
+```javascript
+Let prom = new Promise(resolve => {
+    setTimeout(function() {
+      resolve("resolved now")
+      console.log("this is ending")
+    }, 2000)
+  });
+prom.then (message=>console.log(message));
+// > this is ending
+// > resolved now
+```
+
+Provide a function with promise functionality, have it return a promise:
+
+```javascript
+function myAsyncFunction(url) {
+  Return new Promise ((resolve, reject) => {
+    const xhr = new XMLHttpRequest() 
+    xhr.open("GET", url) 
+    xhr.onload = () => resolve(xhr.responseText) 
+    xhr.onerror = () => reject(xhr.statusText) 
+    xhr.send() 
+  });
+}
+```
+
 ### Why ‘second and third time of resolve’ are missing in below code?
+
 ```javascript
 const promise1 = new Promise((resolve, reject) => {
   console.log('start of executor');
@@ -96,6 +139,7 @@ promise1.then((value) => {
 // > "end of executor"
 // > "first time of resolve"
 ```
+
 Because there is mechanism by which the code within the executor has effect is as follows:
 
 1. At the time when the constructor generates the new Promise object, it also generates a corresponding pair of functions for resolutionFunc and rejectionFunc; these are "tethered" to the Promise object.
@@ -107,6 +151,7 @@ Briefly, what executor do is,
 2. have opportunity to perform operation and to reflect outcome as resolved or rejected. 
 
 ### But why this one run like this...
+
 ```javascript
 Let prom = new Promise(resolve => {
     setTimeout(function() {
@@ -136,43 +181,8 @@ When called via new, the Promise constructor returns a promise object.
 
 The executor normally initiates some asynchronous work, and then, once that completes, either calls the resolutionFunc to resolve the promise or call rejectionFunc to reject. (no matter which one you invoke, after the invocation, the executor terminated. You can just call one of them!)
 
-### Basic Sample: 
-```javascript
-const myFirstPromise = new Promise((resolve, reject) => {
-  // do something asynchronous which eventually calls either:
-  //
-  //   resolve(someValue)        // fulfilled
-  // or
-  //   reject("failure reason")  // rejected
-});
- ```
-### Simple basic example: 
-```javascript
-Let prom = new Promise(resolve => {
-    setTimeout(function() {
-      resolve("resolved now")
-      console.log("this is ending")
-    }, 2000)
-  });
-prom.then (message=>console.log(message));
-// > this is ending
-// > resolved now
-```
-
-### Provide a function with promise functionality, have it return a promise:
-```javascript
-function myAsyncFunction(url) {
-  Return new Promise ((resolve, reject) => {
-    const xhr = new XMLHttpRequest() 
-    xhr.open("GET", url) 
-    xhr.onload = () => resolve(xhr.responseText) 
-    xhr.onerror = () => reject(xhr.statusText) 
-    xhr.send() 
-  });
-}
-```
-
 ## Understand then()
+
 (`Promise.prototype.then()` is the **core** function of promise. )
 
 `then()` itself returns a promise, which will be completed with the result of the handler function that was passed to it. 
@@ -239,6 +249,7 @@ Promise.resolve(input)
     // ...
 })
 ```
+
 ### Understand what does the following code mean step by step
 (assuming first() and second return will return promise): 
 ```javascript
@@ -286,6 +297,7 @@ If we add new microtasks to microtask queue during the execution of the microtas
 As a corollary of this sequence we could say that two macrotasks cannot be executed one after the other if, in between, the microtasks tail has elements.
 
 ### example: 
+
 ```javascript
 setTimeout(function() {   
   console.log('timeout); 

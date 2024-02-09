@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "Understand Callback Concept in JS"
+title: Callback in JS
 date: 2021-06-10
 categories: JavaScript
 tags: Call-back Event-loop Asynchronous JavaScript
+toc: 
+  - name: Callback Concept
+  - name: Event handler
+  - name: Callback Hell
+
 ---
 
-## Callback concept
+## Callback Concept
 
 The `setTimeout` function is a classic example to introduce callback concept. This function with the timeout ran after everything in the main top-level execution context. The timeout callback function can represent an asynchronous API call that contains data. 
 
@@ -17,8 +22,10 @@ Functions is **First-Class Objects** in JS. That means
 - They can be assigned to variables, array elements, and other objects.
 
 A **higher-order function** is a function that accepts functions as parameters and/or returns a function.
+
 Any function can become a callback function if it is passed as an argument. Callbacks are not asynchronous **by nature**, but in asynchronous programming, like JS, callbacks usually refer to those which implement event loop, like function parameter in `setTimeout`.
 
+### Example
 Here is a syntactic code example of a higher-order function and a callback:
 ```javascript
 // A function
@@ -43,7 +50,7 @@ Running this code will give the following:
 Just a function
 ```
 
-### Event handler
+## Event handler
 An event handler is a particular type of callback. 
 Event handlers are a form of asynchronous programming: you provide a function (the event handler) that will be called, not right away, but whenever the event happens. 
 If "the event" is "the asynchronous operation has completed", then you could see how an event could be used to notify the caller about the result of an asynchronous function call.
@@ -60,10 +67,11 @@ If "the event" is "the asynchronous operation has completed", then you could see
 ```
 > Now, we use fetch() Api which is the modern, promise-based replacement for SMLHttpRequest. 
 
-### Callback Hell
+## Callback Hell
 Callback functions are an effective way to ensure delayed execution of a function until another one completes and returns with data. However, due to the nested nature of callbacks, code can end up getting messy if you have a lot of consecutive asynchronous requests that rely on each other. This was a big frustration for JavaScript developers early on, and as a result code containing nested callbacks is often called the "pyramid of doom" or "callback hell."
 
 Here is a demonstration of nested callbacks:
+
 ```javascript
 function pyramidOfDoom() {
   setTimeout(() => {
@@ -125,6 +133,7 @@ function callbackHell() {
 // Execute
 callbackHell()
 ```
+
 Running this code will give you the following:
 ```console
 First 9
