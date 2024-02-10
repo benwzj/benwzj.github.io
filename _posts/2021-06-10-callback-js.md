@@ -8,7 +8,6 @@ toc:
   - name: Callback Concept
   - name: Event handler
   - name: Callback Hell
-
 ---
 
 ## Callback Concept
@@ -21,11 +20,12 @@ Functions is **First-Class Objects** in JS. That means
 - They can be passed as arguments and returned from other functions.
 - They can be assigned to variables, array elements, and other objects.
 
-A **higher-order function** is a function that accepts functions as parameters and/or returns a function.
-
 Any function can become a callback function if it is passed as an argument. Callbacks are not asynchronous **by nature**, but in asynchronous programming, like JS, callbacks usually refer to those which implement event loop, like function parameter in `setTimeout`.
 
+A **higher-order function** is a function that accepts functions as parameters and/or returns a function.
+
 ### Example
+
 Here is a syntactic code example of a higher-order function and a callback:
 ```javascript
 // A function

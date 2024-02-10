@@ -5,7 +5,7 @@ date: 2021-06-11
 categories: JavaScript
 tags: Promise Asynchronous JavaScript Microtask
 toc:
-  - name: What is Promises
+  - name: Promise Concept
   - name: Promise constructor
   - name: Understand then()
   - name: Promise terminology
@@ -16,29 +16,67 @@ toc:
   - name: Reference
 ---
 
-## What is Promises
+## Promise Concept
 
-Firstly, Why Promise? It make using callback easier.
+Firstly, Why Promise? It make using callback easier to implement Asynchronous Programming.
 
-A promise represents the completion of an asynchronous function. It is an object that might return a value in the future. It accomplishes the same basic goal as a callback function, but with many additional features and a more readable syntax. 
+[Event Loop](/blog/2021/callback-js/) and [Callback](/blog/2021/eventloop-js/) function is the base of Asychronous Programming in JS. Promise is built on top of these. 
+JavaScript introduced Promises as part of ES6 (ES2015). 
 
-### A Promise is in one of these states:
+> ##### My Definition
+> 
+> A promise represents the completion of an asynchronous function. It is an object that might return a value in the future. It accomplishes the same basic goal as a callback function, but with many additional features and a more readable syntax. 
+{: .block-warning}
+
+A Promise is a proxy for a value not necessarily known when the promise is created. 
+The Promise object represents the eventual completion (successful or failure) of an asynchronous operation, and its resulting value.
+
+Now, let's define some concopts, after this, we can consume these concepts from some examples of Using Promise. 
+
+### Promise's `then` method  
+- A promise represents the eventual result of an asynchronous operation. The primary way of interacting with a promise is through its `then` method, which registers callbacks to receive either a promise’s eventual value or the reason why the promise cannot be fulfilled.
+- `promise` is an object or function with a `then` method whose behavior conforms to the [specification](https://promisesaplus.com/).
+- A promise must provide a `then` method to access its current or eventual value or reason.
+- A promise’s `then` method accepts two arguments: 
+```js
+promise.then(onFulfilled, onRejected)
+```
+
+### A Promise has to be in one of these states:
 - pending: initial state, and keep in this state untill fulfilled or rejected.
 - fulfilled: meaning that the operation completed successfully.
 - rejected: meaning that the operation failed.
 
-### Promise and thenable  
-“promise” is an object or function with a then method whose behavior conforms to the specification.
-[“thenable”](https://promisesaplus.com/) is an object or function that defines a then method.
+### The Promise Resolution Procedure
+The promise resolution procedure is an abstract operation taking as input a promise and a value, which we denote as `[[Resolve]](promise, x)`. 
+- If `x` is a thenable, it attempts to make promise adopt the state of `x`, under the assumption that `x` behaves at least somewhat like a promise. 
+- Otherwise, it fulfills promise with the value `x`.
 
-A promise must provide a then method to access its current or eventual value or reason.
-A promise’s then method accepts two arguments:
-```javascript
-promise.then(onFulfilled, onRejected)
+> What is `thenable` 
+> It is an object or function that defines a `then` method. 
+
+### Example
+In the old days, doing several asynchronous operations in a row looks link this: 
+```JS
+doSomething(function (result) {
+  doSomethingElse(result, function (newResult) {
+    doThirdThing(newResult, function (finalResult) {
+      console.log(`Got the final result: ${finalResult}`);
+    }, failureCallback);
+  }, failureCallback);
+}, failureCallback);
+```
+This is the classic [callback pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)).
+
+With promises, we accomplish this by creating a promise chain. The API design of promises makes this great, because **callbacks are attached to the returned promise object, instead of being passed into a function**.
+
+Here's the magic: the then() function returns a new promise, different from the original:
+
+```JS
+const promise = doSomething();
+const promise2 = promise.then(successCallback, failureCallback);
 ```
 
-A Promise is a proxy for a value not necessarily known when the promise is created. 
-The Promise object represents the eventual completion (or failure) of an asynchronous operation, and its resulting value.
 
 ### I conclude some promise features: 
 - We can define a Promise as an object that can produce a single value at some time in the future, either a value or the reason why it could not be resolved.
@@ -55,6 +93,8 @@ The Promise object represents the eventual completion (or failure) of an asynchr
     - C, multi callback can be added; 
   - chaining: call back can be called one by one by one...
   - chaining after catch: It can be chain after failure. Using `catch().then()`	
+
+## Promise Object
 
 ## Promise constructor
 
@@ -287,6 +327,7 @@ If the promise from first is fulfilled, doStuff calls second and then resolves i
 No Surprise, Promise use event loop, callback queue! 
 
 First, Adding some concepts: there are microtasks and macrotasks in JS. And there are microtask queue and macrotask queue in JS. **Callbacks** of Promise objects will be microtasks. 
+{% include figure.html path="assets/img/microtask-event-loop.gif" class="img-fluid rounded z-depth-1" %}
 
 - The macrotasks, or just call tasks, which is any JavaScript scheduled to be run by the standard mechanisms such as initially starting to execute a program, an event triggering a callback, and so forth. Other than by using events (like onClick), you can enqueue a task by using setTimeout() or setInterval().
 
@@ -477,5 +518,5 @@ console.log( 'now' );
 
 ## Reference
 
-This Promise terminology is come from this Wonderful Blog: [Let's talk about how to talk about promises](https://thenewtoys.dev/blog/2021/02/08/lets-talk-about-how-to-talk-about-promises/).
-[“thenable”](https://promisesaplus.com/)
+- Wonderful Blog: [Let's talk about how to talk about promises](https://thenewtoys.dev/blog/2021/02/08/lets-talk-about-how-to-talk-about-promises/).
+- [Promise specification](https://promisesaplus.com/).

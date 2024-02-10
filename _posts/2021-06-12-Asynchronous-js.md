@@ -11,9 +11,11 @@ toc:
 
 ---
 
-JavaScript is a single thread language. It use **event loop** to build Asynchronous programming.
-Callbacks used to be the main way asynchronous functions were implemented in JavaScript. Now Promise is the main one.
-Check another blogs for callback and promise concepts.
+JavaScript is a single thread language. It use **Event Loop** to build Asynchronous programming. 
+So you can said Event Loop is the core for Asynchronous Programming. Python use the similar way to implement Asynchronous.
+
+[Callbacks](/blog/2021/callback-js/) used to be the main way asynchronous functions were implemented in JavaScript. Now [Promise](/blog/2021/promise-js/) is the main one.
+
 
 ## async/await
 
