@@ -18,18 +18,17 @@ toc:
 
 ## Promise Concept
 
-Firstly, Why Promise? It make using callback easier to implement Asynchronous Programming.
-
-[Event Loop](/blog/2021/callback-js/) and [Callback](/blog/2021/eventloop-js/) function is the base of Asychronous Programming in JS. Promise is built on top of these. 
-JavaScript introduced Promises as part of ES6 (ES2015). 
+Firstly, Why Promise? It was designed for Asynchronous Programming. 
+[Event Loop](/blog/2021/callback-js/) and [Callback](/blog/2021/eventloop-js/) function is the base of Asychronous Programming in JS. Promise is built on top of these and It make using callback easier.
 
 > ##### My Definition
 > 
 > A promise represents the completion of an asynchronous function. It is an object that might return a value in the future. It accomplishes the same basic goal as a callback function, but with many additional features and a more readable syntax. 
 {: .block-warning}
 
-A Promise is a proxy for a value not necessarily known when the promise is created. 
-The Promise object represents the eventual completion (successful or failure) of an asynchronous operation, and its resulting value.
+The main points of understanding promise are 
+- The thenable chaining logic and 
+- The way `successCallback` and `failureCallback` work.
 
 Now, let's define some concopts, after this, we can consume these concepts from some examples of Using Promise. 
 
@@ -42,7 +41,8 @@ Now, let's define some concopts, after this, we can consume these concepts from 
 promise.then(onFulfilled, onRejected)
 ```
 
-### A Promise has to be in one of these states:
+### Three States:
+A Promise has to be in one of these states:
 - pending: initial state, and keep in this state untill fulfilled or rejected.
 - fulfilled: meaning that the operation completed successfully.
 - rejected: meaning that the operation failed.
@@ -55,7 +55,10 @@ The promise resolution procedure is an abstract operation taking as input a prom
 > What is `thenable` 
 > It is an object or function that defines a `then` method. 
 
-### Example
+## Examples 
+
+### From Callback to Promise
+
 In the old days, doing several asynchronous operations in a row looks link this: 
 ```JS
 doSomething(function (result) {
@@ -69,13 +72,28 @@ doSomething(function (result) {
 This is the classic [callback pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)).
 
 With promises, we accomplish this by creating a promise chain. The API design of promises makes this great, because **callbacks are attached to the returned promise object, instead of being passed into a function**.
+```js
+doSomething()
+  .then(function (result) {
+    return doSomethingElse(result);
+  })
+  .then(function (newResult) {
+    return doThirdThing(newResult);
+  })
+  .then(function (finalResult) {
+    console.log(`Got the final result: ${finalResult}`);
+  })
+  .catch(failureCallback);
+```
 
-Here's the magic: the then() function returns a new promise, different from the original:
-
+Here's the magic: the `then()` function accept two parameters and it returns a new promise:
 ```JS
 const promise = doSomething();
 const promise2 = promise.then(successCallback, failureCallback);
 ```
+- If `then()` function just get **one** parameter, then it will take `failureCallback` as `null`.
+- If `then()` function just get **NONE** parameter, then both `successCallback` n `failureCallback` are `null`.
+- `then()` function always return promise.
 
 
 ### I conclude some promise features: 
@@ -95,6 +113,10 @@ const promise2 = promise.then(successCallback, failureCallback);
   - chaining after catch: It can be chain after failure. Using `catch().then()`	
 
 ## Promise Object
+
+A Promise is a proxy for a value not necessarily known when the promise is created. 
+The Promise object represents the eventual completion (successful or failure) of an asynchronous operation, and its resulting value.
+
 
 ## Promise constructor
 

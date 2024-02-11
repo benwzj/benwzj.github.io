@@ -11,6 +11,59 @@ toc:
 
 ---
 
+Modern Asynchronous Programming is build the top of Callback.
+
+## Synchronous vs. Asynchronous Callback
+
+### DEFINITIONS
+
+- A synchronous callback is invoked before a function returns, that is, while the API receiving the callback remains on the stack. An example might be: `list.foreach(callback)`; when `foreach()` returns, you would expect that the callback had been invoked on each element.
+- An asynchronous or deferred callback is invoked after a function returns, or at least on another thread’s stack. Mechanisms for deferral include threads and main loops (other names include event loops, dispatchers, executors). Asynchronous callbacks are popular with IO-related APIs, such as `socket.connect(callback);` you would expect that when `connect()` returns, the callback may not have been called, since it’s waiting for the connection to complete.
+
+### GUIDELINES
+
+- A given callback should be either always sync or always async, as a documented part of the API contract.
+- An async callback should be invoked by a main loop or central dispatch mechanism directly, i.e. there should not be unnecessary frames on the callback-invoking thread’s stack, especially if those frames might hold locks.
+
+### HOW ARE SYNC AND ASYNC CALLBACKS DIFFERENT?
+
+Sync and async callbacks raise different issues for both the app developer and the library implementation.
+
+Synchronous callbacks:
+
+- Are invoked in the original thread, so do not create thread-safety concerns by themselves.
+- In languages like C/C++, may access data stored on the stack such as local variables.
+- In any language, they may access data tied to the current thread, such as thread-local variables. For example many Java web frameworks create thread-local variables for the current transaction or request.
+- May be able to assume that certain application state is unchanged, for example assume that objects exist, timers have not fired, IO has not occurred, or whatever state the structure of a program involves.
+
+Asynchronous callbacks:
+
+- May be invoked on another thread (for thread-based deferral mechanisms), so apps must synchronize any resources the callback accesses.
+- Cannot touch anything tied to the original stack or thread, such as local variables or thread-local data.
+- If the original thread held locks, the callback will be invoked outside them.
+- Must assume that other threads or events could have modified the application’s state.
+
+Neither type of callback is “better”; both have uses. Consider:
+```js
+list.foreach(callback)
+```
+in most cases, you’d be pretty surprised if that callback were deferred and did nothing on the current thread!
+But:
+```js
+socket.connect(callback)
+```
+would be totally pointless if it never deferred the callback; why have a callback at all?
+
+These two cases show why a given callback should be defined as either sync or async; they are not **interchangeable**, and don’t have the same purpose.
+
+### CHOOSE SYNC OR ASYNC, BUT NOT BOTH
+Not uncommonly, it may be possible to invoke a callback immediately in some situations (say, data is already available) while the callback needs to be deferred in others (the socket isn’t ready yet). The tempting thing is to invoke the callback synchronously when possible, and otherwise defer it. Not a good idea.
+
+Because sync and async callbacks have different rules, they create different bugs. It’s very typical that the test suite only triggers the callback asynchronously, but then some less-common case in production runs it synchronously and breaks. (Or vice versa.)
+
+Requiring application developers to plan for and test both sync and async cases is just too hard, and it’s simple to solve in the library: If the callback must be deferred in any situation, always defer it.
+
+## Asynchronous Programming in JS
 JavaScript is a single thread language. It use **Event Loop** to build Asynchronous programming. 
 So you can said Event Loop is the core for Asynchronous Programming. Python use the similar way to implement Asynchronous.
 
@@ -148,3 +201,6 @@ addEventListener("message", message => {
 No, worker is web API. It run outside of the event loop, outside of the JavaScript Runtime.
 
 
+## Reference
+
+[Blog: Callbacks, synchronous and asynchronous](https://blog.ometer.com/2011/07/24/callbacks-synchronous-and-asynchronous/)
