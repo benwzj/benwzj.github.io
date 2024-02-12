@@ -6,8 +6,8 @@ categories: JavaScript
 tags: Promise Asynchronous JavaScript Microtask
 toc:
   - name: Promise Concept
-  - name: Promise constructor
   - name: Understand then()
+  - name: Promise constructor
   - name: Promise terminology
   - name: Promise and event loop
   - name: Promise methods
@@ -23,21 +23,22 @@ Firstly, Why Promise? It was designed for Asynchronous Programming.
 
 > ##### My Definition
 > 
-> A promise represents the completion of an asynchronous function. It is an object that might return a value in the future. It accomplishes the same basic goal as a callback function, but with many additional features and a more readable syntax. 
+> A promise si an OBJECT which represents the completion of an asynchronous function. It accomplishes the same basic goal as a callback function, but with many additional features and a more readable syntax. 
 {: .block-warning}
 
-The main points of understanding promise are 
-- The then() function logic and 
+The main points of understanding promise are understanding the `then()` function logic. 
 
-Now, let's define some concopts, after that, we will consume these concepts from some examples. 
+Now, let's define some concepts, after that, we will consume these concepts from some examples. 
 
 ## Understand then()
 
 The `Promise.prototype.then()` is the **core** function of promise. 
 
-`then()` itself returns a promise, which will be completed with the result of the handler function that was passed to it. 
+The `then()` itself **always** returns a promise, which will be completed with the result of the handler function that was passed to it. 
 
-It takes up to two arguments: callback functions for the success and failure cases of the Promise. And each callback function has a input argument! 
+### Then() Argument
+
+It takes up to two handler arguments: callback functions for the success and failure cases of the Promise. And each callback function has a input argument! 
 Syntax: 
 ```javascript
 p.then(value => {
@@ -48,33 +49,34 @@ p.then(value => {
 ```
 
 ### Rule of returned value from handler function
-When a value is returned from within a `then` handler, it will effectively return `Promise.resolve(<value returned by whichever handler was called>)`.
+
+> handler refer to the callback function which passed to `then()`;
+
+When a value is returned from within a handler, it will effectively return 
+`Promise.resolve(<value returned by whichever handler was called>)`.
 
 There is a specific set of rules:
 if handler ...
 - returns a value, the promise returned by then gets resolved with the returned value as its value.
-- returns another pending promise object, the resolution/rejection of the promise returned by then will be subsequent to the resolution/rejection of the promise returned by the handler. Also, the resolved value of the promise returned by then will be the same as the resolved value of the promise returned by the handler.
-- returns an already fulfilled promise, the promise returned by then gets fulfilled with that promise's value as its value.
-- returns an already rejected promise, the promise returned by then gets rejected with that promise's value as its value.
-- doesn't return anything, the promise returned by then gets resolved with an undefined value.
-- throws an error, the promise returned by then gets rejected with the thrown error as its value.
+- returns another pending promise object, the resolution/rejection of the promise returned by `then` will be subsequent to the resolution/rejection of the promise returned by the handler. Also, the resolved value of the promise returned by `then` will be the same as the resolved value of the promise returned by the handler.
+- returns an already fulfilled promise, the promise returned by `then` gets fulfilled with that promise's value as its value.
+- returns an already rejected promise, the promise returned by `then` gets rejected with that promise's value as its value.
+- doesn't return anything, the promise returned by `then` gets resolved with an `undefined` value.
+- throws an error, the promise returned by `then` gets rejected with the thrown error as its value.
 
-### The `then` specification  
+### The `then` [specification](https://promisesaplus.com/)
 - A promise represents the eventual result of an asynchronous operation. The primary way of interacting with a promise is through its `then` method, which registers callbacks to receive either a promise’s eventual value or the reason why the promise cannot be fulfilled.
-- `promise` is an object or function with a `then` method whose behavior conforms to the [specification](https://promisesaplus.com/).
+- `promise` is an object or function with a `then` method whose behavior conforms to this specification.
 - A promise must provide a `then` method to access its current or eventual value or reason.
-- A promise’s `then` method accepts two arguments: 
-```js
-promise.then(onFulfilled, onRejected)
-```
+- A promise’s `then` method accepts two arguments: `promise.then(onFulfilled, onRejected)`
 
-#### Three States:
+**Three States:**
 A Promise has to be in one of these states:
 - pending: initial state, and keep in this state untill fulfilled or rejected.
 - fulfilled: meaning that the operation completed successfully.
 - rejected: meaning that the operation failed.
 
-#### The Promise Resolution Procedure
+**The Promise Resolution Procedure:**
 The promise resolution procedure is an abstract operation taking as input a promise and a value, which we denote as `[[Resolve]](promise, x)`. 
 - If `x` is a thenable, it attempts to make promise adopt the state of `x`, under the assumption that `x` behaves at least somewhat like a promise. 
 - Otherwise, it fulfills promise with the value `x`.
@@ -82,9 +84,7 @@ The promise resolution procedure is an abstract operation taking as input a prom
 > What is `thenable` 
 > It is an object or function that defines a `then` method. 
 
-## Examples 
-
-### From Callback to Promise
+### Example - From Callback to Promise
 
 In the old days, doing several asynchronous operations in a row looks link this: 
 ```js
@@ -122,7 +122,7 @@ const promise2 = promise.then(successCallback, failureCallback);
 - If `then()` function just get **NONE** parameter, then both `successCallback` n `failureCallback` are `null`.
 - `then()` function always return promise.
 
-### Living Example
+### Example - `then` arguments
 
 Usually, we use promise like this: 
 ```js
@@ -138,13 +138,13 @@ function doSomething() {
 }
 const successfulHandler = m => {console.log('successfulHandler inside, get message: ' + m)};
 let p = doSomething();
-let p1 = p.then(successfulHandler)
+p.then(successfulHandler)
 
-> "Did something"
-> "successfulHandler inside, get message: https://example.com/"
+// > "Did something"
+// > "successfulHandler inside, get message: https://example.com/"
 ```
 
-You can pass `reject` function. If reject is invoked first, then `resolve` will be missed:
+You can pass `reject` function. If `reject` is invoked first, then `resolve` will be missed:
 ```js
 function doSomething() {
   return new Promise((resolve, reject) => {
@@ -162,33 +162,11 @@ function doSomething() {
 const successfulHandler = m=>{console.log('successfulHandler inside, get message: '+m)};
 const failHandler = (m)=>{console.log('failHandler inside, get message: '+m)};
 let p = doSomething();
-let p1 = p.then(successfulHandler, failHandler)
+p.then(successfulHandler, failHandler)
 
-> "failHandler inside, get message: manually fail"
-> "Did something"
+// > "failHandler inside, get message: manually fail"
+// > "Did something"
 ```
-
-## I conclude some promise features: 
-- We can define a Promise as an object that can produce a single value at some time in the future, either a value or the reason why it could not be resolved.
-- A promise is an object returned by an asynchronous function, which represents the current state of the operation. 
-- At the time the promise is returned to the caller, the operation often isn't finished, but the promise object provides methods to handle the eventual success or failure of the operation.
-- A great feature is chaining. Need to have a good understanding of `then()`.
-- Promises are the foundation of asynchronous programming in modern JavaScript. 
-- Compare to callback, a promise is a returned object to which you attach callbacks, instead of passing callbacks into a function.
-- The main tricky thing of promise is that, it can resolve promise with a specific value, or another promise! 
-- Promise VS old fashioned Callback, promise have some greater features: 
-  - guarantees: 
-    - A, Callback never call before current run; 
-    - B, callback added with `then()`; 
-    - C, multi callback can be added; 
-  - chaining: call back can be called one by one by one...
-  - chaining after catch: It can be chain after failure. Using `catch().then()`	
-
-## Promise Object
-
-A Promise is a proxy for a value not necessarily known when the promise is created. 
-The Promise object represents the eventual completion (successful or failure) of an asynchronous operation, and its resulting value.
-
 
 ## Promise constructor
 
@@ -407,7 +385,7 @@ As a corollary of this sequence we could say that two macrotasks cannot be execu
 
 ```javascript
 setTimeout(function() {   
-  console.log('timeout); 
+  console.log('timeout'); 
 }, 0);
 Promise.resolve()
   .then(function() {   
@@ -428,6 +406,12 @@ The difference between the task queue and the microtask queue is simple but very
 - Each time a task exits, and the execution context stack is empty, each microtask in the microtask queue is executed, one after another. The difference is that execution of microtasks continues until the queue is empty—even if new ones are scheduled in the interim. In other words, microtasks can enqueue new microtasks and those new microtasks will execute before the next task begins to run, and before the end of the current event loop iteration.
 
 ## Promise methods
+
+Static methods: 
+Promise.resolve(); Promise.reject(); Promise.all(); Promise.allSettled(); Promise.any(); Promise.race(); Promise.withResolvers()
+
+Prototype methods:
+Promise.prototype.then(); Promise.prototype.catch(); Promise.prototype.finally()
 
 ### Promise.resolve(value)
 
@@ -581,6 +565,23 @@ console.log( 'now' );
 - that a promise can be both "pending" and "resolved" at the same time?
 - that lots of your code is creating these pending resolved promises?
 - that when you resolve a promise you might be rejecting it rather than fulfilling it (or neither)?
+
+
+## I conclude some promise features: 
+- We can define a Promise as an object that can produce a single value at some time in the future, either a value or the reason why it could not be resolved.
+- A promise is an object returned by an asynchronous function, which represents the current state of the operation. 
+- At the time the promise is returned to the caller, the operation often isn't finished, but the promise object provides methods to handle the eventual success or failure of the operation.
+- A great feature is chaining. Need to have a good understanding of `then()`.
+- Promises are the foundation of asynchronous programming in modern JavaScript. 
+- Compare to callback, a promise is a returned object to which you attach callbacks, instead of passing callbacks into a function.
+- The main tricky thing of promise is that, it can resolve promise with a specific value, or another promise! 
+- Promise VS old fashioned Callback, promise have some greater features: 
+  - guarantees: 
+    - A, Callback never call before current run; 
+    - B, callback added with `then()`; 
+    - C, multi callback can be added; 
+  - chaining: call back can be called one by one by one...
+  - chaining after catch: It can be chain after failure. Using `catch().then()`	
 
 ## Reference
 
