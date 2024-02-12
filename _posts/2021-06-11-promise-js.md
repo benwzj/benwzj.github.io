@@ -27,12 +27,39 @@ Firstly, Why Promise? It was designed for Asynchronous Programming.
 {: .block-warning}
 
 The main points of understanding promise are 
-- The thenable chaining logic and 
-- The way `successCallback` and `failureCallback` work.
+- The then() function logic and 
 
-Now, let's define some concopts, after this, we can consume these concepts from some examples of Using Promise. 
+Now, let's define some concopts, after that, we will consume these concepts from some examples. 
 
-### Promise's `then` method  
+## Understand then()
+
+The `Promise.prototype.then()` is the **core** function of promise. 
+
+`then()` itself returns a promise, which will be completed with the result of the handler function that was passed to it. 
+
+It takes up to two arguments: callback functions for the success and failure cases of the Promise. And each callback function has a input argument! 
+Syntax: 
+```javascript
+p.then(value => {
+  // fulfillment
+}, reason => {
+  // rejection
+});
+```
+
+### Rule of returned value from handler function
+When a value is returned from within a `then` handler, it will effectively return `Promise.resolve(<value returned by whichever handler was called>)`.
+
+There is a specific set of rules:
+if handler ...
+- returns a value, the promise returned by then gets resolved with the returned value as its value.
+- returns another pending promise object, the resolution/rejection of the promise returned by then will be subsequent to the resolution/rejection of the promise returned by the handler. Also, the resolved value of the promise returned by then will be the same as the resolved value of the promise returned by the handler.
+- returns an already fulfilled promise, the promise returned by then gets fulfilled with that promise's value as its value.
+- returns an already rejected promise, the promise returned by then gets rejected with that promise's value as its value.
+- doesn't return anything, the promise returned by then gets resolved with an undefined value.
+- throws an error, the promise returned by then gets rejected with the thrown error as its value.
+
+### The `then` specification  
 - A promise represents the eventual result of an asynchronous operation. The primary way of interacting with a promise is through its `then` method, which registers callbacks to receive either a promise’s eventual value or the reason why the promise cannot be fulfilled.
 - `promise` is an object or function with a `then` method whose behavior conforms to the [specification](https://promisesaplus.com/).
 - A promise must provide a `then` method to access its current or eventual value or reason.
@@ -41,13 +68,13 @@ Now, let's define some concopts, after this, we can consume these concepts from 
 promise.then(onFulfilled, onRejected)
 ```
 
-### Three States:
+#### Three States:
 A Promise has to be in one of these states:
 - pending: initial state, and keep in this state untill fulfilled or rejected.
 - fulfilled: meaning that the operation completed successfully.
 - rejected: meaning that the operation failed.
 
-### The Promise Resolution Procedure
+#### The Promise Resolution Procedure
 The promise resolution procedure is an abstract operation taking as input a promise and a value, which we denote as `[[Resolve]](promise, x)`. 
 - If `x` is a thenable, it attempts to make promise adopt the state of `x`, under the assumption that `x` behaves at least somewhat like a promise. 
 - Otherwise, it fulfills promise with the value `x`.
@@ -60,7 +87,7 @@ The promise resolution procedure is an abstract operation taking as input a prom
 ### From Callback to Promise
 
 In the old days, doing several asynchronous operations in a row looks link this: 
-```JS
+```js
 doSomething(function (result) {
   doSomethingElse(result, function (newResult) {
     doThirdThing(newResult, function (finalResult) {
@@ -87,7 +114,7 @@ doSomething()
 ```
 
 Here's the magic: the `then()` function accept two parameters and it returns a new promise:
-```JS
+```js
 const promise = doSomething();
 const promise2 = promise.then(successCallback, failureCallback);
 ```
@@ -95,8 +122,53 @@ const promise2 = promise.then(successCallback, failureCallback);
 - If `then()` function just get **NONE** parameter, then both `successCallback` n `failureCallback` are `null`.
 - `then()` function always return promise.
 
+### Living Example
 
-### I conclude some promise features: 
+Usually, we use promise like this: 
+```js
+function doSomething() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Other things to do before completion of the promise
+      console.log("Did something");
+      // The fulfillment value of the promise
+      resolve("https://example.com/");
+    }, 1000);
+  });
+}
+const successfulHandler = m => {console.log('successfulHandler inside, get message: ' + m)};
+let p = doSomething();
+let p1 = p.then(successfulHandler)
+
+> "Did something"
+> "successfulHandler inside, get message: https://example.com/"
+```
+
+You can pass `reject` function. If reject is invoked first, then `resolve` will be missed:
+```js
+function doSomething() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Other things to do before completion of the promise
+      console.log("Did something");
+      // The fulfillment value of the promise
+      resolve("https://example.com/");
+    }, 1000);
+    setTimeout(() => {
+      reject("manually fail");
+    }, 500);
+  });
+}
+const successfulHandler = m=>{console.log('successfulHandler inside, get message: '+m)};
+const failHandler = (m)=>{console.log('failHandler inside, get message: '+m)};
+let p = doSomething();
+let p1 = p.then(successfulHandler, failHandler)
+
+> "failHandler inside, get message: manually fail"
+> "Did something"
+```
+
+## I conclude some promise features: 
 - We can define a Promise as an object that can produce a single value at some time in the future, either a value or the reason why it could not be resolved.
 - A promise is an object returned by an asynchronous function, which represents the current state of the operation. 
 - At the time the promise is returned to the caller, the operation often isn't finished, but the promise object provides methods to handle the eventual success or failure of the operation.
@@ -243,34 +315,6 @@ When called via new, the Promise constructor returns a promise object.
 
 The executor normally initiates some asynchronous work, and then, once that completes, either calls the resolutionFunc to resolve the promise or call rejectionFunc to reject. (no matter which one you invoke, after the invocation, the executor terminated. You can just call one of them!)
 
-## Understand then()
-
-(`Promise.prototype.then()` is the **core** function of promise. )
-
-`then()` itself returns a promise, which will be completed with the result of the handler function that was passed to it. 
-
-It takes up to two arguments: callback functions for the success and failure cases of the Promise. And each callback function has a input argument! 
-Syntax: 
-
-```javascript
-p.then(value => {
-  // fulfillment
-}, reason => {
-  // rejection
-});
-```
-
-### Rule of returned value from handler function
-When a value is returned from within a then handler, it will effectively return `Promise.resolve(<value returned by whichever handler was called>)`.
-
-There is a specific set of rules:
-if handler ...
-- returns a value, the promise returned by then gets resolved with the returned value as its value.
-- returns another pending promise object, the resolution/rejection of the promise returned by then will be subsequent to the resolution/rejection of the promise returned by the handler. Also, the resolved value of the promise returned by then will be the same as the resolved value of the promise returned by the handler.
-- returns an already fulfilled promise, the promise returned by then gets fulfilled with that promise's value as its value.
-- returns an already rejected promise, the promise returned by then gets rejected with that promise's value as its value.
-- doesn't return anything, the promise returned by then gets resolved with an undefined value.
-- throws an error, the promise returned by then gets rejected with the thrown error as its value.
 
 ## Promise terminology
 

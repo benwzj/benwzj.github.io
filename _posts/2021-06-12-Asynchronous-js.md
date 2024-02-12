@@ -3,17 +3,19 @@ layout: post
 title: "Asynchronous Programming in JS"
 date: 2021-06-12
 categories: JavaScript
-tags: Call-back Promise Asynchronous JavaScript
+tags: Callback Promise Asynchronous JavaScript
 toc: 
+  - name: Sync vs. Async Callback
+  - name: Asynchronous Programming in JS
   - name: async/await
   - name: Worker
   - name: FQA
 
 ---
 
-Modern Asynchronous Programming is build the top of Callback.
+Modern Asynchronous Programming is build the top of Callback. 
 
-## Synchronous vs. Asynchronous Callback
+## Sync vs. Async Callback
 
 ### DEFINITIONS
 
@@ -28,7 +30,6 @@ Modern Asynchronous Programming is build the top of Callback.
 ### HOW ARE SYNC AND ASYNC CALLBACKS DIFFERENT?
 
 Sync and async callbacks raise different issues for both the app developer and the library implementation.
-
 Synchronous callbacks:
 
 - Are invoked in the original thread, so do not create thread-safety concerns by themselves.
