@@ -7,7 +7,8 @@ tags: Promise Asynchronous JavaScript Microtask
 toc:
   - name: Promise Concept
   - name: Understand then()
-  - name: Promise constructor
+  - name: Chaining
+  - name: Promise Constructor
   - name: Promise terminology
   - name: Promise and event loop
   - name: Promise methods
@@ -21,14 +22,20 @@ toc:
 Firstly, Why Promise? It was designed for Asynchronous Programming. 
 [Event Loop](/blog/2021/callback-js/) and [Callback](/blog/2021/eventloop-js/) function is the base of Asychronous Programming in JS. Promise is built on top of these and It make using callback easier.
 
+If you have no idea of Asynchronous Programming, check [here](/blog/2021/Asynchronous-js/) first.
+
+When you are coding Asynchrony, a common need is to execute two or more asynchronous operations back to back. You will lost yourself easily if just using callback. JS create Promise which will make your day easier.
+
 > ##### My Definition
 > 
 > A promise si an OBJECT which represents the completion of an asynchronous function. It accomplishes the same basic goal as a callback function, but with many additional features and a more readable syntax. 
 {: .block-warning}
 
-The main points of understanding promise are understanding the `then()` function logic. 
-
 Now, let's define some concepts, after that, we will consume these concepts from some examples. 
+
+The main points of understanding promise are 
+- understanding the `then()` function logic. 
+- understanding chaining logic.
 
 ## Understand then()
 
@@ -40,7 +47,7 @@ The `then()` itself **always** returns a promise, which will be completed with t
 
 It takes up to two handler arguments: callback functions for the success and failure cases of the Promise. And each callback function has a input argument! 
 Syntax: 
-```javascript
+```js
 p.then(value => {
   // fulfillment
 }, reason => {
@@ -48,17 +55,20 @@ p.then(value => {
 });
 ```
 
+Each `.then()` returns a newly generated promise object, which can optionally be used for chaining;
+
 ### Rule of returned value from handler function
 
 > handler refer to the callback function which passed to `then()`;
 
+`then()` always return a promise. The returned value from handler determine what is that promise. 
 When a value is returned from within a handler, it will effectively return 
 `Promise.resolve(<value returned by whichever handler was called>)`.
 
 There is a specific set of rules:
 if handler ...
 - returns a value, the promise returned by then gets resolved with the returned value as its value.
-- returns another pending promise object, the resolution/rejection of the promise returned by `then` will be subsequent to the resolution/rejection of the promise returned by the handler. Also, the resolved value of the promise returned by `then` will be the same as the resolved value of the promise returned by the handler.
+- returns another pending promise object, the resolution/rejection of the promise returned by `then` will be subsequent to the resolution/rejection of the promise returned by the handler. Also, the resolved value of the promise returned by `then` will be the same as the resolved value of the promise returned by the handler. (Chaining)
 - returns an already fulfilled promise, the promise returned by `then` gets fulfilled with that promise's value as its value.
 - returns an already rejected promise, the promise returned by `then` gets rejected with that promise's value as its value.
 - doesn't return anything, the promise returned by `then` gets resolved with an `undefined` value.
@@ -84,9 +94,56 @@ The promise resolution procedure is an abstract operation taking as input a prom
 > What is `thenable` 
 > It is an object or function that defines a `then` method. 
 
-### Example - From Callback to Promise
+### Example
 
-In the old days, doing several asynchronous operations in a row looks link this: 
+Usually, we use promise like this: 
+```js
+function doSomething() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Other things to do before completion of the promise
+      console.log("Did something");
+      // The fulfillment value of the promise
+      resolve("https://example.com/");
+    }, 1000);
+  });
+}
+const successfulHandler = m => {console.log('successfulHandler inside, get message: ' + m)};
+let p = doSomething();
+p.then(successfulHandler)
+
+// > "Did something"
+// > "successfulHandler inside, get message: https://example.com/"
+```
+Because `successfulHandler` return nothing, so the promise returned by`p.then()` gets resolved with an `undefined` value.
+
+You can pass `reject` function. If `reject` is invoked first, then `resolve` will be missed:
+```js
+function doSomething() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Other things to do before completion of the promise
+      console.log("Did something");
+      // The fulfillment value of the promise
+      resolve("https://example.com/");
+    }, 1000);
+    setTimeout(() => {
+      reject("manually fail");
+    }, 500);
+  });
+}
+const successfulHandler = m=>{console.log('successfulHandler inside, get message: '+m)};
+const failHandler = (m)=>{console.log('failHandler inside, get message: '+m)};
+let p = doSomething();
+p.then(successfulHandler, failHandler)
+
+// > "failHandler inside, get message: manually fail"
+// > "Did something"
+```
+
+## Chaining
+
+In the old days, doing several asynchronous operations in a row looks like this: 
 ```js
 doSomething(function (result) {
   doSomethingElse(result, function (newResult) {
@@ -121,54 +178,110 @@ const promise2 = promise.then(successCallback, failureCallback);
 - If `then()` function just get **one** parameter, then it will take `failureCallback` as `null`.
 - If `then()` function just get **NONE** parameter, then both `successCallback` n `failureCallback` are `null`.
 - `then()` function always return promise.
+- According to the [Rule of returned value from handler function](/blog/2021/promise-js/#understand-then), if handler return another promise, then this promise chain up.
 
-### Example - `then` arguments
+## Promise Methods
 
-Usually, we use promise like this: 
-```js
-function doSomething() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      // Other things to do before completion of the promise
-      console.log("Did something");
-      // The fulfillment value of the promise
-      resolve("https://example.com/");
-    }, 1000);
-  });
-}
-const successfulHandler = m => {console.log('successfulHandler inside, get message: ' + m)};
-let p = doSomething();
-p.then(successfulHandler)
+The Promise object is JS build-in Object. Just like Array, Map, etc.
+To understand promise object, let's take a look at it's methods.
 
-// > "Did something"
-// > "successfulHandler inside, get message: https://example.com/"
+- Static methods: 
+Promise.resolve(); Promise.reject(); Promise.all(); Promise.allSettled(); Promise.any(); Promise.race(); Promise.withResolvers();
+
+- Prototype methods:
+Promise.prototype.then(); Promise.prototype.catch(); Promise.prototype.finally();
+
+The methods `Promise.prototype.then()`, `Promise.prototype.catch()`, and `Promise.prototype.finally()` are used to associate further action with a promise that becomes settled. As these methods return promises, they can be **chained**.
+
+`Promise.resolve` will not only resolve promises, but also trace **thenables**.
+
+The Promise class offers four static methods to facilitate async task **concurrency**. They are `Promise.all(); Promise.allSettled(); Promise.any(); Promise.race();`. All these methods take an iterable of promises (thenables, to be exact) and return a new promise.
+
+### Promise.resolve(value)
+
+Promise.resolve(value) returns a promise object, and the object is resolved with a given value:
+1. if value is a promise, exact the same promise is returned;
+2. if value is a thenable, the return promise will follow that thenable, adopting its eventual state;
+3. otherwise, the return promise will be fulfilled with the value. 
+```javascript		
+Promise.resolve('Success').then (
+	function(value) {
+		console.log(value); // "Success"
+	}, function(value) {
+	   // not called
+   }
+);
+```
+Why we need Promise.resolve?
+1. This function flattens nested layers of promise-like objects 
+(e.g. a promise that resolves to a promise that resolves to something) into a single layer.
+		
+2. turn thenable (i.e. has a "then" method) object into Promise, the returned promise will "follow" that thenable, adopting its eventual state; otherwise the returned promise will be fulfilled with the value. 
+```javascript
+// Resolving a thenable object
+var p1 = Promise.resolve({ 
+	then: function(onFulfill, onReject) { onFulfill('fulfilled!'); }
+});
+console.log(p1 instanceof Promise) // true, object casted to a Promise
 ```
 
-You can pass `reject` function. If `reject` is invoked first, then `resolve` will be missed:
-```js
-function doSomething() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // Other things to do before completion of the promise
-      console.log("Did something");
-      // The fulfillment value of the promise
-      resolve("https://example.com/");
-    }, 1000);
-    setTimeout(() => {
-      reject("manually fail");
-    }, 500);
-  });
-}
-const successfulHandler = m=>{console.log('successfulHandler inside, get message: '+m)};
-const failHandler = (m)=>{console.log('failHandler inside, get message: '+m)};
-let p = doSomething();
-p.then(successfulHandler, failHandler)
+Promise constructor vs. Promise.resolve.
+- They all return a promise.
+- resolve() in following is in event queue.
+```javascript
+Promise.resolve().then (resolve); // this resolve will be put in microtask event queue.
+```
+- In constructor, the executor is called before the Promise constructor even returns the created object. __That means if you call resolve() directly in executor, the resolve() ignite synchronously__. Oh no, it is wrong, that is tricky: executor is executed, except the resolve()! even you call resolve() directly. Resolve() is not ignite until .then(). It looks be put in microtask as well.
 
-// > "failHandler inside, get message: manually fail"
-// > "Did something"
+### Promise.any()
+Sometimes you might need any one of a set of promises to be fulfilled, and don't care which one. In that case you want Promise.any().
+
+### Promise.reject()  
+is similar with Promise.resolve(). Returning a promise object which then() function just activate reject parameter. 
+
+### Promise.race()
+- It's parameter is An iterable object, such as an Array.
+- Return value
+A pending Promise that asynchronously yields the value of the first promise in the given iterable to fulfill or reject.
+- example: 
+```javascript
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 500, 'one');
+});
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 100, 'two');
+});
+Promise.race([promise1, promise2]).then((value) => {
+  console.log(value); // expected output: "two" ; Both resolve, but promise2 is faster
+});
 ```
 
-## Promise constructor
+### Promise.all()
+Sometimes you need all the promises to be fulfilled, but they don't depend on each other. In a case like that it's much more efficient to start them all off together, then be notified when they have all fulfilled. The Promise.all() method is what you need here. It takes an array of promises, and returns a single promise.
+
+The promise returned by `Promise.all()` is:
+- fulfilled when and if all the promises in the array are fulfilled. In this case the then() handler is called with an array of all the responses, in the same order that the promises were passed into all()
+- rejected when and if any of the promises in the array are rejected. In this case the catch() handler is called with the error thrown by the promise that rejected.
+
+### Promise.prototype.catch()
+In practice, it is often desirable to catch rejected promises rather than use then's two case syntax: 
+```javascript
+Promise.resolve()
+  .then(() => {
+    // Makes .then() return a rejected promise
+    throw new Error('Oh no!');
+  })
+  .catch(error => {
+    console.error('onRejected function called: ' + error.message);
+  })
+  .then(() => {
+    console.log("I am always called even if the prior then's promise rejects");
+  });.
+```
+in fact, calling `obj.catch(onRejected)` internally calls `obj.then(undefined, onRejected)`. 
+
+
+## Promise Constructor
 
 The Promise constructor is primarily used to wrap a function and make it as part of promise.
 Write a promise constructor yourself, it is not what you imagine! The executor behavior is weird. Let's make it clearer step by step.
@@ -283,8 +396,8 @@ prom.then (message=>console.log(message));
 3, The callback terminates by invoking resolutionFunc.
 4, The invocation of resolutionFunc includes a value parameter.
 5, The value is passed back to the tethered Promise object.
-6, The Promise object (asynchronously) invokes any associated .then(handleResolved).
-7, The value received by .then(handleResolved) is passed to the invocation of handleResolved as an input parameter.
+6, The Promise object (asynchronously) invokes any associated `.then(handleResolved)`.
+7, The value received by `.then(handleResolved)` is passed to the invocation of handleResolved as an input parameter.
 
 ### Executor return value
 When called via new, the Promise constructor returns a promise object. 
@@ -292,7 +405,6 @@ When called via new, the Promise constructor returns a promise object.
 - Note that if you call resolutionFunc or rejectionFunc inside of the executor and pass another Promise object as an argument, you can say that it is "resolved", but still cannot be said to be "settled".
 
 The executor normally initiates some asynchronous work, and then, once that completes, either calls the resolutionFunc to resolve the promise or call rejectionFunc to reject. (no matter which one you invoke, after the invocation, the executor terminated. You can just call one of them!)
-
 
 ## Promise terminology
 
@@ -405,97 +517,6 @@ The difference between the task queue and the microtask queue is simple but very
 - When executing tasks from the task queue, the runtime executes each task that is in the queue at the moment a new iteration of the event loop begins. Tasks added to the queue after the iteration begins will not run until the next iteration.
 - Each time a task exits, and the execution context stack is empty, each microtask in the microtask queue is executed, one after another. The difference is that execution of microtasks continues until the queue is empty—even if new ones are scheduled in the interim. In other words, microtasks can enqueue new microtasks and those new microtasks will execute before the next task begins to run, and before the end of the current event loop iteration.
 
-## Promise methods
-
-Static methods: 
-Promise.resolve(); Promise.reject(); Promise.all(); Promise.allSettled(); Promise.any(); Promise.race(); Promise.withResolvers()
-
-Prototype methods:
-Promise.prototype.then(); Promise.prototype.catch(); Promise.prototype.finally()
-
-### Promise.resolve(value)
-
-Promise.resolve(value) returns a promise object, and the object is resolved with a given value:
-1. if value is a promise, exact the same promise is returned;
-2. if value is a thenable, the return promise will follow that thenable, adopting its eventual state;
-3. otherwise, the return promise will be fulfilled with the value. 
-```javascript		
-Promise.resolve('Success').then (
-	function(value) {
-		console.log(value); // "Success"
-	}, function(value) {
-	   // not called
-   }
-);
-```
-Why we need Promise.resolve?
-1. This function flattens nested layers of promise-like objects 
-(e.g. a promise that resolves to a promise that resolves to something) into a single layer.
-		
-2. turn thenable (i.e. has a "then" method) object into Promise, the returned promise will "follow" that thenable, adopting its eventual state; otherwise the returned promise will be fulfilled with the value. 
-```javascript
-// Resolving a thenable object
-var p1 = Promise.resolve({ 
-	then: function(onFulfill, onReject) { onFulfill('fulfilled!'); }
-});
-console.log(p1 instanceof Promise) // true, object casted to a Promise
-```
-
-Promise constructor vs. Promise.resolve.
-- They all return a promise.
-- resolve() in following is in event queue.
-```javascript
-Promise.resolve().then (resolve); // this resolve will be put in microtask event queue.
-```
-- In constructor, the executor is called before the Promise constructor even returns the created object. __That means if you call resolve() directly in executor, the resolve() ignite synchronously.__ Oh no, it is wrong, that is tricky: executor is executed, except the resolve()! even you call resolve() directly. Resolve() is not ignite until .then(). It looks be put in microtask as well.
-
-### Promise.prototype.catch()
-In practice, it is often desirable to catch rejected promises rather than use then's two case syntax: 
-```javascript
-Promise.resolve()
-  .then(() => {
-    // Makes .then() return a rejected promise
-    throw new Error('Oh no!');
-  })
-  .catch(error => {
-    console.error('onRejected function called: ' + error.message);
-  })
-  .then(() => {
-    console.log("I am always called even if the prior then's promise rejects");
-  });.
-```
-in fact, calling `obj.catch(onRejected)` internally calls `obj.then(undefined, onRejected)`. 
-
-### Promise.all()
-Sometimes you need all the promises to be fulfilled, but they don't depend on each other. In a case like that it's much more efficient to start them all off together, then be notified when they have all fulfilled. The Promise.all() method is what you need here. It takes an array of promises, and returns a single promise.
-
-The promise returned by Promise.all() is:
-- fulfilled when and if all the promises in the array are fulfilled. In this case the then() handler is called with an array of all the responses, in the same order that the promises were passed into all()
-- rejected when and if any of the promises in the array are rejected. In this case the catch() handler is called with the error thrown by the promise that rejected.
-
-### Promise.any()
-Sometimes you might need any one of a set of promises to be fulfilled, and don't care which one. In that case you want Promise.any().
-
-### Promise.reject()  
-is similar with Promise.resolve(). Returning a promise object which then() function just activate reject parameter. 
-
-### Promise.race()
-- It's parameter is An iterable object, such as an Array.
-- Return value
-A pending Promise that asynchronously yields the value of the first promise in the given iterable to fulfill or reject.
-- example: 
-```javascript
-const promise1 = new Promise((resolve, reject) => {
-  setTimeout(resolve, 500, 'one');
-});
-const promise2 = new Promise((resolve, reject) => {
-  setTimeout(resolve, 100, 'two');
-});
-Promise.race([promise1, promise2]).then((value) => {
-  console.log(value); // expected output: "two" ; Both resolve, but promise2 is faster
-});
-```
-
 ## Promise conclusion
 - Understand promise is a object. This object wraps the async code which still not completed when the object was created. The object provide callback functions handler which tethered with the async code.
 - If you resolved promise A to promise B, then A follows B and does what it does. (actually at this point, promise A === promise B)
@@ -585,5 +606,5 @@ console.log( 'now' );
 
 ## Reference
 
-- Wonderful Blog: [Let's talk about how to talk about promises](https://thenewtoys.dev/blog/2021/02/08/lets-talk-about-how-to-talk-about-promises/).
-- [Promise specification](https://promisesaplus.com/).
+- [Let's talk about how to talk about promises](https://thenewtoys.dev/blog/2021/02/08/lets-talk-about-how-to-talk-about-promises/).
+- [open standard for sound, interoperable JavaScript promises](https://promisesaplus.com/).

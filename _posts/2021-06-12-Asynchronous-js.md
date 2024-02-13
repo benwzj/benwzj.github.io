@@ -6,6 +6,7 @@ categories: JavaScript
 tags: Callback Promise Asynchronous JavaScript
 toc: 
   - name: Sync vs. Async Callback
+  - name: Designing APIs for Asynchrony
   - name: Asynchronous Programming in JS
   - name: async/await
   - name: Worker
@@ -13,7 +14,10 @@ toc:
 
 ---
 
-Modern Asynchronous Programming is build the top of Callback. 
+The first question for Asynchronous Programming is why we need it. 
+The App is conposed by some machine instruction which run in CPU. For example `1+1=2`. But sometime you can't get result immediately, for example, get information from internet. You need to wait for the result. Asynchronous Programming is for this purpose.
+
+Modern Asynchronous Programming is build the top of Callback. And Callback is based on Event Loop or threads.
 
 ## Sync vs. Async Callback
 
@@ -64,7 +68,30 @@ Because sync and async callbacks have different rules, they create different bug
 
 Requiring application developers to plan for and test both sync and async cases is just too hard, and it’s simple to solve in the library: If the callback must be deferred in any situation, always defer it.
 
+## Designing APIs for Asynchrony
+
+This topic is about promises/callbacks/coroutines/generators. Looks like callback-taking API or promise-returning API or generator-yielding API or vice-versa. You can prefer many kind of boilerplates. I’m of the opinion that breaking functionality into small enough chunks that your boilerplate doesn’t matter is much more important than which boilerplate you decide tastes the yummiest. 
+
+### Do Not Release Zalgo
+
+> ##### What is Zalgo
+> 
+> If you have an API which takes a callback,
+> and sometimes that callback is called immediately,
+> and other times that callback is called at some point in the future,
+> then you will render any code using this API impossible to reason about, and cause the release of Zalgo.
+
+Needless to say, releasing Zalgo onto unsuspecting users is extremely inappropriate.
+
+### Avoid Synthetic Deferrals
+you should use synthetic deferrals when the only alternative is releasing Zalgo. However, these synthetic deferrals should be treated as a code smell. They are a sign that your API might not be optimally designed.
+
+### Pick a Pattern and Stick With It
+This really cannot be overstated. Like the question of callbacks vs Promises vs whatever, the specific pattern that you choose doesn’t matter very much. What does matter very much is that you stick to that pattern with ruthless consistency. 
+
+
 ## Asynchronous Programming in JS
+
 JavaScript is a single thread language. It use **Event Loop** to build Asynchronous programming. 
 So you can said Event Loop is the core for Asynchronous Programming. Python use the similar way to implement Asynchronous.
 
@@ -204,4 +231,5 @@ No, worker is web API. It run outside of the event loop, outside of the JavaScri
 
 ## Reference
 
-[Blog: Callbacks, synchronous and asynchronous](https://blog.ometer.com/2011/07/24/callbacks-synchronous-and-asynchronous/)
+- [Sync vs. Async Callback](https://blog.ometer.com/2011/07/24/callbacks-synchronous-and-asynchronous/)
+- [Designing APIs for Asynchrony](https://blog.izs.me/2013/08/designing-apis-for-asynchrony/)
