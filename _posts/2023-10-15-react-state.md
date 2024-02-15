@@ -229,6 +229,24 @@ function handleClick() {
 
 > The different between `someFunction` and `()=>someFunction` is that, executing latter will return former.
 
+### Updating Arrays in State
+You can use Immer plus in! 
+But I prefer do it by Knowing what you are doing.
+
+- prefer (returns a new array): 
+
+adding: `concat`, `[...arr]`
+removing: `filter`, `slice`
+replacing: `map`
+sorting: copy the array first
+
+- avoid (mutates the array):
+
+adding:	`push`, `unshift`
+removing:	`pop`, `shift`, `splice`
+replacing:	`splice`, `arr[i] = ... assignment`
+sorting:	`reverse`, `sort`
+
 ## FQA
 
 ### How to handle Object and Array STATE?
