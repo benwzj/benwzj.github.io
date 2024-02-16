@@ -17,6 +17,8 @@ toc:
       - name: How React implement `useState` Hook
       - name: How about `setState`
       - name: Set State to a function
+      - name: Updating Objects in State
+      - name: Updating Arrays in State
   - name: FQA
 ---
 
@@ -27,11 +29,12 @@ toc:
 - State actually “lives” in React itself outside of your function. 
 - When triggering a render, React calls your component, it gives you a snapshot of the state for that particular render. 
 - This new snapshot of the UI with a fresh set of props and event handlers in its JSX, all calculated using the state values from that render!
-- React will ignore your update if the next state is equal to the previous state, as determined by an Object.is comparison. 
+- React will ignore your update if the next state is equal to the previous state, as determined by an `Object.is` comparison. 
 - You can store information from previous renders, but need to use condition, and also, the logic is hard to read. try to avoid.
 - When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the children. 
 - Unlike props, state is fully private to the component declaring it. If you render the same component twice, each copy will have completely isolated state! 
 - React batches state updates, it will queue all set functions and execute all set functions one by one before re-render.
+- React will reset all state of a component when it's `key` prop change! That means the `initializer function` of `setState function` will run again.
 
 ## Understand State in React
 
@@ -229,36 +232,67 @@ function handleClick() {
 
 > The different between `someFunction` and `()=>someFunction` is that, executing latter will return former.
 
+### Updating Objects in State
+
+> Why changing object state directly won't work?
+Becuase React use `Object.is` to comparation, which decide whether to cause re-render.
+
+So, the Rule is that You should Treat state as read-only.
+
+- Copying objects with the **spread syntax**.
+- Updating a nested object!
+For example, update city to NewYork:
+```js
+const [person, setPerson] = useState({
+  name: 'Niki de Saint Phalle',
+  artwork: {
+    title: 'Blue Nana',
+    city: 'Hamburg',
+    image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+  }
+});
+```
+You can update like below:
+```js
+setPerson({
+  ...person, // Copy other fields
+  artwork: { // but replace the artwork
+    ...person.artwork, // with the same one
+    city: 'NewYork' // but in NewYork!
+  }
+});
+```
+
+> Nested Objects are not really nested.  “nesting” is an inaccurate way to think about how objects behave. There are just reference which point to another object.
+
 ### Updating Arrays in State
 You can use Immer plus in! 
 But I prefer do it by Knowing what you are doing.
+Basic Rule is that you should treat arrays in React state as read-only.
 
-- prefer (returns a new array): 
+prefer Array methods(returns a new array): 
 
-adding: `concat`, `[...arr]`
-removing: `filter`, `slice`
-replacing: `map`
-sorting: copy the array first
-
-- avoid (mutates the array):
-
-adding:	`push`, `unshift`
-removing:	`pop`, `shift`, `splice`
-replacing:	`splice`, `arr[i] = ... assignment`
-sorting:	`reverse`, `sort`
-
-## FQA
-
-### How to handle Object and Array STATE?
-
-Keep stick to this rule: **Treat all state as immutable**. 
-Object and Array is mutable, but we need to handle it asif it is immutable.
-#### Here are some ways to handle Object state:
-- Copying objects with the **spread syntax**. Like this: ` {...obj, something: 'newValue'}` object spread syntax to create copies of objects. But Spread syntax is shallow.
-- Using `Immer` module for nested object state is a choice. (I don't recommend Immer, because it looks like break the rule and make thing confused.)
-- Create a new array from the original array in your state by calling its non-mutating methods like `filter()` (Removing from an array) and `map()`(Transforming an array, Replacing items in an array).
-
-#### Updating objects inside arrays (nested state)
+- adding: `concat`, `[...arr]`
+- inserting: `[...arr]` together with the `slice()` method: 
+```js 
+const nextArtists = [
+      // Items before the insertion point:
+      ...artists.slice(0, insertAt),
+      // New item:
+      { id: nextId++, name: name },
+      // Items after the insertion point:
+      ...artists.slice(insertAt)
+    ];
+```
+- removing: `filter`, `slice`
+- Transforming (change some or all items of the array): `map`
+- replacing: `map`
+- reversing or sorting: **copy the array first**
+```js
+const nextList = [...list];
+nextList.reverse();
+```
+- When updating **nested** state, you need to create copies from the point where you want to update, and all the way up to the top level.
 You don't have to deep copy all the objects for every update, but you need to create copies from the point where you want to update, and all the way up to the top level. 
 Using `map` and spread `...` can make it. 
 ```js
@@ -280,8 +314,14 @@ setMyList(myList.map(artwork => {
 }));
 ```
 
-### Why `key` is matter?
+Avoid (mutates the array):
+- adding:	`push`, `unshift`
+- removing:	`pop`, `shift`, `splice`
+- replacing:	`splice`, `arr[i] = ... assignment`
+- sorting:	`reverse`, `sort`
 
+
+## FQA
 
 ### Why React choose Immutable
 
@@ -291,7 +331,7 @@ setMyList(myList.map(artwork => {
 - Make Implementation simpler. And that is the reason why you can set Object as State.  
 
 > Important concept in Immutable: 
->'Nested' Objects are not really nested. Nesting is an inaccurate way to think about how objects behave. 
+> 'Nested' Objects are not really nested. Nesting is an inaccurate way to think about how objects behave. 
 {: .block-warning}
 
 
