@@ -32,7 +32,9 @@ When talking about Effect, usually compare to Event.
 
 > Capitalized “Effect” refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we’ll say “side effect”.
 
-Effects let you run some code after rendering so that you can synchronize your component with some system outside of React. 
+### Effect rules
+- Effects let you run some code after rendering so that you can synchronize your component with some system outside of React. 
+- Each Effect in your code should represent a **separate** and independent synchronization process. If you have different thing, put it in another effect.
 
 ## Understand Effect
 

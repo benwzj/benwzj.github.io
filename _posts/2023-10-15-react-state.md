@@ -234,14 +234,15 @@ function handleClick() {
 
 ### Updating Objects in State
 
-> Why changing object state directly won't work?
-Becuase React use `Object.is` to comparation, which decide whether to cause re-render.
+> ##### Why changing object state directly won't work?
+> 
+> Becuase React use `Object.is` to comparation, which decide whether to cause re-render.
 
 So, the Rule is that You should Treat state as read-only.
 
 - Copying objects with the **spread syntax**.
 - Updating a nested object!
-For example, update city to NewYork:
+For example, update 'city' to 'NewYork':
 ```js
 const [person, setPerson] = useState({
   name: 'Niki de Saint Phalle',
@@ -252,7 +253,7 @@ const [person, setPerson] = useState({
   }
 });
 ```
-You can update like below:
+You can update it like below:
 ```js
 setPerson({
   ...person, // Copy other fields
@@ -270,7 +271,7 @@ You can use Immer plus in!
 But I prefer do it by Knowing what you are doing.
 Basic Rule is that you should treat arrays in React state as read-only.
 
-prefer Array methods(returns a new array): 
+#### prefer Array methods(returns a new array): 
 
 - adding: `concat`, `[...arr]`
 - inserting: `[...arr]` together with the `slice()` method: 
@@ -301,7 +302,6 @@ const initialList = [
   { id: 1, title: 'Lunar Landscape', seen: false },
   { id: 2, title: 'Terracotta Army', seen: true },
 ];
-
 const [myList, setMyList] = useState(initialList);
 setMyList(myList.map(artwork => {
   if (artwork.id === artworkId) {
@@ -314,7 +314,7 @@ setMyList(myList.map(artwork => {
 }));
 ```
 
-Avoid (mutates the array):
+#### Avoid (mutates the array):
 - adding:	`push`, `unshift`
 - removing:	`pop`, `shift`, `splice`
 - replacing:	`splice`, `arr[i] = ... assignment`
