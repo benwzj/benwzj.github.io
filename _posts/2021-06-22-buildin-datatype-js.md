@@ -4,6 +4,15 @@ title: Build-in Data type in JS
 date: 2021-06-22
 category: JavaScript
 tags: JavaScript  
+toc: 
+  - name: String
+  - name: Number
+  - name: BigInt
+  - name: Symbol
+  - name: Array
+  - name: Set
+  - name: Map
+  - name: WeakMap
 ---
 
 JavaScript has two primitive values used to signal absent or uninitialized value: `null` and `undefined`.

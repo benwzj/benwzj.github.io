@@ -3,7 +3,7 @@ layout: post
 title: Flex Layout is wonderful
 date: 2020-04-04
 category: CSS
-tags: Flex CSS-Layout
+tags: Flex CSS
 toc: 
   - name: Basic Concepts
   - name: Initial Behaviors

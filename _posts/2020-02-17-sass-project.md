@@ -3,7 +3,7 @@ layout: post
 title: "Implement SASS in a project"
 date: 2020-02-17
 categories: CSS
-tags: SASS Jekyll HTML
+tags: SASS Jekyll HTML CSS
 ---
 
 
