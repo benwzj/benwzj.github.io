@@ -1,7 +1,7 @@
 ---
 layout: post
 title: CSS Layout introduction
-date: 2020-04-21
+date: 2020-04-19
 category: CSS
 tags: Layout CSS
 toc: 
@@ -15,9 +15,19 @@ toc:
   - name: Multi-column layout
 ---
 
-CSS page layout allow us to take elements contained in a web page and control where they're positioned relative to the following factors: their default position in normal layout flow, the other elements around them, their parent container, and the main viewport/window. 
+CSS control HOW you display your content in webpage. Layout is the main Skeleton of your webpage.
 
-Here are going to introduce some concepts like: normal flow, display settings, positioning, modern layout tools like flexbox and CSS grid.
+CSS layout allow you to take elements contained in a web page and control where they're positioned relative to the following factors: 
+- their default position in normal layout flow, 
+- the other elements around them, 
+- their parent container, and 
+- the main viewport/window. 
+
+Here are going to introduce some concepts like: 
+- normal flow, 
+- display settings, 
+- positioning, 
+- modern layout tools like flexbox and CSS grid.
 
 ## Normal flow
 

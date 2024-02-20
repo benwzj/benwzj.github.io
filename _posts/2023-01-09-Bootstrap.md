@@ -4,12 +4,18 @@ title: "Bootstrap Main points"
 date: 2023-01-09
 category: CSS
 tags: HTML Website SASS CSS
+toc: 
+  - name: What is Bootstrap
+  - name: Using Bootstrap 4
 ---
 
 ## What is Bootstrap
 
-Bootstrap is popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first websites. It includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels and many other, as well as optional JavaScript plugins.
-Bootstrap is focus on the look of webpage! single page. mainly use CSS and partly use javascript for some effect. It is completely free to download and use!
+Bootstrap is popular HTML, CSS, and JavaScript **framework** for developing responsive, **mobile-first** websites. 
+
+It includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels and many other, as well as optional JavaScript plugins.
+
+Bootstrap is focus on the look of single page. Mainly use CSS and partly use javascript for some effect.
 
 Bootstrap is Writen in HTML, CSS, Less, **Sass** and JS, Originally named Twitter Blueprint.
 
@@ -91,5 +97,7 @@ It will result in a 25%/75% split on small devices and a 50%/50% split on medium
 The class will scales up, this means if it is 50%/50% split on medium screen, then it is 50%/50% on large and xlarge, but no on small screen.
 
 ### Some notes for Bootstrap 4
+
 - Make sure that the sum adds up to 12 or fewer (it is not required that you use all 12 available columns)
 - `<div class="row row-cols-2">` means just allow 2 columns in a row
+

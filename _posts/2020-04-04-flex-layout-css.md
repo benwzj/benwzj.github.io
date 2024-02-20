@@ -7,7 +7,7 @@ tags: Flex CSS
 toc: 
   - name: Basic Concepts
   - name: Initial Behaviors
-  - name: Flex Properties
+  - name: Properties Apply to Container
   - name: Properties APPLY to Items
   - name: FQA
 ---
@@ -42,7 +42,7 @@ The contents of a new flex container will behave in the following way:
 
 The result of this is that your items will all line up in a row, using the size of the content as their size in the main axis. If there are more items than can fit in the container, they will not wrap but will instead overflow. If some items are taller than others, all items will stretch along the full length of the cross-axis.
 
-## Flex Properties
+## Properties Apply to Container
 
 ### flex-direction
 It specifies the direction of the flexible items.
@@ -87,6 +87,36 @@ The item is sized according to its width and height properties. It is fully infl
 
 Fox example: 
 `flex: 1;` let all the flexible items be the same length, regardless of its content.
+
+## Properties for Space distribution
+
+A key feature of flexbox is the ability to align and justify items on the main- and cross-axes, and to distribute space between flex items. 
+
+> Note that these properties are to be set on the flex container, not on the items themselves.
+
+### align-items
+
+The align-items property will align the items on the **cross axis**.
+
+- `stretch` (By Default) flex items stretch to the height of the flex container. 
+- `flex-start` make the items line up at the start of the flex container.
+- `flex-end` align the items to the end
+- `center` align the items in the center.
+
+### justify-content
+
+The justify-content property is used to align the items on the **main axis**. 
+
+- `flex-start` (By Default) line the items up at the start edge of the container.
+- `flex-end` line the items up at the end.
+- `center` line the items up in the center.
+- `space-around` items have a half-size space on either end.
+- `space-between` cause items to have equal space around them.
+- `space-evenly` items have a full-size space on either end.
+
+### justify-items
+
+The justify-items property is ignored in flexbox layouts.
 
 ## Reference
 
