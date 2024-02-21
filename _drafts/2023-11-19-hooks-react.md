@@ -24,3 +24,4 @@ console.timeEnd('filter array');
 ```
 
 If the overall logged time adds up to a significant amount (say, 1ms or more),  it might make sense to memoize that calculation. 
+

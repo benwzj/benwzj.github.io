@@ -42,4 +42,21 @@ class Question extends React.Component {
 
 ## fontawesome
 
+Use Font Awesome Kit 
 
+- Firstly, create an account in Font Awesome, and login, then you can create Font Awesome Kit.
+You can choose to create JS embeded code or CSS embeded code. Both of them are downloadable.
+
+- Secondly, install the kit into your project: 
+For example, you can copy the JS embeded code and paste it in `<scripe>` tag to the `<head>` of your index.html.
+Something like this:
+```html
+<script
+  src="https://kit.fontawesome.com/228dfc1a0b.js"
+  crossorigin="anonymous"
+></script>
+```
+- Now you can use icon in you project:
+```html
+<i className="fas fa-trash"></i>
+```
