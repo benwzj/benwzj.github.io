@@ -12,6 +12,7 @@ toc:
   - name: Credential
   - name: What is GCM
   - name: Basic git operations
+  - name: Reference
 ---
 
 ## What is Git
@@ -114,7 +115,7 @@ FETCH_HEAD is a short-lived ref, to keep track of what has just been fetched fro
 - Now GCM is the out of box tools for credential management.
 - All of GCM's configuration settings begin with the term credential.
 
--- You can get credential storage info from the configuration file. 
+You can get credential storage info from the configuration file. 
 for example (using HTTPS):
 - password is stored in a .git-credentials file in the user folder:
 credential.helper=store
@@ -138,7 +139,9 @@ The goal of Git Credential Manager (GCM) is to make the task of authenticating t
 - With GCM, you don't have to manually create and store a personal access token, as GCM manages authentication on your behalf, including 2FA (two-factor authentication).
 
 - GCM is different software from git. you can install it: 
+```
 brew install --cask git-credential-manager-core
+```
 
 - All of GCM's configuration settings begin with the term credential.
 
@@ -242,3 +245,9 @@ git pull origin master
 git merge day_branch
 git push origin master
 ```
+
+## Reference
+
+- [git-scm doc](https://git-scm.com/)
+- [git-credential-manager doc](https://github.com/git-ecosystem/git-credential-manager/tree/main/docs)
+- [cloudbees doc](https://www.cloudbees.com/blog/git-detached-head)

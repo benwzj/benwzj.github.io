@@ -35,6 +35,7 @@ toc:
 - Unlike props, state is fully private to the component declaring it. If you render the same component twice, each copy will have completely isolated state! 
 - React batches state updates, it will queue all set functions and execute all set functions one by one before re-render.
 - React will reset all state of a component when it's `key` prop change! That means the `initializer function` of `setState function` will run again.
+- We usually use `Array.map()` to list content component in React. This require mark `key` prop for every list component. When causing re-render, `Array.map()` will re-run and recaculate all the list components. In this situation, the List component still can use useState() to store it's states! It just like other components, in re-render, React won't remove it and create a new component, React still keep state snapshot of the list component.
 
 ## Understand State in React
 
@@ -336,3 +337,6 @@ setMyList(myList.map(artwork => {
 
 
 ### Do React have component instance concept? When placing a component in different place, all of them keep their own states. That means React manage defferent instances of the component.
+
+
+### We usually use `Array.map()` to list content component in React. This require mark `key` prop for every list component. When causing re-render, `Array.map()` will run and recaculate all the list components. In this situation, the List component still can use useState() to store it's states! It just like other components, in re-render, React won't remove it and create a new component, React still keep state snapshot of the list component.

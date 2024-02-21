@@ -9,6 +9,7 @@ toc:
   - name: Initial Behaviors
   - name: Properties Apply to Container
   - name: Properties APPLY to Items
+  - name: Properties for Space distribution
   - name: FQA
 ---
 
