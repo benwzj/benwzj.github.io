@@ -2,7 +2,7 @@
 layout: post
 title: GIT Overview
 date: 2020-07-11
-category: GIT
+category: Git
 tags: Git Overview
 toc: 
   - name: What is Git
