@@ -10,6 +10,8 @@ toc:
   - name: CSS Animations vs Transition
   - name: CSS vs JS in Animation
   - name: How Browser render Animation
+  - name: High-performance Animations
+  - name: Reference
 ---
 
 CSS allows animation of HTML elements without using JavaScript!
@@ -189,3 +191,56 @@ CSS-based animations, and Web Animations (in the browsers that support the API),
 As explained in this article, other changes to `transforms` and `opacity` can, in many cases, also be handled by the compositor thread.
 
 If any animation triggers paint, layout, or both, the main thread will be required to do work. This is true for both CSS and JavaScript animations, and the overhead of layout or paint will likely dwarf any work associated with CSS or JavaScript execution, rendering the question moot.
+
+## High-performance Animations
+
+How Create High-performance Animations? There are some point need to know:
+
+- Where possible restrict animations to **`opacity`** and **`transform`** in order to keep animations on the compositing stage of the rendering path. 
+
+- Use DevTools to check which stage of the path is being affected by your animations.
+
+- Use the `paint profiler` to see if any paint operations are particularly expensive. If you find anything, see if a different CSS property will give the same look and feel with better performance.
+
+- Use the `will-change` property sparingly, and only if you encounter a performance issue.
+
+
+
+> If you must use a property that triggers layout or paint, it is unlikely that you will be able to make the animation smooth and high-performance.
+{: .block-warning}
+
+👎 Don't do this, because it trigger layout or paint.
+```css
+.box {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  animation: move 3s ease infinite;
+}
+@keyframes move {
+  50% {
+     top: calc(90vh - 160px);
+     left: calc(90vw - 200px);
+  }
+}
+```
+
+👍 Do this:
+```css
+.box {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  animation: move 3s ease infinite;
+}
+@keyframes move {
+  50% {
+     transform: translate(calc(90vw - 200px), calc(90vh - 160px));
+  }
+}
+```
+
+## Reference
+- [web.dev animations overview](https://web.dev/articles/animations-overview)
+- [web.dev animations guide](https://web.dev/articles/animations-guide)
+- [MDN animation_performance](https://developer.mozilla.org/en-US/docs/Web/Performance/CSS_JavaScript_animation_performance)
