@@ -197,17 +197,13 @@ If any animation triggers paint, layout, or both, the main thread will be requir
 How Create High-performance Animations? There are some point need to know:
 
 - Where possible restrict animations to **`opacity`** and **`transform`** in order to keep animations on the compositing stage of the rendering path. 
+- If you must use a property that triggers layout or paint, it is unlikely that you will be able to make the animation smooth and high-performance.
+- You can Use DevTools to check which stage of the path is being affected by your animations.
+  - Check if an animation do layout work. Using Performance panel to check, for example in Chrome, if there are `Rendering` in the Summary tab, it may mean that your animation is causing the browser to do layout work.
+  - Check if an animation triggers paint. In Chrome, Using Rendering tab ->  Paint Flashing. The [paint profiler](https://developer.chrome.com/docs/devtools/performance/reference#paint-profiler) to see if any paint operations are particularly expensive. If you find anything, see if a different CSS property will give the same look and feel with better performance.
+- By placing elements on a new layer they can be repainted without also requiring the rest of the layout to be repainted. you can manually force layer creation with the [`will-change`](https://developer.mozilla.org/en-US/docs/Web/CSS/will-change) property. But Use the `will-change` property sparingly, and only if you encounter a performance issue.
 
-- Use DevTools to check which stage of the path is being affected by your animations.
-
-- Use the `paint profiler` to see if any paint operations are particularly expensive. If you find anything, see if a different CSS property will give the same look and feel with better performance.
-
-- Use the `will-change` property sparingly, and only if you encounter a performance issue.
-
-
-
-> If you must use a property that triggers layout or paint, it is unlikely that you will be able to make the animation smooth and high-performance.
-{: .block-warning}
+### Move an element
 
 👎 Don't do this, because it trigger layout or paint.
 ```css
@@ -239,6 +235,8 @@ How Create High-performance Animations? There are some point need to know:
   }
 }
 ```
+
+Using `opacity` and `transform` you can also rotate an element, Resize an element, Change an element's visibility etc.
 
 ## Reference
 - [web.dev animations overview](https://web.dev/articles/animations-overview)
