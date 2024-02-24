@@ -205,7 +205,7 @@ How Create High-performance Animations? There are some point need to know:
 
 ### Move an element
 
-👎 Don't do this, because it trigger layout or paint.
+👎 Don't do this, because it trigger layout and paint.
 ```css
 .box {
   position: absolute;

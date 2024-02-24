@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Display Modal in React
-date: 2023-11-19-Hooks-React.md
+date: 2023-11-19
 category: React
 tags: React Hook
 ---
