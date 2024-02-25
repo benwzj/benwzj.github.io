@@ -10,6 +10,12 @@ tags: HTML CSS
 
 The viewport is the user's visible area of a web page and is often used when talking about mobile devices.
 
+A more specific meaning of the term viewport refers to a meta element in HTML 5, which plays a crucial role in mobile optimization. The element scales the displayed content so that the size of the screen can be used efficiently. 
+
+In this case, the meta element viewport ensures that all content is equally legible and displayed correctly and completely on screens of different sizes. The viewport element adapts web pages to the screen’s length and width so that mobile browsers can display the entire content correctly.
+
+Thanks to the viewport, websites on mobile devices are not displayed in the same way as on a desktop screen. Users do not have to zoom in but can view the content of a page in a way that matches the small display. Viewports as meta elements (in combination with responsive web design) help web browsers to break up the pages and reassemble them on small screens in a way that enables users to receive a meaningful and readable image. Viewports thus have the task of preventing display problems by determining output formats that are tailored to the respective mobile device.
+
 ### Setting The Viewport
 HTML5 introduced a method to let web designers take control over the viewport, through the `<meta>` tag.
 You should include the following `<meta>` viewport element in all your web pages:
