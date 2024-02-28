@@ -40,7 +40,7 @@ class Question extends React.Component {
 }
 ```
 
-## fontawesome
+## Font Awesome
 
 Use Font Awesome Kit 
 
