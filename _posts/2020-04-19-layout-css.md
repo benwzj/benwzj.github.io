@@ -3,7 +3,7 @@ layout: post
 title: CSS Layout introduction
 date: 2020-04-19
 category: CSS
-tags: Layout CSS
+tags: Layout CSS HTML
 toc: 
   - name: Normal flow
   - name: The `display` property
@@ -182,15 +182,19 @@ Using z-index appears extremely easy: a single property assigned a single intege
 - specifies what should happen if content overflows an element's box.
 - specifies whether to clip content or to add scrollbars when an element's content is too big to fit in a specified area.
 - Note: The overflow property only works for block elements with a specified height.
-- Can be visible|hidden|clip|scroll|auto|initial|inherit;
 
-`overflow: visible` The overflow is not clipped. It renders outside the element's box. This is default
-`overflow: hidden` The overflow is clipped, and the rest of the content will be invisible. Content can be scrolled programmatically (e.g. by setting scrollLeft or scrollTo())
-`overflow: clip`
+### The `overflow` property Can be:
+
+visible|hidden|clip|scroll|auto|initial|inherit
+
+
+- `overflow: visible` The overflow is not clipped. It renders outside the element's box. This is default
+- `overflow: hidden` The overflow is clipped, and the rest of the content will be invisible. Content can be scrolled programmatically (e.g. by setting scrollLeft or scrollTo())
+- `overflow: clip`
 The overflow is clipped, and the rest of the content will be invisible. Forbids scrolling, including programmatic scrolling.	
-`overflow: scroll`
+- `overflow: scroll`
 The overflow is clipped, but a scroll-bar is added to see the rest of the content
-`overflow: auto`
+- `overflow: auto`
 If overflow is clipped, a scroll-bar should be added to see the rest of the content
 When element is taller than it's container, this property : overflow: auto can make container fit the element inside. 
 
@@ -217,5 +221,5 @@ To turn a block into a multi-column container, we use either the `column-count` 
 
 ## Reference
 
-[mdn document](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Introduction)
-The [CSS_display document](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display) have more detail for `display` property.
+- [mdn document](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Introduction)
+- The [CSS_display document](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display) have more detail for `display` property.

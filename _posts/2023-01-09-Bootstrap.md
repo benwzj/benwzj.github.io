@@ -3,7 +3,7 @@ layout: post
 title: "Bootstrap Main points"
 date: 2023-01-09
 category: CSS
-tags: HTML Website SASS CSS
+tags: HTML Website Sass CSS
 toc: 
   - name: What is Bootstrap
   - name: Using Bootstrap 4
@@ -27,7 +27,9 @@ Once Bootstrap is added to a project, it provides basic style definitions for al
 The result is a uniform appearance for prose, tables and form elements across web browsers.
 In addition, developers can take advantage of CSS classes defined in Bootstrap to further customize the appearance of their contents. 
 
-### To use BootStrap, just take following: 
+### Using BootStrap
+
+just take following: 
 ```html
   <link rel="stylesheet"
    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">

@@ -3,14 +3,14 @@ layout: post
 title: Flex Layout is wonderful
 date: 2020-04-04
 category: CSS
-tags: Flex CSS
+tags: Flex CSS HTML
 toc: 
   - name: Basic Concepts
   - name: Initial Behaviors
-  - name: Properties Apply to Container
-  - name: Properties APPLY to Items
-  - name: Properties for Space distribution
-  - name: FQA
+  - name: Props Apply to Container
+  - name: Props Apply to Items
+  - name: Props for Space Distribution
+  - name: Reference
 ---
 
 ## Basic Concepts 
@@ -43,7 +43,7 @@ The contents of a new flex container will behave in the following way:
 
 The result of this is that your items will all line up in a row, using the size of the content as their size in the main axis. If there are more items than can fit in the container, they will not wrap but will instead overflow. If some items are taller than others, all items will stretch along the full length of the cross-axis.
 
-## Properties Apply to Container
+## Props Apply to Container
 
 ### flex-direction
 It specifies the direction of the flexible items.
@@ -57,7 +57,7 @@ Initial value	is `nowrap`.
 Shorthand for: `flex-direction` and `flex-wrap`
 
 
-## Properties APPLY to Items
+## Props Apply to Items
 
 To have more control over flex items we can target them directly. We do this by way of three properties: flex-grow, flex-shrink, flex-basis.
 
@@ -89,7 +89,7 @@ The item is sized according to its width and height properties. It is fully infl
 Fox example: 
 `flex: 1;` let all the flexible items be the same length, regardless of its content.
 
-## Properties for Space distribution
+## Props for Space Distribution
 
 A key feature of flexbox is the ability to align and justify items on the main- and cross-axes, and to distribute space between flex items. 
 
