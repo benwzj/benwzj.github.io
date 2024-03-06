@@ -133,7 +133,9 @@ allow this to all elements is safe and wise.
 
 ## The `Position` property
 
-The `position` property allows you to precisely control the placement of boxes inside other boxes. static positioning is the default in normal flow, but you can cause elements to be laid out differently using other values, for example, as fixed to the top of the browser viewport.
+The `position` property allows you to precisely control **the placement of boxes inside other boxes**. 
+
+static positioning is the default in normal flow, but you can cause elements to be laid out differently using other values, for example, as fixed to the top of the browser viewport.
 
 Totally have 5 values:
 
