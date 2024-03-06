@@ -1,6 +1,6 @@
 ---
 layout: post
-title: GIT Overview
+title: Git Overview
 date: 2020-07-11
 category: Git
 tags: Git Overview
