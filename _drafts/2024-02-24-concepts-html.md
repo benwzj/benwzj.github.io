@@ -4,6 +4,10 @@ title: Some Concepts in HTML
 date: 2024-02-24
 category: HTML
 tags: HTML CSS
+toc: 
+  - name: Viewport
+  - name: Metadata
+
 ---
 
 ## Viewport
@@ -72,3 +76,27 @@ You can also set subsections of your document to be recognized as different lang
 `<p>Japanese example: <span lang="ja">ご飯が熱い。</span>.</p>`
 
 ### Applying CSS and JavaScript to HTML
+
+
+## text fundamentals
+
+### structural hierarchy
+HTML can be used to structure a page of text by adding headings and paragraphs, emphasizing words, creating lists.
+
+HTML define semantics to some elements:
+- There are six heading elements: h1, h2, h3, h4, h5, and h6.
+- Each paragraph has to be wrapped in a `<p>` element
+
+Using these to Implement structural hierarchy.
+
+This is a `<span>` element. It has no semantics. You use it to wrap content when you want to apply CSS to it (or do something to it with JavaScript) without giving it any extra meaning.
+
+### Lists
+Unordered lists
+Ordered lists
+Description lists
+
+### Emphasis and importance
+
+Here's the best rule you can remember: It's only appropriate to use `<b>, <i>, or <u>` to convey a meaning traditionally conveyed with bold, italics, or underline when there isn't a more suitable element; and there usually is. Consider whether `<strong>, <em>, <mark>, or <span>` might be more appropriate.
+
