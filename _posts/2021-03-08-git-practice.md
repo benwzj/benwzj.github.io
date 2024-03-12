@@ -5,6 +5,7 @@ date: 2021-03-08
 category: Git
 tags: Git
 toc: 
+  - name: Classice Case
   - name: Setting up a repo
   - name: Working with remote repo
   - name: Saving changes
@@ -14,6 +15,22 @@ toc:
 Git support Parallel Development. 
 Parallel Development means you can create branch.
 {% include figure.html path="assets/img/git-parallel.png" class="img-fluid rounded z-depth-1" %}
+
+## Classice Case
+Pushing an existing unversioned project to a Git repository.
+
+1. Inside project root folder, run `git init` creates a .git environment.
+It will create .git folder and .gitignore file.
+
+2. create repository in Git server, e.g. Github.
+
+3. connect the project to Git server Repository.
+`git remote add origin git@github.com:benwzj/CodeDeployBlog.git`
+
+4. then you can work on it
+`git branch -M main`
+`git push -u origin main`
+
 
 ## Setting up a repo
 

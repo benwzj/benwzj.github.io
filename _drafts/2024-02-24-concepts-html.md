@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Some Concepts in HTML5
+title: Some Concepts in HTML
 date: 2024-02-24
 category: HTML
 tags: HTML CSS
@@ -43,3 +43,32 @@ width: device-width;
 - `vmin` stands for viewport minimum. This unit is based on the smaller dimension of the viewport. If the viewport height is smaller than the width, the value of 1vmin will be equal to 1% of the viewport height. Similarly, if the viewport width is smaller than the height, the value of 1vmin will be equal to 1% of the viewport width.
 - `vmax` stands for viewport maximum. This unit is based on the larger dimension of the viewport. If the viewport height is larger than the width, the value of 1vmax will be equal to 1% of viewport height. Similarly, if the viewport width is larger than the height, the value of 1vmax will be equal to 1% of the viewport width.
 
+
+## Metadata 
+
+Metadata is data that describes data. The job of `<head>` element is to contain metadata about the document. For exmaple `<title>`, `<link>`, `<script>`, `<mate>`, etc. The `<meta>` element is an "official" way of adding metadata to a document.
+
+### Specifying your document's character encoding
+`<meta charset="utf-8" />`
+utf-8 is a universal character set that includes pretty much any character from any human language. This means that your web page will be able to handle displaying any language; 
+
+> it's therefore a good idea to set `<meta charset="utf-8" />` on every web page you create! 
+
+### Adding an author and description
+```html
+<meta name="author" content="Chris Mills" />
+<meta
+  name="description"
+  content="This is description" />
+```
+Good for SEO.
+
+### Adding custom icons to your site
+`<link rel="icon" href="favicon.ico" type="image/x-icon" />`
+
+### Setting the primary language of the document
+`<html lang="en-US">`
+You can also set subsections of your document to be recognized as different languages.
+`<p>Japanese example: <span lang="ja">ご飯が熱い。</span>.</p>`
+
+### Applying CSS and JavaScript to HTML

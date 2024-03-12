@@ -93,6 +93,11 @@ Frameworks provide features that most apps and sites eventually need, including 
 
 **eslint-plugin-react-hooks**, This ESLint plugin enforces the Rules of Hooks.
 
+React recommend using Function Component and Hooks instead of Class Component.
+
+- We have two basic Hooks: `useState`, `useEffect`.
+- Other Hooks like: `useMemo`, `useCallback`, `useContext`, `useRef`, `useReducer`, etc.
+
 ## What Rendering means in React
 
 Before your components are displayed on screen, they must be rendered by React. 
@@ -106,7 +111,7 @@ There are 3 steps for the whole rendering process:
 
 There are two reasons for a component to render:
 - It’s the component’s initial render. By calling `createRoot` with the target DOM node, and then calling its render method with the component.
-- The component’s (or one of its ancestors’) state has been updated. Updating the component’s state automatically queues a render.
+- The component’s (or one of its ancestors’) state has been updated. Updating the component’s state automatically queues a render. When prop or context be changed, it cause re-render as well.
 
 #### Step 2: React renders your components
 
@@ -130,10 +135,6 @@ React only changes the DOM nodes if there’s a difference between renders.
 
 After rendering is done and React updated the DOM, the browser will repaint the screen. Although this process is known as “browser rendering”, we’ll refer to it as “painting” to avoid confusion with React rendering.
 
-### There are some rules to follow for this process.
-For exemple, 
-- The initialer of useState will just run at the first time.
-- When you call the `set` function of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the childre.
 
 ## Inverse Data Flow
 

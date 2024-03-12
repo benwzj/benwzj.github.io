@@ -181,7 +181,7 @@ function useState(initialState) {
 }
 ```
 
-### How about `setState`
+### How about `set function` in useState
 
 The set function returned by `useState` lets you update the state to a different value and trigger a re-render. 
 
@@ -205,12 +205,14 @@ export function getFinalState(baseState, queue) {
 }
 ```
 
+### Some Rules for `useState` Hook
 - The **order** is matter! React execute the setState functions in exact order.
 - The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call. It is Async.
 - If the new value you provide is identical to the current state, as determined by an `Object.is` comparison, React will skip re-rendering the component and its children. 
-
 - Calling the set function during rendering is only allowed from within the currently rendering component. React will discard its output and immediately attempt to render it again with the new state. This pattern is rarely needed, but you can use it to store information from the previous renders.
 - In Strict Mode, React will call your updater function twice in order to help you find accidental impurities. This is development-only behavior and does not affect production.
+- The initialer of useState will just run at the first time.
+- When you call the `set function` of useState hook during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the childre.
 
 ### Set State to a function
 
