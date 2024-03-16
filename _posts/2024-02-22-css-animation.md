@@ -63,14 +63,45 @@ div:hover {
 
 ### Using Transitions other than `:hover`
 
-the most common use for CSS3 Transitions has been in conjunction with the well-known CSS `:hover` pseudo-class.
+the most common use for CSS3 Transitions has been in conjunction with the well-known CSS `:hover` pseudo-class. 
 
-- Transitions Using `:active`.
-The :active pseudo-class matches any element that’s in the process of being activated. The primary way that an element is “activated” is by means of a mouse click, or mouse down.
-- Transitions Using `:focus`. This can be used for input element.
-- Transitions Using `:checked`
-- Transitions Using `:disabled`
-- Transitions Using Media Queries
+1. Transitions still can be used with some other pseudo-class.
+- `:active`.
+This pseudo-class matches any element that’s in the process of being activated. The primary way that an element is “activated” is by means of a mouse click, or mouse down.
+- `:focus`
+- `:checked`
+- `:disabled`
+
+2. Transitions Using Media Queries.
+```css
+.box {
+  width: 440px;
+  height: 440px;
+  background: #222;
+  margin: 0 auto;
+  transition: width 2s ease, height 2s ease;
+}
+@media only screen and (max-width : 960px) {
+  .box {
+    width: 300px;
+    height: 300px;
+  }
+}
+```
+
+3. Changing class for element using JS. The transtion works as well. 
+In `Dropdown` component, when you click it, the chevron logo in right will turning up, when click again, the logo turning to normal. These are done by change class for the logo.
+```css
+.chevron{
+  width: 1em;
+  transition: transform 0.6s;
+}
+.chevron-up{
+  width: 1em;
+  transition: transform 0.6s;
+  transform: rotate(180deg);
+}
+```
 
 ## CSS Animations
 

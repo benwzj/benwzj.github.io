@@ -13,3 +13,18 @@ tags: Sass CSS HTML React
 - project files naming
 - project folder structure
 - IE11 version test
+
+Must have
+- style component
+- Redux
+- Typescript
+- Unit test
+  - TDD
+
+Nice to have
+- GraphQL
+
+Helpful tools
+- Clean code
+- Functional programming
+- Design pattern

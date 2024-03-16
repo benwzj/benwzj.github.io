@@ -1,9 +1,13 @@
 ---
 layout: post
-title: "Understand Event Loop in JS"
+title: Understand Event Loop in JS
 date: 2021-06-01
 categories: JavaScript
 tags: Event-loop JavaScript
+toc:
+  - name: Demo Example
+  - name: Stack
+  - name: Queue
 ---
 
 JavaScript has a runtime model based on an event loop, which is responsible for executing the code, collecting and processing events, and executing queued sub-tasks. This model is quite different from models in other languages like C and Java.
@@ -99,11 +103,14 @@ The second example with setTimout looks like this:
 Using setTimeout, an asynchronous Web API, introduces the concept of the queue, which this tutorial will cover next.
 
 ## Queue
+
 The queue, also referred to as message queue or task queue, is a waiting area for functions. Whenever the call stack is empty, the event loop will check the queue for any waiting messages, starting from the oldest message. Once it finds one, it will add it to the stack, which will execute the function in the message.
 
 In the setTimeout example, the anonymous function runs immediately after the rest of the top-level execution, since the timer was set to 0 seconds. It's important to remember that the timer does not mean that the code will execute in exactly 0 seconds or whatever the specified time is, but that it will add the anonymous function to the queue in that amount of time. This queue system exists because if the timer were to add the anonymous function directly to the stack when the timer finishes, it would interrupt whatever function is currently running, which could have unintended and unpredictable effects.
 
-> **Note**: There is also another queue called the job queue or microtask queue that  handles promises. Microtasks like promises are handled at a higher priority than macrotasks like setTimeout.
+> ##### Note
+>
+> There is also another queue called the job queue or microtask queue that  handles promises. Microtasks like promises are handled at a higher priority than macrotasks like setTimeout.
 {: .block-warning }
 
 Now you know how the event loop uses the stack and queue to handle the execution order of code. The next task is to figure out how to control the order of execution in your code. To do this, you will first learn about the original way to ensure asynchrnous code is handled correctly by the event loop: callback functions.

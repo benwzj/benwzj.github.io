@@ -5,11 +5,11 @@ date: 2023-11-19
 category: React
 tags: React Hook
 toc: 
-  - name: useMemo
+  - name: Hook `useMemo`
   - name: API `memo`
 ---
 
-## useMemo
+## Hook `useMemo`
 
 `useMemo` is a React Hook that lets you cache the result of a calculation between re-renders. You should only rely on `useMemo` as a **performance optimization**. 
 Caching return values like this is known as **memoization**, which is why this Hook is called `useMemo`.
@@ -52,7 +52,6 @@ function TodoList({ todos, tab }) {
   // ...
 }
 ```
-
 
 ## API `memo`
 
