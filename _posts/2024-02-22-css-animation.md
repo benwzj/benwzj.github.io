@@ -5,6 +5,7 @@ date: 2024-02-22
 category: CSS
 tags: CSS Animation JavaScript
 toc: 
+  - name: CSS Transitions
   - name: CSS Animations
   - name: Use CSS Animations
   - name: CSS Animations vs Transition
@@ -18,6 +19,58 @@ CSS allows animation of HTML elements without using JavaScript!
 
 You can use CSS to create animation by **CSS Animation** and **CSS Transition**.
 But CSS Animation can create more more complex, multi-step animation.
+
+## CSS Transitions
+
+CSS transitions allows you to change property values smoothly, over a given duration.
+
+To create a transition effect, you must specify two things:
+- the CSS property you want to add an effect to
+- the duration of the effect
+
+> Note: If the duration part is not specified, the transition will have no effect, because the default value is 0.
+
+Here are some features:
+- Basic idea is that, told Browser the origial properties, final properties value and duraton time, Browser can transit them smoothly. Or, There are even some options to tell browser how to transit.
+- Not all properties support transitions.
+- CSS transitions is one way to create animation! 
+- CSS transitions and animations are **expensive operations** for most CSS properties—except `opacity` and `transform`.
+
+### Basic example:
+```html
+<style> 
+div {
+  width: 100px;
+  height: 100px;
+  background: red;
+  transition: width 2s;
+}
+
+div:hover {
+  width: 300px;
+}
+</style>
+<p>Hover over the div element below, to see the transition effect:</p>
+<div></div>
+```
+
+### Transition Properties
+- `transition`	A **shorthand** property for setting the four transition properties into a single property
+- `transition-delay`	Specifies a delay (in seconds) for the transition effect
+- `transition-duration`	Specifies how many seconds or milliseconds a transition effect takes to complete
+- `transition-property`	Specifies the name of the CSS property the transition effect is for
+- `transition-timing-function`	Specifies the speed curve of the transition effect
+
+### Using Transitions other than `:hover`
+
+the most common use for CSS3 Transitions has been in conjunction with the well-known CSS `:hover` pseudo-class.
+
+- Transitions Using `:active`.
+The :active pseudo-class matches any element that’s in the process of being activated. The primary way that an element is “activated” is by means of a mouse click, or mouse down.
+- Transitions Using `:focus`. This can be used for input element.
+- Transitions Using `:checked`
+- Transitions Using `:disabled`
+- Transitions Using Media Queries
 
 ## CSS Animations
 
@@ -104,11 +157,11 @@ Transitions are used for simple, one-step property changes, while animations are
 
 They each have their own user scenarios:
 
-- CSS transitions provide an easy way to make animations occur between the current style and an end CSS state, e.g., a resting button state and a hover state. Even if an element is in the middle of a transition, the new transition starts from the current style immediately instead of jumping to the end CSS state.
+- CSS transitions provide an easy way to make animations occur between the current style and an end CSS state, e.g., a resting button state and a **hover** state. Even if an element is in the middle of a transition, the new transition starts from the current style immediately instead of jumping to the end CSS state.
 - CSS animations, on the other hand, allow developers to make animations between a set of starting property values and a final set rather than between two states. CSS animations consist of two components: a style describing the CSS animation, and a set of key frames that indicate the start and end states of the animation's style, as well as possible intermediate points. 
 
 A little conclusion:
-- In terms of performance, there is no difference between implementing an animation with CSS transitions or animations. Both of them are classified under the same CSS-based umbrella in this article.
+- In terms of performance, there is no difference between implementing an animation with CSS transitions or animations. Both of them are classified under the same CSS-based umbrella.
 - A transition is just one that is performed between two distinct states - i.e. a start state and an end state. Like a drawer menu, the start state could be open and the end state could be closed, or vice versa.
 - If you want to perform something that does not specifically involve a start state and an end state, or you need more fine-grained control over the keyframes in a transition, then you've got to use an animation.
 - Animations also have the ability to loop, play in reverse, and be controlled through JavaScript.

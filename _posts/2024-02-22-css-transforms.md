@@ -1,61 +1,18 @@
 ---
 layout: post
-title: CSS Transitions and Transforms
+title: CSS Transforms
 date: 2024-02-22
 category: CSS
 tags: CSS Animation 
 toc:
-  - name: CSS Transitions
-  - name: Transforms
+  - name: 2D Transforms
+  - name: 3D Transforms
   - name: Transition and Transform
 ---
 
-## CSS Transitions
-
-CSS transitions allows you to change property values smoothly, over a given duration.
-
-To create a transition effect, you must specify two things:
-- the CSS property you want to add an effect to
-- the duration of the effect
-
-> Note: If the duration part is not specified, the transition will have no effect, because the default value is 0.
-
-Here are some features:
-- Basic idea is that, told Browser the origial properties, final properties value and duraton time, Browser can transit them smoothly. Or, There are even some options to tell browser how to transit.
-- Not all properties support transitions.
-- CSS transitions is one way to create animation! 
-- CSS transitions and animations are **expensive operations** for most CSS properties—except `opacity` and `transform`.
-
-### Basic example:
-```html
-<style> 
-div {
-  width: 100px;
-  height: 100px;
-  background: red;
-  transition: width 2s;
-}
-
-div:hover {
-  width: 300px;
-}
-</style>
-<p>Hover over the div element below, to see the transition effect:</p>
-<div></div>
-```
-
-### Transition Properties
-- `transition`	A shorthand property for setting the four transition properties into a single property
-- `transition-delay`	Specifies a delay (in seconds) for the transition effect
-- `transition-duration`	Specifies how many seconds or milliseconds a transition effect takes to complete
-- `transition-property`	Specifies the name of the CSS property the transition effect is for
-- `transition-timing-function`	Specifies the speed curve of the transition effect
-
-## Transforms
-
 There are 2D and 3D transform. 
 
-### 2D Transforms
+## 2D Transforms
 
 CSS 2D transforms allow you to move, rotate, scale, and skew elements.
 
@@ -81,11 +38,11 @@ This div element is skewed 20 degrees along the Y-axis.
 </div>
 ```
 
-#### 2D Transform Properties
+### 2D Transform Properties
 - `transform`	Applies a 2D or 3D transformation to an element
 - `transform-origin` Allows you to change the position on transformed elements
 
-#### 2D Transform Methods
+### 2D Transform Methods
 - `matrix(n,n,n,n,n,n)` Defines a 2D transformation, using a matrix of six values
 - `translate(x,y)` Defines a 2D translation, moving the element along the X- and the Y-axis
 - `translateX(n)` Defines a 2D translation, moving the element along the X-axis
@@ -98,9 +55,9 @@ This div element is skewed 20 degrees along the Y-axis.
 - `skewX(angle)` Defines a 2D skew transformation along the X-axis
 - `skewY(angle)` Defines a 2D skew transformation along the Y-axis
 
-### 3D Transforms
+## 3D Transforms
 
-#### Basic Example
+### Basic Example
 
 ```html
 <style>
@@ -122,7 +79,7 @@ This div element is rotated 90 degrees around the z axle.
 </div>
 ```
 
-#### 3D transform properties:
+### 3D transform properties:
 
 - `transform`	Applies a 2D or 3D transformation to an element
 - `transform-origin` Allows you to change the position on transformed elements
@@ -131,7 +88,7 @@ This div element is rotated 90 degrees around the z axle.
 - `perspective-origin` Specifies the bottom position of 3D elements
 - `backface-visibility`	Defines whether or not an element should be visible when not facing the screen
 
-#### 3D Transform Methods
+### 3D Transform Methods
 
 - `matrix3d (n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n)` Defines a 3D transformation, using a 4x4 matrix of 16 values
 - `translate3d(x,y,z)` Defines a 3D translation
@@ -171,3 +128,6 @@ div:hover {
 <div></div>
 ```
 
+## Reference
+
+- [w3schools](https://www.w3schools.com/css/css3_transitions.asp)
