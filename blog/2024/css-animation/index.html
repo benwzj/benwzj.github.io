@@ -25,7 +25,7 @@
  <span class="nl">height</span><span class="p">:</span> <span class="m">300px</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div> </div> </li> <li>Changing class for element using JS. The transtion works as well. In <code class="language-plaintext highlighter-rouge">Dropdown</code> component, when you click it, the chevron logo in right will turning up, when click again, the logo turning to normal. These are done by change class for the logo. <div class="language-css highlighter-rouge"> <div class="highlight"><pre class="highlight"><code><span class="nc">.chevron</span><span class="p">{</span>
+</code></pre></div> </div> </li> <li>Changing class for element using JS. The transtion works as well. In <code class="language-plaintext highlighter-rouge">Dropdown</code> component, when you click it, the chevron logo will turning up when the Options OPEN; when click again, the logo turning to normal when Options CLOSE. These are done by changing CSS class for the logo using JS. <div class="language-css highlighter-rouge"> <div class="highlight"><pre class="highlight"><code><span class="nc">.chevron</span><span class="p">{</span>
   <span class="nl">width</span><span class="p">:</span> <span class="m">1em</span><span class="p">;</span>
   <span class="nl">transition</span><span class="p">:</span> <span class="n">transform</span> <span class="m">0.6s</span><span class="p">;</span>
 <span class="p">}</span>
@@ -34,6 +34,14 @@
   <span class="nl">transition</span><span class="p">:</span> <span class="n">transform</span> <span class="m">0.6s</span><span class="p">;</span>
   <span class="nl">transform</span><span class="p">:</span> <span class="n">rotate</span><span class="p">(</span><span class="m">180deg</span><span class="p">);</span>
 <span class="p">}</span>
+</code></pre></div> </div> <div class="language-js highlighter-rouge"> <div class="highlight"><pre class="highlight"><code><span class="nf">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">.dropdown-el</span><span class="dl">'</span><span class="p">).</span><span class="nf">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">e</span><span class="p">.</span><span class="nf">preventDefault</span><span class="p">();</span>
+  <span class="nx">e</span><span class="p">.</span><span class="nf">stopPropagation</span><span class="p">();</span>
+  <span class="nf">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nf">toggleClass</span><span class="p">(</span><span class="dl">'</span><span class="s1">expanded</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nf">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nf">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nf">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">.dropdown-el</span><span class="dl">'</span><span class="p">).</span><span class="nf">removeClass</span><span class="p">(</span><span class="dl">'</span><span class="s1">expanded</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
 </code></pre></div> </div> </li> </ol> <h2 id="css-animations">CSS Animations</h2> <p>An animation lets an element gradually change from one style to another. You can change as many CSS properties you want, as many times as you want.</p> <blockquote class="block-warning"> <p>To use CSS animation, you must first specify some keyframes for the animation. Keyframes hold what styles the element will have at certain times.</p> </blockquote> <h3 id="basic-example-1">Basic example</h3> <p>Basic example show you how CSS Animations work.</p> <p>The animation will last for 4 seconds, and it will gradually change the background-color of the <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> element from “red” to “yellow”:</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* The animation code */</span>
 <span class="k">@keyframes</span> <span class="n">example</span> <span class="p">{</span>
   <span class="nt">from</span> <span class="p">{</span><span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;}</span>
