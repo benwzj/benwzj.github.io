@@ -1,14 +1,33 @@
 ---
 layout: post
-title: Some Concepts in HTML
+title: HTML Concepts
 date: 2024-02-24
 category: HTML
 tags: HTML CSS
 toc: 
+  - name: Document structure
   - name: Viewport
   - name: Metadata
-
+  - name: text fundamentals
 ---
+
+
+## Document structure
+
+Basic sections of a document:
+
+- header:`<header>`
+Usually a big strip across the top with a big heading, logo, and perhaps a tagline. 
+- navigation bar: `<nav>`
+Links to the site's main sections; usually represented by menu buttons, links, or tabs. 
+- main content: `<main>`, with various content subsections represented by `<article>`, `<section>`, and `<div>` elements.
+A big area in the center that contains most of the unique content of a given webpage.
+- sidebar:`<aside>`
+Some peripheral info, links, quotes, ads, etc. Usually, this is contextual to what is contained in the main content.
+- footer: `<footer>`
+A strip across the bottom of the page that generally contains fine print, copyright notices, or contact info. 
+
+It is important to use the right HTML element for the job. It is importance to understand the **semantic** of the elements.
 
 ## Viewport
 

@@ -124,6 +124,8 @@ select:focus + .focus {
 
 ## React Dropdown component
 
+You can write your own component which mimic the function with select element.
+You can easy to style it with CSS. 
 
 ## Reference
 

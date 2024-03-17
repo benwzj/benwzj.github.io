@@ -18,7 +18,6 @@ for (let i = 0; i < 9; i++) {
 }
 ```
 
-
 ## for...of
 
 The `for...of` statement executes a loop that operates on a sequence of values sourced from an **iterable** object. Iterable objects include instances of built-ins such as Array, String, TypedArray, Map, Set, NodeList (and other DOM collections), as well as the arguments object, generators produced by generator functions, and user-defined iterables.
@@ -47,6 +46,19 @@ while (n < 3) {
 ## loop over an object
 
 The prefered way is using `Object.entries()` or `Object.keys()` method. It is clean. 
+```js
+const object1 = {
+  a: 'somestring',
+  b: 42,
+};
+for (const [key, value] of Object.entries(object1)) {
+  console.log(`${key}: ${value}`);
+}
+// Expected output:
+// "a: somestring"
+// "b: 42"
+```
+
 You can still use `for...in`. But it iterates through properties in the prototype chain. This means that we need to check if the property belongs to the object using `hasOwnProperty`.
 
 ## `forEach`

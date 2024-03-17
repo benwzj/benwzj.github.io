@@ -90,7 +90,7 @@ This pseudo-class matches any element that’s in the process of being activated
 ```
 
 3. Changing class for element using JS. The transtion works as well. 
-In `Dropdown` component, when you click it, the chevron logo in right will turning up, when click again, the logo turning to normal. These are done by change class for the logo.
+In `Dropdown` component, when you click it, the chevron logo will turning up when the Options OPEN; when click again, the logo turning to normal when Options CLOSE. These are done by changing CSS class for the logo using JS.
 ```css
 .chevron{
   width: 1em;
@@ -101,6 +101,16 @@ In `Dropdown` component, when you click it, the chevron logo in right will turni
   transition: transform 0.6s;
   transform: rotate(180deg);
 }
+```
+```js
+$('.dropdown-el').click(function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  $(this).toggleClass('expanded');
+});
+$(document).click(function() {
+  $('.dropdown-el').removeClass('expanded');
+});
 ```
 
 ## CSS Animations

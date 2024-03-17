@@ -11,8 +11,10 @@ tags: Sass CSS HTML React
 - Sass practice! how to use sass.
 - need list the assumsion for the app, means you need to have the whole picture of a project.
 - project files naming
-- project folder structure
+- project folder structure, you can use Atom, Molecular.
 - IE11 version test
+- make your code more like document.
+- avoid code pollution by CSS.
 
 Must have
 - style component
