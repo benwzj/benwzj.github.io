@@ -1,13 +1,13 @@
 ---
 layout: post
-title: CSS Layout introduction
+title: CSS Layout Concepts
 date: 2020-04-19
 category: CSS
 tags: Layout CSS HTML
 toc: 
   - name: Normal flow
   - name: The `display` property
-  - name: Float
+  - name: Float Layout
   - name: The `Position` property
   - name: The `z-index` property
   - name: The `overflow` property
@@ -17,17 +17,24 @@ toc:
 
 CSS control HOW you display your content in webpage. Layout is the main Skeleton of your webpage.
 
+A modern-day solution for developing highly responsive layouts using traditional CSS is by combining Flexbox and Grid System.
+
+Need following concepts for CSS layout: 
+- Normal flow (Browser Default way to layout), 
+- display settings, 
+- positioning (Old way), 
+- float layout (Old way),
+- CSS flexbox (New good way to webpage layout), 
+- CSS grid (modern one).
+
 CSS layout allow you to take elements contained in a web page and control where they're positioned relative to the following factors: 
 - their default position in normal layout flow, 
 - the other elements around them, 
 - their parent container, and 
 - the main viewport/window. 
 
-Here are going to introduce some concepts like: 
-- normal flow, 
-- display settings, 
-- positioning, 
-- modern layout tools like flexbox and CSS grid.
+
+CSS flexbox and grid will be introduced in other blogs.
 
 ## Normal flow
 
@@ -41,7 +48,7 @@ The methods that can change how elements are laid out in CSS are: The display pr
 
 ## The `display` property
 
-The standard values of `display` such as block, inline or inline-block can change how elements behave in normal flow, for example, by making a block-level element behave like an inline-level element (see Types of CSS boxes for more information). We also have entire layout methods that are enabled via specific display values, for example, CSS **Grid** and **Flexbox**, which alter how child elements are laid out inside their parents.
+The standard values of `display` such as block, inline or inline-block can change how elements behave in normal flow, for example, by making a block-level element behave like an inline-level element. We also have entire layout methods that are enabled via specific display values, for example, CSS Grid and Flexbox, which alter how child elements are laid out inside their parents.
 
 ### multi-keyword syntax
 
@@ -59,7 +66,6 @@ Because of this, The multi-keyword syntax is **promoted**. For example the `flex
 
 - `display: block` (default for block-level element). 
 A block-level element is the element that always starts on a new line and takes up the full width available (stretches out to the left and right as far as it can). Like `<div> <p> <form><header><footer><section><h1>` etc. 
-
 - `display: inline` (default for inline-level element).
 An inline element does not start on a new line and only takes up as much width as necessary.
 Like `<a> <img> <span> `etc. 
@@ -70,13 +76,18 @@ On the other hand, `visibility:hidden;` also hides an element. However, the elem
 Displays an element as a block-level flex container
 - `display: table` 
 Let the element behave like a `<table>` element
-- `display: inline-block `
+- `display: inline-block` (same as `display: inline block`)
 Displays an element as an inline-level block container. 
 inline is the base, this container is located inside inline level. And the container inside is block. 
 The element itself is formatted as an inline element, but you can apply height and width values
 When a sentence is inline, it can be broke into two lines. But when it is inline-block, it won’t be broke into two line.
 
-## Float
+
+## Float Layout
+
+Originally for floating images inside blocks of text, the float property became one of the most commonly used tools for creating multiple column layouts on webpages. With the advent of Flexbox and Grid it has now returned to its original purpose,
+
+Float Layout is using the CSS `float` `clear` property. Float is easy to learn - you just need to remember how the float and clear properties work. Disadvantages: Floating elements are tied to the document flow, which may harm the flexibility. 
 
 Floating an element changes the behavior of that element and the block level elements that follow it in normal flow. The floated element is moved to the left or right and removed from normal flow, and the surrounding content floats around it.
 
@@ -112,7 +123,7 @@ if also set div2 `clear : left`. then the text will go under the div1.
   overflow: auto;
 }
 ```
-Have same effect with follow:
+The CSS above have same effect with follow:
 ```css
 .clearfix::after{
   context: "";
@@ -130,6 +141,87 @@ box-sizing: border-box;
 ```
 allow this to all elements is safe and wise. 
 
+### Float Layout example
+
+This can be responsive layout for mobile.
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.menu {
+  float: left;
+  width: 20%;
+  text-align: center;
+}
+
+.menu a {
+  background-color: #e5e5e5;
+  padding: 8px;
+  margin-top: 7px;
+  display: block;
+  width: 100%;
+  color: black;
+}
+
+.main {
+  float: left;
+  width: 60%;
+  padding: 0 20px;
+}
+
+.right {
+  background-color: #e5e5e5;
+  float: left;
+  width: 20%;
+  padding: 15px;
+  margin-top: 7px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 620px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body style="font-family:Verdana;color:#aaaaaa;">
+
+<div style="background-color:#e5e5e5;padding:15px;text-align:center;">
+  <h1>Hello World</h1>
+</div>
+
+<div style="overflow:auto">
+  <div class="menu">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+    <a href="#">Link 4</a>
+  </div>
+
+  <div class="main">
+    <h2>Lorum Ipsum</h2>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+  </div>
+
+  <div class="right">
+    <h2>About</h2>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+  </div>
+</div>
+
+<div style="background-color:#e5e5e5;text-align:center;padding:10px;margin-top:7px;">© copyright w3schools.com</div>
+
+</body>
+</html>
+```
 
 ## The `Position` property
 
@@ -223,5 +315,5 @@ To turn a block into a multi-column container, we use either the `column-count` 
 
 ## Reference
 
-- [mdn document](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Introduction)
+- [mdn document](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout)
 - The [CSS_display document](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display) have more detail for `display` property.

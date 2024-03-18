@@ -5,29 +5,35 @@ date: 2024-02-24
 category: HTML
 tags: HTML CSS
 toc: 
-  - name: Document structure
+  - name: HTML Layout
   - name: Viewport
   - name: Metadata
   - name: text fundamentals
 ---
 
 
-## Document structure
+## HTML Layout
 
+### HTML Layout Elements
 Basic sections of a document:
+- `<header> `- Defines a header for a document or a section
+- `<nav>` - Defines a set of navigation links
+- `<section> `- Defines a section in a document
+- `<article>` - Defines an independent, self-contained content
+- `<aside>` - Defines content aside from the content (like a sidebar)
+- `<footer>` - Defines a footer for a document or a section
+- `<details>` - Defines additional details that the user can open and close on demand
+- `<summary> `- Defines a heading for the `<details>` element
 
-- header:`<header>`
-Usually a big strip across the top with a big heading, logo, and perhaps a tagline. 
-- navigation bar: `<nav>`
-Links to the site's main sections; usually represented by menu buttons, links, or tabs. 
-- main content: `<main>`, with various content subsections represented by `<article>`, `<section>`, and `<div>` elements.
-A big area in the center that contains most of the unique content of a given webpage.
-- sidebar:`<aside>`
-Some peripheral info, links, quotes, ads, etc. Usually, this is contextual to what is contained in the main content.
-- footer: `<footer>`
-A strip across the bottom of the page that generally contains fine print, copyright notices, or contact info. 
+They are **semantic** elements.
 
-It is important to use the right HTML element for the job. It is importance to understand the **semantic** of the elements.
+### HTML Layout Techniques
+The webpage layout is controlled by CSS.
+There are four different techniques to create multicolumn layouts:
+- CSS framework, like Bootstrap
+- CSS float property
+- CSS flexbox
+- CSS grid
 
 ## Viewport
 
