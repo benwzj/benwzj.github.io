@@ -10,7 +10,7 @@ Responsive Web Design (RWD) is about using HTML and CSS to automatically resize,
 
 Media queries can help with RWD, but are not a requirement. Flexible grids, relative units, and minimum and maximum unit values can be used without queries.
 
-A modern-day solution for developing highly responsive layouts using traditional CSS is by combining Flexbox and Grid System.
+A modern-day solution for developing highly responsive layouts using traditional CSS is by combining **Flexbox** and **Grid** System.
 
 ## Setting The Viewport
 
@@ -21,7 +21,6 @@ This viewport meta tag tells **mobile** browsers that they should set the width 
 Why is this needed? Because mobile browsers tend to lie about their viewport width.
 
 This meta tag exists because when smartphones first arrived, most sites were not mobile optimized. The mobile browser would, therefore, set the viewport width to 980 pixels, render the page at that width, and show the result as a zoomed-out version of the desktop layout. 
-
 
 ## Responsive Images
 
@@ -125,4 +124,5 @@ Then browser can change `.card` class content as above when screen width less th
 ```
 
 - When the width of The container witch with cardContainer class is less than 500px, when card class will change accordingly. 
+
 
