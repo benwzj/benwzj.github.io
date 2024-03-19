@@ -3,7 +3,13 @@ layout: post
 title: Responsive Web Design
 date: 2024-03-18
 category: CSS
-tags: CSS HTML RWD
+tags: CSS HTML RWD React
+toc: 
+  - name: Setting The Viewport
+  - name: Responsive Images
+  - name: Media Queries
+  - name: CSS Grid Layout
+  - name: RWD and React
 ---
 
 Responsive Web Design (RWD) is about using HTML and CSS to automatically resize, hide, shrink, or enlarge, a website, to make it look good on all devices (desktops, tablets, and phones).
@@ -125,4 +131,45 @@ Then browser can change `.card` class content as above when screen width less th
 
 - When the width of The container witch with cardContainer class is less than 500px, when card class will change accordingly. 
 
+## CSS Grid Layout
+Grid Layout is good for RWD.
 
+## RWD and React
+
+Window `matchMedia()` API returns a `MediaQueryList` object with the results from the query.
+
+You can create this `MatchMediaWrapper` component to display differnent according to `max-width`.
+```js
+const MatchMediaWrapper = ({mobileContent, desktopContent}) => {
+  const [isNarrowScreen, setIsNarrowScreen] = useState(false)
+  useEffect(() => {
+    const mediaWatcher = window.matchMedia("(max-width: 500px)")
+    setIsNarrowScreen(mediaWatcher.matches);
+
+    function updateIsNarrowScreen(e) {
+      setIsNarrowScreen(e.matches);
+    }
+    if(mediaWatcher.addEventListener) {
+      mediaWatcher.addEventListener('change', updateIsNarrowScreen)
+      return function cleanup() {
+        mediaWatcher.removeEventListener('change', updateIsNarrowScreen)
+      }
+    } else {
+      mediaWatcher.addListener(updateIsNarrowScreen)
+      return function cleanup() {
+        mediaWatcher.removeListener(updateIsNarrowScreen)
+      }
+    }
+  },[])
+  return isNarrowScreen ? mobileContent : desktopContent;
+}
+```
+Use this Wrapper compoent:
+```js
+const MyReponsiveComponent = () => {
+  const mobileContent = (<div>This is what you see on mobile!</div>);
+  const desktopContent = (<div>This is what you see on desktop!</div>);
+
+  return <MatchMediaWrapper mobileContent={mobileContent} desktopContent={desktopContent}/>
+}
+```

@@ -101,6 +101,7 @@ Totally have 5 values:
 ### relative
 - The element is positioned relative to its normal position (static way), so "left:20px" adds 20 pixels to the element's LEFT position.
 - allows you to modify an element's position on the page, moving it relative to its position in normal flow, as well as making it overlap other elements on the page.
+- It's used best when there's an ancestor with some position property as well and we can alter its final position. Otherwise, it’s just like static.
 
 ### absolute
 - moves an element completely out of the page's normal layout flow, like it's sitting on its **own separate layer**. From there, you can fix it to a position relative to the edges of its closest positioned ancestor (which becomes <html> if no other ancestors are positioned).
