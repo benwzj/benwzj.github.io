@@ -10,6 +10,7 @@ toc:
   - name: Media Queries
   - name: CSS Grid Layout
   - name: RWD and React
+  - name: Reference
 ---
 
 Responsive Web Design (RWD) is about using HTML and CSS to automatically resize, hide, shrink, or enlarge, a website, to make it look good on all devices (desktops, tablets, and phones).
@@ -173,3 +174,8 @@ const MyReponsiveComponent = () => {
   return <MatchMediaWrapper mobileContent={mobileContent} desktopContent={desktopContent}/>
 }
 ```
+
+## Reference
+
+- [mdn Responsive_Design](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
+- [css-tricks media-queries](https://css-tricks.com/a-complete-guide-to-css-media-queries/)

@@ -25,6 +25,10 @@ Inheritance is all about prototype chain: Each object has a private property whi
 - In JavaScript, a primitive (primitive value, primitive data type) is data that is not an object and has no methods. There are 7 primitive data types: `string`, `number`, `bigint`, `boolean`, `undefined`, `symbol`, and `null`.
 
 - `undefined` vs `null`. Both of them are primitive data. `typeof(null)` will display `null` is object. But it is not. `null` is a deliberate assignment that represents no value. When a variable is declared but not initialized, or when a function does not return a value, the variable or the function’s result is `undefined`.
+```js
+null == undefined // true
+null === undefined // false
+```
 
 - Except for null and undefined, all primitive values have object equivalents that wrap around the primitive values. The wrapper's valueOf() method returns the primitive value.
 

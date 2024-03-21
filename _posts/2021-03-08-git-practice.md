@@ -271,11 +271,9 @@ What is `git revert`
 
 ### undo a commit with `git reset`
 
-What is git reset
+- `git reset` - Reset current HEAD to the specified state.
 
-- git-reset - Reset current HEAD to the specified state.
-
-- git reset is a complex and versatile tool for undoing changes.
+- `git reset` is a complex and versatile tool for undoing changes.
 - It has three primary forms of invocation. These forms correspond to command line arguments --soft, --mixed, --hard. 
 - The three arguments each correspond to Git's three internal state management mechanism's, The Commit Tree (HEAD), The Staging Index, and The Working Directory.
 
@@ -293,13 +291,13 @@ git commit --amend. This will have Git open the configured system editor and let
 
 ### Git clean
 
-- git clean is a convenience method for deleting untracked files in a repo's working directory. 
-- git clean will make a hard filesystem deletion. Make sure you really want to delete the untracked files before you run it.
-- Git clean is to some extent an 'undo' command. Git clean can be considered complementary to other commands like git reset and git checkout to fully undo any additions and commits in a repository. 
+- `git clean` is a convenience method for deleting untracked files in a repo's working directory. 
+- `git clean` will make a hard filesystem deletion. Make sure you really want to delete the untracked files before you run it.
+- `git clean` is to some extent an 'undo' command. `git clean` can be considered complementary to other commands like g`it reset` and `git checkout` to fully undo any additions and commits in a repository. 
 
 #### option
-git clean -n will perform a “dry run”. 
-git clean -f The force option initiates the actual deletion of untracked files from the current directory.
+`git clean -n` will perform a “dry run”. 
+`git clean -f` The force option initiates the actual deletion of untracked files from the current directory.
 
 ### Conclusion
 - get information:

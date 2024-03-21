@@ -159,10 +159,11 @@ To turn a block into a multi-column container, we use either the `column-count` 
 
 ## Float Layout
 
-Originally for floating images inside blocks of text, the float property became one of the most commonly used tools for creating multiple column layouts on webpages. The downside of it is that Floating elements are tied to the document flow, which may harm the flexibility. 
+Originally for floating images inside blocks of text, the float property used to be became one of the most commonly used tools for creating multiple column layouts on webpages. The downside of it is that Floating elements are tied to the document flow, which may harm the flexibility. 
+
 With the advent of Flexbox and Grid it has now returned to its original purpose,
 
-Float Layout is using the CSS `float` `clear` property. Float is easy to learn - you just need to remember how the float and clear properties work. Disadvantages: Floating elements are tied to the document flow, which may harm the flexibility. 
+Float Layout is using the CSS `float` `clear` property. Float is easy to learn - you just need to remember how the float and clear properties work.  
 
 Floating an element changes the behavior of that element and the block level elements that follow it in normal flow. The floated element is moved to the left or right and removed from normal flow, and the surrounding content floats around it.
 
@@ -182,15 +183,16 @@ float: right;
 It means the image with float at right. And then, the text can wrap image at left. 
 
 ### The `clear` property
+
 - specify what elements can float beside the cleared elements and on which side.
-- can be 5 values: none, left (means NO float elements allow on left side), right, both, inherit
-- most common way to use clear is after you have used a float property on an element. 
+- can be 5 values: `none`, `left` (means NO float elements allow on left side), `right`, `both`, `inherit`
+- most common way to use `clear` is after you have used a float property on an element. 
 - use float property, it is easy to float boxes of content side by side
 
 For example: 
-div2 just next to div1, then 
-if div1 is set `float : left`, then the text in div2 will float right around of div1. usually that is not what you want;
-if also set div2 `clear : left`. then the text will go under the div1.
+`div2` just next to `div1`, then 
+- if `div1` is set `float : left`, then the text in `div2` will float right around of div1. usually that is not what you want;
+- if also set div2 `clear : left`. then the text will go under the div1.
 
 ### box-sizing: border-box; 
 An element padding and border are included in width and heigth. 
@@ -212,8 +214,10 @@ The `overflow` property Can be:
 visible|hidden|clip|scroll|auto|initial|inherit
 
 
-- `overflow: visible` (default), The overflow is not clipped. It renders outside the element's box.
-- `overflow: hidden`, The overflow is clipped, and the rest of the content will be invisible. Content can be scrolled programmatically (e.g. by setting scrollLeft or scrollTo())
+- `overflow: visible` (default), 
+The overflow is not clipped. It renders outside the element's box.
+- `overflow: hidden`, 
+The overflow is clipped, and the rest of the content will be invisible. Content can be scrolled programmatically (e.g. by setting scrollLeft or scrollTo())
 - `overflow: clip`,
 The overflow is clipped, and the rest of the content will be invisible. Forbids scrolling, including programmatic scrolling.	
 - `overflow: scroll`,

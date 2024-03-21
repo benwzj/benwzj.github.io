@@ -93,10 +93,65 @@ Frameworks provide features that most apps and sites eventually need, including 
 
 **eslint-plugin-react-hooks**, This ESLint plugin enforces the Rules of Hooks.
 
-React recommend using Function Component and Hooks instead of Class Component.
+### What is hooks
 
+- Hooks are functions that let you ‘hook into’ React state and lifecycle features from function components.
+- They let you use state and other React features without writing a class.	
+- React provides a few built-in Hooks like useState. You can also create your own Hooks to reuse stateful behavior between different components. 
+- Hooks are JavaScript functions, but they impose two additional rules:
+  - Only call Hooks at the top level. Don’t call Hooks inside loops, conditions, or nested functions.
+  - Only call Hooks from React function components. Don’t call Hooks from regular JavaScript functions.
 - We have two basic Hooks: `useState`, `useEffect`.
 - Other Hooks like: `useMemo`, `useCallback`, `useContext`, `useRef`, `useReducer`, etc.
+	
+### Why hooks
+
+When the components are geting bigger and bigger. there are lots of wrapper, from class components. And stateful logic and side effects get MESS!
+- Facebook React team think : 
+  1. React needs a better primitive for sharing stateful logic. 
+  2. They even think classes can be a large barrier to learning React. 
+  3. the lifesycle methods make componet hard to split to smaller components. 
+  4. some case it is impossible to break the component into small components because the stateful logic is all over the place. 
+
+- To solve these problems, Hooks let you use more of React’s features without classes.
+- use hooks is easy to reuse stateful logic. it is much easier then class components.  	
+				
+### NO.1 useState ()
+just like class conponent state! 
+We call it inside a function component to add some local state to it. React will preserve this state between re-renders. 
+	
+### NO.2 useEffect()
+
+When you call useEffect, you are telling React to run your ‘effect’ function after flushing changes to the DOM. 
+The second argument of `useEffect()` will decide whether the first argument ( which is a function ) is being called or not. 
+
+### useCallback()
+
+Returns a memoized callback.
+
+`useCallback()` often is used in conjunction with `useEffect()` because it allows you to prevent the re-creation of a function. For this, it's important to understand that functions are just objects in JavaScript.
+
+In a functional component, any function you define inside of it is re-created whenever the component rebuilds. Normally it is no problem, that innerFunction re-created for every render cycle. But it become a problem if the innerFunction become a dependency of `useEffect()`. If innerFunction cause component rebuild, then it will infinite loop.  
+Use `useCallback()` can prevent that happen.
+
+- `useCallback(fn, deps)` is equivalent to `useMemo(() => fn, deps)`.
+- `useCallback` will return a memoized version of the callback that only changes if one of the dependencies has changed. 
+- This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders .
+
+### useReducer()
+
+An alternative to `useState()`.
+UseReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when **the next state depends on the previous one**.
+
+`const [state, dispatch] = useReducer(reducer, initialArg, init);`
+
+- state: it is you data.
+- Dispatch: like Redux‘s `dispatch ()`, dispatch action to `reducer()` function. 
+- Reducer: it is a function to handle state data according to action. 
+- InitialArg: initial state. This way is slightly different from Redux. It is specified by hook call. 
+- init: optional function argument, to initialise initial state. 
+
+React guarantees that dispatch function identity is stable and won’t change on re-renders. This is why it’s safe to omit from the `useEffect` or `useCallback` dependency list.
 
 ## What Rendering means in React
 
@@ -210,7 +265,4 @@ Strict Mode enables the following checks in development:
 All of these checks are development-only and do not impact the production build.
 
 You can turn off Strict Mode to opt out of the development behavior.
-
-
-### TypeScript and React
 
