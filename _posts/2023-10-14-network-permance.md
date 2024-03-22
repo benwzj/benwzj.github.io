@@ -2,8 +2,8 @@
 layout: post
 title: Chrome DevTools Lighthouse
 date: 2023-10-14
-category: Website
-tags: Web-page Chrome DevTools Lighthouse
+category: DevTools
+tags: Chrome DevTools Lighthouse
 ---
 
 
@@ -69,6 +69,6 @@ CLS is a measure of the largest burst of layout shift scores for every unexpecte
 Check [here](https://web.dev/articles/cls) for more info to Optimize CLS.
 
 ## Reference
-[Chrome DevTools Doc](https://developer.chrome.com/docs/devtools/lighthouse/)
-https://developer.chrome.com/docs/devtools/lighthouse/
+- [Chrome DevTools Doc](https://developer.chrome.com/docs/devtools/lighthouse/)
+
 

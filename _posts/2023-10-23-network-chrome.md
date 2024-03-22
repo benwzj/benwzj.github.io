@@ -2,8 +2,8 @@
 layout: post
 title: Chrome DevTools Network
 date: 2023-10-23
-category: Website
-tags: Web-page Chrome DevTools Network
+category: DevTools
+tags: Chrome DevTools Network
 ---
 
 Here will try to a bit deep dive in **Network** panel in Chrome DevTools.

@@ -2,8 +2,8 @@
 layout: post
 title: Chrome DevTools Overview
 date: 2023-09-10
-category: Website
-tags: Web-page Chrome DevTools Network
+category: DevTools
+tags: Chrome DevTools Network
 giscus_comments: true
 toc:
   - name: Some points for starting
@@ -264,5 +264,5 @@ The Rendering tab helps you:
 - Apply other useful effects. Highlight ad frames, emulate focus on a page, disable local fonts and image formats, enable an automatic dark theme, and emulate vision deficiencies.
 
 ### Reference 
-[Chrome DevTools Overview](https://developer.chrome.com/docs/devtools/overview/)
+- [Chrome DevTools Overview](https://developer.chrome.com/docs/devtools/overview/)
 

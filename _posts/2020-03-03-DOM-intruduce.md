@@ -3,7 +3,7 @@ layout: post
 title: "Understand DOM"
 date: 2020-03-03
 categories: HTML
-tags: Web-page JavaSript CSS DOM
+tags: JavaSript CSS DOM
 ---
 
 ## What is the DOM
@@ -114,7 +114,7 @@ The DOM is not part of the JavaScript language, but is instead a Web API used to
 {: .block-tip}  
 
 ### DOM and Node
-All items in the DOM are defined as nodes. There are many types of nodes, but there are three main ones that we work with most often:
+All items in the DOM are defined as **nodes**. There are many types of nodes, but there are three main ones that we work with most often:
 
 - Element nodes
 - Text nodes
@@ -178,6 +178,19 @@ Shadow DOM
 - Thus, it isolates the DOM and ensures that the DOM of a component is a separate element that won’t appear in a global DOM.
 - Contrary to the DOM, Shadow DOM occurs in smaller pieces, implying that (unlike the Virtual DOM) it is not a complete representation of the entire DOM.
 - It is also proven to be helpful with CSS scoping. The styles used in an application can overlap which makes it cumbersome to handle them. Shadow DOM ensures that the styles created inside a single Shadow DOM element remain isolated and within their own scope.
+
+### HTMLCollection vs NodeList
+When traversing the DOM sometimes you will get returned a collection of elements/nodes (querySelector, children). This will either be an HTMLCollection or a NodeList.
+
+- An **HTMLCollection** is pretty simple to understand since it can only contain elements. Methods such as `getElementsByClassName` and `children` return an HTMLCollection. These collections are very similar to arrays, but Things like forEach, map, and reduce are not available on an HTMLCollection. 
+Also, HTMLCollections are live updating. This means that if you have an HTMLCollection of all elements with the class active and you add a new element to the DOM with that class it will automatically be added to the HTMLCollection. This is honestly a bit of a pain to deal with as it can cause unexpected bugs.
+
+- A **NodeList** on the other hand can contain any type of node including elements. NodeLists are also similar to arrays, but they again lack most higher order functions. The only higher order function on a NodeList is the forEach function. 
+Some examples of methods that return NodeLists are `querySelectorAll` and `childNodes`. NodeLists are also live updating similar to HTMLCollections, but only in some cases. For example, querySelectorAll is not a live updating list, but childNodes is live updating. 
+
+Generally, I try to avoid NodeLists since they can contain non-HTML elements, but `querySelectorAll` will only ever return elements inside the NodeList so I use `querySelectorAll` constantly.
+
+In general I prefer working with elements inside a NodeList whenever possible as they are the easiest to work with in my opinion.
 
 ## Conclusion
 
