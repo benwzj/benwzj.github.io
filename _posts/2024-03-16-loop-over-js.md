@@ -1,6 +1,6 @@
 ---
 layout: post
-title: For Loop in JS
+title: Loop Over in JS
 date: 2024-03-16
 category: JavaScript
 tags: JavaScript React
@@ -59,11 +59,28 @@ for (const [key, value] of Object.entries(object1)) {
 // "b: 42"
 ```
 
-You can still use `for...in`. But it iterates through properties in the prototype chain. This means that we need to check if the property belongs to the object using `hasOwnProperty`.
+Alternative way: You can still use `for...in`. But it iterates through properties in the prototype chain. This means that we need to check if the property belongs to the object using `hasOwnProperty`.
 
-## `forEach`
+## Loop Over Set
 
+You can iterate over the elements of a Set using various methods, such as the `forEach()` method, the `for...of` loop, or by converting the Set to an array and using array iteration methods.
 
+```ts
+let mySet = new Set([1, 2, 3, 4, 5]);
+
+mySet.forEach(function(value) {
+  console.log(value);
+});
+
+```
+Using `for...of` loop, (but old browser may not support):
+```ts
+let mySet = new Set([1, 2, 3, 4, 5]);
+
+for (let value of mySet) {
+  console.log(value);
+}
+```
 ## Reference
 
 - [for...in](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in)
