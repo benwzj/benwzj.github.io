@@ -26,7 +26,7 @@
   --global-post-table-td-color: #{$grey-color-deep-2};
   --global-post-table-th-bg-color: white;
 
-  --global-tip-block: #42b983;
+  --global-tip-block: #42b983; 
   --global-tip-block-bg: #e2f5ec;
   --global-tip-block-text: #215d42;
   --global-tip-block-title: #359469;
@@ -38,6 +38,10 @@
   --global-danger-block-bg: #ffe0e0;
   --global-danger-block-text: #600;
   --global-danger-block-title: #c00;
+  --global-post-title-h1: #044d8d;
+  --global-post-title-h2: #04893f;
+  --global-post-title-h3: #7e0489;
+  --global-post-title-h4: #7f6203;
 
   .fa-sun {
     display : none;
@@ -92,7 +96,11 @@ html[data-theme='dark'] {
   --global-danger-block-bg: #ffe0e0;
   --global-danger-block-text: #600;
   --global-danger-block-title: #c00;
-
+  --global-post-title-h1: #76c3e6;
+  --global-post-title-h2: #6deaa5;
+  --global-post-title-h3: #d98be0;
+  --global-post-title-h4: #d6bf70;
+  
   .fa-sun {
     padding-left: 10px;
     padding-top: 12px;

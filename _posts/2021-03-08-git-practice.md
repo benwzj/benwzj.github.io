@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Using Git Practice
+title: Git Practice
 date: 2021-03-08
 category: Git
 tags: Git

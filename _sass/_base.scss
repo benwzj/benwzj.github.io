@@ -658,11 +658,7 @@ footer.sticky-bottom {
   h1 {
     font-family: Georgia, serif;
     font-weight: 700;
-  }
-  h3, h4 {
-    font-family: Georgia, serif;
-    padding-top: 25px;
-    font-weight: 500;
+    color: var(--global-post-title-h1);
   }
   h2 {
     font-family: Georgia, serif;
@@ -671,6 +667,19 @@ footer.sticky-bottom {
     padding-bottom: 15px;
     margin-bottom: 10px;
     border-bottom: 1px solid var(--global-divider-color);
+    color: var(--global-post-title-h2);
+  }
+  h3 {
+    font-family: Georgia, serif;
+    padding-top: 25px;
+    font-weight: 500;
+    color: var(--global-post-title-h3);
+  }
+  h4 {
+    font-family: Georgia, serif;
+    padding-top: 25px;
+    font-weight: 500;
+    color: var(--global-post-title-h4);
   }
 
   p, li{

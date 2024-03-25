@@ -8,7 +8,6 @@ toc:
   - name: Setting The Viewport
   - name: Responsive Images
   - name: Media Queries
-  - name: CSS Grid Layout
   - name: RWD and React
   - name: Reference
 ---
@@ -18,6 +17,7 @@ Responsive Web Design (RWD) is about using HTML and CSS to automatically resize,
 Media queries can help with RWD, but are not a requirement. Flexible grids, relative units, and minimum and maximum unit values can be used without queries.
 
 A modern-day solution for developing highly responsive layouts using traditional CSS is by combining **Flexbox** and **Grid** System.
+
 
 ## Setting The Viewport
 
@@ -132,12 +132,24 @@ Then browser can change `.card` class content as above when screen width less th
 
 - When the width of The container witch with cardContainer class is less than 500px, when card class will change accordingly. 
 
-## CSS Grid Layout
-Grid Layout is good for RWD.
-
 ## RWD and React
 
+### `matchMedia()` API
+
 Window `matchMedia()` API returns a `MediaQueryList` object with the results from the query.
+
+Example: 
+This example runs the media query (max-width: 600px) and displays the value of the resulting MediaQueryList's matches property in a `<span>`; as a result, the output will say "true" if the viewport is less than or equal to 600 pixels wide, and will say "false" if the window is wider than that.
+```html
+<span class="mq-value"></span>
+```
+```js
+let mql = window.matchMedia("(max-width: 600px)");
+
+document.querySelector(".mq-value").innerText = mql.matches;
+```
+
+### Write a `MatchMediaWrapper` Component
 
 You can create this `MatchMediaWrapper` component to display differnent according to `max-width`.
 ```js

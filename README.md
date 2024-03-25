@@ -1,9 +1,10 @@
 ## Local Setup 
 
+```
 $ bundle install
 $ pip install jupyter
 $ bundle exec jekyll serve --draft
-
+```
 
 ## deploy
 
@@ -20,7 +21,6 @@ To enable automatic deployment:
 
 After you pushing the change to repo, and then run **bin/deploy** script.
 
-
 ## using 
 
 - Github Page
@@ -30,23 +30,34 @@ After you pushing the change to repo, and then run **bin/deploy** script.
 
 ## Files ad Directories Structure
 
-**_config**: the config file which contain almost all the configuration.
+### _config.yml 
+the config file which contain almost all the configuration.
 
-**_blog**: Contain the index HTML file for blogs. It contain the LIST for all the blogs and provide categories and tags index.
+- `max_width: 1300px`, Tell the whole website page MAX width on the screen. It can be smaller than this value, but not bigger.
 
-**_post**: Contain all blog posts.
+### _blog
+Contain the index HTML file for blogs. It contain the LIST for all the blogs and provide categories and tags index.
 
-**_page**: Contain ALL website pages except blogs.
+### _post
+Contain all blog posts.
 
-**_includes**: Contain partial snippet code which will be included in pages.
+### _page
+Contain ALL website pages except blogs.
 
-**_projects**: Use to introduce all project, and can redirect to github repo.
+### _includes 
+Contain partial snippet code which will be included in pages.
 
-**_sass**: SASS files for CSS
+### _projects
+Use to introduce all project, and can redirect to github repo.
 
-**_data**: Contain external data, any data you want. 
+### _sass 
+SASS files for CSS
 
-**_assets**: contain images, css, js, webfonts, etc.
+### _data 
+Contain external data, any data you want. 
+
+### _assets 
+contain images, css, js, webfonts, etc.
 
 
 
