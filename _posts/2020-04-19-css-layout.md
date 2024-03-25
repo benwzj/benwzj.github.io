@@ -89,9 +89,7 @@ When a sentence is inline, it can be broke into two lines. But when it is inline
 
 The `position` property allows you to precisely control **the placement of boxes inside other boxes**. 
 
-static positioning is the default in normal flow, but you can cause elements to be laid out differently using other values, for example, as fixed to the top of the browser viewport.
-
-Totally have 5 values:
+Positions static & relative keep their natural space in the flow of the document, while the absolute & fixed & sticky don’t — their space is removed and they have a **floating** behavior.
 
 ### static 
 - default value. not position at special way. it is for normal flow.
@@ -113,11 +111,23 @@ Totally have 5 values:
 - of course, leftrighttopbottom will decide the element position.
 
 ### sticky
-- makes an element act like `position: relative` until it hits a defined offset from the viewport, at which point it acts like `position: fixed`.
+- Makes an element act like `position: relative` until it hits a defined offset from the viewport, at which point it acts like `position: fixed`.
 - The element is positioned based on the user's scroll position.
 - A sticky element toggles between relative and fixed, depending on the scroll position.
 - It is positioned relative until a given offset position is met in the viewport , then it "sticks" in place (like position:fixed).
-- need to name top property .
+- Need to name `top` property.
+
+### Undterstand Sticky
+
+(The Key concept is sticky container)
+when an element is given the `position: sticky` style, the sticky item’s container is the only area in which the sticky item can stick. 
+CSS position sticky has two main parts, **sticky item & sticky container**.
+- Sticky Item, is the element that we defined with the position: sticky styles. The element will float when the viewport position matches the position definition, for example: `top: 0px`.
+- Sticky Container, is the HTML element which wraps the sticky item. This is the maximum area that the sticky item can float in.
+
+> When you define an element with `position: sticky` you’re automatically defining the parent element as a sticky container!
+
+The container is the scope of the sticky item, and the item can’t get out of its sticky container.
 
 ## The `z-index` property
 

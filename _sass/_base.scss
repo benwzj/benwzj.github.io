@@ -596,6 +596,12 @@ footer.sticky-bottom {
   }
 }
 
+.post-side-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 60px;
+  z-index: 1021;
+}
 .post-side-container {
   margin-bottom: 5px;
   margin-top: 5px;
@@ -654,6 +660,7 @@ footer.sticky-bottom {
     font-weight: 700;
   }
   h3, h4 {
+    font-family: Georgia, serif;
     padding-top: 25px;
     font-weight: 500;
   }
@@ -667,7 +674,8 @@ footer.sticky-bottom {
   }
 
   p, li{
-    font-size: 1.1rem;
+    font-family: 'Times New Roman', serif;
+    font-size: 1.3rem;
     font-weight: normal;
   }
   .post-content {
