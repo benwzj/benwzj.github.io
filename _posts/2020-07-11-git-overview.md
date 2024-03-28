@@ -31,17 +31,17 @@ Git has three main states that your files can reside in:
 - **Committed** means that the data is safely stored in your local database.
 
 This leads us to the three main sections of a Git project: 
-the working tree, the staging area, and the Git directory.
+- **the working directory**
+- **the staging area**, and 
+- **the Git repository**.
+
 {% include figure.html path="assets/img/git-three-state.png" class="img-fluid rounded z-depth-1" %}
 
 ### Staging State
 
 - This is an intermediate area where commits can be formatted and reviewed before completing the commit.
-
 - Staging Area make it possible to quickly stage some of your files and commit them without committing all of the other modified files in your working directory.
-
 - you can just stage the change you need for the current commit and stage the other change for the next commit.
-
 - You can ignore staging area feature, just add a '-a' to your commit command in order to add all changes to all files to the staging area.
 
 ### Where do git store staging area
@@ -95,9 +95,9 @@ FETCH_HEAD is a short-lived ref, to keep track of what has just been fetched fro
 
 ## Organize commits
 
-- Behind the scenes, in the repository's ./.git/objects directory, Git stores all commits, local and remote. 
+- Behind the scenes, in the repository's `./.git/objects` directory, Git stores all commits, local and remote. 
 - Git keeps remote and local branch commits distinctly separate through the use of branch refs. 
-- The refs for local branches are stored in the ./.git/refs/heads/. Executing the git branch command will output a list of the local branch refs. 
+- The refs for local branches are stored in the `./.git/refs/heads/`. Executing the git branch command will output a list of the local branch refs. 
 - Remote branches are just like local branches, except they map to commits from somebody else’s repository.
 
 ## Credential

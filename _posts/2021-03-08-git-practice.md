@@ -462,7 +462,7 @@ git branch -d new-feature
 #### 3-way merge
 {% include figure.html path="assets/img/gitmerge-3way.png" class="img-fluid rounded z-depth-1" %}
 
-3-Way mere Process:
+3-Way merge Process:
 ```
 git checkout -b new-feature main
 git add <file>
@@ -476,26 +476,7 @@ git merge new-feature
 git branch -d new-feature
 ```
 Git can automatically merge commits if no any conflict.
-If conflict, then ... below... 
-
-#### Git merge conflicts
-
-- If the two branches you're trying to merge both changed the same part of the same file, Git won't be able to figure out which version to use. 
-- git is using edit/stage/commit workflow to resolve merge conflicts. 
-- **git status can guild you.**
-- Conflicts only affect the developer conducting the merge, the rest of the team is unaware of the conflict. 
-- Git will mark the file as being conflicted and halt the merging process. It is then the developers' responsibility to resolve the conflict.
-- Git provide commands to resolve the conflict. Like git log, git reset, git status, git checkout.
-
-Merge Strategies:
-- The git merge and git pull commands can be passed an -s (strategy) option. Like:
-`git merge -s recursive branch1 branch2`
-- Strategy can be:
-• Recursive(default) 
-• Resolve
-• Octopus
-• Ours 
-• Subtree
+If conflict, then go to 'Git merge conflicts' section below.
 
 ### Command `git rebase`
 
@@ -511,4 +492,22 @@ Merge Strategies:
 - It's very important to understand that even though the branch looks the same, it's composed of entirely new commits.
 - The primary reason for rebasing is to **maintain a linear project history**. This gives the later benefit of a clean merge of your feature branch back into the main branch.
 
+### Git merge conflicts
+
+- If the two branches you're trying to merge both changed the same part of the same file, Git won't be able to figure out which version to use. 
+- git is using edit/stage/commit workflow to resolve merge conflicts. 
+- **git status can guild you.**
+- Conflicts only affect the developer conducting the merge, the rest of the team is unaware of the conflict. 
+- Git will mark the file as being conflicted and halt the merging process. It is then the developers' responsibility to resolve the conflict.
+- Git provide commands to resolve the conflict. Like `git log`, `git reset`, `git status`, `git checkout`.
+
+Merge Strategies:
+- The git merge and git pull commands can be passed an -s (strategy) option. Like:
+`git merge -s recursive branch1 branch2`
+- Strategy can be:
+• Recursive(default) 
+• Resolve
+• Octopus
+• Ours 
+• Subtree
 
