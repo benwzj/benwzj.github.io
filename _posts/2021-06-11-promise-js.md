@@ -411,9 +411,13 @@ The executor normally initiates some asynchronous work, and then, once that comp
 Terminologies include **pending**; **fulfilled**; **rejected, settled, resolved**.
 
 A promises's primary ***state*** is one of three mutually-exclusive values:
-- **pending** - the initial state of most promises, it hasn't been fulfilled or rejected
-- **fulfilled** - the promise has been fulfilled with a fulfillment value
-- **rejected** - the promise has been rejected with a rejection reason (saying why the promise can't be fulfilled)
+- **pending** - the initial state of most promises, may transition to either the fulfilled or rejected state.
+- **fulfilled** - the promise has been fulfilled with a fulfillment value. When fulfilled, a promise:
+  - must not transition to any other state.
+  - must have a value, which must not change.
+- **rejected** - the promise has been rejected with a rejection reason (saying why the promise can't be fulfilled). When rejected, a promise:
+  - must not transition to any other state.
+  - must have a reason, which must not change.
 
 **"settled"** is the collective term which means **"fulfilled or rejected."**. 
 Till now we know pending, fulfilled, rejected, settled. And they are easy to understand. But How about **"resolved"**.
@@ -422,7 +426,7 @@ Till now we know pending, fulfilled, rejected, settled. And they are easy to und
 When you resolve a promise, you determine what will happen to that promise from then on. 
 ***"resolved"*** is NOT a state of a promise.
 
-When you resolve a promise with something like `42` or `"answer"` or `{"example": "result"}`, yes, you do fulfill the promise with that value. But if you resolve your promise to another promise (or more generally a thenable), you're telling your promise to follow that other promise and do what it does:
+When you resolve a promise with something like `42` or `"answer"` or `{"example": "result"}`, yes, you do fulfill the promise with that value. But if you resolve your promise to another promise (or more generally a thenable), it is not fulfiled, you're telling your promise to follow that other promise and do what it does:
 - If the other promise is fulfilled, your original promise will fulfill itself with the other promise's fulfillment value
 - If the other promise is rejected, your original promise will reject itself with the other promise's rejection reason
 - If the other promise never settles, your original promise won't either
@@ -430,12 +434,13 @@ When you resolve a promise with something like `42` or `"answer"` or `{"example"
 Regardless of what happens, though, there's nothing further you can do to the promise to affect the outcome. The promise is resolved to the other promise, irrevocably. Any attempt to resolve it again, or to reject it, will have no effect.
 
 Now I try to make it simple to remember: A promise is resolved if it is settled, **OR** if it has been "locked in" to follow the state of another promise.
-So, it is contrary to popular belief, resolving a promise doesn't necessarily change its primary state. In fact, it often doesn't. Promise resolution is a separate concept from promise fulfillment.
+So, it is contrary to popular belief, resolving a promise doesn't necessarily change its primary state. In fact, it often doesn't. 
+Promise resolution is a separate concept from promise fulfillment.
 
-### "Why use the word 'resolved' when things are still up in the air?" 
+#### "Why use the word 'resolved' when things are still up in the air?" 
 It's because of the irrevocability: once a promise is resolved, nothing can change what's going to happen to it. If it's resolved with a non-promise value, it's fulfilled with that value and that's that. If it's resolved to a promise, it's going to follow that other promise and that's that. You can't change its resolution, or reject it directly. 
 
-### Three ways to resolve a promise
+#### Three ways to resolve a promise
 1. calling the resolve function you get from new Promise and 
 2. returning a value from a promise handler callback. 
 3. A third way you resolve a promise is by using Promise.resolve. Promise.resolve creates a promise that's resolved to what you pass into it. One of its primary use cases is where you don't know what you're going to receive — a native promise, a non-native promise from a library like Q or jQuery, a thenable, or a non-thenable value. By passing any those through Promise.resolve and consuming the resulting promise, you can treat them all the same way:

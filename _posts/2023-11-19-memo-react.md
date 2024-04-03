@@ -5,9 +5,69 @@ date: 2023-11-19
 category: React
 tags: React Hook
 toc: 
+  - name: API `memo`  
   - name: Hook `useMemo`
-  - name: API `memo`
 ---
+
+## API `memo`
+
+React normally re-renders a component whenever its parent re-renders.
+With `memo`, you can create a component that React will not re-render when its parent re-renders so long as its new props are the same as the old props. Such a component is said to be memoized.
+
+### How to check if a compnent is re-rendered
+
+Re-render a component, means React execute that component function to calculate the output.
+
+```js
+let count = 0;
+const Component = () => {
+count++;
+console.log("component render number: ", count);
+//...
+}
+```
+
+But the component might be only invoked without rerendering. 
+For example, you `setState()` to the same value as previous one, React will run the component function, but without rendering the children or firing effects.
+
+So the better way is to make a `useEffect` hook without a dependency array, this will make it run after each component render.
+
+How to display render count in react component?
+You can't use State, but you can use **Ref**!!
+```js
+import { useRef, useEffect } from "react";
+export const Counter = props => {
+    const renderCounter  = useRef(0);
+    useEffect (()=>{
+      renderCounter.current = renderCounter.current + 1;
+    });
+    return <h1>Renders: {renderCounter.current}, {props.message}</h1>;
+};
+```
+
+### How to Use 
+
+`const MemoizedComponent = memo(SomeComponent, arePropsEqual?)`
+
+Wrap a component in `memo` to get a memoized version of that component. This memoized version of your component will usually not be re-rendered when its parent component is re-rendered as long as its props have not changed. But React may still re-render it: memoization is a performance optimization, not a guarantee.
+
+To memoize a component, wrap it in `memo` and use the value that it returns in place of your original component:
+```js
+import { memo } from 'react';
+
+const SomeComponent = memo(function SomeComponent(props) {
+  // ...
+});
+```
+
+### Usage 
+
+- Skipping re-rendering when props are unchanged
+- Updating a memoized component using state
+- Updating a memoized component using a context
+- Minimizing props changes
+- Specifying a custom comparison function
+
 
 ## Hook `useMemo`
 
@@ -53,32 +113,3 @@ function TodoList({ todos, tab }) {
 }
 ```
 
-## API `memo`
-
-React normally re-renders a component whenever its parent re-renders.
-With `memo`, you can create a component that React will not re-render when its parent re-renders so long as its new props are the same as the old props. Such a component is said to be memoized.
-
-> `memo` lets you skip re-rendering a component when its props are unchanged.
-
-### How to Use 
-
-`const MemoizedComponent = memo(SomeComponent, arePropsEqual?)`
-
-Wrap a component in `memo` to get a memoized version of that component. This memoized version of your component will usually not be re-rendered when its parent component is re-rendered as long as its props have not changed. But React may still re-render it: memoization is a performance optimization, not a guarantee.
-
-To memoize a component, wrap it in `memo` and use the value that it returns in place of your original component:
-```js
-import { memo } from 'react';
-
-const SomeComponent = memo(function SomeComponent(props) {
-  // ...
-});
-```
-
-### Usage 
-
-- Skipping re-rendering when props are unchanged
-- Updating a memoized component using state
-- Updating a memoized component using a context
-- Minimizing props changes
-- Specifying a custom comparison function

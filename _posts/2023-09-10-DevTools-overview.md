@@ -10,7 +10,7 @@ toc:
   - name: What DevTools can do
   - name: Go a bit deep on BreakPoints
   - name: Panel Overview
-
+  - name: FQA
 ---
 
 If you clear the concepts in HTML, CSS, JavaScript. Chrome DevTools is handy and easy to use. Chrome DevTools is a set of web developer tools built directly into the Google Chrome browser. It can help you edit pages on-the-fly and diagnose problems quickly, which helps you build better websites, faster.
@@ -265,4 +265,14 @@ The Rendering tab helps you:
 
 ### Reference 
 - [Chrome DevTools Overview](https://developer.chrome.com/docs/devtools/overview/)
+
+## FQA
+
+### How to detect which component is re-rendering too often.
+
+1. Go to page you want to test
+2. Open Chrome Dev Tools
+3. Click 3 dots on the right side to find 'Rendering' tag.
+4. Check the first checkbox titled 'Pain flashing'.
+5. Then you can click, test the page, and you will find that: The repainted areas will be highlighted in green!
 
