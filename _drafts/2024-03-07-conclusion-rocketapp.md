@@ -33,3 +33,8 @@ Helpful tools
 - Clean code
 - Functional programming
 - Design pattern
+
+Question for Luxiang :
+
+- What is CSS pollution. How to deal with it?
+- Overview the code qulity of Mission App.

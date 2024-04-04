@@ -7,6 +7,7 @@ category: React
 toc: 
   - name: React Rules
   - name: Component life cycle
+  - name: Basic Concepts
   - name: React Under Hood
   - name: React frameworks
   - name: Hooks
@@ -14,9 +15,6 @@ toc:
   - name: Inverse Data Flow
   - name: FQA
 ---
-
-Now React have ditched Class Component and focus on Function Component and Hooks. 
-This Overview focus on Function Component. 
 
 React allows you to write maintainable and performant code by using concept of component. Components allow you to focus on describing the UI you want, rather than focusing on the details of how the UI actually gets inserted in the page.
 
@@ -46,6 +44,84 @@ Every React component goes through the same lifecycle:
 - "Rendering" is any time a function component gets called (or a class-based render method gets called) which returns a set of instructions for creating DOM.
 - "Mounting" is when React "renders" the component for the first time and actually builds the initial DOM from those instructions.
 - A "re-render" is when React calls the function component again to get a new set of instructions on an already mounted component.
+
+## Basic Concepts
+
+Component is core concept in React. There are also React Instance, React Element.
+
+### Components Encapsulate Element Trees
+For a React component, props are the input, and an element tree is the output.
+
+The returned element tree can contain both elements describing DOM nodes, and elements describing other components. This lets you compose independent parts of UI without relying on their internal DOM structure.
+
+whether functions or classes, fundamentally they are all components to React. They take the props as their input, and return the elements as their output.
+
+### React Instances
+
+React create, update, and destroy instances. Developer don't interact with instances. We describe them with elements returned from the components, and React takes care of managing the instances.
+
+The Only reason to use this instance is for imperative actions (such as setting focus on a field), and should generally be avoided.
+
+Instances have much less importance in React than in most object-oriented UI frameworks.
+
+### What is React Element
+
+Unlike browser DOM elements, React elements are plain objects, and are **cheap** to create. React DOM takes care of updating the DOM to match the React elements.
+Simple element example: 
+
+DOM tags: `const element = <h1>Hello, world</h1>;`
+User-defined components. `const element = <Welcome name='sara' />;`
+React calls its `React.createElement()` method internally which returns React Element.
+
+The React element structure: 
+```javascript
+const App = () => {
+  return <p>Hello React</p>;
+};
+
+console.log(App());
+// {
+//   $$typeof: Symbol(react.element)
+//   "type": "p",
+//   "key": null,
+//   "ref": null,
+//   "props": {
+//     "children": "Hello React"
+//   },
+//   "_owner": null,
+//   "_store": {}
+// }
+```
+
+> React Elements are just used for Describing the Tree
+
+In React, An element contains only information about the component type (for example, a Button), its properties (for example, its color), and any child elements inside it.
+
+An element is not an actual instance. Rather, it is a way to tell React what you want to see on the screen. It’s just an immutable description object with fields like: 
+`type: (string | ReactClass)` and `props: Object`.
+
+- DOM Elements: type is string, it represents a DOM node with that tag name, and props correspond to its attributes. They don’t refer to anything on the screen when you create them. 
+- React Elements are easy to traverse, don’t need to be parsed, and of course they are much lighter than the actual DOM elements—they’re just objects!
+- Component Elements: the type of an element can also be a function or a class corresponding to a React component. 
+
+An element describing a component is also an element, just like an element describing the DOM node. They can be nested and mixed with each other.
+
+### React component vs. React element vs. component instance
+
+- Rendering a component happens whenever we use this component as a React element with angle brackets (e.g.` <Greeting />`) in another component: `const this_is_element = <ThisIsComponent />`
+- Whenever a component gets rendered as element, React create an instance of this component.
+- While a React Component is the one time declaration of a component, it can be used once or multiple times as React Element in JSX (React's createElement method).
+
+### HTML element vs. React element
+
+HTML elements (or call DOM elements) are created by tag, like` <div> <a>` etc.
+React elements are plain objects.
+
+### Web component vs. React component
+
+- Web component and React component are in different scope. Web Component is a web technology, that means it is a specification of w3c. While React component is a concept in React.
+- Web Components are custom elements that you can define and reuse in your Web apps.
+- React and Web Components are built to solve different problems. Web Components provide strong encapsulation for reusable components, while React provides a declarative library that keeps the DOM in sync with your data. The two goals are complementary. You can use React in your Web Components, or to use Web Components in React.
 
 ## React Under Hood
 

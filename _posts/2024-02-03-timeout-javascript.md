@@ -9,6 +9,7 @@ toc:
   - name: The "this" problem
   - name: setTimeout and Recursion
   - name: Understand the execution order
+  - name: Debouncing
   - name: The `setInterval()`
   - name: Common using way in React
   - name: FQA
@@ -107,6 +108,44 @@ These microtasks are **glued** into the microtask queue which is processed after
 If we add new microtasks to microtask queue during the execution of the microtasks, they are also executed.
 
 So, As a corollary of this sequence we could say that two macrotasks cannot be executed one after the other if, in between, the microtasks tail has elements.
+
+## Debouncing
+
+Debouncing is a way of delaying the execution of a function until a certain amount of time has passed since the last time it was called. This can be useful for scenarios where we want to avoid unnecessary or repeated function calls that might be expensive or time-consuming.
+
+For example, imagine we have a search box that shows suggestions as the user types. If we call a function to fetch suggestions on every keystroke, we might end up making too many requests to the server, which can slow down the application and waste resources. Instead, we can use debouncing to wait until the user has stopped typing for a while before making the request.
+
+Common approach is to use a wrapper function that returns a new function that delays the execution of the original function.
+```js
+const debounce = (mainFunction, delay) => {
+  // Declare a variable called 'timer' to store the timer ID
+  let timer;
+
+  // Return an anonymous function that takes in any number of arguments
+  return function (...args) {
+    // Clear the previous timer to prevent the execution of 'mainFunction'
+    clearTimeout(timer);
+
+    // Set a new timer that will execute 'mainFunction' after the specified delay
+    timer = setTimeout(() => {
+      mainFunction(...args);
+    }, delay);
+  };
+};
+```
+Using wrapping function with debounce
+```js
+// Define a function called 'searchData' that logs a message to the console
+function searchData() {
+  console.log("searchData executed");
+}
+
+// Create a new debounced version of the 'searchData' function with a delay of 3000 milliseconds (3 seconds)
+const debouncedSearchData = debounce(searchData, 3000);
+
+// Call the debounced version of 'searchData'
+debouncedSearchData();
+```
 
 ## The `setInterval()`
 

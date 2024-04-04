@@ -7,6 +7,7 @@ tags: React Hook
 toc: 
   - name: API `memo`  
   - name: Hook `useMemo`
+  - name: Hook `useCallback`
 ---
 
 ## API `memo`
@@ -112,4 +113,18 @@ function TodoList({ todos, tab }) {
   // ...
 }
 ```
+
+## Hook `useCallback`
+
+Returns a memoized callback.
+
+`useCallback()` often is used in conjunction with `useEffect()` because it allows you to prevent the re-creation of a function. For this, it's important to understand that functions are just objects in JavaScript.
+
+In a functional component, any function you define inside of it is re-created whenever the component rebuilds. Normally it is no problem, that innerFunction re-created for every render cycle. But it become a problem if the innerFunction become a dependency of `useEffect()`. If innerFunction cause component rebuild, then it will infinite loop.  
+Use `useCallback()` can prevent that happen.
+
+- `useCallback(fn, deps)` is equivalent to `useMemo(() => fn, deps)`.
+- `useCallback` will return a memoized version of the callback that only changes if one of the dependencies has changed. 
+- This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders .
+
 

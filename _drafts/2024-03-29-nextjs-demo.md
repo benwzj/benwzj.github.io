@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Next.js DashBoard Demo App Conclusion
+title: Next.js Starter App Conclusion
 date: 2024-03-29
 category: React
 tags: TypeScript JavaScript React
@@ -186,6 +186,15 @@ Wrap the component which need to be Streaming into `<Suspense>`.
 
 Move data fetching down to the components that need it, thus isolating which parts of your routes should be dynamic in preparation for Partial Prerendering.
 Using `<Suspense>` to wrap it.
+
+## Search and Pagination
+
+Next.js is using URL search params to manage the search state.
+
+Next.js provide Hooks: 
+- useSearchParams - Allows you to access the parameters of the current URL. For example, the search params for this URL `/dashboard/invoices?page=1&query=pending` would look like this: `{page: '1', query: 'pending'}`.
+- usePathname - Lets you read the current URL's pathname. For example, for the route `/dashboard/invoices`, usePathname would return `'/dashboard/invoices'`.
+- useRouter - Enables navigation between routes within client components programmatically. 
 
 
 
