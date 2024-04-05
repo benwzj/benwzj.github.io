@@ -47,7 +47,7 @@ Every React component goes through the same lifecycle:
 
 ## Basic Concepts
 
-Component is core concept in React. There are also React Instance, React Element.
+React Component, React Instance, React Element, JSX.Element vs ReactNode vs ReactElement
 
 ### Components Encapsulate Element Trees
 For a React component, props are the input, and an element tree is the output.
@@ -58,44 +58,45 @@ whether functions or classes, fundamentally they are all components to React. Th
 
 ### React Instances
 
-React create, update, and destroy instances. Developer don't interact with instances. We describe them with elements returned from the components, and React takes care of managing the instances.
+React create, update, and destroy instances. Developer don't interact with instances. React describe them with elements returned from the components, and React takes care of managing the instances.
 
 The Only reason to use this instance is for imperative actions (such as setting focus on a field), and should generally be avoided.
 
-Instances have much less importance in React than in most object-oriented UI frameworks.
+When the prop change, the returned element will update the instancce, which is maintained cross render so we still have the same opponent instance.
 
 ### What is React Element
 
 Unlike browser DOM elements, React elements are plain objects, and are **cheap** to create. React DOM takes care of updating the DOM to match the React elements.
-Simple element example: 
 
-DOM tags: `const element = <h1>Hello, world</h1>;`
-User-defined components. `const element = <Welcome name='sara' />;`
-React calls its `React.createElement()` method internally which returns React Element.
-
-The React element structure: 
+React Element example:
 ```javascript
 const App = () => {
   return <p>Hello React</p>;
 };
-
 console.log(App());
-// {
-//   $$typeof: Symbol(react.element)
-//   "type": "p",
-//   "key": null,
-//   "ref": null,
-//   "props": {
-//     "children": "Hello React"
-//   },
-//   "_owner": null,
-//   "_store": {}
-// }
+```
+Then you can get React element object: 
+```js
+{
+  $$typeof: Symbol(react.element)
+  "type": "p",
+  "key": null,
+  "ref": null,
+  "props": {
+    "children": "Hello React"
+  },
+  "_owner": null,
+  "_store": {}
+}
 ```
 
 > React Elements are just used for Describing the Tree
 
 In React, An element contains only information about the component type (for example, a Button), its properties (for example, its color), and any child elements inside it.
+
+DOM tags: `const element = <h1>Hello, world</h1>;`
+User-defined components. `const element = <Welcome name='sara' />;`
+React calls its `React.createElement()` method internally which returns React Element.
 
 An element is not an actual instance. Rather, it is a way to tell React what you want to see on the screen. It’s just an immutable description object with fields like: 
 `type: (string | ReactClass)` and `props: Object`.

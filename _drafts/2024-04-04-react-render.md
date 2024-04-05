@@ -5,13 +5,18 @@ date: 2024-04-04
 category: React
 tags: React
 toc: 
-  - name: Rendering Process
-  - name: How to check if a component is re-rendered
+  - name: Component Rendering Process
+    subsections: 
+      - name: How to check if a component is re-rendered
+      - name: How to display render count in component
+  - name: Rendering Underhood
 ---
 
-Even a component render, don't means browser will repaint it.
 
-## Rendering Process
+Even a component render, don't means browser will repaint it.
+we get component, then component instance, then element, then VDOM, then DOM.
+
+## Component Rendering Process
 
 Before your components are displayed on screen, they must be rendered by React. 
 
@@ -48,7 +53,7 @@ React only changes the DOM nodes if there’s a difference between renders.
 
 After rendering is done and React updated the DOM, the browser will repaint the screen. Although this process is known as “browser rendering”, we’ll refer to it as “painting” to avoid confusion with React rendering.
 
-## How to check if a component is re-rendered
+### How to check if a component is re-rendered
 
 Re-render a component, means React execute that component function to calculate the output.
 
@@ -66,7 +71,7 @@ For example, you `setState()` to the same value as previous one, React will run 
 
 So the better way is to make a `useEffect` hook without a dependency array, this will make it run after each component render.
 
-### How to display render count in react component?
+### How to display render count in component
 
 You can't use State, but you can use **Ref**!!
 ```js
@@ -79,6 +84,59 @@ export const Counter = props => {
     return <h1>Renders: {renderCounter.current}, {props.message}</h1>;
 };
 ```
+
+
+## Rendering Underhood
+
+### React Element
+
+Unlike browser DOM elements, React elements are plain objects, and are cheap to create. React DOM takes care of updating the DOM to match the React elements.
+
+```ts
+const ele1 =<h1> Hello, GFG </h1>;
+// OR
+const ele1 = React.createElement('h1', {props}, "Hello, GFG")
+```
+The `React.createElement()` function returns an object:
+```ts
+{
+    type: 'h1',
+        props: {
+        children: 'Hey Geek',
+            id: 'header'
+    }
+}
+```
+
+Normally, React elements is returned from React components. React don't reuse element, it always destroy it and recreate it.
+
+### Rendering an Element into the DOM
+
+- To Render an Element into the DOM, You need a root DOM node.
+```ts
+const root = ReactDOM.createRoot(
+  document.getElementById('root')
+);
+const element = <h1>Hello, world</h1>;
+root.render(element);
+```
+- To update the UI is to create a new element, and pass it to `root.render()`.
+- ReactDom and React are same lib at version 13. React seperate them in order to support mare media, like ReactNative. 
+
+### reconciliation
+Reconciliation is responsible for maintaining the tree of elements when a components prop or state change.
+Reconciliation houses the diffing algorithm that determines what parts of that tree need to be replaced. 
+
+Here are some examples.
+- When the React element's type changed, React builds a whole new tree from scratch.
+- React treat DOM element and component element differently.
+- For children, like list, if you insert item at the end, React will check from the start and find it is same, the second is same and so on till the last one. And it will just add one item simply. BUT, if add item at start or middle, it can be expensive! React check the first one and find the difference, then it will destroy it and build new one, and second one is different and so on. It will destroy all and build again. So, React introduce **key** prop!
+
+### React Fiber
+
+The actual rendering process is done by Ract Fiber.
+
+
 
 ## FQA
 
