@@ -189,12 +189,61 @@ Using `<Suspense>` to wrap it.
 
 ## Search and Pagination
 
-Next.js is using URL search params to manage the search state.
+Next.js is using **URL search params** to manage the search state.
 
 Next.js provide Hooks for search: 
 - useSearchParams - Allows you to access the parameters of the current URL. For example, the search params for this URL `/dashboard/invoices?page=1&query=pending` would look like this: `{page: '1', query: 'pending'}`.
 - usePathname - Lets you read the current URL's pathname. For example, for the route `/dashboard/invoices`, usePathname would return `'/dashboard/invoices'`.
 - useRouter - Enables navigation between routes within client components programmatically. 
 
+## Server Actions
+
+React Server Actions allow you to run asynchronous code directly on the server. They eliminate the need to create API endpoints to mutate your data. Instead, you write asynchronous functions that execute on the server and can be invoked from your Client or Server Components.
+
+Server Actions achieve this through techniques like `POST` requests, encrypted closures, strict input checks, error message hashing, and host restrictions, all working together to significantly enhance your app's safety.
+
+### Using forms with Server Actions
+
+In React, you can use the action attribute in the `<form>` element to invoke actions. The action will automatically receive the native `FormData` object, containing the captured data.
+
+For example:
+```ts
+// Server Component
+export default function Page() {
+  // Action
+  async function create(formData: FormData) {
+    'use server';
+ 
+    // Logic to mutate data...
+  }
+ 
+  // Invoke the action using the "action" attribute
+  return <form action={create}>...</form>;
+}
+```
+
+Server Actions are also deeply integrated with Next.js caching. When a form is submitted through a Server Action, not only can you use the action to mutate data, but you can also revalidate the associated cache using APIs like `revalidatePath` and `revalidateTag`.
+
+> Good to know: 
+> In HTML, you'd pass a URL to the action attribute of `<form>`. This URL would be the destination where your form data should be submitted (usually an API endpoint).
+> However, in React, the action attribute is considered a special prop - meaning React builds on top of it to allow actions to be invoked.
+> Behind the scenes, Server Actions create a `POST` API endpoint. This is why you don't need to create API endpoints manually when using Server Actions.
 
 
+## error handler
+
+When you add `error.tsx` file to your route segments folder, the `error.tsx` file serves as a catch-all for unexpected errors and allows you to display a fallback UI to your users.
+
+If you know some specific error, like not found resource, you can display specific information to user: 
+1. import `notFound`:
+```ts
+import { notFound } from 'next/navigation';
+//...
+if (!invoice) {
+  notFound();
+}
+```
+2. Create a `not-found.tsx` file in your route segments folder.
+3. Then `not-found.tsx` file will display when notFound happen.
+
+> That's something to keep in mind, notFound will take precedence over error.tsx, so you can reach out for it when you want to handle more specific errors!
