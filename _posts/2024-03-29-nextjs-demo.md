@@ -225,14 +225,36 @@ export default function Page() {
 Server Actions are also deeply integrated with Next.js caching. When a form is submitted through a Server Action, not only can you use the action to mutate data, but you can also revalidate the associated cache using APIs like `revalidatePath` and `revalidateTag`.
 
 > Good to know: 
+>
 > In HTML, you'd pass a URL to the action attribute of `<form>`. This URL would be the destination where your form data should be submitted (usually an API endpoint).
 > However, in React, the action attribute is considered a special prop - meaning React builds on top of it to allow actions to be invoked.
 > Behind the scenes, Server Actions create a `POST` API endpoint. This is why you don't need to create API endpoints manually when using Server Actions.
 
+## Revalidate and redirect
+
+Next.js has a Client-side Router Cache that stores the route segments in the user's browser for a time. Along with prefetching, this cache ensures that users can quickly navigate between routes while reducing the number of requests made to the server.
+
+- `revalidatePath` allows you to purge cached data on-demand for a specific path.
+- The `redirect` function allows you to redirect the user to another URL. `redirect` can be used in Server Components, Route Handlers, and Server Actions.
+
+## dynamic route segments with specific IDs
+
+Next.js allows you to create Dynamic Route Segments when you don't know the exact segment name and want to create routes based on data. This could be blog post titles, product pages, etc. You can create dynamic route segments by wrapping a folder's name in square brackets. For example, [id], [post] or [slug].
 
 ## error handler
 
+### `error.tsx` file
+
 When you add `error.tsx` file to your route segments folder, the `error.tsx` file serves as a catch-all for unexpected errors and allows you to display a fallback UI to your users.
+
+`error.tsx` file describe the UI and should like this:
+
+- "use client" - error.tsx needs to be a Client Component.
+- It accepts two props:
+  - `error`: This object is an instance of JavaScript's native Error object.
+  - `reset`: This is a function to reset the error boundary. When executed, the function will try to re-render the route segment.
+
+### `not-found.tsx` file
 
 If you know some specific error, like not found resource, you can display specific information to user: 
 1. import `notFound`:
@@ -247,3 +269,46 @@ if (!invoice) {
 3. Then `not-found.tsx` file will display when notFound happen.
 
 > That's something to keep in mind, notFound will take precedence over error.tsx, so you can reach out for it when you want to handle more specific errors!
+
+## Form Validation
+
+### Client-Side validation
+
+There are a couple of ways you can validate forms on the client. The simplest would be to rely on the form validation provided by the browser by adding the `required` attribute to the `<input>` and `<select>` elements in your `forms`. For example:
+
+```ts
+<input
+  id="amount"
+  name="amount"
+  type="number"
+  placeholder="Enter USD amount"
+  className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+  required
+/>
+```
+
+### Server-Side validation
+
+- use `Zod` to validate form data.
+- If form validation fails, return errors early.
+- Now you can **access the errors using the form state**. 
+- Add a ternary operator that checks for each specific error. Using the `aria` labels to show message: 
+```ts
+  <div className="relative">
+    <select
+      id="customer"
+      name="customerId"
+      defaultValue=""
+      aria-describedby="customer-error"
+    >
+    </select>
+  </div>
+  <div id="customer-error" aria-live="polite" aria-atomic="true">
+    {state.errors?.customerId &&
+      state.errors.customerId.map((error: string) => (
+        <p className="mt-2 text-sm text-red-500" key={error}>
+          {error}
+        </p>
+      ))}
+  </div>
+```

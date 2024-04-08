@@ -25,6 +25,7 @@ Must have
 - Typescript
 - Unit test
   - TDD
+- 
 
 Nice to have
 - GraphQL
@@ -36,5 +37,7 @@ Helpful tools
 
 Question for Luxiang :
 
+- need a resume to get interview! How to write a resume. how to update LinkedIn.
+- use `map()` to list all items in React, do it re-render every time?
 - What is CSS pollution. How to deal with it?
 - Overview the code qulity of Mission App.

@@ -22,6 +22,8 @@ toc:
   - name: FQA
 ---
 
+State is the core concept of React component. Imagine you was asked to write web-apps with JavaScript without React or other framework. Using global variables to manage the whole app states, manage update DOM, that will be your first idea to write robust app. State in React is the similar idea of it.
+
 ## State Rules
 
 - Treat all state in React as **immutable**. This help React run very fast. 
@@ -323,6 +325,9 @@ setMyList(myList.map(artwork => {
 - replacing:	`splice`, `arr[i] = ... assignment`
 - sorting:	`reverse`, `sort`
 
+## useReducer Hook
+
+Reducers let you unify multiple state variables into a single object and consolidate all the related logic!
 
 ## FQA
 
@@ -338,7 +343,11 @@ setMyList(myList.map(artwork => {
 {: .block-warning}
 
 
-### Do React have component instance concept? When placing a component in different place, all of them keep their own states. That means React manage defferent instances of the component.
+### Do React have component instance concept? 
 
+When placing a component in different place, all of them keep their own states. That means React manage defferent instances of the component.
 
-### We usually use `Array.map()` to list content component in React. This require mark `key` prop for every list component. When causing re-render, `Array.map()` will run and recaculate all the list components. In this situation, the List component still can use useState() to store it's states! It just like other components, in re-render, React won't remove it and create a new component, React still keep state snapshot of the list component.
+Developer don't interact with instance. React implement managing the instance. It will update the instance according to the component element durring rendering.
+
+For example **list component**. 
+We usually use `Array.map()` to list content component. This require mark `key` prop for every list component. When causing re-render, `Array.map()` will run and recaculate all the list components. In this situation, the List component still can use useState() to store it's states! It just like other components, in re-render, React won't remove it and create a new component instance, React still manage the state snapshot of all list component instances.
