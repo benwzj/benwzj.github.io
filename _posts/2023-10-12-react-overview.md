@@ -58,11 +58,14 @@ whether functions or classes, fundamentally they are all components to React. Th
 
 ### React Instances
 
-React create, update, and destroy instances. Developer don't interact with instances. React describe them with elements returned from the components, and React takes care of managing the instances.
+> React instance is just a concept. React manage the component states exactly according to the component **position** in the render tree.
 
-The Only reason to use this instance is for imperative actions (such as setting focus on a field), and should generally be avoided.
+React create, update, and destroy instances. Developer don't interact with instances. **React describe instances with elements returned from the components**, and React takes care of managing the instances.
 
-When the prop change, the returned element will update the instancce, which is maintained cross render so we still have the same opponent instance.
+When the props or states change, the returned element will update the instancce, which is maintained cross render so we still have the same opponent instance.
+
+#### list component 
+We usually use `Array.map()` to list content component. This require mark `key` prop for every list component. When causing re-render, `Array.map()` will run and recaculate all the list components. In this situation, the List component still can use useState() to store it's states! It just like other components, in re-render, React won't remove it and create a new component instance, React still manage the state snapshot of all list component instances.
 
 ### What is React Element
 
@@ -149,7 +152,6 @@ Finding a key for component:
 
 ### refs
 Refs provide a way to access DOM nodes or React elements created in the render method.
-
 
 ## React frameworks
 

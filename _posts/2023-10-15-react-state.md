@@ -6,8 +6,12 @@ tags: React Hook
 category: React
 toc:
   - name: State Rules
+    subsections: 
+      - name: Rules for structuring state 
+      - name: Sharing State Between Components
   - name: Understand State in React
     subsections: 
+      - name: State is tied to a position in the render tree
       - name: State vs Ref
       - name: State behaves as snapshot
       - name: How React update states
@@ -19,7 +23,17 @@ toc:
       - name: Set State to a function
       - name: Updating Objects in State
       - name: Updating Arrays in State
+  - name: useReducer Hook
+    subsections: 
+      - name: Migrate from `useState` to `useReducer`
+      - name: Move from setting state to dispatching actions
+      - name: Write a reducer function
+      - name: Use the reducer from your component
+      - name: Comparing `useState` and `useReducer` 
+      - name: Writing reducers well 
   - name: FQA
+    subsections: 
+      - name: Why React choose Immutable
 ---
 
 State is the core concept of React component. Imagine you was asked to write web-apps with JavaScript without React or other framework. Using global variables to manage the whole app states, manage update DOM, that will be your first idea to write robust app. State in React is the similar idea of it.
@@ -39,7 +53,125 @@ State is the core concept of React component. Imagine you was asked to write web
 - React will reset all state of a component when it's `key` prop change! That means the `initializer function` of `setState function` will run again.
 - We usually use `Array.map()` to list content component in React. This require mark `key` prop for every list component. When causing re-render, `Array.map()` will re-run and recaculate all the list components. In this situation, the List component still can use useState() to store it's states! It just like other components, in re-render, React won't remove it and create a new component, React still keep state snapshot of the list component.
 
+### Rules for structuring state 
+
+When you write a component that holds some state, you’ll have to make choices about how many state variables to use and what the shape of their data should be. There are a few principles that can guide you to make better choices:
+
+- Group related state. 
+- Avoid contradictions in state.
+- Avoid redundant state. If you can calculate some information from the component’s props or its existing state variables during rendering, you should not put that information into that component’s state.
+- Avoid duplication in state. 
+- Avoid deeply nested state. Deeply hierarchical state is not very convenient to update. When possible, prefer to structure state in a flat way.
+
+### Sharing State Between Components
+
+The key point is **Lifting State Up**.
+
+For example, you want the state of two components to always change together. To do it, remove state from both of them, move it to their closest common parent, and then pass it down to them via props. Usually, you will pass some functions down as well, these let child components change the parents' state.
+
 ## Understand State in React
+
+### State is tied to a position in the render tree 
+
+When you give a component state, you might think the state “lives” inside the component. But the state is actually held inside React. React associates each piece of state it’s holding with the correct component by where that component sits in the render tree.
+
+React preserves a component’s state for as long as it’s being rendered at its position in the UI tree. If it gets removed, or a different component gets rendered at the same position, React discards its state.
+But **Same component at the same position preserves state**, even its CSS style change. It’s the same component at the same position, so from React’s perspective, it’s the same counter.
+
+> Remember that it’s the position in the UI tree, NOT in the JSX markup, that matters to React! 
+{: .block-warning}
+
+#### How React think about component position
+
+As a rule of thumb, if you want to preserve the state between re-renders, the structure of your tree needs to **match up** from one render to another. If the structure is different, the state gets destroyed because React destroys state when it removes a component from the tree.
+
+But How React think about component structure?
+
+- Rendering a component in a way below, React will think **different** structure for each render and destroy `<Counter>` states: 
+```ts
+export default function Scoreboard() {
+  const [isPlayerA, setIsPlayerA] = useState(true);
+  return (
+    <div>
+      {isPlayerA &&
+        <Counter person="Taylor" />
+      }
+      {!isPlayerA &&
+        <Counter person="Sarah" />
+      }
+      <button onClick={() => {
+        setIsPlayerA(!isPlayerA);
+      }}>
+        Next player!
+      </button>
+    </div>
+  );
+}
+```
+- But if you rendering the way below, React will think it is **same** structure and keep states:
+```ts
+export default function Scoreboard() {
+  const [isPlayerA, setIsPlayerA] = useState(true);
+  return (
+    <div>
+      {isPlayerA ? (
+        <Counter key="Taylor" person="Taylor" />
+      ) : (
+        <Counter key="Sarah" person="Sarah" />
+      )}
+      <button onClick={() => {
+        setIsPlayerA(!isPlayerA);
+      }}>
+        Next player!
+      </button>
+    </div>
+  );
+}
+```
+
+> React will take `{null}` as one child! it will take a position in the render tree. 
+{: .block-warning}
+
+So React will keep `<Form />` state for every render, because it is in same position all the time.
+```ts
+  const [showHint, setShowHint] = useState(false);
+  return showHint?(
+    <div>
+      <p>Hint: Your favorite city?</p>
+      <Form />
+    </div>
+  ):(
+    <div>
+      {null}
+      <Form />
+    </div>
+  );
+```
+
+#### key and position
+
+You can Reset component state with a `key`. Keys aren’t just for lists! You can use keys to make React distinguish between any components. 
+
+> Specifying a key tells React to use the key itself as part of the position, instead of their order within the parent. 
+> Remember that keys are not globally unique. They only specify the position within the parent.
+{: .block-warning}
+
+Resetting state with a key is particularly useful when dealing with **forms**. For example, Contact Manage App, Chat App, Using person information as key to manage form will be a good idea.
+
+Also, use key prop to Presever state even the order of components change.
+
+#### Practice Hint
+- **Don't nest** component function definitions. Because every render will create new component, and React will reset it's states.
+- **How to Reset state at the same position**. By default, React preserves state of a component while it stays at the same position. Usually, this is exactly what you want, so it makes sense as the default behavior. But sometimes, you may want to reset a component’s state.
+  - Rendering "different" position of the component.
+  - Rendering with a `key`.
+- **How to Preserve state for removed components**
+  - Don't remove it, hide the component with CSS.
+  - Lift the state up.
+  - Use a different source in addition to React state.
+- How to Preserve state when change order of a list of components. Using `key` prop!
+
+Maybe you can refer this as React instance concept.
 
 ### State vs Ref
 
@@ -328,6 +460,76 @@ setMyList(myList.map(artwork => {
 ## useReducer Hook
 
 Reducers let you unify multiple state variables into a single object and consolidate all the related logic!
+This is more descriptive of the user’s intent. And your code will be easier to understand.
+
+Because the reducer function takes state (tasks) as an argument, you can declare it outside of your component. This decreases the indentation level and can make your code easier to read.
+
+### Migrate from `useState` to `useReducer`
+
+1. Move from setting state to dispatching actions.
+2. Write a reducer function.
+3. Use the reducer from your component.
+
+### Move from setting state to dispatching actions
+
+Managing state with reducers is slightly different from directly setting state. Instead of telling React “what to do” by setting state, you specify “what the user just did” by dispatching “actions” from your event handlers. 
+
+#### What is dispatching actions
+
+Dispatching actions are normal objects. It is common to give action object a string type that describes what happened, and pass any additional information in other fields.
+```ts
+function handleAddTask(text) {
+  dispatch({
+    type: 'added',
+    id: nextId++,
+    text: text,
+  });
+}
+```
+
+### Write a reducer function 
+
+To reduce this complexity and keep all your logic in one easy-to-access place, you can move that state logic into a single function outside your component, called a “reducer”.
+
+A reducer function is where you will put your state logic. It takes two arguments, the current state and the action object, and it returns the next state.
+
+```ts
+function yourReducer(state, action) {
+  // return next state for React to set
+}
+```
+React will set the state to what you return from the reducer.
+
+> Reducer concept is come from the reducer in `Array.reduce()`. You could even use the `reduce()` method with an `initialState` and **an array of actions** to calculate the final state by passing your reducer function to it.
+
+### Use the reducer from your component
+
+```ts
+const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+```
+The useReducer Hook takes two arguments:
+- A reducer function
+- An initial state
+
+And it returns:
+- A stateful value
+- A dispatch function (to “dispatch” user actions to the reducer)
+
+Now every time you pass an `action object` to `dispatch` function, React can update your state.
+
+### Comparing `useState` and `useReducer` 
+
+- **Code size**: Generally, with useState you have to write less code upfront. With useReducer, you have to write both a reducer function and dispatch actions. However, useReducer can help cut down on the code if many event handlers modify state in a similar way.
+- **Readability**: useState is very easy to read when the state updates are simple. When they get more complex, they can bloat your component’s code and make it difficult to scan. In this case, useReducer lets you cleanly separate the how of update logic from the what happened of event handlers.
+- **Debugging**: When you have a bug with useState, it can be difficult to tell where the state was set incorrectly, and why. With useReducer, you can add a console log into your reducer to see every state update, and why it happened (due to which action). If each action is correct, you’ll know that the mistake is in the reducer logic itself. However, you have to step through more code than with useState.
+- **Testing**: A reducer is a pure function that doesn’t depend on your component. This means that you can export and test it separately in isolation. While generally it’s best to test components in a more realistic environment, for complex state update logic it can be useful to assert that your reducer returns a particular state for a particular initial state and action.
+- **Personal preference**: Some people like reducers, others don’t. That’s okay. It’s a matter of preference. You can always convert between useState and useReducer back and forth: they are equivalent!
+
+### Writing reducers well 
+Keep these two tips in mind when writing reducers:
+
+- **Reducers must be pure**. Similar to state updater functions, reducers run during rendering! (Actions are queued until the next render.) This means that reducers must be pure—same inputs always result in the same output. They should not send requests, schedule timeouts, or perform any side effects (operations that impact things outside the component). They should update objects and arrays without mutations.
+- **Each action describes a single user interaction, even if that leads to multiple changes in the data**. For example, if a user presses “Reset” on a form with five fields managed by a reducer, it makes more sense to dispatch one reset_form action rather than five separate set_field actions. If you log every action in a reducer, that log should be clear enough for you to reconstruct what interactions or responses happened in what order. This helps with debugging!
 
 ## FQA
 
@@ -341,13 +543,3 @@ Reducers let you unify multiple state variables into a single object and consoli
 > Important concept in Immutable: 
 > 'Nested' Objects are not really nested. Nesting is an inaccurate way to think about how objects behave. 
 {: .block-warning}
-
-
-### Do React have component instance concept? 
-
-When placing a component in different place, all of them keep their own states. That means React manage defferent instances of the component.
-
-Developer don't interact with instance. React implement managing the instance. It will update the instance according to the component element durring rendering.
-
-For example **list component**. 
-We usually use `Array.map()` to list content component. This require mark `key` prop for every list component. When causing re-render, `Array.map()` will run and recaculate all the list components. In this situation, the List component still can use useState() to store it's states! It just like other components, in re-render, React won't remove it and create a new component instance, React still manage the state snapshot of all list component instances.
