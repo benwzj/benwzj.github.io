@@ -25,10 +25,7 @@ toc:
       - name: Updating Arrays in State
   - name: useReducer Hook
     subsections: 
-      - name: Migrate from `useState` to `useReducer`
-      - name: Move from setting state to dispatching actions
-      - name: Write a reducer function
-      - name: Use the reducer from your component
+      - name: Migrating from `useState` to `useReducer`
       - name: Comparing `useState` and `useReducer` 
       - name: Writing reducers well 
   - name: FQA
@@ -459,22 +456,38 @@ setMyList(myList.map(artwork => {
 
 ## useReducer Hook
 
-Reducers let you unify multiple state variables into a single object and consolidate all the related logic!
-This is more descriptive of the user’s intent. And your code will be easier to understand.
+`useReducer` is build on top of `useState` technicially, and it provide a **framework** to manage state. This framework is more descriptive of the user’s intent, and make code easier to understand.
 
-Because the reducer function takes state (tasks) as an argument, you can declare it outside of your component. This decreases the indentation level and can make your code easier to read.
+The basic idea of this framework is that, concluding user's intentions into objects, called action objects, which will be dispatched to a `reducer` function. `reducer` function is a pure function which consolidate a component’s state update logic and return the next `state`.
 
-### Migrate from `useState` to `useReducer`
+`useReducer` behavior exactly like this:
+```js
+import { useState } from 'react';
+
+export function useReducer(reducer, initialState) {
+  const [state, setState] = useState(initialState);
+
+  function dispatch(action) {
+    setState((s) => reducer(s, action));
+  }
+
+  return [state, dispatch];
+}
+```
+
+You can declare `reducer` function outside of your component. This decreases the indentation level and can make your code easier to read.
+
+### Migrating from `useState` to `useReducer`
 
 1. Move from setting state to dispatching actions.
 2. Write a reducer function.
 3. Use the reducer from your component.
 
-### Move from setting state to dispatching actions
+#### Move from setting state to dispatching actions
 
 Managing state with reducers is slightly different from directly setting state. Instead of telling React “what to do” by setting state, you specify “what the user just did” by dispatching “actions” from your event handlers. 
 
-#### What is dispatching actions
+What is dispatching actions?
 
 Dispatching actions are normal objects. It is common to give action object a string type that describes what happened, and pass any additional information in other fields.
 ```ts
@@ -487,7 +500,7 @@ function handleAddTask(text) {
 }
 ```
 
-### Write a reducer function 
+#### Write a reducer function 
 
 To reduce this complexity and keep all your logic in one easy-to-access place, you can move that state logic into a single function outside your component, called a “reducer”.
 
@@ -502,7 +515,7 @@ React will set the state to what you return from the reducer.
 
 > Reducer concept is come from the reducer in `Array.reduce()`. You could even use the `reduce()` method with an `initialState` and **an array of actions** to calculate the final state by passing your reducer function to it.
 
-### Use the reducer from your component
+#### Use the reducer from your component
 
 ```ts
 const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);

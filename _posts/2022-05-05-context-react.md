@@ -1,26 +1,34 @@
 ---
 layout: post
-title: "All About Context in React"
+title: All About Context in React
 date: 2022-05-05
+updated: 2024-04-09
 categories: React
 tags: Context Redux React
+toc: 
+  - name: What is Context
+  - name: Use Context
+  - name: Replace Redux 
+  - name: Important Caveat
+  - name: Think more before apply context
+  - name: References
 ---
 
 Usually, you will pass information from a parent component to a child component via props. And if you can use props to solve the problems, use props. **BUT** using Context is necessary in some cases. 
 
 For example: 
-- Theming: If your app lets the user change its appearance (e.g. dark mode), you can put a context provider at the top of your app, and use that context in components that need to adjust their visual look.
-- Current account: Many components might need to know the currently logged in user. Putting it in context makes it convenient to read it anywhere in the tree. Some apps also let you operate multiple accounts at the same time (e.g. to leave a comment as a different user). In those cases, it can be convenient to wrap a part of the UI into a nested provider with a different current account value.
-- Routing: Most routing solutions use context internally to hold the current route. This is how every link “knows” whether it’s active or not. If you build your own router, you might want to do it too.
-- Managing state: As your app grows, you might end up with a lot of state closer to the top of your app. Many distant components below may want to change it. It is common to use a reducer together with context to manage complex state and pass it down to distant components without too much hassle.
+- **Theming**: If your app lets the user change its appearance (e.g. dark mode), you can put a context provider at the top of your app, and use that context in components that need to adjust their visual look.
+- **Current account**: Many components might need to know the currently logged in user. Putting it in context makes it convenient to read it anywhere in the tree. Some apps also let you operate multiple accounts at the same time (e.g. to leave a comment as a different user). In those cases, it can be convenient to wrap a part of the UI into a nested provider with a different current account value.
+- **Routing**: Most routing solutions use context internally to hold the current route. This is how every link “knows” whether it’s active or not. If you build your own router, you might want to do it too.
+- **Managing state**: As your app grows, you might end up with a lot of state closer to the top of your app. Many distant components below may want to change it. It is common to use a reducer together with context to manage complex state and pass it down to distant components without too much hassle.
 
 ## What is Context
 
-Context is an alternative to passing props. Context lets the parent component make some information available to any component in the tree below it—no matter how deep—without passing it explicitly through props.
+Context is an alternative to passing props. Context lets the parent component make some information available to any component in the tree below it without passing it explicitly through props.
 
 Context is not limited to static values. If you pass a different value on the next render, React will update all the components reading it below! This is why context is often used in combination with state.
 
-### Let's sum up first
+### Let's Sum Up First
 
 - Context lets a component provide some information to the entire tree below it.
 - To pass context:
@@ -59,7 +67,7 @@ React automatically re-renders all the children that use a particular context st
 
 Usually you create, provide, and consume context, here it is:
 
-#### Firstly, Create `Context.js` file
+### Firstly, Create `Context.js` file
 
 You'll usually have one file that uses createContext and exports a Provider wrapper:
 
@@ -79,7 +87,7 @@ export const Provider = ({ children }) => {
 ```
 It will export `Context` and `Provider`.
 
-#### Secondly, Wrap Consuming Components in App.
+### Secondly, Wrap Consuming Components in App.
 
 You'll wrap whatever component needs access to the Context state with the Provider:
 
@@ -99,7 +107,7 @@ export const Page = () => {
 }
 ```
 
-#### Thirdly, Build Consuming Component
+### Thirdly, Build Consuming Component
 
 This is a way to build your Consuming Component: Using the `useContext` hook to access the data:
 
@@ -119,9 +127,9 @@ export const ConsumingComponent = () => {
 ## Replace Redux 
 
 It is not recommend, but you can do something like Redux: 
-1. you can create a react component as a store. and use this component to wrap all children component which need to share information inside them. 
-2. use myContext.Provider in the Store component to wrap children components. 
-3. design state as object which contain functions. Then children can use function reference to change states.
+1. you can create a react component as a `store`. and use this component to wrap all children component which need to share information inside them. 
+2. use `myContext.Provider` in the `store` component to wrap children components. 
+3. design `state` as object which contain functions. Then children can use function reference to change states.
 
 In a very small application, you might be able to get away with just using Context for most of your global data storage needs, but in a large-scale production environment, you're likely using Redux for global state management. Redux still provides improved performance, improved debugging capabilities, architectural consistency, the ability to use middleware. Therefore, Context is not a replacement for a proper global state management system.
 
@@ -144,7 +152,7 @@ class App extends React.Component {
 }
 ```
 {% endraw %}
-How to fix it? Using global reference, like state. 
+How to fix it? Using global reference, like `state`. 
 
 ## Think more before apply context
 
