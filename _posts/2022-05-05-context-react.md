@@ -4,13 +4,14 @@ title: All About Context in React
 date: 2022-05-05
 updated: 2024-04-09
 categories: React
-tags: Context Redux React
+tags: Context Redux React 
 toc: 
   - name: What is Context
   - name: Use Context
   - name: Replace Redux 
   - name: Important Caveat
   - name: Think more before apply context
+  - name: Scaling Up with Reducer and Context
   - name: References
 ---
 
@@ -163,6 +164,69 @@ If you only want to avoid passing some props through many levels, **component co
 >  
 > Using component composition, you can wrap the deepest component as prop, then other components don’t need to know what is passing down. This inversion of control can make your code cleaner.
 {: .block-warning }
+
+## Scaling Up with Reducer and Context
+
+Here is how you can combine a reducer with context:
+
+1. Create the context.
+2. Put state and dispatch into context.
+3. Use context anywhere in the tree.
+
+### Step 1: Create the context
+You can create two separate contexts:
+- TasksContext provides the current `state`.
+- TasksDispatchContext provides the `dispatch` function that lets components dispatch actions.
+```js
+import { createContext } from 'react';
+
+export const TasksContext = createContext(null);
+export const TasksDispatchContext = createContext(null);
+```
+
+### Step 2: Put state and dispatch into context 
+```js
+export default function TaskApp() {
+  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+  // ...
+  return (
+    <TasksContext.Provider value={tasks}>
+      <TasksDispatchContext.Provider value={dispatch}>
+        ...
+      </TasksDispatchContext.Provider>
+    </TasksContext.Provider>
+  );
+}
+```
+
+### Step 3: Use context anywhere in the tree
+
+You could declutter the components by moving both reducer and context into **a single file**. 
+```js
+export function TasksProvider({ children }) {
+  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+
+  return (
+    <TasksContext.Provider value={tasks}>
+      <TasksDispatchContext.Provider value={dispatch}>
+        {children}
+      </TasksDispatchContext.Provider>
+    </TasksContext.Provider>
+  );
+}
+```
+Now the whole app will looks like this:
+```js
+export default function TaskApp() {
+  return (
+    <TasksProvider>
+      <h1>Day off in Kyoto</h1>
+      <AddTask />
+      <TaskList />
+    </TasksProvider>
+  );
+}
+```
 
 ## References
 
