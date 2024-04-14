@@ -75,7 +75,11 @@ width: device-width;
 
 ## Metadata 
 
-Metadata is data that describes data. The job of `<head>` element is to contain metadata about the document. For exmaple `<title>`, `<link>`, `<script>`, `<mate>`, etc. The `<meta>` element is an "official" way of adding metadata to a document.
+Metadata is data that describes data. 
+
+In web development, metadata provides additional details about a webpage. Metadata is not visible to the users visiting the page. Instead, it works behind the scenes, embedded within the page's HTML, usually within the `<head>` element. This hidden information is crucial for search engines and other systems that need to understand your webpage's content better.
+
+The job of `<head>` element is to contain metadata about the document. For exmaple `<title>`, `<link>`, `<script>`, `<mate>`, etc. The `<meta>` element is an "official" way of adding metadata to a document.
 
 ### Specifying your document's character encoding
 `<meta charset="utf-8" />`
@@ -93,6 +97,7 @@ utf-8 is a universal character set that includes pretty much any character from 
 Good for SEO.
 
 ### Adding custom icons to your site
+This metadata links the favicon (a small icon) to the webpage, displayed in the browser's address bar or tab.
 `<link rel="icon" href="favicon.ico" type="image/x-icon" />`
 
 ### Setting the primary language of the document
@@ -101,7 +106,15 @@ You can also set subsections of your document to be recognized as different lang
 `<p>Japanese example: <span lang="ja">ご飯が熱い。</span>.</p>`
 
 ### Applying CSS and JavaScript to HTML
+`<style />``<script />`
 
+### Open Graph 
+Open Graph Metadata: This metadata enhances the way a webpage is represented when shared on social media platforms, providing information such as the title, description, and preview image. Making the content more appealing and informative for users.
+```html
+<meta property="og:title" content="Title Here" />
+<meta property="og:description" content="Description Here" />
+<meta property="og:image" content="image_url_here" />
+```
 
 ## text fundamentals
 

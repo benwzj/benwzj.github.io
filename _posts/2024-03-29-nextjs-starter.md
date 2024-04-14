@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Next.js Starter App Conclusion
+title: Next.js Starter Conclusion
 date: 2024-03-29
 category: React
 tags: TypeScript JavaScript React
@@ -8,25 +8,21 @@ tags: TypeScript JavaScript React
 
 Next.js application is Node.js application.
 
+[My github repo](https://github.com/benwzj/nextjs-demo)
+[Offical Doc](https://nextjs.org/learn/dashboard-app)
+
 ## Main concepts
 
-- Routing & navigation
-- Metadata
-- Styling: Tailwind CSS
-- Image component
-- Client vs Server components
-- Server actions
-- Suspense and streaming
-- Caching
-- static & dynamic rendering
-- Middleware
-- Folder structure
-- Static export
-- Deployment options
-- Push to GitHub
-- Environment variables in Next.js
-- Hostinger VPS deployment
-
+- Styling: The different ways to style your application in Next.js.
+- Optimizations: How to optimize images, links, and fonts.
+- Routing: How to create nested layouts and pages using file-system routing.
+- Data Fetching: How to set up a database on Vercel, and best practices for fetching and streaming.
+- Search and Pagination: How to implement search and pagination using URL Search Params.
+- Mutating Data: How to mutate data using React Server Actions, and revalidate the Next.js cache.
+- Error Handling: How to handle general and 404 not found errors.
+- Form Validation and Accessibility: How to do server-side form validation and tips for improving accessibility.
+- Authentication: How to add authentication to your application using NextAuth.js and Middleware.
+- Metadata: How to add metadata and prepare your application for social sharing.
 
 ## Styling
 
@@ -312,3 +308,42 @@ There are a couple of ways you can validate forms on the client. The simplest wo
       ))}
   </div>
 ```
+
+## Adding Authentication
+
+### Basic idea like this: 
+
+Next.js provide `NextAuth.js` to add authentication to your application. 
+`NextAuth.js` abstracts away much of the complexity involved in managing sessions, sign-in and sign-out, and other aspects of authentication. It is third library. 
+
+### How It Work
+
+Here are the [official Doc](https://authjs.dev/reference/next-auth).
+
+The step roughly like this:
+
+#### Setting up NextAuth.js to your project
+- install it: `npm install next-auth@beta`
+- generate a secret key for your application. This key is used to encrypt cookies, ensuring the security of user sessions. Like this: `openssl rand -base64 32`
+- In your `.env` file, add your generated key to the AUTH_SECRET variable: `AUTH_SECRET=your-secret-key`
+
+#### `auth.config.ts` file
+Create an `auth.config.ts` file at the root of our project that exports an `authConfig` object. 
+- you can Add the login pages option in this config file.
+- configure Protecting your routes with Next.js Middleware.
+
+#### `auth.ts` file
+Spreads your `authConfig` object.
+```ts
+import NextAuth from 'next-auth';
+import { authConfig } from './auth.config';
+import Credentials from 'next-auth/providers/credentials';
+ 
+export const { auth, signIn, signOut } = NextAuth({
+  ...authConfig,
+  providers: [Credentials({})],
+});
+```
+
+#### The login form
+you create the login route and component. for example, create route `'/login'`.

@@ -85,7 +85,6 @@ export const Counter = props => {
 };
 ```
 
-
 ## Rendering Underhood
 
 ### React Element
