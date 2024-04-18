@@ -3,15 +3,14 @@ layout: post
 title: Rendering Process in React
 date: 2024-04-04
 category: React
-tags: React
+tags: React Rendering
 toc: 
   - name: Component Rendering Process
-    subsections: 
-      - name: How to check if a component is re-rendered
-      - name: How to display render count in component
+  - name: Check if component is re-rendered
+  - name: Display render count in component
+  - name: Avoid re-rendering child component
   - name: Rendering Underhood
 ---
-
 
 Even a component render, don't means browser will repaint it.
 we get component, then component instance, then element, then VDOM, then DOM.
@@ -25,13 +24,13 @@ There are 3 steps for the whole rendering process:
 2. **Rendering the component.**
 3. Committing to the DOM.
 
-#### Step 1: Trigger a render 
+### Step 1: Trigger a render 
 
 There are two reasons for a component to render:
 - It’s the component’s initial render. By calling `createRoot` with the target DOM node, and then calling its render method with the component.
 - The component’s (or one of its ancestors’) state has been updated. Updating the component’s state automatically queues a render. When prop or context be changed, it cause re-render as well.
 
-#### Step 2: React renders your components
+### Step 2: React renders your components
 
 > 'Rendering' is React calling your components.
 {: .block-warning }
@@ -44,7 +43,7 @@ There are two reasons for a component to render:
 
 This might be not optimal for performance if the updated component is very high in the tree. You can use `memo` and `useMemo` to avoid re-render the child components.
 
-#### Step 3: React commits changes to the DOM 
+### Step 3: React commits changes to the DOM 
 After rendering (calling) your components, React will modify the DOM.
 - For the initial render, React will use the appendChild() DOM API to put all the DOM nodes it has created on screen.
 - For re-renders, React will apply the minimal necessary operations (calculated while rendering!) to make the DOM match the latest rendering output.
@@ -53,7 +52,8 @@ React only changes the DOM nodes if there’s a difference between renders.
 
 After rendering is done and React updated the DOM, the browser will repaint the screen. Although this process is known as “browser rendering”, we’ll refer to it as “painting” to avoid confusion with React rendering.
 
-### How to check if a component is re-rendered
+
+## Check if component is re-rendered
 
 Re-render a component, means React execute that component function to calculate the output.
 
@@ -70,8 +70,20 @@ But the component might be only invoked without rerendering.
 For example, you `setState()` to the same value as previous one, React will run the component function, but without rendering the children or firing effects.
 
 So the better way is to make a `useEffect` hook without a dependency array, this will make it run after each component render.
+Like code below can flicker the background when re-rendering:
+```js
+  // animation part
+  useEffect(() => {
+    const element = document.getElementById("parent");
+    element.classList.add("parent-flicker");
 
-### How to display render count in component
+    setTimeout(() => {
+      element.classList.remove("parent-flicker");
+    }, 200);
+  });
+```
+
+## Display render count in component
 
 You can't use State, but you can use **Ref**!!
 ```js
@@ -84,6 +96,29 @@ export const Counter = props => {
     return <h1>Renders: {renderCounter.current}, {props.message}</h1>;
 };
 ```
+
+## Avoid re-rendering child component
+
+How to avoid re-rendering a nested child component when a parent component re-renders?
+
+### Use Memory API
+The basic way is using `React.memo` API. This can tell React avoid re-rendering child components. Most of the time you will use Hook `useMemo` and `useCallback` as well. More inforamtion at [Use Memory in React](/blog/2023/memo-react/).
+
+### lifting content up
+The pattern of "lifting content up" has been used to avoid re-rendering a nested child component when a parent component re-renders.
+lifting content up means wrapping child component as `prop` and pass to parent component!
+
+### Stop re-rendering of child which consume Context
+
+If context change, child should re-render. but if context don't change, how to stop re-rendering?
+using `React.memo` API!
+
+### Why Memory function can stop re-rendering?
+
+Because React is using `Object.is()` to make decision rendering or not.
+
+Memo function is used to memoize the result of the component. It returns the cached result when the same output occurs again.
+It will keep track of the previous **prop's value** and compare it with the current value. If it detects changes, it will execute the child component again and re-evaluate it; if not, it will not execute it at all.
 
 ## Rendering Underhood
 
@@ -122,7 +157,8 @@ root.render(element);
 - To update the UI is to create a new element, and pass it to `root.render()`.
 - ReactDom and React are same lib at version 13. React seperate them in order to support mare media, like ReactNative. 
 
-### reconciliation
+### Reconciliation
+
 Reconciliation is responsible for maintaining the tree of elements when a components prop or state change.
 Reconciliation houses the diffing algorithm that determines what parts of that tree need to be replaced. 
 
@@ -135,10 +171,10 @@ Here are some examples.
 
 The actual rendering process is done by Ract Fiber.
 
-
-
 ## FQA
 
 - How React render component with `key`?
+- When re-render the component, is it means browser will re-paint the component? NO
+
 
 

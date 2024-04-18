@@ -3,7 +3,7 @@ layout: post
 title: Use Memory in React
 date: 2023-11-19
 category: React
-tags: React Hook
+tags: React Hook Rendering
 toc: 
   - name: API `memo`  
   - name: Hook `useMemo`
