@@ -1,19 +1,23 @@
 ---
 layout: post
-title: Use Memory in React
+title: Use Memoization in React
 date: 2023-11-19
 category: React
 tags: React Hook Rendering
 toc: 
-  - name: API `memo`  
+  - name: API `React.memo()`  
   - name: Hook `useMemo`
   - name: Hook `useCallback`
 ---
 
-## API `memo`
+The main thing that React does is keep our UI in sync with our application state. The tool that it uses to do this is called a “re-render”.
+
+Each re-render is a snapshot of what the application's UI should look like at a given moment in time, based on the current application state. You can use Memoization function to memoize these snapshot for optimization.
+
+## API `React.memo()`
 
 React normally re-renders a component whenever its parent re-renders.
-With `memo`, you can create a component that React will not re-render when its parent re-renders so long as its new props are the same as the old props. Such a component is said to be memoized.
+With `React.memo()`, you can create a component that React will not re-render when its parent re-renders so long as its new **props** are the same as the old props. Such a component is said to be memoized.
 
 ### How to check if a compnent is re-rendered
 

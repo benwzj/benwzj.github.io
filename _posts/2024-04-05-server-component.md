@@ -141,7 +141,7 @@ To use Client Components, you can add the React `"use client"` directive at the 
 ### How are Client Components Rendered
 
 There can be two ways:
-- Full page load: To optimize the initial page load, Next.js will use React's APIs to render a static HTML preview on the server for both Client and Server Components. (This thing call hydration.)
+- Full page load: To optimize the initial page load, Next.js will use React's APIs to render a static HTML preview on the server for both Client and Server Components. (This thing call **hydration**.)
 - Subsequent Navigations: Client Components are rendered entirely on the client, without the server-rendered HTML.
 
 ### Going back to the Server Environmen
