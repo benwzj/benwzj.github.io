@@ -1,21 +1,35 @@
 ---
 layout: post
-title: Next.js Starter Conclusion
+title: Next.js Starter Application
 date: 2024-03-29
 category: React
-tags: TypeScript JavaScript React
+tags: TypeScript JavaScript React Next.js
+toc: 
+  - name: Overview
+  - name: Styling
+  - name: Optimizing Fonts and Images
+  - name: Layouts and Pages
+  - name: Fetch data
+  - name: Streaming
+  - name: Search and Pagination
+  - name: Server Actions
+  - name: Revalidate and redirect
+  - name: dynamic route segments with specific IDs
+  - name: error handler
+  - name: Form Validation
+  - name: Adding Authentication
+  - name: References
 ---
 
-Next.js application is Node.js application.
+Next.js Starter application is a good beginning to understand How do Next.js work and What have Next.js done.
+This Blog list some conclusions of the application.
 
-[My github repo](https://github.com/benwzj/nextjs-demo)
-[Offical Doc](https://nextjs.org/learn/dashboard-app)
+## Overview
 
-## Main concepts
-
-- Styling: The different ways to style your application in Next.js.
-- Optimizations: How to optimize images, links, and fonts.
-- Routing: How to create nested layouts and pages using file-system routing.
+- Next.js application is Node.js application.
+- About Styling: There are different ways to style your application in Next.js.
+- Next.js provide some Optimizations to optimize images, links, and fonts.
+- Routing is core part of Next.js: Understand how to create nested layouts and pages using **file-system** routing.
 - Data Fetching: How to set up a database on Vercel, and best practices for fetching and streaming.
 - Search and Pagination: How to implement search and pagination using URL Search Params.
 - Mutating Data: How to mutate data using React Server Actions, and revalidate the Next.js cache.
@@ -347,3 +361,8 @@ export const { auth, signIn, signOut } = NextAuth({
 
 #### The login form
 you create the login route and component. for example, create route `'/login'`.
+
+## References
+
+- [My github repo](https://github.com/benwzj/nextjs-demo)
+- [Offical Doc](https://nextjs.org/learn/dashboard-app)

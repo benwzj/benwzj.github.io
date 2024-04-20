@@ -52,6 +52,7 @@ When working in these environments, it's helpful to think of the flow of the cod
 In practice, this model encourages developers to think about what they want to execute on the server first, before sending the result to the client and making the application interactive.
 
 ## React Server Components
+
 React Server Components allow you to write UI that can be rendered and optionally cached on the server. 
 
 In short, Server Components allow you to do **Server Rendering**.
