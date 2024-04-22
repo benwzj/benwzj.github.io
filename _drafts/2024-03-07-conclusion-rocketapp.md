@@ -41,3 +41,4 @@ Question for Luxiang :
 - use `map()` to list all items in React, do it re-render every time?
 - What is CSS pollution. How to deal with it?
 - Overview the code qulity of Mission App.
+- What should do to support IE11 browser.

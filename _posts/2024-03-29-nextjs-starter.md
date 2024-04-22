@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Next.js Starter Application
+title: Next.js Dashboard-app
 date: 2024-03-29
 category: React
 tags: TypeScript JavaScript React Next.js
@@ -21,22 +21,25 @@ toc:
   - name: References
 ---
 
-Next.js Starter application is a good beginning to understand How do Next.js work and What have Next.js done.
+Next.js Starter application Dashboard-app is a good beginning to understand How do Next.js work and What have Next.js done.
 This Blog list some conclusions of the application.
 
 ## Overview
 
 - Next.js application is Node.js application.
+- Next.js is powered by React.
+- Next.js use Turbopack as bundler instead of Webpack.
+- Next.js use SWC (Speedy Web Compiler) as compiler instead of Babel.
 - About Styling: There are different ways to style your application in Next.js.
 - Next.js provide some Optimizations to optimize images, links, and fonts.
 - Routing is core part of Next.js: Understand how to create nested layouts and pages using **file-system** routing.
 - Data Fetching: How to set up a database on Vercel, and best practices for fetching and streaming.
-- Search and Pagination: How to implement search and pagination using URL Search Params.
+- Using URL Search Params for Search and Pagination 
 - Mutating Data: How to mutate data using React Server Actions, and revalidate the Next.js cache.
-- Error Handling: How to handle general and 404 not found errors.
-- Form Validation and Accessibility: How to do server-side form validation and tips for improving accessibility.
-- Authentication: How to add authentication to your application using NextAuth.js and Middleware.
-- Metadata: How to add metadata and prepare your application for social sharing.
+- Provide Error Handling.
+- Support server-side Form Validation and imporve Accessibility.
+- Next.js provide NextAuth.js for user to add Authentication.
+- Next.js provide Metadata management.
 
 ## Styling
 
