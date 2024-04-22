@@ -99,9 +99,7 @@ Add your compiled CSS file to the `<head>` and start using Tailwind’s utility 
 </html>
 ```
 
-
 ## FQA
-
 
 - Responsive Design
 - How can I memorize so many utility classes?
