@@ -43,26 +43,35 @@ This Blog list some conclusions of the application.
 
 ## Styling
 
-### add a global CSS file 
+'Tailwind CSS' and 'CSS Modules' is popular way to implement CSS in Next.js project.
 
-You can import `global.css` in any component in your application, but it's usually good practice to add it to your top-level component. In Next.js, this is the root layout.
+### add a global CSS file to your project
+
+It's good practice to add `global.css` to your top-level component. In Next.js, the root layout is top-level component.
 
 ### Tailwind
-Tailwind is a CSS framework that speeds up the development process by allowing you to quickly write utility classes directly in your TSX markup. Next support Tailwind natively.
+
+Next.js support Tailwind natively.
+Although the CSS styles are shared globally, each class is singularly applied to each element. This means if you add or delete an element, you don't have to worry about maintaining separate stylesheets, style collisions, or the size of your CSS bundle growing as your application scales.
 
 ### CSS Modules
 
+For example you have a css file named `home.module.css`. Then
 ```ts
 import styles from '@/app/ui/home.module.css';
 <div className={styles.shape} />;
 ```
 
-### Using the clsx library to toggle class names
+### Toggle class names
 
+You can use the `clsx` library to toggle class names.
+
+Usage example: 
 - Suppose that you want to create an InvoiceStatus component which accepts status. The status can be 'pending' or 'paid'.
 - If it's 'paid', you want the color to be green. If it's 'pending', you want the color to be gray.
-You can use clsx to conditionally apply the classes, like this:
+You can use clsx to conditionally apply the classes.
 
+Like this:
 ```ts
 import clsx from 'clsx';
  
@@ -84,7 +93,6 @@ export default function InvoiceStatus({ status }: { status: string }) {
 ### Other styling solutions
 
 You can also style your Next.js application with:
-
 - **Sass** which allows you to import `.css` and `.scss` files.
 - **CSS-in-JS** libraries such as `styled-jsx`, `styled-components`, and `emotion`.
 
@@ -123,7 +131,6 @@ export default function RootLayout({
 ### Images
 
 The `<Image>` Component is an extension of the HTML `<img>` tag, and comes with automatic image optimization, such as:
-
 - Preventing layout shift automatically when images are loading.
 - Resizing images to avoid shipping large images to devices with a smaller viewport.
 - Lazy loading images by default (images load as they enter the viewport).
