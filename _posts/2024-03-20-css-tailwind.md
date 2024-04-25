@@ -6,8 +6,8 @@ category: CSS
 tags: CSS HTML
 toc:
   - name: What is Tailwind CSS
-  - name: Setup Tailwind CSS
   - name: Use Tailwind CSS
+  - name: Setup Tailwind CSS
   - name: References
 ---
 
@@ -56,6 +56,50 @@ Cons:
 - Designing with **constraints**. Using inline styles, every value is a magic number. With utilities, you’re choosing styles from a predefined design system, which makes it much easier to build visually consistent UIs.
 - **Responsive design**. You can’t use media queries in inline styles, but you can use Tailwind’s responsive utilities to build fully responsive interfaces easily.
 - **Hover, focus, and other states**. Inline styles can’t target states like hover or focus, but Tailwind’s state variants make it easy to style those states with utility classes.
+
+## Use Tailwind CSS
+
+### Tailwind CSS just is CSS 
+
+95% of Tailwind utility classes can convert to CSS directly. For example `padding`, you can search at Tainwind Doc and it will show you that how it design classes around padding and how to use them. And it also show you that `p-0` is `padding: 0px;` etc.
+In Tainwind website, and press `ctrl + k`, you can access search directly.
+
+> Pro tip:
+> Using 'Tailwind CSS IntelliSense' VSCode plugin to write Tailwind CSS code.
+
+Using 'Tailwind CSS IntelliSense' and CSS knowledge can do 75% of Tailwind CSS coding directly. 
+You might need to check the Tailwind Doc for the usage of another 25%. For example `position`, Tailwind is using `static`, `fixed`, etc. It may be a bit confusing at the beginning.
+
+### Document 'Core Concepts' Section
+
+Ok, 95% classes can convert to CSS simply. And 5% of clssses are not map 1 to 1 to CSS. You just need to go to the 'Core Concepts' section in the Tainwind Doc, and glance over them, you will get the most of the idea.
+
+#### 'Hover, Focus, and Other States' section
+'Hover, Focus, and Other States' section go over 99% of the different edge use cases for handling things like hovering, focusing, pseudo element, and so on, which you can't handle with CSS classes. But Tailwind get around that and implement these functionality for pretty much everything with classes. 
+
+For example, 
+- It use **colon** to show hover effect: `hover:bg-violet-600`.
+- It have **group** concept: 
+When you need to style an element based on the state of some parent element, mark the parent with the `group` class, and use `group-*` modifiers like `group-hover` to style the target element.
+- It have **peer** concept:
+When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers like peer-invalid to style the target element
+
+### Some Cases
+- Responsive Design: 
+  - prefix the utility with the breakpoint name, followed by the `:` character
+```html
+<!-- Width of 16 by default, 32 on medium screens, and 48 on large screens -->
+<img class="w-16 md:w-32 lg:w-48" src="...">
+```
+  - If you’d like to apply a utility only when a specific breakpoint range is active, stack a responsive modifier like md with a max-* modifier to limit that style to a specific range
+- `space-y-8`, this class can work as a **container** class which can make the items inside have 8 space between each other in `y` axle.
+- `line-clamp-3`, this class allow 3 text lines to show in side it. `truncate`, allow 1 text line inside it.
+- Show Gradient Color: `bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500`.
+- Use `ring` border to have a shine button.
+- Support Animation: 
+  - Add the `animate-spin` utility to add a linear spin animation to elements like loading indicators.
+  - Add the `animate-pulse` utility to make an element gently fade in and out — useful for things like skeleton loaders
+- The official Tailwind CSS **Typography** plugin provides a set of `prose` classes you can use to add beautiful typographic defaults to any vanilla HTML you don’t control, like HTML rendered from Markdown, or pulled from a CMS.
 
 ## Setup Tailwind CSS
 
@@ -112,28 +156,6 @@ Use the Play CDN to try Tailwind right in the browser without any build step. Th
   </h1>
 </body>
 ```
-
-## Use Tailwind CSS
-
-Tailwind CSS just is CSS. 95% of utility classes can convert to CSS directly. For example `padding`, you can search at Tainwind Doc and it will show you that how it design classes around padding and how to use them. And it also show you that `p-0` is `padding: 0px;` etc.
-
-In Tainwind website, and press `ctrl + k`, you can access search directly.
-
-> Pro tip:
-> Using 'Tailwind CSS IntelliSense' VSCode plugin to write Tailwind CSS code.
-
-Using 'Tailwind CSS IntelliSense' and CSS knowledge can fix 75% of Tailwind CSS coding directly. 
-Another 25% you might need to check the Tailwind Doc. Like `position`, Tailwind is using `static`, `fixed`, etc. It may be a bit confusing at the beginning.
-
-### Document `Core Concepts` Section
-
-Ok, 95% classes can convert to CSS simply. And 5% of clssses are not map 1 to 1 to CSS. You just need to go to the `Core Concepts` section in the Tainwind Doc, and glance over them, you will get the most of the idea.
-
-`Hover, Focus, and Other States` section go over 99% of the different edge use cases for handling things like hovering, focusing, pseudo element, and so on, which you can handle with CSS classes. But Tailwind gotten around that and the way they do that for pretty much everything with classes. 
-
-For example, 
-- It use **colon** to show hover effect: `hover:bg-violet-600`.
-- It use **group** concept. 
 
 ## FQA
 
