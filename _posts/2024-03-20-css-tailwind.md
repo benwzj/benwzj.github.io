@@ -84,14 +84,17 @@ When you need to style an element based on the state of some parent element, mar
 - It have **peer** concept:
 When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers like peer-invalid to style the target element
 
-### Some Cases
-- Responsive Design: 
-  - prefix the utility with the breakpoint name, followed by the `:` character
+#### Responsive Design
+Prefix the utility with the breakpoint name, followed by the `:` character.
 ```html
 <!-- Width of 16 by default, 32 on medium screens, and 48 on large screens -->
 <img class="w-16 md:w-32 lg:w-48" src="...">
 ```
-  - If you’d like to apply a utility only when a specific breakpoint range is active, stack a responsive modifier like md with a max-* modifier to limit that style to a specific range
+
+If you’d like to apply a utility only when a specific breakpoint range is active, stack a responsive modifier like `md` with a `max-*` modifier to limit that style to a specific range
+
+### Some Usage Cases
+
 - `space-y-8`, this class can work as a **container** class which can make the items inside have 8 space between each other in `y` axle.
 - `line-clamp-3`, this class allow 3 text lines to show in side it. `truncate`, allow 1 text line inside it.
 - Show Gradient Color: `bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500`.
@@ -132,6 +135,7 @@ Add the `@tailwind` directives for each of Tailwind’s layers to your main CSS 
 Run the CLI tool to scan your template files for classes and build your CSS.
 5. Start using Tailwind in your HTML. 
 Add your compiled CSS file to the `<head>` and start using Tailwind’s utility classes to style your content.
+
 ```html
 <head>
   <link href="./output.css" rel="stylesheet">

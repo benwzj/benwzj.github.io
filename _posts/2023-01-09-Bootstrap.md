@@ -29,7 +29,8 @@ In addition, developers can take advantage of CSS classes defined in Bootstrap t
 
 ### Using BootStrap
 
-just take following: 
+#### Using CDN 
+
 ```html
   <link rel="stylesheet"
    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -37,7 +38,12 @@ just take following:
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 ```
 
-## Using Bootstrap 4
+#### Install as a lib
+
+In a JavaScript framework like React, you can install Bootstrap into your project using a package manager like npm.
+`npm install bootstrap`
+
+## Bootstrap 4
 
 Main points: 
 - **Containers** are used to pad the content inside of them

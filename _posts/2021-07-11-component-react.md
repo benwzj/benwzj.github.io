@@ -1,9 +1,15 @@
 ---
 layout: post
-title: "React Component Detail"
+title: React Component Detail
 date: 2021-07-11
 categories: React
 tags: Component React
+toc: 
+  - name: Component Basic
+  - name: Class vs. Function Component
+  - name: Component Life cycle
+  - name: PureComponent vs Component
+  - name: Web component vs React component
 ---
 
 ## Component Basic
@@ -159,14 +165,14 @@ Just this method: `componentWillUnmount()`
 - It is easier to understand function components, which return react element. But how to understand Class component which use `render()`? 
 - Why `render()` function happen both in mounting and updating phrase?
 
-## React.PureComponent vs. React.Component
+## PureComponent vs Component
 
 React.PureComponent is similar to React.Component. 
 The difference between them is that 
 - React.PureComponent implements shouldComponentUpdate() with a shallow prop and state comparison.
 - React.Component doesn’t implement shouldComponentUpdate() by default. But if you are confident you want to write it by hand, you may compare this.props with nextProps and this.state with nextState and return false to tell React the update can be skipped. 
 
-## Web component vs. React component
+## Web component vs React component
 
 Web component and React component are in different scope. 
 Web Component is a web technology, that means it is a specification of w3c. While React component is a concept in React.
@@ -185,6 +191,6 @@ Web component basic approach:
 4. define an HTML template using `<template>` and `<slot>`.
 5. Use your custom element wherever you like on your page, just like you would any regular HTML element.
 
-React and Web Components are built to solve different problems. Web Components provide strong encapsulation for reusable components, while React provides a declarative library that keeps the DOM in sync with your data. The two goals are complementary. As a developer, you are free to use React in your Web Components, or to use Web Components in React, or both.
+React and Web Components are built to solve different problems. Web Components provide strong encapsulation for reusable components, while React provides a declarative library that keeps the DOM in sync with your data. The two goals are complementary. You are free to use React in your Web Components, or to use Web Components in React, or both.
 
 Most people who use React don’t use Web Components, but you may want to, especially if you are using third-party UI components that are written using Web Components.
