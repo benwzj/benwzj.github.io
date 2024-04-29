@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Next.js Dashboard-app
+title: Next.js Start Application
 date: 2024-03-29
 category: React
 tags: TypeScript JavaScript React Next.js
@@ -64,13 +64,7 @@ import styles from '@/app/ui/home.module.css';
 
 ### Toggle class names
 
-You can use the `clsx` library to toggle class names.
-
-Usage example: 
-- Suppose that you want to create an InvoiceStatus component which accepts status. The status can be 'pending' or 'paid'.
-- If it's 'paid', you want the color to be green. If it's 'pending', you want the color to be gray.
-You can use clsx to conditionally apply the classes.
-
+The `clsx` library is one choice to toggle class names.
 Like this:
 ```ts
 import clsx from 'clsx';
@@ -103,14 +97,14 @@ You can also style your Next.js application with:
 Next.js **downloads** font files at build time and hosts them with your other static assets. This means when a user visits your application, there are no additional network requests for fonts which would impact performance.
 
 Next.js do this to download font:
-/app/ui/fonts.ts
+`/app/ui/fonts.ts`: 
 ```ts
 import { Inter } from 'next/font/google';
  
 export const inter = Inter({ subsets: ['latin'] });
 ```
 
-/app/layout.tsx
+`/app/layout.tsx`:
 ```ts
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
@@ -128,7 +122,7 @@ export default function RootLayout({
 }
 ```
 
-### Images
+### Image Component
 
 The `<Image>` Component is an extension of the HTML `<img>` tag, and comes with automatic image optimization, such as:
 - Preventing layout shift automatically when images are loading.
