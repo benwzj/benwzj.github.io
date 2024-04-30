@@ -9,6 +9,7 @@ toc:
   - name: Styling
   - name: Optimizing Fonts and Images
   - name: Layouts and Pages
+  - name: Navigation
   - name: Fetch data
   - name: Streaming
   - name: Search and Pagination
@@ -21,7 +22,7 @@ toc:
   - name: References
 ---
 
-Next.js Starter application Dashboard-app is a good beginning to understand How do Next.js work and What have Next.js done.
+Next.js Starter application is a Dashboard app. It is a good beginning to understand How do Next.js work and What have Next.js done.
 This Blog list some conclusions of the application.
 
 ## Overview
@@ -108,7 +109,7 @@ export const inter = Inter({ subsets: ['latin'] });
 ```ts
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
- 
+
 export default function RootLayout({
   children,
 }: {
@@ -122,31 +123,73 @@ export default function RootLayout({
 }
 ```
 
+You can use Local font!
+Import `next/font/local` and specify the `src` of your local font file. Rrecommend using variable fonts for the best performance and flexibility.
+
+
 ### Image Component
 
-The `<Image>` Component is an extension of the HTML `<img>` tag, and comes with automatic image optimization, such as:
+The `<Image>` Component is an extension of the HTML `<img>` tag, and comes with automatic image optimization on top of `<img>`, such as:
+- Ensure image is responsive on different screen sizes.
 - Preventing layout shift automatically when images are loading.
 - Resizing images to avoid shipping large images to devices with a smaller viewport.
 - Lazy loading images by default (images load as they enter the viewport).
 - Serving images in modern formats, like WebP and AVIF, when the browser supports it.
 
+If you are using `<img>`, you need to handle all of that yourself.
+How to use `<Image>` at [here](https://nextjs.org/docs/app/building-your-application/optimizing/images).
+Learn more about image at [here](https://developer.mozilla.org/en-US/docs/Learn/Performance/Multimedia) and [here](https://web.dev/learn/images).
+
 ## Layouts and Pages
 
 Next.js uses **file-system routing** where folders are used to create nested routes. Each folder represents a route segment that maps to a URL segment.
 
-You can create separate UIs for each route using `layout.tsx` and `page.tsx` files.
+> You can create separate UIs for each route using `layout.tsx` and `page.tsx` files.
+{: .block-warining}
 
-- `page.tsx` is a special Next.js file that exports a React component, and it's required for the route to be accessible. Only the content inside the page file will be publicly accessible. 
-- You can use a special `layout.tsx` file to create UI that is shared between multiple pages.
+### page.tsx file
 
-### Navigating Between Pages
+`page.tsx` is a special Next.js file that exports a React component, and it's required for the route to be accessible. Only the content inside the page file will be publicly accessible. 
+For example, `/app/dashboard/page.tsx` is associated with the `/dashboard` path. 
 
-In Next.js, you can use the `<Link />` Component to link between pages in application. If you use <a> instead of <Link>, it will cause whole page refresh!
-When using <Link />` Component, although parts of your application are rendered on the server, there's no full page refresh, making it feel like a web app.
+### layout.tsx file
 
-#### Why the `<Link />` Component can do this?
+You can use a special `layout.tsx` file to create UI that is shared between multiple pages.
 
-It is because Next.js implment **Automatic code-splitting and prefetching**.
+The idea is like this: 
+layout.tsx structure:
+```ts
+import SideNav from '@/app/ui/dashboard/sidenav';
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
+      <div className="w-full flex-none md:w-64">
+        <SideNav />
+      </div>
+      <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
+    </div>
+  );
+}
+```
+- Any components you import into `layout.tsx` file will be part of the layout.
+- The `<Layout />` component receives a `children` prop. This child can either be a page or another layout. I
+- When `page.tsx` and `layout.tsx` are both in the same folder, the route will display `layout.tsx`.
+- All the `page.tsx` files inside same folder or subfolder will automatically be nested inside a `<Layout />`.
+- One benefit of using layouts is that on navigation, only the page components update while the layout won't re-render. This is called **partial rendering**.
+- `/app/layout.tsx` is called a **root layout** and is required. Any UI you add to the root layout will be shared across all pages in your whole application. You can use the root layout to modify your `<html>` and `<body>` tags, and add metadata
+
+## Navigation
+
+### The `<Link>` Component
+
+In Next.js, you can use the `<Link>` Component to link between pages in application. If you use `<a>` instead of `<Link>`, it will cause whole page refresh! 
+`<Link>` allows you to do client-side navigation with JavaScript.
+Although parts of your application are rendered on the server, hen using `<Link>` Component for navigation, there's no full page refresh, making it feel like a web app.
+
+### Why the `<Link>` Component can do this?
+
+It is because Next.js implement **Automatic code-splitting and prefetching**.
 
 Next.js automatically code splits your application by route segments. This is different from a traditional React SPA, where the browser loads all your application code on initial load.
 
@@ -154,30 +197,83 @@ Splitting code by routes means that pages become isolated. If a certain page thr
 
 Furthermore, in production, whenever `<Link>` components appear in the browser's viewport, Next.js automatically prefetches the code for the linked route in the background. By the time the user clicks the link, the code for the destination page will already be loaded in the background, and this is what makes the page transition near-instant!
 
-Also they provide `usePathname()` to get the current link path.
-
+### Hook `usePathname()`
+Next.js provide `usePathname()` to get the current link path. You can use this one to show user where are they.
 
 ## Fetch data
+
+### How to access backend database
+
+Some concepts: API, ORM, SQL, React Server Component;
+
+- API: 
+  - If you're using 3rd party services that provide an API.
+  - If you're fetching data from the client, you want to have an API layer that runs on the server to avoid exposing your database secrets to the client.
+  - API layer use ORM or SQL to fetch data.
+  - In Next.js, you can create API endpoints using Route Handlers.
+- ORM, like Prisma. To access your database, use ORM. ORMs generate SQL under the hood.
+- React Server Components 
+If you are using React Server Components (fetching data on the server), you can skip the API layer, and query your database directly without risking exposing your database secrets to the client.
 
 ### Using Server Components to fetch data!
 
 By default, Next.js applications use React Server Components. Fetching data with Server Components is a relatively new approach and there are a few benefits of using them:
+- Server Components support promises, providing a simpler solution for asynchronous tasks like data fetching. You can use async/await syntax without reaching out for useEffect, useState or data fetching libraries.
+- Server Components execute on the server, so you can keep expensive data fetches and logic on the server and only send the result to the client.
+- Server Components execute on the server, you can query the database directly without an additional API layer.
 
-Server Components support promises, providing a simpler solution for asynchronous tasks like data fetching. You can use async/await syntax without reaching out for useEffect, useState or data fetching libraries.
-Server Components execute on the server, so you can keep expensive data fetches and logic on the server and only send the result to the client.
-As mentioned before, since Server Components execute on the server, you can query the database directly without an additional API layer.
+### Parallel data fetching
 
-### Static and Dynamic Rendering
+Sequential fatching, also called waterfall pattern, is not necessarily bad. Sometime you may need to one step then next. However, this behavior can also be unintentional and impact performance.
+
+A common way to avoid waterfalls is to initiate all data requests at the same time - in parallel.
+In JavaScript, you can use the `Promise.all()` or `Promise.allSettled()` functions to initiate all promises at the same time.
+
+This Parallel pattern work like this:
+```ts
+export async function fetchCardData() {
+  try {
+    const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
+    const customerCountPromise = sql`SELECT COUNT(*) FROM customers`;
+    const invoiceStatusPromise = sql`SELECT
+         SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
+         SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
+         FROM invoices`;
+ 
+    const data = await Promise.all([
+      invoiceCountPromise,
+      customerCountPromise,
+      invoiceStatusPromise,
+    ]);
+    // ...
+  }
+}
+```
+
+> However, there is one disadvantage of relying only on this pattern: what happens if one data request is slower than all the others? Your application is only as fast as your slowest data fetch. One solution is using Streaming and static rendering.
+{: .block-warning}
+
+## Static and Dynamic Rendering
 
 Next.js provide Static and Dynamic Rendering function. By default, when you use Server component to fetch data. Next.js provide cached function which is stastic rendering. 
 Stastic rendering can make visit faster, good for SEO, reduced Server Load. 
 
-But you can use use dynamic rendering: 
 `import { unstable_noStore as noStore } from 'next/cache';`
+
+### What is Static Rendering
+With static rendering, data fetching and rendering happens on the server at build time (when you deploy) or during revalidation. The result can then be distributed and cached in a Content Delivery Network (CDN).
+
+Static rendering is useful for UI with no data or data that is shared across users
+
+### What is Dynamic Rendering
+With dynamic rendering, content is rendered on the server for each user at request time (when the user visits the page). There are a couple of benefits of dynamic rendering:
+
+- Real-Time Data
+- User-Specific Content
+- Request Time Information 
 
 ## Streaming
 
-What is streaming?
 Streaming is a data transfer technique that allows you to break down a route into smaller "chunks" and progressively stream them from the server to the client as they become ready.
 
 By streaming, you can prevent slow data requests from blocking your whole page. This allows the user to see and interact with parts of the page without waiting for all the data to load before any UI can be shown to the user.
@@ -185,21 +281,57 @@ By streaming, you can prevent slow data requests from blocking your whole page. 
 Streaming works well with React's component model, as each component can be considered a chunk.
 
 There are two ways you implement streaming in Next.js:
-- At the page level, with the loading.tsx file.
+- At the page level, with the `loading.tsx` file.
 - For specific components, with `<Suspense>`.
 
 ### Streaming a whole page with `loading.tsx`
 
-- `loading.tsx` is a special Next.js file built on top of Suspense, it allows you to create fallback UI to show as a replacement while page content loads.
-- Since `<SideNav>` is static, it's shown immediately. The user can interact with `<SideNav>` while the dynamic content is loading.
-- The user doesn't have to wait for the page to finish loading before navigating away.
+`loading.tsx` is a special Next.js file built on top of **Suspense**, it allows you to create fallback UI to show as a replacement while page content loads. `loading.tsx` is describing the fallback UI which should be a static rendering.
+
+To use Streaming with `loading.tsx`, the `loading.tsx` file is located at same folder level with `page.tsx`. Next.js will display `loading.tsx` first, then the `page.tsx`.
+
+Also, The user doesn't have to wait for the page to finish loading before navigating away.(this is called interruptable navigation).
+
+### route groups
+
+When `loading.tsx` is a level higher than `/subfolder/page.tsx` in the file system, it's also applied to that page. In order to fix this problem. Next.js use route groups concept: Create a new folder called `/(overview)` inside the dashboard folder. Then, move your `loading.tsx` and `page.tsx` files inside the folder. Now, the `loading.tsx` file will only apply to the same folder level page.
+
+> When you create a new folder using parentheses `()`, the name won't be included in the URL path. 
 
 ### Streaming a component with `<Suspense>`
 
 Wrap the component which need to be Streaming into `<Suspense>`.
 
-Move data fetching down to the components that need it, thus isolating which parts of your routes should be dynamic in preparation for Partial Prerendering.
-Using `<Suspense>` to wrap it.
+Suspense allows you to defer rendering parts of your application until some condition is met (e.g. data is loaded). You can wrap your dynamic components in Suspense. Then, pass it a fallback component to show while the dynamic component loads.
+
+Steps: 
+- Move data fetching down to the component that need it, thus isolating which parts of your routes should be dynamic in preparation for Partial Prerendering.
+- Using `<Suspense>` to wrap that component.
+
+```ts
+<Suspense fallback={<FetchDataComponentSkeleton />}>
+  <FetchDataComponent />
+</Suspense>
+```
+
+### Grouping components
+
+You can use Grouping components pattern when you want multiple components to load in at the same time. 
+Step:
+- Wrap all these multiple components into one component call WrapComponent.
+- These Grouping components inside the WrapComponent can use `Promise.all` to parallel fetch data.
+- Using `<Suspense>` to wrap that WrapComponent.
+
+### What is Partial Prerendering
+
+Application behaves today, where entire routes are either entirely static or dynamic.
+
+Partial Prerendering allows you to render a route with a static loading shell, while keeping some parts dynamic. In other words, you can isolate the dynamic parts of a route. 
+
+When a user visits a route:
+- A static route shell is served, ensuring a fast initial load.
+- The shell leaves holes where dynamic content will load in asynchronous.
+- The async holes are streamed in parallel, reducing the overall load time of the page.
 
 ## Search and Pagination
 
