@@ -460,7 +460,7 @@ setMyList(myList.map(artwork => {
 
 The basic idea of this framework is that, concluding user's intentions into objects, called action objects, which will be dispatched to a `reducer` function. `reducer` function is a pure function which consolidate a component’s state update logic and return the next `state`.
 
-`useReducer` behavior exactly like this:
+`useReducer` is build on top of `useState`. It behavior exactly like this:
 ```js
 import { useState } from 'react';
 
@@ -515,7 +515,7 @@ React will set the state to what you return from the reducer.
 
 > Reducer concept is come from the reducer in `Array.reduce()`. You could even use the `reduce()` method with an `initialState` and **an array of actions** to calculate the final state by passing your reducer function to it.
 
-#### Use the reducer from your component
+#### Use `useReducer`
 
 ```ts
 const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);

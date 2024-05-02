@@ -12,10 +12,9 @@ toc:
   - name: Navigation
   - name: Fetch data
   - name: Streaming
-  - name: Search and Pagination
-  - name: Server Actions
-  - name: Revalidate and redirect
-  - name: dynamic route segments with specific IDs
+  - name: Use URL search params
+  - name: React Server Actions
+  - name: Dynamic Route Segments
   - name: error handler
   - name: Form Validation
   - name: Adding Authentication
@@ -333,26 +332,64 @@ When a user visits a route:
 - The shell leaves holes where dynamic content will load in asynchronous.
 - The async holes are streamed in parallel, reducing the overall load time of the page.
 
-## Search and Pagination
+## Use URL search params
 
-Next.js is using **URL search params** to manage the search state.
+Next.js is using URL search params to manage the **search** and **pagination** state.
 
-Next.js provide Hooks for search: 
+### Why 
+
+- Bookmarkable and Shareable URLs
+- URL parameters can be directly consumed on the server to render the initial state, making it easier to handle server rendering
+- makes it easier to track user behavior
+
+### How
+
+Next.js provide Hooks: 
 - useSearchParams - Allows you to access the parameters of the current URL. For example, the search params for this URL `/dashboard/invoices?page=1&query=pending` would look like this: `{page: '1', query: 'pending'}`.
 - usePathname - Lets you read the current URL's pathname. For example, for the route `/dashboard/invoices`, usePathname would return `'/dashboard/invoices'`.
 - useRouter - Enables navigation between routes within client components programmatically. 
 
-## Server Actions
+You use these Hooks to implement the interact logic between client and server components.
 
-React Server Actions allow you to run asynchronous code directly on the server. They eliminate the need to create API endpoints to mutate your data. Instead, you write asynchronous functions that execute on the server and can be invoked from your Client or Server Components.
+### Steps
 
-Server Actions achieve this through techniques like `POST` requests, encrypted closures, strict input checks, error message hashing, and host restrictions, all working together to significantly enhance your app's safety.
+Setup the query string Steps:
 
-### Using forms with Server Actions
+1. In client component, using `useSearchParams`, `URLSearchParams`, `useRouter` and `usePathname` to update the URL.
+2. When the URL updagte, it will works as prop update to the Server component. Server component will fetch data and re-render.
 
-In React, you can use the action attribute in the `<form>` element to invoke actions. The action will automatically receive the native `FormData` object, containing the captured data.
+> This client component may live inside the server component in code base. This logic looks weird but works.
+> So URL search params is the key point to make client and server component interact each other.
+{: .block-warning}
 
-For example:
+You use **query string** to implement Fetch data, Search and Pagination function.
+
+## React Server Actions
+
+### What is React Server Actions
+
+React Server Actions allow you to run asynchronous code directly on the server to **mutate data**. You can write asynchronous functions that execute on the server and can be invoked from your Client or Server Components.
+
+They eliminate the need to create API endpoints to mutate data. 
+
+Server Actions achieve this through techniques like **`POST` requests**, **encrypted closures**, **strict input checks**, **error message hashing**, and **host restrictions**, all working together to significantly enhance your app's safety.
+
+### How to create Server Actions
+
+By adding the `'use server'` to a file, you mark all the exported functions within the file as server functions. These server functions can then be imported into Client and Server components, making them extremely versatile.
+You can also write Server Actions directly inside Server Components by adding `"use server"` inside the action. 
+
+Usually, you use the `action` attribute in the `<form>` element to invoke actions. When you submit the form, Server action function `createRecord` will automatically receive the native `FormData` object, containing the captured data. Like this: `createRecord(formData: FormData)`. 
+
+> Good to know: 
+>
+> In HTML, you'd pass a URL to the `action` attribute of `<form>`. This URL would be the destination where your form data should be submitted (usually an API endpoint).
+> However, in React, the `action` attribute of `<form>` is considered a special prop - meaning React builds on top of it to allow actions to be invoked.
+> Behind the scenes, Server Actions create a `POST` API endpoint. This is why you don't need to create API endpoints manually when using Server Actions.
+
+### Example
+
+Invoking a Server Action within a Server Component :
 ```ts
 // Server Component
 export default function Page() {
@@ -368,26 +405,71 @@ export default function Page() {
 }
 ```
 
-Server Actions are also deeply integrated with Next.js caching. When a form is submitted through a Server Action, not only can you use the action to mutate data, but you can also revalidate the associated cache using APIs like `revalidatePath` and `revalidateTag`.
+### some point for server action
 
-> Good to know: 
->
-> In HTML, you'd pass a URL to the action attribute of `<form>`. This URL would be the destination where your form data should be submitted (usually an API endpoint).
-> However, in React, the action attribute is considered a special prop - meaning React builds on top of it to allow actions to be invoked.
-> Behind the scenes, Server Actions create a `POST` API endpoint. This is why you don't need to create API endpoints manually when using Server Actions.
+- Using `bind` to send data to server action.
+- Even you just delete a record, you will wrap the delete button into a `form` to invoke server action.
+- Usuall you will Revalidate and redirect after mutate data. Because of Next.js catching. 
 
-## Revalidate and redirect
+### Revalidate and redirect
+
+Usually, you will Revalidate and redirect in the server action.
 
 Next.js has a Client-side Router Cache that stores the route segments in the user's browser for a time. Along with prefetching, this cache ensures that users can quickly navigate between routes while reducing the number of requests made to the server.
 
 - `revalidatePath` allows you to purge cached data on-demand for a specific path.
 - The `redirect` function allows you to redirect the user to another URL. `redirect` can be used in Server Components, Route Handlers, and Server Actions.
 
-## dynamic route segments with specific IDs
+#### How to use it
 
-Next.js allows you to create Dynamic Route Segments when you don't know the exact segment name and want to create routes based on data. This could be blog post titles, product pages, etc. You can create dynamic route segments by wrapping a folder's name in square brackets. For example, [id], [post] or [slug].
+- Inside the server action function, you will add `revalidatePath('/dashboard/invoices');`. Then the `/dashboard/invoices` path will be revalidated, and fresh data will be fetched from the server.
+- At this point, you also want to redirect the user back to the `/dashboard/invoices` page by adding  `redirect('/dashboard/invoices'); ` 
+
+## Dynamic Route Segments
+
+Next.js allows you to create Dynamic Route Segments when you don't know the exact segment name and want to create routes based on data. 
+This could be product ID, blog post titles, product pages, etc. You can create dynamic route segments by wrapping a folder's name in square brackets. For example, [id], [post] or [slug].
+
+For example, you need a invoice update function. Then you need to Create a Dynamic Route Segment with the invoice id. 
+
+### Steps:
+
+- In your /invoices folder, create a new dynamic route called [id], then a new route called `edit` with a `page.tsx` file. 
+
+- The Update Button for each invoice will do this: 
+
+```ts
+<Link
+  href={`/dashboard/invoices/${id}/edit`}
+  className="rounded-md border p-2 hover:bg-gray-100"
+>
+```
+
+- Inside the `[id]/edit/page.tsx`, it will Read the invoice `id` from page `params`.
+
+```ts
+export default async function Page({ params }: { params: { id: string } }) {
+  const id = params.id;
+  // ...
+}
+```
+
+- Inside the `[id]/edit/page.tsx`, you will Fetch the specific invoice according to the `id` to fill the page.  
+
+- When user confirm update, You will update Database by using Server Action. At this moment, You can't just pass `id` to server action! Instead, you can pass id to the Server Action using JS bind. 
+
+```ts
+const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+return (
+  <form action={updateInvoiceWithId}>
+    <input type="hidden" name="id" value={invoice.id} />
+  </form>
+);
+```
 
 ## error handler
+
+Next.js works as framework, it have implement error handle flow. When something wrong happen, it can automatically implement the routine. For example, if you define a `error.tsx` file, it will turn to this file.
 
 ### `error.tsx` file
 
@@ -395,7 +477,7 @@ When you add `error.tsx` file to your route segments folder, the `error.tsx` fil
 
 `error.tsx` file describe the UI and should like this:
 
-- "use client" - error.tsx needs to be a Client Component.
+- `"use client"` - error.tsx needs to be a Client Component.
 - It accepts two props:
   - `error`: This object is an instance of JavaScript's native Error object.
   - `reset`: This is a function to reset the error boundary. When executed, the function will try to re-render the route segment.
@@ -414,7 +496,7 @@ if (!invoice) {
 2. Create a `not-found.tsx` file in your route segments folder.
 3. Then `not-found.tsx` file will display when notFound happen.
 
-> That's something to keep in mind, notFound will take precedence over error.tsx, so you can reach out for it when you want to handle more specific errors!
+> That's something to keep in mind, `notFound` will take precedence over `error.tsx`, so you can reach out for it when you want to handle more specific errors!
 
 ## Form Validation
 
