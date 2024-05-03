@@ -16,6 +16,7 @@ toc:
   - name: React Server Actions
   - name: Dynamic Route Segments
   - name: error handler
+  - name: useFormState
   - name: Form Validation
   - name: Adding Authentication
   - name: References
@@ -502,7 +503,7 @@ if (!invoice) {
 
 ### Client-Side validation
 
-There are a couple of ways you can validate forms on the client. The simplest would be to rely on the form validation provided by the browser by adding the `required` attribute to the `<input>` and `<select>` elements in your `forms`. For example:
+There are a couple of ways you can validate forms on the client. The simplest would be to rely on the form validation provided by the browser by simply adding the `required` attribute to the `<input>` and `<select>` elements in your `forms`. For example:
 
 ```ts
 <input
@@ -517,10 +518,36 @@ There are a couple of ways you can validate forms on the client. The simplest wo
 
 ### Server-Side validation
 
-- use `Zod` to validate form data.
-- If form validation fails, return errors early.
-- Now you can **access the errors using the form state**. 
-- Add a ternary operator that checks for each specific error. Using the `aria` labels to show message: 
+- Use `useFormState` to connect form state to Server Action function.
+- use `Zod` lib to implement validating form data. If form validation fails, return errors early.
+- Using the `aria` labels to show error information in form.
+
+### useFormState (useActionState)
+
+- `useFormState` hook is from `react-dom` lib.
+- `useActionState` is the new hook to **replace** `useFormState`. `useActionState` is from `react` lib.
+- It is a messager between the component who use `form` and React Server Action function.
+- Use for Server-Side Form Validation.
+- Basic usage: like Displaying form errors, structured information after submitting a form.
+
+#### What and How
+
+`useActionState` is a Hook that allows you to update state based on the result of a form action.
+It is a messager between the component who use `form` and React Server Action function.
+
+Call `useActionState` at the top level of your component to create component state that is updated when a form action is invoked.
+
+```ts
+const [state, formAction] = useActionState(fn, initialState, permalink?);
+```
+
+You pass `useActionState` an existing form action function as well as an initial state, and it returns a new action that you use in your form, along with the latest form state. The latest form state is also passed to the function that you provided.
+
+### `aria` labels 
+
+get more informaiton from [MDN doc](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label).
+
+The code below will show error information when `state.errors` is `true`:
 ```ts
   <div className="relative">
     <select
