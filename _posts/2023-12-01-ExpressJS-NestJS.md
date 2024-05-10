@@ -3,7 +3,7 @@ layout: post
 title: ExpressJS vs. NestJS
 date: 2023-12-01
 category: JavaScript
-tags: TypeScript JavaScript NodeJS Framework
+tags: TypeScript JavaScript Node.js
 ---
 
 Both of them are Server side application frameworks for NodeJS.
