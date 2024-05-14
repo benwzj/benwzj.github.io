@@ -15,8 +15,7 @@ toc:
   - name: Use URL search params
   - name: React Server Actions
   - name: Dynamic Route Segments
-  - name: error handler
-  - name: useFormState
+  - name: Error Handler
   - name: Form Validation
   - name: Adding Authentication
   - name: References
@@ -468,7 +467,7 @@ return (
 );
 ```
 
-## error handler
+## Error Handler
 
 Next.js works as framework, it have implement error handle flow. When something wrong happen, it can automatically implement the routine. For example, if you define a `error.tsx` file, it will turn to this file.
 
@@ -543,9 +542,9 @@ const [state, formAction] = useActionState(fn, initialState, permalink?);
 
 You pass `useActionState` an existing form action function as well as an initial state, and it returns a new action that you use in your form, along with the latest form state. The latest form state is also passed to the function that you provided.
 
-### `aria` labels 
+### 'aria' labels 
 
-get more informaiton from [MDN doc](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label).
+About `aria` labels more informaiton, Check [MDN doc](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label).
 
 The code below will show error information when `state.errors` is `true`:
 ```ts
@@ -606,6 +605,7 @@ export const { auth, signIn, signOut } = NextAuth({
 
 #### The login form
 you create the login route and component. for example, create route `'/login'`.
+This login page UI should use `form` which is using authenticate() Server action to authenticate user.
 
 ## References
 
