@@ -8,6 +8,7 @@ toc:
   - name: What is Tailwind CSS
   - name: Use Tailwind CSS
   - name: Setup Tailwind CSS
+  - name: FQA
   - name: References
 ---
 
@@ -15,6 +16,7 @@ toc:
 
 ### CSS Problems
 
+CSS have it's problems: 
 1. Separation
 2. Verbosity
 3. Too Much Power
@@ -70,7 +72,7 @@ In Tainwind website, and press `ctrl + k`, you can access search directly.
 Using 'Tailwind CSS IntelliSense' and CSS knowledge can do 75% of Tailwind CSS coding directly. 
 You might need to check the Tailwind Doc for the usage of another 25%. For example `position`, Tailwind is using `static`, `fixed`, etc. It may be a bit confusing at the beginning.
 
-### Document 'Core Concepts' Section
+### Read Tailwind Doc 'Core Concepts' Section
 
 Ok, 95% classes can convert to CSS simply. And 5% of clssses are not map 1 to 1 to CSS. You just need to go to the 'Core Concepts' section in the Tainwind Doc, and glance over them, you will get the most of the idea.
 
@@ -91,7 +93,7 @@ Prefix the utility with the breakpoint name, followed by the `:` character.
 <img class="w-16 md:w-32 lg:w-48" src="...">
 ```
 
-If you’d like to apply a utility only when a specific breakpoint range is active, stack a responsive modifier like `md` with a `max-*` modifier to limit that style to a specific range
+If you’d like to apply a utility only when a specific breakpoint range is active, stack a responsive modifier like `md` with a `max-*` modifier to limit that style to a specific range.
 
 ### Some Usage Cases
 

@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Jekyll Theme system"
+title: Jekyll Theme system
 date: 2019-12-14
 featured: true
 categories: Website
-tags: Markdown Jekyll HTML Theme Static-website Theming
+tags: Markdown Jekyll HTML Theme Wsebsite
 
 ---
 
@@ -16,11 +16,14 @@ A website theme manages the front-end design, establishing the overall appearanc
 Themes determine all design components: page layouts, backgrounds, color palettes, headers and footers, positioning, sizing, and typography. 
 There are a word call **Theming**. Theming can be separate from functioning of the website. There are a separate position which is profession at creating website theming.
 
-### How Do Website Themes Work?
-A website theme works via CSS HTML and JS all together! Themes for website should like cloth for human, it should be changable. So when you design a website , theming should be a important part to conside.
+For example, Day and night theme are for day night environment. Mobile and laptop should have different themes. Different topic website should have different themes.
 
-## Toggle day night theme
+> How Do Website Themes Work?
+> A website theme works via CSS HTML and JS all together! 
 
+## Implement theme swap
+
+Toggle day night theme
 Generially, implement theme on website will do these steps:
 
 1. Use local storage to store current theme. 

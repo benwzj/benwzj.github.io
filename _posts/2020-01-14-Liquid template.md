@@ -1,14 +1,17 @@
 ---
 layout: post
-title: "Introduce Liquid Template Language"
+title: Liquid Template Language
 date: 2020-01-14
-categories: HTML
-tags: Template Overview Jekyll
+categories: Language
+tags: Liquid Jekyll Website Shopify
 ---
 
 ## What is Liquid
 
-Liquid is an open-source template language integrated. It can be used to add dynamic content to webpages, and to create a wide variety of custom web templates.
+Liquid is an open-source template language created by Shopify and written in Ruby. 
+
+Liquid is the backbone of Shopify themes and is used to load dynamic content on storefronts.
+Jekyllm use Liquid to create HTML content. 
 
 Liquid uses a combination of **objects**, **tags**, and **filters** inside template files to display dynamic content.
 
@@ -47,7 +50,6 @@ Always use the “split” filter when you create an array in Liquid or else you
 
 ```
 { %- assign example_array =  "value1, value2, value3" | split: ", " -% }
-
 ```
 
 - Use COMPACT filter to compact an array,

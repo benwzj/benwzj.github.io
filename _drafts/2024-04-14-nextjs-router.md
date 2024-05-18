@@ -15,3 +15,6 @@ In version 13, Next.js introduced a new App Router built on React Server Compone
 
 The App Router works in a new directory named `app`. The `app` directory works alongside the `pages` directory to allow for incremental adoption. This allows you to opt some routes of your application into the new behavior while keeping other routes in the pages directory for previous behavior. 
 
+## FQA
+
+### How to create dynamic route segments?

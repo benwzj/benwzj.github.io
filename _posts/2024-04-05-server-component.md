@@ -17,6 +17,7 @@ toc:
 ---
 
 Router is the skeleton of the whole Application. It can decide HOW to render Server Components and Client Components.
+
 In Next.js, all components in the App Router are Server Components **by default**! 
 
 ## Foundational web concepts

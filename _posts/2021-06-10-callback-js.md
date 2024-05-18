@@ -3,7 +3,7 @@ layout: post
 title: Callback in JS
 date: 2021-06-10
 categories: JavaScript
-tags: Call-back Event-loop Asynchronous JavaScript
+tags: Callback Event-loop Asynchronous JavaScript
 toc: 
   - name: Callback Concept
   - name: Event handler

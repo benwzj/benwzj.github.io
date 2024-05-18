@@ -1,11 +1,11 @@
 ---
 layout: post
-title: " Introduce Jekyll and GitHub Pages "
+title: Jekyll and GitHub Pages
 date: 2019-12-12
 updated: 2023-09-09
 featured: true
 categories: Website
-tags: GitHub-pages HTML Jekyll Markdown
+tags: HTML Jekyll Markdown Liquid Website
 toc:
   - name: What is Jekyll
   - name: Jekyll file structure
@@ -14,7 +14,7 @@ toc:
       - name: Configuration
       - name: Basic files structure
   - name: What is Front Matter
-  - name: What is Liquid
+  - name: Liquid Language
   - name: GitHub Pages
   - name: Setup GitHub Pages Steps
   - name: FQA
@@ -100,7 +100,9 @@ categories: CATEGORY-1 CATEGORY-2
 
 Any file that contains a YAML front matter block will be processed by Jekyll as a special file.
 
-## What is Liquid
+## Liquid Language
+
+You can use Liquid in `.html` or `md` files to create HTMLs. Jekyll will scan all these type files and compile all Liquid template to HTML.
 
 Liquid is a templating language which has three main components:
 - objects
