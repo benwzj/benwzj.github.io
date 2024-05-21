@@ -26,18 +26,25 @@ For example, Day and night theme are for day night environment. Mobile and lapto
 Toggle day night theme
 Generially, implement theme on website will do these steps:
 
-1. Use local storage to store current theme. 
+### Trigger Theme Change
+
+#### Local storage
+Use local storage to store current theme. 
 Like this:
 ``` javascript
 localStorage.setItem("theme", theme);
 ```
+#### `prefers-color-scheme`
+Use The `prefers-color-scheme` CSS media feature, A user indicates their preference through an operating system setting (e.g. light or dark mode) or a user agent setting.
+Read more in [MDN doc](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme).
 
-2. Use JavaScript function to toggle theme.
-There are two ways to do step:
-- Use document elements `classList.toggle()` function to toggle theme.
+### Implement Theme Change
+Use JavaScript function to toggle theme.
+- Use document elements `classList.toggle()` function to toggle `class` for toggling them.
 - Or use CSS Attribute selector to toggle theme.
 
-### Using classList.toggle()
+#### Toggle `class`
+Using `classList.toggle()` or `classList.add()`, `classList.remove()` to toggle `class` in element, e.g. `body`. Then the `class` which toggling will affect the whold wetsite.
 
 The main structure:
 ```javascript
@@ -57,25 +64,33 @@ function myFunction() {
 }
 </script>
 ```
-Alternative way is using `element.classList.add()` and `element.classList.remove()` instead of `element.classList.toggle`. 
 
-### Use CSS Attribute selector
+#### Use CSS Attribute Selector
+
+Use root element CSS Attribute Selector to toggle Dark Mode.
 
 1. First, use `variable` and `Attribute Selector` to implement website theme:
 
 ```css
-[data-theme="dark"] {
+:root {
   --font-size: 20px;
-  --background: red;
+  --background: white;
+  ...
+}
+html[data-theme="dark"] {
+  --font-size: 20px;
+  --background: black;
+  ...
 }
 ```
 
-2. Second, Using **set** and **delete** elements’ theme attribute to toggle website theme: 
-
+2. Second, Using **set** and **delete** root element's `data-theme` attribute to toggle website theme: 
 ```javascript
-document.documentElement.setAttribute("data-theme", theme); 
+document.documentElement.setAttribute("data-theme", "dark"); 
 document.documentElement.removeAttribute("data-theme");
 ```
+
+> This website is using Attribute Selector to toggle Dark Mode.
 
 ## Understand Jekyll Gem-based Theme
 

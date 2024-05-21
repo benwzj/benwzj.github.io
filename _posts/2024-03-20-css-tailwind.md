@@ -7,6 +7,7 @@ tags: CSS HTML
 toc:
   - name: What is Tailwind CSS
   - name: Use Tailwind CSS
+  - name: Tailwind Docs
   - name: Setup Tailwind CSS
   - name: FQA
   - name: References
@@ -66,18 +67,18 @@ Cons:
 95% of Tailwind utility classes can convert to CSS directly. For example `padding`, you can search at Tainwind Doc and it will show you that how it design classes around padding and how to use them. And it also show you that `p-0` is `padding: 0px;` etc.
 In Tainwind website, and press `ctrl + k`, you can access search directly.
 
-> Pro tip:
-> Using 'Tailwind CSS IntelliSense' VSCode plugin to write Tailwind CSS code.
+### Tailwind CSS IntelliSense
 
-Using 'Tailwind CSS IntelliSense' and CSS knowledge can do 75% of Tailwind CSS coding directly. 
+Using 'Tailwind CSS IntelliSense' VSCode plugin and CSS knowledge can do 75% of Tailwind CSS coding directly. 
 You might need to check the Tailwind Doc for the usage of another 25%. For example `position`, Tailwind is using `static`, `fixed`, etc. It may be a bit confusing at the beginning.
 
-### Read Tailwind Doc 'Core Concepts' Section
+## Tailwind Docs
 
-Ok, 95% classes can convert to CSS simply. And 5% of clssses are not map 1 to 1 to CSS. You just need to go to the 'Core Concepts' section in the Tainwind Doc, and glance over them, you will get the most of the idea.
+Ok, 95% classes can convert to CSS simply. And 5% of clssses are not map 1 to 1 to CSS. You just need to go to the **'Core Concepts'** section in the Tainwind Doc, and glance over them, you will get the most of the idea.
 
-#### 'Hover, Focus, and Other States' section
-'Hover, Focus, and Other States' section go over 99% of the different edge use cases for handling things like hovering, focusing, pseudo element, and so on, which you can't handle with CSS classes. But Tailwind get around that and implement these functionality for pretty much everything with classes. 
+### Hover, Focus, and Other States
+
+'Hover, Focus, and Other States' in 'Core Concepts' Section go over 99% of the different edge use cases for handling things like hovering, focusing, pseudo element, and so on, which you can't handle with CSS classes. But Tailwind get around that and implement these functionality for pretty much everything with classes. 
 
 For example, 
 - It use **colon** to show hover effect: `hover:bg-violet-600`.
@@ -86,7 +87,7 @@ When you need to style an element based on the state of some parent element, mar
 - It have **peer** concept:
 When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers like peer-invalid to style the target element
 
-#### Responsive Design
+### Responsive Design
 Prefix the utility with the breakpoint name, followed by the `:` character.
 ```html
 <!-- Width of 16 by default, 32 on medium screens, and 48 on large screens -->
@@ -94,6 +95,93 @@ Prefix the utility with the breakpoint name, followed by the `:` character.
 ```
 
 If you’d like to apply a utility only when a specific breakpoint range is active, stack a responsive modifier like `md` with a `max-*` modifier to limit that style to a specific range.
+
+### Dark Mode
+
+**By default**, Tailwind is use `dark` variant to implement Dark Mode.
+**By default**, Tailwind uses the `prefers-color-scheme` CSS `media` feature to trigger Dark Mode. 
+You can change all these behavior if you want!
+
+#### `dark` variant
+Tailwind includes a `dark` variant that lets you style your site differently when dark mode is enabled.
+Like this: `<div class="bg-white dark:bg-slate-800"></div>`
+
+#### `selector` strategy
+If you want to support toggling dark mode **manually** instead of relying on the operating system preference, for example, using `localStorage` to toggle Dark mode, then use the `selector` strategy instead of the `media` strategy. 
+Add this:
+```js
+// in tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: 'selector',
+  // ...
+}
+```
+Now instead of `dark:{class}` classes being applied based on `prefers-color-scheme`, they will be applied whenever the `dark` class is present earlier in the HTML tree.
+```html
+<!-- Dark mode not enabled -->
+<html>
+<body>
+  <!-- Will be white -->
+  <div class="bg-white dark:bg-black">
+    <!-- ... -->
+  </div>
+</body>
+</html>
+
+<!-- Dark mode enabled -->
+<html class="dark">
+<body>
+  <!-- Will be black -->
+  <div class="bg-white dark:bg-black">
+    <!-- ... -->
+  </div>
+</body>
+</html>
+```
+
+You can even Customize the attribute selector, for example `data-mode`, instead of `class`.
+Do this:
+```js
+tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ['selector', '[data-mode="dark"]'],
+  // ...
+}
+```
+
+#### Supporting system preference and manual selection
+Then do this:
+```js
+// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.classList.add('dark')
+} else {
+  document.documentElement.classList.remove('dark')
+}
+
+// Whenever the user explicitly chooses light mode
+localStorage.theme = 'light'
+
+// Whenever the user explicitly chooses dark mode
+localStorage.theme = 'dark'
+
+// Whenever the user explicitly chooses to respect the OS preference
+localStorage.removeItem('theme')
+```
+
+#### Overriding the dark variant
+If you’d like to replace Tailwind’s built-in dark variant with your own custom variant, you can do so using the `variant` dark mode strategy:
+```js
+// in tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ['variant', '&:not(.light *)'],
+  // ...
+}
+```
+When using this strategy Tailwind will not modify the provided selector in any way, so be mindful of it’s specificity and consider using the :where() pseudo-class to ensure it has the same specificity as other utilities.
 
 ### Some Usage Cases
 
