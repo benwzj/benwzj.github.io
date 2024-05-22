@@ -5,7 +5,14 @@ date: 2019-12-14
 featured: true
 categories: Website
 tags: Markdown Jekyll HTML Theme Wsebsite
-
+toc: 
+  - name: What is Website Theme
+  - name: Implement theme swap
+    subsections: 
+      - name: Trigger Theme Change
+      - name: Implement Theme Change
+  - name: Jekyll Gem-based Theme
+  - name: How Jekyll handle style
 ---
 
 In this post, I will talk about what is website theme, What is Jekyll theme system, How Jekyll theme system work.
@@ -69,8 +76,7 @@ function myFunction() {
 
 Use root element CSS Attribute Selector to toggle Dark Mode.
 
-1. First, use `variable` and `Attribute Selector` to implement website theme:
-
+- First, use `variable` and `Attribute Selector` to implement website theme:
 ```css
 :root {
   --font-size: 20px;
@@ -84,7 +90,7 @@ html[data-theme="dark"] {
 }
 ```
 
-2. Second, Using **set** and **delete** root element's `data-theme` attribute to toggle website theme: 
+- Second, Using **set** and **delete** root element's `data-theme` attribute to toggle website theme: 
 ```javascript
 document.documentElement.setAttribute("data-theme", "dark"); 
 document.documentElement.removeAttribute("data-theme");
@@ -92,7 +98,7 @@ document.documentElement.removeAttribute("data-theme");
 
 > This website is using Attribute Selector to toggle Dark Mode.
 
-## Understand Jekyll Gem-based Theme
+## Jekyll Gem-based Theme
 
 Jekyll has an **extensive theme system**. This means it allows you to leverage community-maintained templates and styles to customize your site’s presentation. And also allow you override any of your theme's defaults by editing the theme's files. 
 
@@ -136,10 +142,12 @@ theme: jekyll-theme-minimal
 
 If you’re publishing your Jekyll site on GitHub Pages, note that GitHub Pages supports only some gem-based themes.
 
-## How Jekyll implement style on post
+## How Jekyll handle style
+
+How Jekyll implement style on post? 
 
 **Kramdown** is the default Markdown renderer for Jekyll. You can also configure Kramdown options.
-**Kramdown** parse markdown file into HTML, and embed CSS style class for each HTML tag. 
+Kramdown parse markdown file into HTML, and embed CSS style class for each HTML tag. 
 
 ### Layout
 **_layouts** directory play **main** role on style of each website page.
@@ -168,11 +176,4 @@ Jekyll create `.highlight .k .n` etc. CSS class for Syntax highlighting `<code>`
 ```
 
 You can customize these classes as well!
-
-
-
-
-
-
-
 

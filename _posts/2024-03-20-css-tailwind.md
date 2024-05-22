@@ -88,6 +88,16 @@ When you need to style an element based on the state of some parent element, mar
 When you need to style an element based on the state of a sibling element, mark the sibling with the peer class, and use peer-* modifiers like peer-invalid to style the target element
 
 ### Responsive Design
+
+> Working mobile-first
+{: .block-warning}
+
+By default, Tailwind uses a mobile-first breakpoint system.
+What this means is that unprefixed utilities (like uppercase) take effect on all screen sizes, while prefixed utilities (like md:uppercase) only take effect at the specified breakpoint and above.
+
+Where this approach surprises people most often is that to style something for mobile, you need to use the unprefixed version of a utility, not the sm: prefixed version. Don’t think of sm: as meaning “on small screens”, think of it as “at the small breakpoint“.
+
+Example: 
 Prefix the utility with the breakpoint name, followed by the `:` character.
 ```html
 <!-- Width of 16 by default, 32 on medium screens, and 48 on large screens -->

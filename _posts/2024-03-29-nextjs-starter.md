@@ -172,7 +172,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 }
 ```
 - Any components you import into `layout.tsx` file will be part of the layout.
-- The `<Layout />` component receives a `children` prop. This child can either be a page or another layout. I
+- The `<Layout />` component receives a `children` prop. This child can either be a page or another layout.
 - When `page.tsx` and `layout.tsx` are both in the same folder, the route will display `layout.tsx`.
 - All the `page.tsx` files inside same folder or subfolder will automatically be nested inside a `<Layout />`.
 - One benefit of using layouts is that on navigation, only the page components update while the layout won't re-render. This is called **partial rendering**.
@@ -344,19 +344,19 @@ Next.js is using URL search params to manage the **search** and **pagination** s
 
 ### How
 
-Next.js provide Hooks: 
+#### Next.js provide Hooks: 
 - useSearchParams - Allows you to access the parameters of the current URL. For example, the search params for this URL `/dashboard/invoices?page=1&query=pending` would look like this: `{page: '1', query: 'pending'}`.
 - usePathname - Lets you read the current URL's pathname. For example, for the route `/dashboard/invoices`, usePathname would return `'/dashboard/invoices'`.
 - useRouter - Enables navigation between routes within client components programmatically. 
 
 You use these Hooks to implement the interact logic between client and server components.
 
-### Steps
+#### Steps
 
 Setup the query string Steps:
 
-1. In client component, using `useSearchParams`, `URLSearchParams`, `useRouter` and `usePathname` to update the URL.
-2. When the URL updagte, it will works as prop update to the Server component. Server component will fetch data and re-render.
+1. In client component, using `useSearchParams`, `URLSearchParams`, `useRouter` and `usePathname` to update the URL and navigate to that URL.
+2. When the URL updagte, it will navigate to that route and the page for that route will works as prop update to the Server component. Server component will fetch data and re-render.
 
 > This client component may live inside the server component in code base. This logic looks weird but works.
 > So URL search params is the key point to make client and server component interact each other.
