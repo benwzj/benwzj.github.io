@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Server Component and Next.js
+title: Undterstand Server Component
 date: 2024-04-04
 category: React
 tags: React Next.js Router
@@ -16,9 +16,11 @@ toc:
   - name: FQA
 ---
 
-Router is the skeleton of the whole Application. It can decide HOW to render Server Components and Client Components.
+Here will talk from the point of Next.js.
 
 In Next.js, all components in the App Router are Server Components **by default**! 
+
+Router is the skeleton of the whole Next.js Application. It can decide **HOW** to render Server Components and Client Components.
 
 ## Foundational web concepts
 
@@ -54,12 +56,11 @@ In practice, this model encourages developers to think about what they want to e
 
 ## React Server Components
 
+### Server Rendering
 React Server Components allow you to write UI that can be rendered and optionally cached on the server. 
-
 In short, Server Components allow you to do **Server Rendering**.
 
-### Benefits of Server Rendering
-
+#### Benefits of Server Rendering
 - Data Fetching: Server Components allow you to move data fetching to the server.
 - Security: Server Components allow you to keep sensitive data and logic on the server.
 - Caching: By rendering on the server, the result can be cached and reused on subsequent requests and across users. 
@@ -83,7 +84,17 @@ Each chunk is rendered in two steps:
 Then, on the client:
 1. The HTML is used to immediately show a fast non-interactive preview of the route - this is for the initial page load only.
 2. The RSC Payload is used to reconcile the Client and Server Component trees, and update the DOM.
-3. The JavaScript instructions are used to hydrate Client Components and make the application interactive.
+3. The JavaScript instructions are used to **hydrate** Client Components and make the application interactive.
+
+### What is Hydration
+
+In React, “hydration” is how React “attaches” to existing HTML that was already rendered by React in a server environment. During hydration, React will attempt to attach event listeners to the existing markup and take over rendering the app on the client.
+
+For example, Call `hydrate` to attach a React component into a server-rendered browser DOM node:
+```js
+import { hydrate } from 'react-dom';
+hydrate(<App />, document.getElementById('root'));
+```
 
 ### What is the React Server Component Payload (RSC Payload)?
 
@@ -122,31 +133,47 @@ Streaming enables you to progressively render UI from the server. Work is split 
 
 Streaming is built into the Next.js App Router by default. This helps improve both the initial page loading performance, as well as UI that depends on slower data fetches that would block rendering the whole route.
 
+### Use Server component
+
+- You don't need to use `"use server"` to write Server component. Just ust `"use server"` to export server atction.
 
 ## Client Components
 
 Client Components allow you to write interactive UI that is prerendered on the server and can use client JavaScript to run in the browser.
 
-### Benefits of Client Rendering
-
+### Client Rendering
+Benefits of Client Rendering
 - Interactivity: Client Components can use state, effects, and event listeners, meaning they can provide immediate feedback to the user and update the UI.
 - Browser APIs: Client Components have access to browser APIs, like geolocation or localStorage.
 
-### Using Client Components in Next.js
+### Using Client Components
 To use Client Components, you can add the React `"use client"` directive at the top of a file, above your `imports`.
 
 `"use client"` is used to declare a boundary between a Server and Client Component modules. This means that by defining a `"use client"` in a file, all other modules imported into it, including child components, are considered part of the client bundle.
 
-> You can define multiple `"use client"` entry points in your React Component tree. This allows you to split your application into multiple client bundles.
-> However, `"use client"` doesn't need to be defined in every component that needs to be rendered on the client. Once you define the boundary, all child components and modules imported into it are considered part of the client bundle.
+You can define multiple `"use client"` **entry points** in your React Component tree. This allows you to split your application into multiple client bundles.
+
+However, `"use client"` doesn't need to be defined in every component that needs to be rendered on the client. For example, when you import a component into a client component, that component will be treated as client component. 
+Once you define the boundary, all child components and modules imported into it are considered part of the client bundle.
+
+> All components are considered as Server components first until you use `"use client"` to define the boundary. You should have a clear mind when you define the boundary because the client components are the less the better.
+{: .block-warning}
+
+#### Recap
+
+- Once you define the boundary, all child components and modules **imported** into it are considered part of the client bundle. But Server component can live inside Client component as **children**. The classic example is that context component, which can be client component, can wrap server component. 
+- All hooks, state management (Context API, Zustand, Redux) just use in Client components.
+- `async/await `is not support in client components, only in server components in Next.js.
+- client components don't just run in the client. They will run once in the server for the initial rendering! So if you visit Browser API, like `localStorage`, you may get errors. So it is better to use code like this: `if (typeof(window !=== undefined)) { window.localStorage()...}` to protect it. React won't run hook in initial rendering because React know that things.
+- In server component, if you use a component which use Hooks or Browser API, and that component don't use `"use client"`, it will cause errors. In this case, you just need to add `'use client'`. If that component is 3rd lib, you can wrap it in a separate component and add `'use client'`.
 
 ### How are Client Components Rendered
 
 There can be two ways:
-- Full page load: To optimize the initial page load, Next.js will use React's APIs to render a static HTML preview on the server for both Client and Server Components. (This thing call **hydration**.)
+- Full page load: To optimize the initial page load, Next.js will use React's APIs to render a static HTML preview on the server for both Client and Server Components. And then React will do a process which is called **hydration**.
 - Subsequent Navigations: Client Components are rendered entirely on the client, without the server-rendered HTML.
 
-### Going back to the Server Environmen
+### Going back to the Server Environment
 
 Sometimes, after you've declared the "use client" boundary, you may want to go back to the server environment.
 
@@ -210,6 +237,7 @@ Within those client subtrees, you can still nest Server Components or call Serve
 
 ## FQA
 
+- How do Server and Client component communicate? What kind of protocal? and How?
 - How do React know a component is Server component or Client component?
 - How do Next.js know what codes need to be bundle and send to browser when Client and Server Components are interleaving together? 
 - How do React and Next.js connect together?

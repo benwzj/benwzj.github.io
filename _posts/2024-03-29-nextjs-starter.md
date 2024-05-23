@@ -368,16 +368,18 @@ You use **query string** to implement Fetch data, Search and Pagination function
 
 ### What is React Server Actions
 
-React Server Actions allow you to run asynchronous code directly on the server to **mutate data**. You can write asynchronous functions that execute on the server and can be invoked from your Client or Server Components.
+Server Actions are **asynchronous functions** that are executed on the server. They can be used in Server and Client Components to handle form submissions and data mutations in Next.js applications.
 
-They eliminate the need to create API endpoints to mutate data. 
+- React Server Actions allow you to run asynchronous code directly on the server to **mutate data**. You can write asynchronous functions that execute on the server and can be invoked from your Client or Server Components.
 
-Server Actions achieve this through techniques like **`POST` requests**, **encrypted closures**, **strict input checks**, **error message hashing**, and **host restrictions**, all working together to significantly enhance your app's safety.
+- They eliminate the need to create API endpoints to mutate data. 
+
+- Server Actions achieve this through techniques like **`POST` requests**, **encrypted closures**, **strict input checks**, **error message hashing**, and **host restrictions**, all working together to significantly enhance your app's safety.
 
 ### How to create Server Actions
 
-By adding the `'use server'` to a file, you mark all the exported functions within the file as server functions. These server functions can then be imported into Client and Server components, making them extremely versatile.
-You can also write Server Actions directly inside Server Components by adding `"use server"` inside the action. 
+- By adding the `'use server'` to a file, you mark all the exported functions within the file as **server functions**. These server functions can then be imported into Client and Server components, making them extremely versatile.
+- You can also write Server Actions directly inside Server Components by adding `"use server"` inside the action. 
 
 Usually, you use the `action` attribute in the `<form>` element to invoke actions. When you submit the form, Server action function `createRecord` will automatically receive the native `FormData` object, containing the captured data. Like this: `createRecord(formData: FormData)`. 
 

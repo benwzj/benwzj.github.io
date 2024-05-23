@@ -5,11 +5,11 @@ date: 2024-03-01
 category: HTML
 tags: CSS HTML React
 toc:
-  - name: 
-  - name: 
-  - name: 
-  - name: 
-
+  - name: Basic Usage
+  - name: Use in React
+  - name: Styling with CSS
+  - name: React Dropdown component
+  - name: Reference
 ---
 
 ## Basic Usage
@@ -27,11 +27,11 @@ toc:
 - You can further nest `<option>` elements inside `<optgroup>` elements to create separate groups of options inside the dropdown.
 
 Reference: 
-[The HTML Select element in MDN doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select)
+[MDN doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select)
 
 ## Use in React
 
-### controlled select
+### Controlled and Uncontrolled
 You can make a select box controlled by passing a `value` prop.
 `value`: A string (or an array of strings for `multiple={true}`). Controls which option is selected. Every value string match the value of some `<option>` nested inside the `<select>`.
 
@@ -166,6 +166,7 @@ You can write your own component which mimic the function with select element.
 You can easy to style it with CSS. 
 
 ## Reference
-
+- [MDN doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select)
+- [Use Select element in React](https://react.dev/reference/react-dom/components/select)
 - [Pure CSS to style `<select>`](https://moderncss.dev/custom-select-styles-with-pure-css/)
 - [Styles for `<select>`](https://www.sliderrevolution.com/resources/css-select-styles/)
