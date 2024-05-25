@@ -210,7 +210,7 @@ Some concepts: API, ORM, SQL, React Server Component;
   - If you're fetching data from the client, you want to have an API layer that runs on the server to avoid exposing your database secrets to the client.
   - API layer use ORM or SQL to fetch data.
   - In Next.js, you can create API endpoints using Route Handlers.
-- ORM, like Prisma. To access your database, use ORM. ORMs generate SQL under the hood.
+- ORM, like Prisma. You can use ORM to access your database. ORMs generate SQL under the hood.
 - React Server Components 
 If you are using React Server Components (fetching data on the server), you can skip the API layer, and query your database directly without risking exposing your database secrets to the client.
 
