@@ -273,15 +273,19 @@ With dynamic rendering, content is rendered on the server for each user at reque
 
 ## Streaming
 
+### What is Streaming
+
 Streaming is a data transfer technique that allows you to break down a route into smaller "chunks" and progressively stream them from the server to the client as they become ready.
-
-By streaming, you can prevent slow data requests from blocking your whole page. This allows the user to see and interact with parts of the page without waiting for all the data to load before any UI can be shown to the user.
-
-Streaming works well with React's component model, as each component can be considered a chunk.
 
 There are two ways you implement streaming in Next.js:
 - At the page level, with the `loading.tsx` file.
 - For specific components, with `<Suspense>`.
+
+### Streaming Features
+
+By streaming, you can prevent slow data requests from blocking your whole page. This allows the user to see and interact with parts of the page without waiting for all the data to load before any UI can be shown to the user.
+
+Streaming works well with React's component model, as each component can be considered a chunk.
 
 ### Streaming a whole page with `loading.tsx`
 
@@ -289,9 +293,11 @@ There are two ways you implement streaming in Next.js:
 
 To use Streaming with `loading.tsx`, the `loading.tsx` file is located at same folder level with `page.tsx`. Next.js will display `loading.tsx` first, then the `page.tsx`.
 
-Also, The user doesn't have to wait for the page to finish loading before navigating away.(this is called interruptable navigation).
+Also, The user doesn't have to wait for the page to finish loading before navigating away. (this is called interruptable navigation).
 
-### route groups
+When you use `loading.tsx`, usually you use Route Groups as well.
+
+#### Route Groups Concept
 
 When `loading.tsx` is a level higher than `/subfolder/page.tsx` in the file system, it's also applied to that page. In order to fix this problem. Next.js use route groups concept: Create a new folder called `/(overview)` inside the dashboard folder. Then, move your `loading.tsx` and `page.tsx` files inside the folder. Now, the `loading.tsx` file will only apply to the same folder level page.
 
@@ -313,7 +319,7 @@ Steps:
 </Suspense>
 ```
 
-### Grouping components
+#### Grouping Components Pattern
 
 You can use Grouping components pattern when you want multiple components to load in at the same time. 
 Step:

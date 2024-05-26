@@ -33,7 +33,7 @@ There are many parsers for markdown, like kramdown, Python Markdown, etc. So, th
 
 #### Support Images:
 
-{% include figure.html path="assets/img/7.jpg" class="img-fluid rounded z-depth-1" %}
+{% include figure.html path="assets/img/7.jpg" class="img-fluid rounded z-depth-1" width="80%" %}
 
 responsive format:
 <div class="row mt-3">

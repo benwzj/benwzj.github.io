@@ -56,6 +56,8 @@ In practice, this model encourages developers to think about what they want to e
 
 ## React Server Components
 
+When we talk about Server Components and Client Components, it is from the view of Rendering. 
+
 ### Server Rendering
 React Server Components allow you to write UI that can be rendered and optionally cached on the server. 
 In short, Server Components allow you to do **Server Rendering**.
