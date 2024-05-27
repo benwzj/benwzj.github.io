@@ -3,7 +3,7 @@ layout: post
 title: Undterstand Server Component
 date: 2024-04-04
 category: React
-tags: React Next.js Router
+tags: React Next.js Router Rendering
 toc: 
   - name: Foundational web concepts
   - name: React Server Components
@@ -16,11 +16,11 @@ toc:
   - name: FQA
 ---
 
-Here will talk from the point of Next.js.
+When we talk about Server Components and Client Components, it is from the view of Rendering. 
 
-In Next.js, all components in the App Router are Server Components **by default**! 
+In Next.js App Route, all components in the App Router are Server Components **by default**! 
 
-Router is the skeleton of the whole Next.js Application. It can decide **HOW** to render Server Components and Client Components.
+Router is the skeleton of the whole Next.js Application. It can decide HOW to **render** Server Components and Client Components.
 
 ## Foundational web concepts
 
@@ -56,7 +56,6 @@ In practice, this model encourages developers to think about what they want to e
 
 ## React Server Components
 
-When we talk about Server Components and Client Components, it is from the view of Rendering. 
 
 ### Server Rendering
 React Server Components allow you to write UI that can be rendered and optionally cached on the server. 
