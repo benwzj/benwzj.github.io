@@ -2,7 +2,7 @@
 layout: post
 title: Liquid Template Language
 date: 2020-01-14
-categories: Language
+categories: Website
 tags: Liquid Jekyll Website Shopify
 ---
 

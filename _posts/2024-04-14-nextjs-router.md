@@ -98,7 +98,7 @@ export async function GET() {
 ```
 Now, any Get Request at route `api/` will be handled by the export function `GET()`.
 
-### Features
+### Route Handler Features
 
 - Route Handlers can be nested inside the app directory, similar to page.js and layout.js.
 - Each route.js or page.js file takes over all HTTP verbs for that route. So they can't be at same route segment.

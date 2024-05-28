@@ -2,8 +2,8 @@
 layout: post
 title: YAML Overview
 date: 2020-07-10
-category: Language 
-tags: YAML JSON Overview
+category: Programming 
+tags: YAML JSON
 ---
 
 ## What is YAML
