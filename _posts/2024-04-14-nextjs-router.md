@@ -68,13 +68,63 @@ The React components defined in special files of a route segment are rendered in
 - not-found.js (React error boundary)
 - page.js or nested layout.js
 
-## Pages and Layouts
+### Page
+- A `page.js` file is required to make a route segment publicly accessible.
+- A page is UI that is unique to a route. You can define a page by default exporting a component from a `page.js` file.
+- Pages are Server Components by default, but can be set to a Client Component.
+- Pages can fetch data.
 
-A page is UI that is unique to a route. You can define a page by default exporting a component from a `page.js` file.
+### Layouts
+- A layout is UI that is **shared** between multiple routes. (HOW? the page at the same folder and all the subfolder pages share the layout!)
+- On navigation, layouts preserve state, remain interactive, and do not re-render.
+- You can define a layout by default exporting a React component from a `layout.js` file. The component should accept a children prop that will be populated with a child layout (if it exists) or a page during rendering.
+- Root Layout (Required)
+- Nesting Layouts, By default, layouts in the folder hierarchy are nested, which means they wrap child layouts via their children prop. 
+- Layouts are Server Components by default but can be set to a Client Component.
+- Passing data between a parent layout and its children is **not** possible. However, you can fetch the same data in a route more than once, and React will automatically dedupe the requests without affecting performance.
+- Layouts do not have access to the route segments below itself. To access all route segments, you can use `useSelectedLayoutSegment` or `useSelectedLayoutSegments` in a Client Component.
+- You can use `Route Groups` to opt specific route segments in and out of shared layouts.
+- You can use `Route Groups` to create multiple root layouts. 
 
-A layout is UI that is shared between multiple routes. On navigation, layouts preserve state, remain interactive, and do not re-render.
-You can define a layout by default exporting a React component from a `layout.js` file. The component should accept a children prop that will be populated with a child layout (if it exists) or a page during rendering.
+### Templates
+- Templates are similar to layouts in that they wrap each child layout or page. 
+- Unlike layouts that persist across routes and maintain state, templates create a new instance for each of their children on navigation. This means that when a user navigates between routes that share a template, a new instance of the component is mounted, DOM elements are recreated, state is not preserved, and effects are re-synchronized.
 
+- Templates would be a more suitable option than layouts at below situations:
+  - Features that rely on useEffect (e.g logging page views) and useState (e.g a per-page feedback form).
+  - To change the default framework behavior. For example, Suspense Boundaries inside layouts only show the fallback the first time the Layout is loaded and not when switching pages. For templates, the fallback is shown on each navigation.
+
+### Metadata
+In the app directory, you can modify the `<head>` HTML elements such as title and meta using the Metadata APIs.
+
+## Navigation
+
+[Next.js Doc](https://nextjs.org/docs/app/building-your-application/routing)
+
+### 4 ways to navigate between routes
+
+- Using the `<Link>` Component: `<Link>` is a built-in component that extends the HTML `<a>` tag to provide prefetching and client-side navigation between routes. It is the primary and recommended way to navigate between routes in Next.js.
+  - Linking to Dynamic Segments: ```<Link href={`/blog/${post.slug}`}>{post.title}</Link>```
+  - Checking Active Links: `usePathname()` to determine if a link is active. 
+- Using the `useRouter` hook (Client Components)
+- Using the `redirect` function (Server Components)
+- Using the native History API: 
+Next.js allows you to use the native `window.history.pushState` and `window.history.replaceState` methods to update the browser's history stack without reloading the page. These APIs integrate into the Next.js Router, allowing you to sync with `usePathname` and `useSearchParams`.
+
+### How Routing and Navigation Works
+The App Router uses a hybrid approach for routing and navigation. 
+- On the server, your application code is automatically **code-split** by route segments. 
+- On the client, Next.js **prefetches** and **caches** the route segments. This means, when a user navigates to a new route, the browser doesn't reload the page, and only the route segments that change re-render - improving the navigation experience and performance.
+- Also support Partial Rendering, Soft Navigation, Back and Forward Navigation, Routing between `pages/` and `app/`
+
+## Streaming
+
+- Streaming is an advanced method of Server Side Rendering.
+- Streaming allows you to break down the page's HTML into smaller chunks and progressively send those chunks from the server to the client.
+- Streaming implement Partial Rendering.
+- This enables parts of the page to be displayed sooner, without waiting for all the data to load before any UI can be rendered.
+- Streaming works well with React's component model because each component can be considered a chunk.
+- Streaming is particularly beneficial when you want to prevent long data requests from blocking the page from rendering as it can reduce the Time To First Byte (TTFB) and First Contentful Paint (FCP). It also helps improve Time to Interactive (TTI),
 
 ## Route Handler
 
@@ -114,6 +164,45 @@ Now, any Get Request at route `api/` will be handled by the export function `GET
 - The request object passed to the Route Handler is a NextRequest instance, which has some additional convenience methods.
 - Use Streaming with Large Language Models (LLMs), such as OpenAI, for AI-generated content.
 - You can use Request Body FormData.
+
+## Middleware
+
+Middleware allows you to run code before a request is completed. Then, based on the incoming request, you can modify the response by rewriting, redirecting, modifying the request or response headers, or responding directly.
+
+- Middleware runs before cached content and routes are matched. 
+
+### Middleware use cases
+
+- Authentication and Authorization
+- Server-Side Redirects
+- Path Rewriting, For example:  A/B testing, feature rollouts, or legacy paths 
+- Bot Detection
+- Logging and Analytics
+- Feature Flagging
+
+### How to use Middelware
+
+- Use the file `middleware.ts` (or .js) in the **root** of your project to define Middleware.
+- Only one `middleware.ts` file is supported per project
+- Because Middleware will be invoked for every route in your project, Use `matchers` to precisely target or exclude specific routes.
+
+Example: 
+```ts
+//middleware.ts
+
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+ 
+// This function can be marked `async` if using `await` inside
+export function middleware(request: NextRequest) {
+  return NextResponse.redirect(new URL('/home', request.url))
+}
+ 
+// See "Matching Paths" below to learn more
+export const config = {
+  matcher: '/about/:path*',
+}
+```
 
 
 ## FQA

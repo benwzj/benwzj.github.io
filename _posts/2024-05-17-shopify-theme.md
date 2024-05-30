@@ -85,6 +85,10 @@ etc.
 ## FQA
 - How Theme work in Shopify
 
+- What is headless Shopify theme
+A theme determines the way that a Shopify online store looks, feels, and functions for merchants and their customers.
+Shopify themes are built using Shopify's theme templating language, Liquid, along with HTML, CSS, JavaScript, and JSON. Using these languages, developers can create any look and feel that their clients want. 
+
 
 ## References
 

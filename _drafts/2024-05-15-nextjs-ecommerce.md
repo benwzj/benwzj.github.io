@@ -16,15 +16,9 @@ To use Next.js Commerce as your headless Shopify theme, you need to install the 
 - Shopify support fetch Collections API, fetch Menu API.
 
 ### Setup Step:
-  - Configure Shopify for use as a headless CMS.
-  - Deploy your headless storefront on Vercel.
-  - Configure environment variables in Vercel.
-
-### What is storefront
-
-### What is headless Shopify theme
-A theme determines the way that a Shopify online store looks, feels, and functions for merchants and their customers.
-Shopify themes are built using Shopify's theme templating language, Liquid, along with HTML, CSS, JavaScript, and JSON. Using these languages, developers can create any look and feel that their clients want. 
+- Configure Shopify for use as a headless CMS.
+- Deploy your headless storefront on Vercel.
+- Configure environment variables in Vercel.
 
 
 ## References
