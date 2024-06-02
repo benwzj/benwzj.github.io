@@ -4,7 +4,7 @@ title: Jekyll Theme system
 date: 2019-12-14
 featured: true
 categories: Website
-tags: Markdown Jekyll HTML Theme Wsebsite
+tags: Markdown Jekyll HTML Theme Website
 toc: 
   - name: What is Website Theme
   - name: Implement theme swap

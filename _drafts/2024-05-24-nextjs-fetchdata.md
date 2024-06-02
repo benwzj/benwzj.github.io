@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Next.js Fetch data
-date: 2024-05-15
+date: 2024-05-24
 category: React
 tags: Next.js JavaScript React
 ---

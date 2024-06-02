@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Undterstand Server Component
+title: Undterstand React Server Component
 date: 2024-04-04
 category: React
 tags: React Next.js Router Rendering
@@ -17,6 +17,8 @@ toc:
 ---
 
 When we talk about Server Components and Client Components, it is from the view of Rendering. 
+
+Rendering converts the code you write into user interfaces. React and Next.js allow you to create hybrid web applications where parts of your code can be rendered on the server or the client.
 
 In Next.js App Route, all components in the App Router are Server Components **by default**! 
 

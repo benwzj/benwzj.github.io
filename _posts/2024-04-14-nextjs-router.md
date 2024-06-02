@@ -7,7 +7,11 @@ tags: React Next.js Router
 toc: 
   - name: What is Routing
   - name: App Route vs Page Route
+  - name: App Route Basic
+  - name: Navigation
+  - name: Streaming
   - name: Route Handler
+  - name: Middleware
 ---
 
 ## What is Routing
@@ -45,7 +49,7 @@ Routing is the skeleton of every web application. It is refer to the structure o
 - In App Route, `fetch` function for data fetching;	In Page Route, It is using `getServerSideProps`, `getStaticProps`, `getInitialProps`.
 - In App Route, Layouts can be nested and dynamic; In Page Route, Layouts are static.
 
-## App Route Overview
+## App Route Basic
 
 ### File Conventions
 Next.js provides a set of special files to create UI with specific behavior in nested routes:
@@ -119,12 +123,75 @@ The App Router uses a hybrid approach for routing and navigation.
 
 ## Streaming
 
+### What is Streaming
+
+Streaming is a data transfer technique that allows you to break down a route into smaller "chunks" and progressively stream them from the server to the client as they become ready.
+
+There are two ways you implement streaming in Next.js:
+- At the page level, with the `loading.tsx` file.
+- For specific components, with `<Suspense>`.
+
+### Streaming Features
+
 - Streaming is an advanced method of Server Side Rendering.
 - Streaming allows you to break down the page's HTML into smaller chunks and progressively send those chunks from the server to the client.
 - Streaming implement Partial Rendering.
-- This enables parts of the page to be displayed sooner, without waiting for all the data to load before any UI can be rendered.
+- By streaming, you can prevent slow data requests from blocking your whole page. This allows the user to see and interact with parts of the page without waiting for all the data to load before any UI can be shown to the user.
 - Streaming works well with React's component model because each component can be considered a chunk.
-- Streaming is particularly beneficial when you want to prevent long data requests from blocking the page from rendering as it can reduce the Time To First Byte (TTFB) and First Contentful Paint (FCP). It also helps improve Time to Interactive (TTI),
+
+### Streaming a whole page with `loading.tsx`
+
+`loading.tsx` is a special Next.js file built on top of **Suspense**, it allows you to create fallback UI to show as a replacement while page content loads. `loading.tsx` is describing the fallback UI which should be a static rendering.
+
+To use Streaming with `loading.tsx`, the `loading.tsx` file is located at same folder level with `page.tsx`. Next.js will display `loading.tsx` first, then the `page.tsx`.
+
+Also, The user doesn't have to wait for the page to finish loading before navigating away. (this is called interruptable navigation).
+
+When you use `loading.tsx`, usually you use Route Groups as well.
+
+#### Route Groups Concept
+
+When `loading.tsx` is a level higher than `/subfolder/page.tsx` in the file system, it's also applied to that page. In order to fix this problem. Next.js use route groups concept: Create a new folder called `/(overview)` inside the dashboard folder. Then, move your `loading.tsx` and `page.tsx` files inside the folder. Now, the `loading.tsx` file will only apply to the same folder level page.
+
+> When you create a new folder using parentheses `()`, the name won't be included in the URL path. 
+
+### Streaming a component with `<Suspense>`
+
+Wrap the component which need to be Streaming into `<Suspense>`.
+
+Suspense allows you to defer rendering parts of your application until some condition is met (e.g. data is loaded). You can wrap your dynamic components in Suspense. Then, pass it a fallback component to show while the dynamic component loads.
+
+Steps: 
+- Move data fetching down to the component that need it, thus isolating which parts of your routes should be dynamic in preparation for Partial Prerendering.
+- Using `<Suspense>` to wrap that component.
+
+```ts
+<Suspense fallback={<FetchDataComponentSkeleton />}>
+  <FetchDataComponent />
+</Suspense>
+```
+
+#### Grouping Components Pattern
+
+You can use Grouping components pattern when you want multiple components to load in at the same time. 
+Step:
+- Wrap all these multiple components into one component call WrapComponent.
+- These Grouping components inside the WrapComponent can use `Promise.all` to parallel fetch data.
+- Using `<Suspense>` to wrap that WrapComponent.
+
+### What is Partial Prerendering
+
+Application behaves today, where entire routes are either entirely static or dynamic.
+
+Partial Prerendering allows you to render a route with a static loading shell, while keeping some parts dynamic. In other words, you can isolate the dynamic parts of a route. 
+
+When a user visits a route:
+- A static route shell is served, ensuring a fast initial load.
+- The shell leaves holes where dynamic content will load in asynchronous.
+- The async holes are streamed in parallel, reducing the overall load time of the page.
+
+### Can Suspense used on Server?
+
 
 ## Route Handler
 
@@ -167,8 +234,11 @@ Now, any Get Request at route `api/` will be handled by the export function `GET
 
 ## Middleware
 
-Middleware allows you to run code before a request is completed. Then, based on the incoming request, you can modify the response by rewriting, redirecting, modifying the request or response headers, or responding directly.
+Next.js copy the middleware concept from Express.js. 
 
+In Next.js, Middleware allows you to run code before a request is completed. Then, based on the incoming request, you can modify the response by rewriting, redirecting, modifying the request or response headers, or responding directly.
+
+- Middleware let you share and reuse logic that is repeatable for every request.
 - Middleware runs before cached content and routes are matched. 
 
 ### Middleware use cases
@@ -184,9 +254,9 @@ Middleware allows you to run code before a request is completed. Then, based on 
 
 - Use the file `middleware.ts` (or .js) in the **root** of your project to define Middleware.
 - Only one `middleware.ts` file is supported per project
-- Because Middleware will be invoked for every route in your project, Use `matchers` to precisely target or exclude specific routes.
+- Because Middleware will be invoked for every route in your project, so you can use `matchers` to precisely target or exclude specific routes. Or using Conditional Statements in `middleware.ts`.
 
-Example: 
+Classic Example: 
 ```ts
 //middleware.ts
 
@@ -204,6 +274,14 @@ export const config = {
 }
 ```
 
+### What Middleware can do
+
+- Use `NextResponse` API to:
+  - redirect the incoming request to a different URL
+  - rewrite the response by displaying a given URL
+  - Set request headers for API Routes, getServerSideProps, and rewrite destinations
+  - Set response cookies
+  - Set response headers
 
 ## FQA
 
