@@ -61,7 +61,6 @@ If the segment runtime is not set, the default nodejs runtime will be used.
 ## Node.js Runtime
 
 According to the Node.js official documentation: Node.js is an asynchronous event-driven JavaScript runtime environment that lets developers create servers, web apps, command line tools and scripts.
-
 According to the Next.js official documentation: Next.js is a React framework for building full-stack web applications. 
 
 So Next.js is a React framework application which run in Node.js runtime environment. You can say Next.js is Node.js application.
@@ -72,13 +71,15 @@ Using the Node.js runtime gives you access to all Node.js APIs, and all npm pack
 ## Edge Runtime
 
 ### What is Edge Runtime 
-
 The Edge Runtime is designed to help framework authors adopt edge computing and provide open-source tooling built on Web standards. It’s designed to be integrated into frameworks (like Next.js) and not for usage in application code.
 
 The Edge Runtime is a subset of Node.js APIs, giving you compatibility and interoperability between multiple web environments. The project is designed to be compliant with standards developed by WinterCG - a community group between Vercel, Cloudflare, Deno, Shopify, and more. The term “Edge” refers to the orientation toward instant serverless compute environments and not a specific set of locations.
 
 The Edge Runtime is ideal if you need to deliver dynamic, personalized content at low latency with small, simple functions. The Edge Runtime's speed comes from its minimal use of resources,
 
+### Using the Edge Runtime Locally
+When developing and testing locally, the Edge Runtime will polyfill Web APIs and ensure compatibility with the Node.js layer.
+In production, the Edge Runtime uses the JavaScript V8 engine, not Node.js, so there is no access to Node.js APIs.
 
 
 ## FQA

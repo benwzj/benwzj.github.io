@@ -10,6 +10,7 @@ toc:
   - name: App Route Basic
   - name: Navigation
   - name: Streaming
+  - name: Dynamic Route
   - name: Route Handler
   - name: Middleware
 ---
@@ -192,6 +193,114 @@ When a user visits a route:
 
 ### Can Suspense used on Server?
 
+## Dynamic Route
+
+Next.js allows you to create Dynamic Route Segments when you don't know the exact segment name and want to create routes based on data. 
+This could be product ID, blog post titles, product pages, etc. You can create dynamic route segments by wrapping a folder's name in square brackets. For example, [id], [post] or [slug].
+
+For example, you need a invoice update function. Then you need to Create a Dynamic Route Segment with the invoice id. 
+
+### Create Dynamic Route Steps:
+
+- In your /invoices folder, create a new dynamic route called [id], then a new route called `edit` with a `page.tsx` file. 
+
+- The Update Button for each invoice will do this.
+
+```html
+<Link
+  href={`/dashboard/invoices/${id}/edit`}
+  className="rounded-md border p-2 hover:bg-gray-100"
+>
+```
+
+- Inside the `[id]/edit/page.tsx`, it will Read the invoice `id` from page `params`.
+
+```ts
+export default async function Page({ params }: { params: { id: string } }) {
+  const id = params.id;
+  // ...
+}
+```
+
+- Inside the `[id]/edit/page.tsx`, you will Fetch the specific invoice according to the `id` to fill the page.  
+
+- When user confirm update, You will update Database by using Server Action. At this moment, You can't just pass `id` to server action! Instead, you can pass id to the Server Action using JS bind. 
+
+```ts
+const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+return (
+  <form action={updateInvoiceWithId}>
+    <input type="hidden" name="id" value={invoice.id} />
+  </form>
+);
+```
+
+### generateStaticParams
+
+- The `generateStaticParams` function is used in combination with dynamic route segments to statically generate routes at build time instead of on-demand at request time.
+- When exporting a function called `generateStaticParams` from a page that uses Dynamic Routes, Next.js will statically pre-render all the paths specified by `generateStaticParams`.
+- `generateStaticParams` replaces the `getStaticPaths` function in the Pages Router.
+- The primary benefit of the `generateStaticParams` function is its smart retrieval of data. If content is fetched within the `generateStaticParams` function using a fetch request, the requests are automatically memoized. This means a `fetch` request with the same arguments across multiple `generateStaticParams`, Layouts, and Pages will only be made once, which decreases build times.
+
+### Catch-all Segments
+Dynamic Segments can be extended to catch-all subsequent segments by adding an ellipsis inside the brackets `[...folderName].`
+
+For example, `app/shop/[...slug]/page.js` will match `/shop/clothes`, but also `/shop/clothes/tops`, `/shop/clothes/tops/t-shirts`, and so on.
+
+Catch-all Segments can be made optional by including the parameter in double square brackets: `[[...folderName]]`.
+
+## Parallel Routes
+
+Parallel Routes allows you to simultaneously or conditionally render one or more pages within the same layout. They are useful for highly dynamic sections of an app, such as dashboards and feeds on social sites.
+
+### Slots
+
+- Parallel routes are created using named slots. 
+- Slots are defined with the `@folder` convention. Like `app/@slot/page.js`.
+- Slots are passed as `props` to the shared parent layout. (layout usaully have current page as `children` prop, that means the `children` prop is an implicit slot that does not need to be mapped to a folder. `app/page.js` is equivalent to `app/@children/page.js`.)
+- Slots are not route segments and do not affect the URL structure. 
+
+### Navigation
+
+When you use Parallel route, you will face some situation, like navigation:
+
+- Soft Navigation: During client-side navigation, Next.js will perform a partial render, changing the subpage within the slot, while maintaining the other slot's active subpages, even if they don't match the current URL.
+- Hard Navigation: After a full-page load (browser refresh), Next.js cannot determine the active state for the slots that don't match the current URL. Instead, it will render a default.js file for the unmatched slots, or 404 if `default.js` doesn't exist.
+
+#### default.js
+You can define a `default.js` file to render as a fallback for unmatched slots during the initial load or full-page reload.
+
+### Use Parallel route
+
+- Conditional Routes: 
+You can use Parallel Routes to conditionally render routes based on certain conditions, such as user role. For example, to render a different dashboard page for the `/admin` or `/user` roles.
+- Use layout inside slot.
+- Modals
+Parallel Routes can be used together with "Intercepting Routes" to create modals. This allows you to solve common challenges when building modals, such as:
+  - Making the modal content shareable through a URL.
+  - Preserving context when the page is refreshed, instead of closing the modal.
+  - Closing the modal on backwards navigation rather than going to the previous route.
+  - Reopening the modal on forwards navigation.
+
+## Intercepting Routes
+
+Intercepting routes allows you to load a route from another part of your application within the current layout. This routing paradigm can be useful when you want to display the content of a route without the user switching to a different context.
+
+For example, when clicking on a photo in a feed, you can display the photo in a modal, overlaying the feed. In this case, Next.js intercepts the `/photo/123` route, masks the URL, and overlays it over `/feed`.
+
+### Convention
+Intercepting routes can be defined with the `(..)` convention, which is similar to relative path convention `../` but for segments.
+
+You can use:
+- `(.)` to match segments on the same level
+- `(..)` to match segments one level above
+- `(..)(..)` to match segments two levels above
+- `(...)` to match segments from the root app directory
+
+For example, you can intercept the photo segment from within the feed segment by creating a `(..)photo` directory.
+
+### Modals
+Intercepting Routes can be used together with Parallel Routes to create modals.
 
 ## Route Handler
 
@@ -282,6 +391,9 @@ export const config = {
   - Set request headers for API Routes, getServerSideProps, and rewrite destinations
   - Set response cookies
   - Set response headers
+
+## Internationalization
+Next.js enables you to configure the routing and rendering of content to support multiple languages. Making your site adaptive to different locales includes translated content (localization) and internationalized routes.
 
 ## FQA
 
