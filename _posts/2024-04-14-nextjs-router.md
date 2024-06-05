@@ -10,9 +10,13 @@ toc:
   - name: App Route Basic
   - name: Navigation
   - name: Streaming
-  - name: Dynamic Route
+  - name: Dynamic Routes
+  - name: Parallel Routes
+  - name: Intercepting Routes
   - name: Route Handler
   - name: Middleware
+  - name: Internationalization
+  - name: FQA
 ---
 
 ## What is Routing
@@ -193,7 +197,7 @@ When a user visits a route:
 
 ### Can Suspense used on Server?
 
-## Dynamic Route
+## Dynamic Routes
 
 Next.js allows you to create Dynamic Route Segments when you don't know the exact segment name and want to create routes based on data. 
 This could be product ID, blog post titles, product pages, etc. You can create dynamic route segments by wrapping a folder's name in square brackets. For example, [id], [post] or [slug].
@@ -393,8 +397,17 @@ export const config = {
   - Set response headers
 
 ## Internationalization
+
 Next.js enables you to configure the routing and rendering of content to support multiple languages. Making your site adaptive to different locales includes translated content (localization) and internationalized routes.
+
+### How
+
+Using some 3th libraries, you can look at an incoming Request to determine which locale to select. With this information, redirect the user based on the locale inside **Middleware**.
+
+Even the root layout can also be nested in the new folder (e.g. app/[lang]/layout.js).
+
+You can use `generateStaticParams` with any page or layout to generate static routes for a given set of locales.
 
 ## FQA
 
-### How to create dynamic route segments?
+

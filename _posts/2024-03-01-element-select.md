@@ -32,13 +32,15 @@ Reference:
 ## Use in React
 
 ### Controlled and Uncontrolled
+
 You can make a select box controlled by passing a `value` prop.
+
 `value`: A string (or an array of strings for `multiple={true}`). Controls which option is selected. Every value string match the value of some `<option>` nested inside the `<select>`.
 
-Caveats 
+Caveats: 
 - Unlike in HTML, passing a selected attribute to `<option>` is not supported. Instead, use `<select defaultValue>` for uncontrolled select boxes and `<select value>` for controlled select boxes.
 - If a select box receives a value prop, it will be treated as controlled. You must also pass an `onChange` handler that updates the passed value.
-- A select box can’t be both controlled and uncontrolled at the same time.
+- A select box **cannot** be both controlled and uncontrolled at the same time.
 - A select box cannot switch between being controlled or uncontrolled over its lifetime.
 
 Reference:
