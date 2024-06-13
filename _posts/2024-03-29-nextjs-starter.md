@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Next.js Start Application
+title: Next.js Starter Application
 date: 2024-03-29
 category: React
 tags: TypeScript JavaScript React Next.js
@@ -575,7 +575,7 @@ The code below will show error information when `state.errors` is `true`:
   </div>
 ```
 
-## Adding Authentication
+## Authentication
 
 ### Basic idea like this: 
 
