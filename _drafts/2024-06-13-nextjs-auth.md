@@ -8,6 +8,7 @@ toc:
   - name: Authentication
   - name: Authorization
   - name: Session Management
+  - name: Auth.js
 ---
 
 
@@ -200,6 +201,19 @@ export async function getSessionData(req) {
 }
 ```
 
+## Auth.js
+
+Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. 
+
+There are 4 ways to authenticate users with Auth.js:
+
+- OAuth authentication (Sign in with Google, GitHub, LinkedIn, etc…)
+- Magic Links (Email Provider like Resend, Sendgrid, Nodemailer etc…)
+- Credentials (Username and Password, Integrating with external APIs, etc…)
+- WebAuthn (Passkeys, etc…)
+
+
+
 ## FAQ
 
 - How NextAuth.js implement OIDC authentication?
@@ -208,3 +222,4 @@ export async function getSessionData(req) {
 ## References
 
 - [NextAuth.js official Doc](https://authjs.dev/reference/next-auth).
+
