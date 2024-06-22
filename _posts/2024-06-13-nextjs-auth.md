@@ -5,10 +5,12 @@ date: 2024-06-13
 category: React
 tags: Next.js JavaScript React Authentication Authorization
 toc: 
-  - name: Authentication
-  - name: Authorization
+  - name: The Basic Authenticatin process
+  - name: NextAuth.js
+  - name: Implement Authentication
+  - name: Implement Authorization
   - name: Session Management
-  - name: Auth.js
+  - name: 
 ---
 
 ## The Basic Authenticatin process
@@ -27,19 +29,20 @@ toc:
 - Logout button:
   - simply destroy the session cookie
 
+## NextAuth.js
 
-There parts will be talked about:  
-Authentication, Authorization, Session Management.
+NextAuth.js is an open source auth layer for Next.js project.
+Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. 
 
-## Authentication
+There are 4 ways to authenticate users with Auth.js:
 
-There are many authentication solutions are compatible with Next.js. Like, Auth0, Clerk, Kinde etc.
-You can add these solutions to your application. 
-They all support Modern authentication strategies, like OAuth/OpenID Connect (OIDC), Credentials-based login (Email + Password), Passwordless/Token-based authentication.
+- OAuth authentication (Sign in with Google, GitHub, LinkedIn, etc…)
+- Magic Links (Email Provider like Resend, Sendgrid, Nodemailer etc…)
+- Credentials (Username and Password, Integrating with external APIs, etc…)
+- WebAuthn (Passkeys, etc…)
 
-I use NextAuth.js in this blog. It is open source and it includes built-in support for 4 high-level authentication types - OAuth / OICD, Email magic-links, WebAuthn / Passkeys and username/password credentials.
+## Implement Authentication
 
-How NextAuth.js Work? 
 The step roughly like this:
 
 ### Setting up NextAuth.js to your project
@@ -100,7 +103,7 @@ export async function authenticate(_currentState: unknown, formData: FormData) {
 
 Now, you can add Form Validation implement using `useFormState` (`useActionState`) and `useFormStatus`.
 
-## Authorization
+## Implement Authorization
 
 Once a user is authenticated, you'll need to think about What user can do:
 - visiting certain routes 
@@ -109,6 +112,46 @@ Once a user is authenticated, you'll need to think about What user can do:
 
 ### Protecting Routes with Middleware
 Middleware in Next.js helps you control who can access different parts of your website.
+
+Here's how to implement Middleware for authentication in Next.js:
+
+- Setting Up Middleware:
+  - Create a middleware.ts or .js file in your project's root directory.
+  - Include logic to authorize user access, such as checking for authentication tokens.
+- Defining Protected Routes:
+  - Not all routes require authorization. Use the matcher option in your Middleware to specify any routes that do not require authorization checks.
+- Middleware Logic:
+  - Write logic to verify if a user is authenticated. Check user roles or permissions for route authorization.
+- Handling Unauthorized Access:
+  - Redirect unauthorized users to a login or error page as appropriate.
+
+Middleware example:
+```ts
+//middleware.ts
+import type { NextRequest } from 'next/server'
+ 
+export function middleware(request: NextRequest) {
+  const currentUser = request.cookies.get('currentUser')?.value
+ 
+  if (currentUser && !request.nextUrl.pathname.startsWith('/dashboard')) {
+    return Response.redirect(new URL('/dashboard', request.url))
+  }
+ 
+  if (!currentUser && !request.nextUrl.pathname.startsWith('/login')) {
+    return Response.redirect(new URL('/login', request.url))
+  }
+}
+ 
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+}
+```
+
+
+### Data Access Layer
+
+To create a separate Data Access Layer inside JavaScript codebase and consolidate all data access in there.
+
 
 ### Protecting Server Actions
 Implement checks within Server Actions to determine user permissions, such as restricting certain actions to admin users.
@@ -184,8 +227,6 @@ This prevents the need for repeated logins, enhancing both security and user con
 - cookie-based (storing session data on the User Browser, data should be encrypted)
 - database sessions（storing session data on the server）
 
-With authentication solutions such as NextAuth.js, session management becomes more efficient, using either cookies or database storage. 
-
 ### Implement cookie-based Session management
 
 Setting a cookie on the server action:
@@ -217,20 +258,6 @@ export async function getSessionData(req) {
 }
 ```
 
-## Auth.js (NextAuth.js)
-
-Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. 
-
-There are 4 ways to authenticate users with Auth.js:
-
-- OAuth authentication (Sign in with Google, GitHub, LinkedIn, etc…)
-- Magic Links (Email Provider like Resend, Sendgrid, Nodemailer etc…)
-- Credentials (Username and Password, Integrating with external APIs, etc…)
-- WebAuthn (Passkeys, etc…)
-
-
-
-
 ## FAQ
 
 - How NextAuth.js implement OIDC authentication?
@@ -240,3 +267,4 @@ There are 4 ways to authenticate users with Auth.js:
 
 - [NextAuth.js Doc](https://next-auth.js.org)
 - [Auth.js Doc](https://authjs.dev/reference/next-auth).
+- [Blog: Security in Next.js](https://nextjs.org/blog/security-nextjs-server-components-actions)

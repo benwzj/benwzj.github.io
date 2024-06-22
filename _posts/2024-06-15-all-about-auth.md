@@ -1,16 +1,20 @@
 ---
 layout: post
-title: All about Authentication
+title: Auth Concepts Overview
 date: 2024-06-15
 category: Auth
 tags: Authentication Authorization JWT OAuth OpenID OIDC
 toc: 
   - name: Term Overview
-  - name: JWT
-  - name: OAuth 2
+  - name: JWT Overview
+  - name: OAuth2 Overview
+  - name: Session Management
+  - name: Authentication Solutions 
   - name: FAQ
   - name: References
 ---
+
+Try to clear the main Auth concepts from higher perspective.
 
 ## Term Overview
 
@@ -19,7 +23,7 @@ toc:
 - OAuth(Open Authorization), Originally designed to for applications to get access to APIs. grants access to Other resources via **Access Tokens**.
 - OpenID Connect (OIDC) is an identity layer built on top of the OAuth 2.0 framework. It allows third-party applications to verify the identity of the end-user and to obtain basic user profile information. OIDC uses JWTs, which you can obtain using flows conforming to the OAuth 2.0 specifications. Simply saying, it adds an **additional token** called **ID Token**.
 
-### Anology
+#### Anology
 Let's understand that like this: a Guest check at a hotel reception with ID card, then reception give him a digit key which can unlock a hotel room, or visit gym, swiming pool, etc. Hotel room lock just accept the key and don't care who use it. Guest is User, Reception is OpenID IDP(Authentication), digit card is Access token. 
 Now, there is a apecial service, kid care, which need digit key, and User information to show up as well. OAuth can do nothing about this, but OIDC can do it!
 
@@ -33,10 +37,10 @@ The OIDC specification defines a set of standard claims for JWT. The set of stan
 OIDC has many architectural similarities to OpenID 2.0, and in fact the protocols solve a very similar set of problems. However, OpenID 2.0 used **XML** and a custom message signature scheme that in practice sometimes proved difficult for developers to get right, with the effect that OpenID 2.0 implementations would sometimes mysteriously refuse to interoperate. OAuth 2.0, the substrate for OpenID Connect, outsources the necessary encryption to the Web’s built-in TLS (also called HTTPS or SSL) infrastructure, which is universally implemented on both client and server platforms. OpenID Connect uses standard **JWT** data structures when signatures are required. This makes OpenID Connect dramatically easier for developers to implement, and in practice has resulted in much better interoperability.
 
 ### More concrete way to understand the concepts
-Authentication = Identifying user
-Authorization = Accessing APIs
+- Authentication = Identifying user
+- Authorization = Accessing APIs
 
-## JWT
+## JWT Overview
 
 JSON Web Token (JWT) defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally **signed**.
 
@@ -68,7 +72,7 @@ Most of the time sessions need only be signed. In other words, there is no secur
 client-side data can be suffered Security attack like, Signature Stripping, CSRF, XSS. Use JWT propertly can protect. For example adding CSRF mitigation techniques.
 Sometime a certain balance between client-side data and database lookups in the backend is necessary.
 
-### Example
+### One Concrete Example
 
 Here copy a example to show how to use JWT.
 
@@ -194,8 +198,7 @@ app.post('/auth', (req, res) => {
 
 You can Implement CSRF mitigation techniques on the top of this example.
 
-
-## OAuth 2
+## OAuth2 Overview
 
 The apps which using OAuth2 usually are web server, browser-based SPA and mobile apps. OAuth 2 provides **Authorization Code** to grant authorization. OAuth still provide other grant type like Password, Client credentials, PKCE.
 
@@ -203,7 +206,7 @@ Here will display an Web server App example which can explain the main process o
 
 Let's say, you are developing a MobilePrinter Website App which using OAuth process. This App can help users print photo in Other server, like Google photos.
 
-### Roles
+### 4 Roles
 - The Third-Party Application, "Client", MobilePrinter Website App
 - The API: "Resource Server", Visiting Google photos
 - The Authorization Server: Google
@@ -246,6 +249,29 @@ Single-page apps (or browser-based apps) run entirely in the browser after loadi
 The flow is based on the authorization code flow above, but with the addition of a dynamically generated secret used on each request. This is known as the PKCE extension.
 
 > Note: Previously, it was recommended that browser-based apps use the "Implicit" flow, which returns an access token immediately in the redirect and does not have a token exchange step. In the time since the spec was originally written, the industry best practice has changed to recommend that the authorization code flow be used without the client secret. This provides more opportunities to create a secure flow, such as using the PKCE extension. 
+
+
+## Session Management
+
+Session management involves tracking and managing a user's interaction with the application over time, ensuring that their authenticated state is preserved across different parts of the application.
+
+This prevents the need for repeated logins, enhancing both security and user convenience. There are two primary methods used for session management: 
+- cookie-based (storing session data on the User Browser, data should be encrypted)
+- database sessions（storing session data on the server）
+
+### JWT Sessions vs Database Sessions
+
+- JWT refer to as stateless. Dataase is the opposite, stateful.
+- Both need cookie (http-only). Database session use cookie for SessionID and JWT use cookies to store more information.
+- JWT need bigger and more cookies; But reduce the interact between server and database.
+- Database Sessions can be safer.
+- JWT also good for Single Sign On.
+
+## Authentication Solutions 
+
+- There are many authentication solutions. Like, Auth0, Clerk, Kinde etc.
+- You can add these solutions to your application. 
+- They all support Modern authentication strategies, like OAuth/OpenID Connect (OIDC), Credentials-based login (Email + Password), Passwordless/Token-based authentication.
 
 
 ## FAQ
