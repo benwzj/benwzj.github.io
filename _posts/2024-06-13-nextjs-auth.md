@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Next.js Authentication
+title: Implement Auth in Next.js
 date: 2024-06-13
 category: React
 tags: Next.js JavaScript React Authentication Authorization
@@ -10,6 +10,22 @@ toc:
   - name: Session Management
   - name: Auth.js
 ---
+
+## The Basic Authenticatin process
+
+- Login button: 
+  - get user information from form.
+  - verify user information.
+  - create session:
+    - setup information in JWT, like create signature.
+    - create cookie, setup expiration date, etc.
+    - put JWT inside cookie
+
+- every request from browser will send with this session cookie. server check this JWT and confirm the state of the browser.
+  - also, you can use middleware to handle every request, for example refresh the session cookie.
+
+- Logout button:
+  - simply destroy the session cookie
 
 
 There parts will be talked about:  
@@ -201,7 +217,7 @@ export async function getSessionData(req) {
 }
 ```
 
-## Auth.js
+## Auth.js (NextAuth.js)
 
 Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. 
 
@@ -214,6 +230,7 @@ There are 4 ways to authenticate users with Auth.js:
 
 
 
+
 ## FAQ
 
 - How NextAuth.js implement OIDC authentication?
@@ -221,5 +238,5 @@ There are 4 ways to authenticate users with Auth.js:
 
 ## References
 
-- [NextAuth.js official Doc](https://authjs.dev/reference/next-auth).
-
+- [NextAuth.js Doc](https://next-auth.js.org)
+- [Auth.js Doc](https://authjs.dev/reference/next-auth).

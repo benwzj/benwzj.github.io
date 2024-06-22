@@ -4,6 +4,12 @@ title: All about Authentication
 date: 2024-06-15
 category: Auth
 tags: Authentication Authorization JWT OAuth OpenID OIDC
+toc: 
+  - name: Term Overview
+  - name: JWT
+  - name: OAuth 2
+  - name: FAQ
+  - name: References
 ---
 
 ## Term Overview
@@ -36,6 +42,7 @@ JSON Web Token (JWT) defines a compact and self-contained way for securely trans
 
 - JWTs can be **signed** using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.
 - Although JWT can be encrypted to also provide secrecy between parties, It will focus on **signed** tokens.
+- Because most of JWTS are not encrypted, you can read them.
 - It need to be used with HTTPS connection.
 
 ### TWO common usage scenarios
@@ -55,15 +62,138 @@ Like this:
 
 Header and Payload are just plain text that get encoded, but not encrypted. So everyone can read them. JWT just focus on signed.
 
-If you want to play with JWT and put these concepts into practice, you can use jwt.io Debugger to decode, verify, and generate JWTs.
-
-### How JWT implement authorization
-
-JWTs are self-contained, all the necessary information is there, reducing the need of going back and forward to the database. JWTs can container Authorization informaition.
-
 ### Client-side/Stateless Sessions
 The so-called stateless sessions are in fact nothing more than client-side data. 
 Most of the time sessions need only be signed. In other words, there is no security or privacy concern when data stored in them is read by third parties.
+client-side data can be suffered Security attack like, Signature Stripping, CSRF, XSS. Use JWT propertly can protect. For example adding CSRF mitigation techniques.
+Sometime a certain balance between client-side data and database lookups in the backend is necessary.
+
+### Example
+
+Here copy a example to show how to use JWT.
+
+For example we will make a simple shopping application. The user’s shopping cart will be stored client-side. In this example, there are multiple JWTs present. Our shopping cart will be one of them.
+- One JWT for the ID token, a token that carries the user’s profile information, useful for the UI.
+- One JWT for interacting with the API backend (the access token).
+- One JWT for our client-side state: the shopping cart.
+Here’s how the shopping cart looks when decoded:
+```json
+{
+  "items": [
+      0,
+      2,
+      4
+    ],
+  "iat": 1493139659,
+  "exp": 1493143259
+}
+```
+Each item is identified by a numeric ID. The encoded and signed JWT looks like:
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJpdGVtcyI6WzAsMiw0XSwiaWF0IjoxNDkzMTM5NjU5LCJleHAiOjE0OTMxNDMyNTl9.
+932ZxtZzy1qhLXs932hd04J58Ihbg5_g_rIrj-Z16Js
+```
+To render the items in the cart, the frontend only needs to retrieve it from its cookie:
+```js
+function populateCart() {
+  const cartElem = $('#cart');
+  cartElem.empty();
+  const cartToken = Cookies.get('cart');
+  if(!cartToken) {
+    return;
+  }
+  const cart = jwt_decode(cartToken).items;
+  cart.forEach(itemId => {
+    const name = items.find(item => item.id == itemId).name;
+    cartElem.append(`<li>${name}</li>`);
+  });
+}
+```
+The actual checks are performed by the backend. All JWTs are verified.
+Here is the backend check for the validity of the cart JWT implemented as an Express middleware:
+```js
+function cartValidator(req, res, next) {
+  if(!req.cookies.cart) {
+    req.cart = { items: [] };
+  } else {
+    try {
+      req.cart = {
+        items: jwt.verify(req.cookies.cart,
+        process.env.AUTH0_CART_SECRET,
+        cartVerifyJwtOptions).items
+      };
+    } catch(e) {
+      req.cart = { items: [] };
+    }
+  }
+  next();
+}
+```
+When items are added, the backend constructs a new JWT with the new item in it and a new
+signature:
+```js
+app.get('/protected/add_item', idValidator, cartValidator, (req, res) => {
+  req.cart.items.push(parseInt(req.query.id));
+  const newCart = jwt.sign(req.cart,
+  process.env.AUTH0_CART_SECRET,
+  cartSignJwtOptions);
+  res.cookie('cart', newCart, {
+    maxAge: 1000 * 60 * 60
+  });
+  res.end();
+  console.log(`Item ID ${req.query.id} added to cart.`);
+});
+```
+Note that locations prefixed by /protected are also protected by the API access token. This is setup using express-jwt:
+```js
+app.use('/protected', expressJwt({
+  secret: jwksClient.expressJwtSecret(jwksOpts),
+  issuer: process.env.AUTH0_API_ISSUER,
+  audience: process.env.AUTH0_API_AUDIENCE,
+  requestProperty: 'accessToken',
+  getToken: req => {
+    return req.cookies['access_token'];
+  }
+}));
+```
+In other words, the `/protected/add_item` endpoint must first pass the access token validation step before validating the cart. One token validates access (authorization) to the API and the other token validates the integrity of the client side data (the cart).
+The access token and the ID token are assigned by Auth0 to our application. This requires setting up a client and an API endpoint using the Auth0 dashboard. These are then retrieved using the Auth0 JavaScript library, called by our frontend:
+```js
+//Auth0 Client ID
+const clientId = "t42WY87weXzepAdUlwMiHYRBQj9qWVAT";
+//Auth0 Domain
+const domain = "speyrott.auth0.com";
+const auth0 = new window.auth0.WebAuth({
+  domain: domain,
+  clientID: clientId,
+  audience: '/protected',
+  scope: 'openid profile purchase',
+  responseType: 'id_token token',
+  redirectUri: 'http://localhost:3000/auth/',
+  responseMode: 'form_post'
+});
+//(...)
+$('#login-button').on('click', function(event) {
+auth0.authorize();
+});
+```
+The audience claim must match the one setup for your API endpoint using the Auth0 dashboard. The Auth0 authentication and authorization server displays a login screen with our settings and then redirects back to our application at a specific path with the tokens we requested. These are handled by our backend which simply sets them as cookies:
+```js
+app.post('/auth', (req, res) => {
+  res.cookie('access_token', req.body.access_token, {
+    httpOnly: true,
+    maxAge: req.body.expires_in * 1000
+  });
+  res.cookie('id_token', req.body.id_token, {
+    maxAge: req.body.expires_in * 1000
+  });
+  res.redirect('/');
+});
+```
+
+You can Implement CSRF mitigation techniques on the top of this example.
+
 
 ## OAuth 2
 
@@ -121,14 +251,28 @@ The flow is based on the authorization code flow above, but with the addition of
 ## FAQ
 
 - Common use case for JWT?
+- How JWT implement authorization?
 - What is Cross-Site Request Forgery (CSRF)?
+- What is Cross-Site Scripting (XSS)?
 - How is OIDC different from OpenID2.0?
 
 ### What is Cross-Site Request Forgery (CSRF)?
 Unlike cross-site scripting (XSS), which exploits the trust a user has for a particular site, CSRF exploits the trust that a site has in a user's browser.
 In a CSRF attack, an innocent end user is tricked by an attacker into submitting a web request that they did not intend. This may cause actions to be performed on the website that can include inadvertent client or server data leakage, change of session state, or manipulation of an end user's account.
 
+### What is Cross-Site Scripting (XSS)
+Cross-site scripting (XSS) attacks attempt to inject JavaScript in trusted sites. Injected JavaScript
+can then steal tokens from cookies and local storage. If an access token is leaked before it expires, a
+malicious user could use it to access protected resources.
+
+- Don't use localStorage, cause JS can read it.
+- use cookie with 'http-only' setting.
+
+### How JWT implement authorization
+JWTs are self-contained, all the necessary information is there, reducing the need of going back and forward to the database. JWTs can container Authorization information.
+
 ## References
 
-[jwt.io](https://jwt.io/introduction)
+- [jwt.io](https://jwt.io/introduction)
 - [OAuth2 simplified](https://aaronparecki.com/oauth-2-simplified/)
+- jwt-handbook-v0_14_2.pdf
