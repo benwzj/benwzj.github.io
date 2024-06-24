@@ -46,7 +46,63 @@
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">matcher</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">/((?!api|_next/static|_next/image|.*</span><span class="se">\\</span><span class="s1">.png$).*)</span><span class="dl">'</span><span class="p">],</span>
 <span class="p">}</span>
-</code></pre></div></div> <h3 id="data-access-layer">Data Access Layer</h3> <p>To create a separate Data Access Layer inside JavaScript codebase and consolidate all data access in there.</p> <h3 id="protecting-server-actions">Protecting Server Actions</h3> <p>Implement checks within Server Actions to determine user permissions, such as restricting certain actions to admin users.</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/lib/actions.ts</span>
+</code></pre></div></div> <h3 id="data-access-layerdal">Data Access Layer(DAL)</h3> <ul> <li>For new next.js projects, It is good to use Data Access Layer(DAL) to consolidate all data access in there.</li> <li> <strong>The principle</strong> is that a Server Component function body should only see data that the current user issuing the request is authorized to have access to.</li> <li> <strong>The concept</strong> is that building an internal JavaScript library that provides custom data access checks before giving it to the caller. Similar to HTTP endpoints but in the same memory model.</li> <li>Every API should accept the current user and check if the user can see this data before returning it.</li> </ul> <p>From this point, normal security practices for implementing APIs take over.</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// data/auth.tsx</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">cache</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">cookies</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next/headers</span><span class="dl">'</span><span class="p">;</span>
+ 
+<span class="c1">// Cached helper methods makes it easy to get the same value in many places</span>
+<span class="c1">// without manually passing it around. This discourages passing it from Server</span>
+<span class="c1">// Component to Server Component which minimizes risk of passing it to a Client</span>
+<span class="c1">// Component.</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">getCurrentUser</span> <span class="o">=</span> <span class="nf">cache</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nf">cookies</span><span class="p">().</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">AUTH_TOKEN</span><span class="dl">'</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">decodedToken</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">decryptAndValidate</span><span class="p">(</span><span class="nx">token</span><span class="p">);</span>
+  <span class="c1">// Don't include secret tokens or private information as public fields.</span>
+  <span class="c1">// Use classes to avoid accidentally passing the whole object to the client.</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nc">User</span><span class="p">(</span><span class="nx">decodedToken</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// data/user-dto.tsx</span>
+
+<span class="k">import</span> <span class="dl">'</span><span class="s1">server-only</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">getCurrentUser</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./auth</span><span class="dl">'</span><span class="p">;</span>
+ 
+<span class="kd">function</span> <span class="nf">canSeeUsername</span><span class="p">(</span><span class="nx">viewer</span><span class="p">:</span> <span class="nx">User</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Public info for now, but can change</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="kd">function</span> <span class="nf">canSeePhoneNumber</span><span class="p">(</span><span class="nx">viewer</span><span class="p">:</span> <span class="nx">User</span><span class="p">,</span> <span class="nx">team</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Privacy rules</span>
+  <span class="k">return</span> <span class="nx">viewer</span><span class="p">.</span><span class="nx">isAdmin</span> <span class="o">||</span> <span class="nx">team</span> <span class="o">===</span> <span class="nx">viewer</span><span class="p">.</span><span class="nx">team</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nf">getProfileDTO</span><span class="p">(</span><span class="nx">slug</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Don't pass values, read back cached values, also solves context and easier to make it lazy</span>
+ 
+  <span class="c1">// use a database API that supports safe templating of queries</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">rows</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">sql</span><span class="s2">`SELECT * FROM user WHERE slug = </span><span class="p">${</span><span class="nx">slug</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">userData</span> <span class="o">=</span> <span class="nx">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+ 
+  <span class="kd">const</span> <span class="nx">currentUser</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">getCurrentUser</span><span class="p">();</span>
+ 
+  <span class="c1">// only return the data relevant for this query and not everything</span>
+  <span class="c1">// &lt;https://www.w3.org/2001/tag/doc/APIMinimization&gt;</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">username</span><span class="p">:</span> <span class="nf">canSeeUsername</span><span class="p">(</span><span class="nx">currentUser</span><span class="p">)</span> <span class="p">?</span> <span class="nx">userData</span><span class="p">.</span><span class="nx">username</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="na">phonenumber</span><span class="p">:</span> <span class="nf">canSeePhoneNumber</span><span class="p">(</span><span class="nx">currentUser</span><span class="p">,</span> <span class="nx">userData</span><span class="p">.</span><span class="nx">team</span><span class="p">)</span>
+      <span class="p">?</span> <span class="nx">userData</span><span class="p">.</span><span class="nx">phonenumber</span>
+      <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>These methods should expose objects that are safe to be transferred to the client as is. We like to call these Data Transfer Objects (DTO) to clarify that they’re ready to be consumed by the client.</p> <p>They might only get consumed by Server Components in practice. This creates a layering where security audits can focus primarily on the Data Access Layer while the UI can rapidly iterate. Smaller surface area and less code to cover makes it easier to catch security issues.</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">getProfile</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../data/user</span><span class="dl">'</span>
+<span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nf">Page</span><span class="p">({</span> <span class="na">params</span><span class="p">:</span> <span class="p">{</span> <span class="nx">slug</span> <span class="p">}</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="c1">// This page can now safely pass around this profile knowing</span>
+  <span class="c1">// that it shouldn't contain anything sensitive.</span>
+  <span class="kd">const</span> <span class="nx">profile</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">getProfile</span><span class="p">(</span><span class="nx">slug</span><span class="p">);</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>Secret keys can be stored in environment variables but only the data access layer should access process.env in this approach.</p> <h3 id="protecting-server-actions">Protecting Server Actions</h3> <p>Implement checks within Server Actions to determine user permissions, such as restricting certain actions to admin users.</p> <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/lib/actions.ts</span>
 <span class="dl">'</span><span class="s1">use server</span><span class="dl">'</span>
 
 <span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nf">serverAction</span><span class="p">()</span> <span class="p">{</span>
