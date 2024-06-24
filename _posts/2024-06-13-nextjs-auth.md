@@ -148,10 +148,83 @@ export const config = {
 ```
 
 
-### Data Access Layer
+### Data Access Layer(DAL)
 
-To create a separate Data Access Layer inside JavaScript codebase and consolidate all data access in there.
+- For new next.js projects, It is good to use Data Access Layer(DAL) to consolidate all data access in there.
+- **The principle** is that a Server Component function body should only see data that the current user issuing the request is authorized to have access to.
+- **The concept** is that building an internal JavaScript library that provides custom data access checks before giving it to the caller. Similar to HTTP endpoints but in the same memory model. 
+- Every API should accept the current user and check if the user can see this data before returning it.
 
+From this point, normal security practices for implementing APIs take over.
+```ts
+// data/auth.tsx
+
+import { cache } from 'react';
+import { cookies } from 'next/headers';
+ 
+// Cached helper methods makes it easy to get the same value in many places
+// without manually passing it around. This discourages passing it from Server
+// Component to Server Component which minimizes risk of passing it to a Client
+// Component.
+export const getCurrentUser = cache(async () => {
+  const token = cookies().get('AUTH_TOKEN');
+  const decodedToken = await decryptAndValidate(token);
+  // Don't include secret tokens or private information as public fields.
+  // Use classes to avoid accidentally passing the whole object to the client.
+  return new User(decodedToken.id);
+});
+```
+
+```ts
+// data/user-dto.tsx
+
+import 'server-only';
+import { getCurrentUser } from './auth';
+ 
+function canSeeUsername(viewer: User) {
+  // Public info for now, but can change
+  return true;
+}
+ 
+function canSeePhoneNumber(viewer: User, team: string) {
+  // Privacy rules
+  return viewer.isAdmin || team === viewer.team;
+}
+ 
+export async function getProfileDTO(slug: string) {
+  // Don't pass values, read back cached values, also solves context and easier to make it lazy
+ 
+  // use a database API that supports safe templating of queries
+  const [rows] = await sql`SELECT * FROM user WHERE slug = ${slug}`;
+  const userData = rows[0];
+ 
+  const currentUser = await getCurrentUser();
+ 
+  // only return the data relevant for this query and not everything
+  // <https://www.w3.org/2001/tag/doc/APIMinimization>
+  return {
+    username: canSeeUsername(currentUser) ? userData.username : null,
+    phonenumber: canSeePhoneNumber(currentUser, userData.team)
+      ? userData.phonenumber
+      : null,
+  };
+}
+```
+
+These methods should expose objects that are safe to be transferred to the client as is. We like to call these Data Transfer Objects (DTO) to clarify that they're ready to be consumed by the client.
+
+They might only get consumed by Server Components in practice. This creates a layering where security audits can focus primarily on the Data Access Layer while the UI can rapidly iterate. Smaller surface area and less code to cover makes it easier to catch security issues.
+
+```ts
+import {getProfile} from '../../data/user'
+export async function Page({ params: { slug } }) {
+  // This page can now safely pass around this profile knowing
+  // that it shouldn't contain anything sensitive.
+  const profile = await getProfile(slug);
+  ...
+}
+```
+Secret keys can be stored in environment variables but only the data access layer should access process.env in this approach.
 
 ### Protecting Server Actions
 Implement checks within Server Actions to determine user permissions, such as restricting certain actions to admin users.
