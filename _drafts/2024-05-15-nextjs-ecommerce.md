@@ -27,10 +27,27 @@ To use Next.js Commerce as your headless Shopify theme, you need to install the 
 
 ## Implement Shopping Cart
 
-- Shopping Cart component is rendered at the very beginning inside `<Suspense>` within `navbar`.
-- Shopping Cart will read cookie and retrieve items.
-- `<CartModal>` is the main component to implement Shopping Cart.
-- The effect of drawing in and out is using `<Transition>` and `<Dialog>` which come from third lib "headlessui".
+- Use cookie to store Cart ID. Cart detail information store in Shopify.
+- Use GraphQL API to manage cart in Shopify.
+- Display Cart in Modal.
+
+### Steps:
+- Shopping `<Cart>` component is rendered at the very beginning inside `<Suspense>` within `navbar`.
+- Cart component read cookie to get Cart ID.
+- Retrieve shopping cart items from Shopify DMS by GraphQL API according to Cart ID.
+- Pass cart items to `<CartModal>`.
+- `<CartModal>` is the main component to implement Shopping Cart. 
+
+### CartModal Component
+- It is Modal.
+- It is client component: `'use client';`
+- The effect of drawing in and out is using `<Transition>` and `<Dialog>` which come from 3rd lib `"headlessui"`.
+
+### Server Actions
+They defined in `components/cart/actions`.
+- addItem
+- removeItem
+- updateItemQuantity
 
 
 ### FAQ
@@ -40,8 +57,6 @@ To use Next.js Commerce as your headless Shopify theme, you need to install the 
 - What code style like when coding in Next.js? 
   - How do folders, files distribute?
   - How to make Components? 
-
-
 
 ## Add Login function
 
