@@ -4,6 +4,13 @@ title: Next.js Ecommerce
 date: 2024-05-15
 category: React
 tags: GraphQL Next.js Shopify
+toc:
+  - name: Setup Shopify
+  - name: GraphQL APIs
+  - name: Implement Shopping Cart
+  - name: Add Login function
+  - name: Admin Function
+  - name: References
 ---
 
 - tailwindcss
@@ -25,8 +32,17 @@ To use Next.js Commerce as your headless Shopify theme, you need to install the 
 - Deploy your headless storefront on Vercel.
 - Configure environment variables in Vercel.
 
+## GraphQL APIs
+
+- All Shopify API defined in `lib/shopify`.
+- `shopifyFetch()` is the function which fetch data from Shopify CMS throught GraphQL.
+  - It is generic function. 
+- This part show you how to implemen GraphQL API using TypeScript.
+
+
 ## Implement Shopping Cart
 
+- Defined in `components/cart`
 - Use cookie to store Cart ID. Cart detail information store in Shopify.
 - Use GraphQL API to manage cart in Shopify.
 - Display Cart in Modal.
@@ -50,7 +66,7 @@ They defined in `components/cart/actions`.
 - updateItemQuantity
 
 
-### FAQ
+### Questions for Cart
 - Where do it store items information in Cart?  It looks like in Cookie
 - What items information store in Cookie?
 - How to interact with Shopify?
@@ -58,8 +74,11 @@ They defined in `components/cart/actions`.
   - How do folders, files distribute?
   - How to make Components? 
 
+
 ## Add Login function
 
+
+## Admin Function
 
 ## References
 - Basa on [Next.js Commerce template](https://github.com/vercel/commerce).
