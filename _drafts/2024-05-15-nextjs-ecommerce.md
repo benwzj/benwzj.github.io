@@ -34,11 +34,11 @@ To use Next.js Commerce as your headless Shopify theme, you need to install the 
 
 ## GraphQL APIs
 
+- Implemen GraphQL API using TypeScript.
 - All Shopify API defined in `lib/shopify`.
 - `shopifyFetch()` is the function which fetch data from Shopify CMS throught GraphQL.
   - It is generic function. 
-- This part show you how to implemen GraphQL API using TypeScript.
-
+- For example: `getCart(cartId)` -> `shopifyFetch({query: getCartQuery, variables: { cartId }})`, then the Response is Items detail on Cart.
 
 ## Implement Shopping Cart
 

@@ -4,6 +4,12 @@ title: Shopify Dev Overview
 date: 2024-05-30
 category: Website
 tags: Shopify E-Commerce
+toc:
+  - name: Apps
+  - name: Theme
+  - name: Headless
+  - name: FAQ
+  - name: References
 ---
 
 There are three parts that developers can build on: Apps, Themes, Headless(custom storefront).
@@ -142,15 +148,37 @@ etc.
 
 ## Headless
 
-### What is Headless
-- Headless means total customized storefront which give you maximum flexibility. 
-- You can build Headless with Shopify’s Storefront APIs and Customer Account APIs.
-- Hydrogen is Shopify official headless framework. You can alwo bring your own stack.
+Headless means total **customized storefront** which give you maximum flexibility. 
+
+### Features
+- You can build Headless with Shopify’s **Storefront APIs** and **Customer Account APIs**.
+- Hydrogen is Shopify official headless framework. You are allowed to bring your own stack.
 - Oxygen is Shopify’s global serverless hosting platform, built for deploying Hydrogen storefronts at the edge.
-- custom storefron, not just website, it can be native mobile app, PWA, video livestreams, IoT, or just add a buy button on an existing website.
+- Custom storefron, not just website, it can be native mobile app, PWA, video livestreams, IoT, or just add a buy button on an existing website.
 
+### Storefront API
+The Storefront API provides access to Shopify's primitives and capabilities such as displaying products and collections, adding items to the cart, calculating contextual pricing, and more.
+You can use the Storefront API to build unique commerce experiences on any platform, including the web, native apps, games, and social media, using the frontend tools of your choice.
 
-## FQA
+There are two methods of authentication for the Storefront API:
+- Public token
+- Private token
+
+Shopify provide some Developer tools for Storefront API:
+- Storefront API GraphiQL explorer
+- Storefront API learning kit
+
+#### storefront api vs admin api
+The Storefront API is primarily used by **merchants** to build their storefront and create custom experiences for their customers. This API allows merchants to access and modify data related to products, collections, customers, and orders on the storefront.
+
+On the other hand, the Admin API is primarily used by **partners** to access and modify data on the merchant's store. This API allows partners to create apps that add functionality to the merchant's store, such as inventory management or marketing tools. The Admin API provides access to a broader range of data compared to the Storefront API, including data related to payments, shipping, and taxes.
+
+### Customer Account API
+The Customer Account API offers a secure and private way of accessing private customer-scoped data, such as customer, orders, payments, fulfillment, discounts, refunds, and metafields. The Customer Account API allows you to build personalized customer experiences that you can use in your Headless or Hydrogen custom storefronts.
+
+The Customer Account API is a GraphQL API that requires an access token associated with a specific customer.
+
+## FAQ
 
 ### What is Storefront
 Storefront is the interface to customers from which you can sell things.
