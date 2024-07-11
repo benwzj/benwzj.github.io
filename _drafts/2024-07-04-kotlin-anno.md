@@ -6,7 +6,7 @@ category: Android
 tags: Android Kotlin 
 ---
 
-## What is Anootations
+## What is Annotations
 
 Annotations are means of attaching metadata to code. 
 
