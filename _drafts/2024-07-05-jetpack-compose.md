@@ -30,11 +30,13 @@ each node only visited once.
 
 ## Modifier
 
-Modifiers will affect three phases.
+Modifiers play a very important role in Jetpack Compose.
 
+### How to use
 We can chain multiple modifiers, like `Modifier.clip(CircleShape).size(40.dp),`. Each modifier node wraps the rest of the chain and the layout node Within.
 For example when we chain a clip in a size modifier, the clip modifier node wraps the size modifier node which then wraps the image layout node in the layout phase:
 {% include figure.html path="assets/img/android-modifier.png" class="img-fluid rounded z-depth-1" width="80%" %}
+
 
 ## The `MainActivity.kt` file
 
