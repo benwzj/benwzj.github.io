@@ -4,12 +4,19 @@ title: Jetpack Compose Overview
 date: 2024-07-04
 category: Android
 tags: Android Kotlin 
+toc: 
+  - name: What is Jetpack Compose
+  - name: Composable functions
+  - name: Layout
+  - name: Material Design
+  - name: FAQ
+  - name: References
 ---
 
 ## What is Jetpack Compose
 
-- Jetpack Compose is Android’s recommended modern toolkit for building native UI. 
-- It simplifies UI development on Android with powerful tools, and intuitive Kotlin APIs.
+- Jetpack Compose is Android’s recommended modern toolkit for building native **UI**. 
+- You can think Jetpack Compose do the same job as React.js. It is declarative, update View according states, etc.
 - You won't be editing any XML layouts or using the Layout Editor. 
 - You will call composable functions to define what elements you want, and the Compose compiler will do the rest. 
 - In Jetpack compose you write declarative code that describes how data should be displayed as UI. 
@@ -18,7 +25,9 @@ tags: Android Kotlin
 
 Jetpack Compose is built around composable functions. These functions let you define your app's UI programmatically by describing how it should look and providing data dependencies, rather than focusing on the process of the UI's construction (initializing an element, attaching it to a parent, etc.). 
 
-To create a composable function, just add the `@Composable` annotation to the function name. The annotation tells the Kotlin compiler that this function is used by Jetpack Compose to generate the UI.
+To create a composable function, just add the `@Composable` annotation to the function name. The annotation tells the Kotlin compiler that this function is used by Jetpack Compose to convert data into UI.
+
+Composable functions are the building blocks of UI in Compose. This encouraging you to break your UI into a library of reusable elements.
 
 ### Hello World example
 
@@ -44,8 +53,25 @@ fun MessageCard(name: String) {
 }
 ```
 
+### Basic concepts
 
-## Three Phases
+- `mutableStateOf(value)` creates a `MutableState`, which is an observable type in Compose. Any changes to its value will schedule recomposition of any composable functions that read that value.
+- `remember` stores objects in the composition, and forgets the object when the composable that called `remember` is removed from the composition.
+- `rememberSaveable` retains the state across configuration changes by saving it in a Bundle.
+
+### Recomposition
+
+In an imperative UI model, to change a widget, you call a setter on the widget to change its internal state. In Compose, you call the composable function again with new data. Doing so causes the function to be recomposed--the widgets emitted by the function are redrawn, if necessary, with new data. The Compose framework can intelligently recompose only the components that changed.
+
+Just like React.js:
+- Composable functions can execute in any order
+- Composable functions can run in parallel
+- Recomposition skips as much as possible
+- Recomposition is optimistic
+
+## Layout
+
+### Three Phases
 
 There are three phases in the process of transforming data into UI:
 - **composition**(What to Show): transforme composable functions into a UI tree.
@@ -57,16 +83,18 @@ At the end of the phase each layout note will have an assigned width and height 
 each node only visited once.
 - **drawing**(How to Show): now we know the sizes and XY coordinates of all of our layout nodes. the tree is traversed again from top to bottom and each node draws itself on the screen.
 
-## Modifier
+We are focus on Layout here.
+
+### Modifier
 
 Modifiers play a important role in Jetpack Compose.
 
-### How to use Modifier
+#### How to use Modifier
 We can chain multiple modifiers, like `Modifier.clip(CircleShape).size(40.dp),`. Each modifier node wraps the rest of the chain and the layout node Within.
 For example when we chain a clip in a size modifier, the clip modifier node wraps the size modifier node which then wraps the image layout node in the layout phase:
 {% include figure.html path="assets/img/android-modifier.png" class="img-fluid rounded z-depth-1" width="80%" %}
 
-### Understand Constraints
+#### Understand Constraints
 
 Modifier will decide the positin, size, etc for the node. And Jetpack compose use 'Constraints' which come from parent's node to layout nodes. that means Modifier and Constraint will work together to layout nodes.
 The Constraint can affect the size of composables, and Modifier(depend on which modifier) affect the Constraints.
@@ -104,13 +132,26 @@ Here is the process:
 - The padding modifier then insets its content by 10dp on all sizes, so it lowers the canvas size to 100 by 100dp.
 - The Image is drawn in that canvas. The image is clipped based on the original circle of 120dp, so the output is a non-round result.
 
-### References:
-[constraints and modifiers order](https://developer.android.com/develop/ui/compose/layouts/constraints-modifiers)
+## Material Design
 
+Compose is built to support Material Design principles. Many of its UI elements implement Material Design out of the box.
 
+### How to use
+
+Jetpack Compose provides an implementation of Material Design 3 and its UI elements out of the box. 
+
+> Note: the Empty Compose Activity template generates a default theme for your project that allows you to customize MaterialTheme.
+
+For example, improving the appearance of `MessageCard` composable using Material Design styling.
+1. To start, wrap the `MessageCard` function with the Material theme created in your project, `YourProjectTheme`, as well as a `Surface`.
+2. Material Design is built around three pillars: Color, Typography, and Shape. You will add them one by one.
+  - Color: Use MaterialTheme.colorScheme to style with colors from the wrapped theme. 
+  - Typography: Material Typography styles are available in the MaterialTheme, just add them to the Text composables.
 
 
 ## FAQ
 
 - Why not use HTML, CSS and JavaScript for UI? 
 
+## References
+[constraints and modifiers order](https://developer.android.com/develop/ui/compose/layouts/constraints-modifiers)
