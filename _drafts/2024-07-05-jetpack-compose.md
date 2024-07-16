@@ -12,39 +12,103 @@ tags: Android Kotlin
 - It simplifies UI development on Android with powerful tools, and intuitive Kotlin APIs.
 - You won't be editing any XML layouts or using the Layout Editor. 
 - You will call composable functions to define what elements you want, and the Compose compiler will do the rest. 
-- Composable functions are like regular functions with a few differences: functions names are capitalized, you add the `@Composable` annotation before the function.
 - In Jetpack compose you write declarative code that describes how data should be displayed as UI. 
+
+## Composable functions
+
+Jetpack Compose is built around composable functions. These functions let you define your app's UI programmatically by describing how it should look and providing data dependencies, rather than focusing on the process of the UI's construction (initializing an element, attaching it to a parent, etc.). 
+
+To create a composable function, just add the `@Composable` annotation to the function name. The annotation tells the Kotlin compiler that this function is used by Jetpack Compose to generate the UI.
+
+### Hello World example
+
+Create a new project: 
+In The `MainActivity.kt` file
+
+- Notice there are some automatically generated functions in this code, specifically the `onCreate()` and the `setContent()` functions.
+- The `onCreate()` function is the entry point to this Android app and calls other functions to build the user interface. 
+- The `setContent()` function within the `onCreate()` function is used to define your layout through composable functions. All functions marked with the `@Composable` annotation can be called from the `setContent()` function or from other Composable functions. 
+
+```kotlin
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MessageCard("Android")
+        }
+    }
+}
+@Composable
+fun MessageCard(name: String) {
+    Text(text = "Hello $name!")
+}
+```
 
 
 ## Three Phases
 
 There are three phases in the process of transforming data into UI:
-- **composition**: transforme composable functions into a UI tree.
-- **layout**: use this UI tree as input, the collection of layout nodes contain all the information needed to eventually decide on each node's size and location in 2D space. during the layout phase the tree is reversed  using the following three-step algorithm:
+- **composition**(What to Show): transforme composable functions into a UI tree.
+- **layout**(Where to Show): use this UI tree as input, the collection of layout nodes contain all the information needed to eventually decide on each node's size and location in 2D space. during the layout phase the tree is reversed  using the following three-step algorithm:
   - first a node **measures** its children if any and 
   - then based on those measurements it **decides** on its own size and,
   - finally it **places** its children relative to its own position. 
 At the end of the phase each layout note will have an assigned width and height and an x y coordinate of where it should be drawn.
 each node only visited once.
-- **drawing**: now we know the sizes and XY coordinates of all of our layout nodes. the tree is traversed again from top to bottom and each node draws itself on the screen.
+- **drawing**(How to Show): now we know the sizes and XY coordinates of all of our layout nodes. the tree is traversed again from top to bottom and each node draws itself on the screen.
 
 ## Modifier
 
-Modifiers play a very important role in Jetpack Compose.
+Modifiers play a important role in Jetpack Compose.
 
-### How to use
+### How to use Modifier
 We can chain multiple modifiers, like `Modifier.clip(CircleShape).size(40.dp),`. Each modifier node wraps the rest of the chain and the layout node Within.
 For example when we chain a clip in a size modifier, the clip modifier node wraps the size modifier node which then wraps the image layout node in the layout phase:
 {% include figure.html path="assets/img/android-modifier.png" class="img-fluid rounded z-depth-1" width="80%" %}
 
+### Understand Constraints
 
-## The `MainActivity.kt` file
+Modifier will decide the positin, size, etc for the node. And Jetpack compose use 'Constraints' which come from parent's node to layout nodes. that means Modifier and Constraint will work together to layout nodes.
+The Constraint can affect the size of composables, and Modifier(depend on which modifier) affect the Constraints.
 
-Notice there are some automatically generated functions in this code, specifically the `onCreate()` and the `setContent()` functions.
+#### How Constraint affect Modifier?
+- For example, the passing in constraint is `w:0-300; h:0-400`, modifier is `size(50)`, then the modifier pass constraint `w:50; h:50` to next node. 
+- The passing in constraint is `w:0-300; h:0-400`, modifier is `size(500)`, then the modifier will adapt to constriant to be `w:300; h:400`. 
+- If the passing in constraint is `w:50-300; h:50-400`, modifier is `size(40)`, modifier will adapt to constriant to be `w:50; h:50`. 
+- If you don't want node adhere to passing in constraint, you can use `requiredSize()`.
+- `fillMaxSize()` will pass constraint `w:300; h:400` in.
+- `wrapContentSize()` will reset the minium constraint. And also can put it's child to the center.
 
-The `onCreate()` function is the entry point to this Android app and calls other functions to build the user interface. In Kotlin programs, the `main()` function is the entry point/starting point of execution. In Android apps, the onCreate() function fills that role.
+#### How Modifier adapt constraint?
+After the node get size, location etc, then it will pass the size, etc. back up the tree. The parent will decide the final size and location.
+Following is a good way to understand the interaction between modifier and contraint: 
+```kotlin
+Image(
+    painterResource(R.drawable.hero),
+    contentDescription = null,
+    Modifier
+        .clip(CircleShape)
+        .padding(10.dp)
+        .size(100.dp)
+)
+```
+{% include figure.html path="assets/img/jetpack-compose-modifier-constraint.png" class="img-fluid rounded z-depth-1" width="80%" %}
 
-The `setContent()` function within the `onCreate()` function is used to define your layout through composable functions. All functions marked with the `@Composable` annotation can be called from the `setContent()` function or from other Composable functions. The annotation tells the Kotlin compiler that this function is used by Jetpack Compose to generate the UI.
+Here is the process:
+- The clip modifier does not change the constraints.
+- The padding modifier lowers the maximum constraints.
+- The size modifier sets all constraints to 100dp.
+- The Image adheres to those constraints and reports a size of 100 by 100dp.
+- The padding modifier adds 10dp on all sizes, so it increases the reported width and height by 20dp.
+- Now in the drawing phase, the clip modifier acts on a canvas of 120 by 120dp. So, it creates a circle mask of that size.
+- The padding modifier then insets its content by 10dp on all sizes, so it lowers the canvas size to 100 by 100dp.
+- The Image is drawn in that canvas. The image is clipped based on the original circle of 120dp, so the output is a non-round result.
+
+### References:
+[constraints and modifiers order](https://developer.android.com/develop/ui/compose/layouts/constraints-modifiers)
+
+
+
 
 ## FAQ
 
