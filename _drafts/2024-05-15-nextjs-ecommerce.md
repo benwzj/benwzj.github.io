@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Next.js Ecommerce
+title: Next.js Shopify Ecommerce Application
 date: 2024-05-15
 category: React
-tags: GraphQL Next.js Shopify
+tags: GraphQL Next.js Shopify Ecommerce
 toc:
   - name: Setup Shopify
   - name: GraphQL APIs
@@ -21,24 +21,38 @@ toc:
 ## Setup Shopify
 
 Build online storefront in Shopify. Use Next.js Commerce as your headless Shopify theme. 
-To use Next.js Commerce as your headless Shopify theme, you need to install the Shopify Headless theme. 
 
-- you can add 'page' in Shopify.
-- you can add 'menu' in Shopify.
-- Shopify support fetch Collections API, fetch Menu API.
-
-### Setup Step:
+### Step:
 - Configure Shopify for use as a headless CMS.
-- Deploy your headless storefront on Vercel.
-- Configure environment variables in Vercel.
+  - install the Shopify Headless theme. 
+  - install Headless App.
+    - retrieve 'public access token' for Store Front API. This Ecommerce App will use Store Front API to interact with Shopify CMS.
+- You can deploy this app on Vercel Cloud.
+  - Configure environment variables in Vercel.
+- You can deploy on your own server. Remember to configure the `.env` file.
+
+Also, you need to add 'page', 'menu' and 'Collections' in Shopify headless store.
+- Collections: `hidden-homepage-carousel`, `hidden-homepage-featured-items`;
+- Page: You can create page like: `FAQ`, `Contact`, etc.
+- Menu: `next-js-frontend-header-menu`, `next-js-frontend-footer-menu`
 
 ## GraphQL APIs
 
-- Implemen GraphQL API using TypeScript.
+### Overview
+- Implement GraphQL API using TypeScript.
 - All Shopify API defined in `lib/shopify`.
 - `shopifyFetch()` is the function which fetch data from Shopify CMS throught GraphQL.
+  - It is the main entrance.
   - It is generic function. 
 - For example: `getCart(cartId)` -> `shopifyFetch({query: getCartQuery, variables: { cartId }})`, then the Response is Items detail on Cart.
+
+### `shopifyFetch()` 
+
+- `shopifyFetch()` is a generic function. The type `T` is used for different Variables structure which used for defferent GraghQL Request.
+- Use `fetch` function to connect shopify GraphQL endpoint.
+  - the header contain `X-Shopify-Storefront-Access-Token`.
+  - the body contain the `query` string.
+
 
 ## Implement Shopping Cart
 
@@ -65,20 +79,27 @@ They defined in `components/cart/actions`.
 - removeItem
 - updateItemQuantity
 
+### addItem steps
+- get CartID from cookie. if no, create one at Shopify.
+- `shopifyFetch()` using `T` as `ShopifyAddToCartOperation`.
 
 ### Questions for Cart
-- Where do it store items information in Cart?  It looks like in Cookie
-- What items information store in Cookie?
-- How to interact with Shopify?
-- What code style like when coding in Next.js? 
-  - How do folders, files distribute?
-  - How to make Components? 
+- Where do it store items information in Cart? 
+Cookies store CartID. All cart information is store at Shopify CMS.
+- How to interact with Shopify? 
+Use Storefront GraphQL API.
 
 
 ## Add Login function
 
 
 ## Admin Function
+
+## FAQ
+
+- What code style like when coding in Next.js? 
+  - How do folders, files distribute?
+  - How to make Components? 
 
 ## References
 - Basa on [Next.js Commerce template](https://github.com/vercel/commerce).

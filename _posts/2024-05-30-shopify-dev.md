@@ -3,7 +3,7 @@ layout: post
 title: Shopify Dev Overview
 date: 2024-05-30
 category: Website
-tags: Shopify E-Commerce
+tags: Shopify Ecommerce
 toc:
   - name: Apps
   - name: Theme
@@ -28,6 +28,7 @@ Run through this blog, you can get to know some concepts and terminologies of Sh
 - A single app can add functionality to multiple areas of the platform. 
 - Depending on the tool that you're using, Shopify might host your code, or you might have to arrange for hosting yourself.
 - You can Surface App's functionality in Shopify admin, Checkout, Online Store, Shopify Flow, Point of Sale, etc.
+- For example, If you use Shopify as CMS to build your Ecommerce WebApp. You need to install Headless App in your Shopify store. Then you Ecommerce WebApp can connect to the Storefront API which provided by Headless App.
 
 #### Shopify admin
 
@@ -151,12 +152,14 @@ etc.
 Headless means total **customized storefront** which give you maximum flexibility. 
 
 ### Features
+
 - You can build Headless with Shopify’s **Storefront APIs** and **Customer Account APIs**.
-- Hydrogen is Shopify official headless framework. You are allowed to bring your own stack.
+- Hydrogen is Shopify official headless framework. You are allowed to bring your own stack as well.
 - Oxygen is Shopify’s global serverless hosting platform, built for deploying Hydrogen storefronts at the edge.
 - Custom storefron, not just website, it can be native mobile app, PWA, video livestreams, IoT, or just add a buy button on an existing website.
 
 ### Storefront API
+
 The Storefront API provides access to Shopify's primitives and capabilities such as displaying products and collections, adding items to the cart, calculating contextual pricing, and more.
 You can use the Storefront API to build unique commerce experiences on any platform, including the web, native apps, games, and social media, using the frontend tools of your choice.
 
@@ -168,27 +171,41 @@ Shopify provide some Developer tools for Storefront API:
 - Storefront API GraphiQL explorer
 - Storefront API learning kit
 
+You can create customers and update customer accounts using the Storefront API. (then why Customer Account API)
+
 #### storefront api vs admin api
 The Storefront API is primarily used by **merchants** to build their storefront and create custom experiences for their customers. This API allows merchants to access and modify data related to products, collections, customers, and orders on the storefront.
 
-On the other hand, the Admin API is primarily used by **partners** to access and modify data on the merchant's store. This API allows partners to create apps that add functionality to the merchant's store, such as inventory management or marketing tools. The Admin API provides access to a broader range of data compared to the Storefront API, including data related to payments, shipping, and taxes.
+On the other hand, the Admin API is primarily used by **partners** to access and modify data on the merchant's store. This API allows partners to create apps that add functionality to the merchant's store, such as inventory management or marketing tools. 
+The Admin API provides access to a broader range of data compared to the Storefront API, including data related to payments, shipping, and taxes.
 
 ### Customer Account API
+
 The Customer Account API offers a secure and private way of accessing private customer-scoped data, such as customer, orders, payments, fulfillment, discounts, refunds, and metafields. The Customer Account API allows you to build personalized customer experiences that you can use in your Headless or Hydrogen custom storefronts.
 
 The Customer Account API is a GraphQL API that requires an access token associated with a specific customer.
 
 ## FAQ
 
+- How Theme work in Shopify?
+
 ### What is Storefront
 Storefront is the interface to customers from which you can sell things.
 There are two way to build your Storefront: Using Theme or Headless.
 
-### What is Point of Sale (POS)
+The following components form a part of every buying journey:
+- A storefront is where merchants tell their brand story, and where customers browse available products.
+- A cart is where customers add products that they're interested in buying, and remove products that they no longer want to buy. A customer might visit their cart multiple times to renegotiate with themselves before they make a final purchase.
+- A checkout is where a customer makes their final decision to purchase products, and completes a transaction.
+
+{% include figure.html path="https://cdn.shopify.com/shopifycloud/shopify_dev/assets/apps/storefront-cart-checkout-d813a2b5eb1e5474831bc2d3f869c625aa0148d7b3c8abb2c215537b1aa029d0.png" class="img-fluid rounded z-depth-1" %}
+
+### What is Shopify Point of Sale (POS)
+#### What is POS
 
 The point of sale (POS) is the time and place at which a retail transaction is completed. At the point of sale, the merchant calculates the amount owed by the customer, indicates that amount, prepare an invoice for the customer (which may be a cash register printout), and indicates the options for the customer to make payment.
 
-### What is Shopify Point of Sale (POS)
+#### What is Shopify POS
 
 Shopify POS is a point of sale **app** that you can use to sell your products in person. 
 Process orders, accept payments, produce receipts, and control it all from your mobile device. Shopify online store automatically synchronizes with Shopify POS, and you manage your entire business from one dashboard. Inventory, product, and payment updates that you make in your Shopify admin will instantly take effect in Shopify POS.
@@ -200,12 +217,21 @@ Process orders, accept payments, produce receipts, and control it all from your 
 - **Without** an app extension, users interact directly with your app. Your app relays information to Shopify that gets surfaced back to the users through your app.
 - **With** an app extension, users interact with Shopify. Shopify relays information to your app that gets surfaced back to the users through your app extension in Shopify.
 
-### How Theme work in Shopify
-
 ### What is headless Shopify theme
 A theme determines the way that a Shopify online store looks, feels, and functions for merchants and their customers.
 Shopify themes are built using Shopify's theme templating language, Liquid, along with HTML, CSS, JavaScript, and JSON. Using these languages, developers can create any look and feel that their clients want. 
 Headless Theme is used for Headless storefront.
+
+### What is sales channel
+Usually, you sales channel in your shopify account will be: 
+- Online store
+  - Use theme to layout your Online website pages.
+- Point of sale
+  - POS app help you Process orders, accept payments, sync with online store, etc from your mobile phone.
+- Shop
+  - Shop App is mobile app in iOS and Android. customers can do shopping in the app. you can provide product in Shop App. 
+- Headless
+  - It is custom storefront.
 
 ## References
 

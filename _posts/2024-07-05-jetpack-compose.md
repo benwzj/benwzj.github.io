@@ -15,6 +15,8 @@ toc:
 
 ## What is Jetpack Compose
 
+XML has been a staple in Android development since the early days. Jetpack Compose represents a paradigm shift in Android UI development. The first preview of Jetpack Compose was announced in May 2019, and the framework was made ready for production in July 2021.
+
 - Jetpack Compose is Android’s recommended modern toolkit for building native **UI**. 
 - You can think Jetpack Compose do the same job as React.js. It is declarative, update View according states, etc.
 - You won't be editing any XML layouts or using the Layout Editor. 
@@ -53,7 +55,7 @@ fun MessageCard(name: String) {
 }
 ```
 
-### Basic concepts
+### Basic staff
 
 - `mutableStateOf(value)` creates a `MutableState`, which is an observable type in Compose. Any changes to its value will schedule recomposition of any composable functions that read that value.
 - `remember` stores objects in the composition, and forgets the object when the composable that called `remember` is removed from the composition.
@@ -63,15 +65,18 @@ fun MessageCard(name: String) {
 
 In an imperative UI model, to change a widget, you call a setter on the widget to change its internal state. In Compose, you call the composable function again with new data. Doing so causes the function to be recomposed--the widgets emitted by the function are redrawn, if necessary, with new data. The Compose framework can intelligently recompose only the components that changed.
 
-Just like React.js:
+### Composable functions Just like React components
 - Composable functions can execute in any order
 - Composable functions can run in parallel
 - Recomposition skips as much as possible
 - Recomposition is optimistic
+- Composable functions might run quite frequently
 
 ## Layout
 
-### Three Phases
+Constraints and Modifiers are keys to understand Compose Layout.
+
+### Three Phases in Compose
 
 There are three phases in the process of transforming data into UI:
 - **composition**(What to Show): transforme composable functions into a UI tree.
@@ -85,21 +90,17 @@ each node only visited once.
 
 We are focus on Layout here.
 
-### Modifier
-
-Modifiers play a important role in Jetpack Compose.
-
-#### How to use Modifier
+### How to use Modifier
 We can chain multiple modifiers, like `Modifier.clip(CircleShape).size(40.dp),`. Each modifier node wraps the rest of the chain and the layout node Within.
 For example when we chain a clip in a size modifier, the clip modifier node wraps the size modifier node which then wraps the image layout node in the layout phase:
 {% include figure.html path="assets/img/android-modifier.png" class="img-fluid rounded z-depth-1" width="80%" %}
 
-#### Understand Constraints
+### Understand Constraints
 
 Modifier will decide the positin, size, etc for the node. And Jetpack compose use 'Constraints' which come from parent's node to layout nodes. that means Modifier and Constraint will work together to layout nodes.
 The Constraint can affect the size of composables, and Modifier(depend on which modifier) affect the Constraints.
 
-#### How Constraint affect Modifier?
+### How Constraint affect Modifier?
 - For example, the passing in constraint is `w:0-300; h:0-400`, modifier is `size(50)`, then the modifier pass constraint `w:50; h:50` to next node. 
 - The passing in constraint is `w:0-300; h:0-400`, modifier is `size(500)`, then the modifier will adapt to constriant to be `w:300; h:400`. 
 - If the passing in constraint is `w:50-300; h:50-400`, modifier is `size(40)`, modifier will adapt to constriant to be `w:50; h:50`. 
@@ -107,7 +108,7 @@ The Constraint can affect the size of composables, and Modifier(depend on which 
 - `fillMaxSize()` will pass constraint `w:300; h:400` in.
 - `wrapContentSize()` will reset the minium constraint. And also can put it's child to the center.
 
-#### How Modifier adapt constraint?
+### How Modifier adapt constraint?
 After the node get size, location etc, then it will pass the size, etc. back up the tree. The parent will decide the final size and location.
 Following is a good way to understand the interaction between modifier and contraint: 
 ```kotlin
@@ -154,4 +155,5 @@ For example, improving the appearance of `MessageCard` composable using Material
 - Why not use HTML, CSS and JavaScript for UI? 
 
 ## References
-[constraints and modifiers order](https://developer.android.com/develop/ui/compose/layouts/constraints-modifiers)
+- [android developer website](https://developer.android.com/)
+- [constraints and modifiers order](https://developer.android.com/develop/ui/compose/layouts/constraints-modifiers)

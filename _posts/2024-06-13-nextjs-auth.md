@@ -10,7 +10,6 @@ toc:
   - name: Implement Authentication
   - name: Implement Authorization
   - name: Session Management
-  - name: 
 ---
 
 ## The Basic Authenticatin process
@@ -146,7 +145,6 @@ export const config = {
   matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
 }
 ```
-
 
 ### Data Access Layer(DAL)
 
