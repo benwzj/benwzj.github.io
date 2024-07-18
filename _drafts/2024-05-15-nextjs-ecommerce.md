@@ -47,7 +47,7 @@ Also, you need to add 'page', 'menu' and 'Collections' in Shopify headless store
 - For example: `getCart(cartId)` -> `shopifyFetch({query: getCartQuery, variables: { cartId }})`, then the Response is Items detail on Cart.
 
 ### `shopifyFetch()` 
-
+- All operations to shopify is go through `shopifyFetch()`.
 - `shopifyFetch()` is a generic function. The type `T` is used for different Variables structure which used for defferent GraghQL Request.
 - Use `fetch` function to connect shopify GraphQL endpoint.
   - the header contain `X-Shopify-Storefront-Access-Token`.
@@ -79,24 +79,28 @@ They defined in `components/cart/actions`.
 - removeItem
 - updateItemQuantity
 
-### addItem steps
-- get CartID from cookie. if no, create one at Shopify.
-- `shopifyFetch()` using `T` as `ShopifyAddToCartOperation`.
+### getCart(cartId) detail
+`cartId` is come from cookie, if no, create one in shopify and retrieve a cartId and store in cookie.
+`getCart(cartId)`use `shopifyFetch()` to send GraphQL to shopify.
+- query: getCartQuery,
+- variables: { cartId },
 
-### Questions for Cart
-- Where do it store items information in Cart? 
-Cookies store CartID. All cart information is store at Shopify CMS.
-- How to interact with Shopify? 
-Use Storefront GraphQL API.
-
+### addToCart() detail
+`addToCart()` use `shopifyFetch()` to send GraphQL to shopify.
+- `variables`: `cartId`, `line`. line is array of `{merchandiseId: string; quantity: number;}`
+- `query`: `addToCartMutation`
 
 ## Add Login function
+
 
 
 ## Admin Function
 
 ## FAQ
-
+- Where do it store items information in Cart? 
+Cookies store CartID. All cart information is store at Shopify CMS.
+- How to interact with Shopify? 
+Use Storefront GraphQL API.
 - What code style like when coding in Next.js? 
   - How do folders, files distribute?
   - How to make Components? 
