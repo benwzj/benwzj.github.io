@@ -82,8 +82,8 @@ They defined in `components/cart/actions`.
 ### getCart(cartId) detail
 `cartId` is come from cookie, if no, create one in shopify and retrieve a cartId and store in cookie.
 `getCart(cartId)`use `shopifyFetch()` to send GraphQL to shopify.
-- query: getCartQuery,
-- variables: { cartId },
+- query: `getCartQuery`,
+- variables: `{ cartId }`,
 
 ### addToCart() detail
 `addToCart()` use `shopifyFetch()` to send GraphQL to shopify.
