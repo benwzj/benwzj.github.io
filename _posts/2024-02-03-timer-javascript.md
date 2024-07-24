@@ -5,12 +5,12 @@ date: 2024-02-03
 category: JavaScript
 tags: Web-API Timer Recursion
 toc:
-  - name: How it work underhood
+  - name: How timer work underhood
   - name: The "this" problem
   - name: setTimeout and Recursion
   - name: Understand the execution order
   - name: Debouncing
-  - name: The `setInterval()`
+  - name: The setInterval()
   - name: Common using way in React
   - name: FQA
   - name: Reference
@@ -22,12 +22,11 @@ The `setTimeout()` and `setInterval()` methods allow authors to schedule timer-b
 - This API does not guarantee that timers will run exactly on schedule. Delays due to CPU load, other tasks, nested level, inactive tab, etc, are to be expected.
 - Non-number `delay` values are silently coerced into numbers.
 - You can include a string instead of a function, which is compiled and executed when the timer expires. This syntax is not recommended for the same reasons that make using `eval()` a security risk.
+- `setTimeout()` and `setInterval()` methods work in a very similiar machanism. 
 
 I am not gonna talk about how to use it. But trying to dig a bit deepper.
 
-`setTimeout()` and `setInterval()` methods work in a very similiar machanism. 
-
-## How it work underhood
+## How timer work underhood
 
 `setTimeout()` is web API which means there are standards to define how it work. Becaue it need to make sure all browsers work consistently. Timers are described in the timers section of [HTML Living Standard](https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html).
 
@@ -43,7 +42,7 @@ If you have not set `this` in the call or with bind, it will default to the wind
 
 Solutions:
 - A common way to solve the problem is to use a wrapper function that sets `this` to the required value.
-- Alternatively, you can use bind() to set the value of this for all calls to a given function
+- Alternatively, you can use `bind()` to set the value of this for all calls to a given function
 
 ## setTimeout and Recursion
 
@@ -94,7 +93,7 @@ console.log(1);
 
 // When execute this script, the order of log will be: "1, 2, 3, 4, 5"
 ```
-Promise and setTimeout() both are using event loop, callback queue. But they have some difference.
+Promise and `setTimeout()` both are using event loop, callback queue. But they have some difference.
 
 ### microtask, macrotask concept
 
@@ -147,12 +146,14 @@ const debouncedSearchData = debounce(searchData, 3000);
 debouncedSearchData();
 ```
 
-## The `setInterval()`
+## The setInterval()
 
 The `setInterval()` function is commonly used to set a delay for functions that are executed again and again, such as animations. You can cancel the interval using `clearInterval()`.
 
 Ensure that execution duration is shorter than interval frequency when using `setInterval()`. 
-If there is a possibility that your logic could take longer to execute than the interval time, it is recommended that you recursively call a named function using `setTimeout()`. 
+
+> If there is a possibility that your logic could take longer to execute than the interval time, it is recommended that you recursively call a named function using `setTimeout()`. 
+{: .warning-block}
 
 For example, if using `setInterval()` to poll a remote server every 5 seconds, network latency, an unresponsive server, and a host of other issues could prevent the request from completing in its allotted time. As such, you may find yourself with queued up XHR requests that won't necessarily return in order.
 
@@ -166,7 +167,7 @@ In these cases, a recursive `setTimeout()` pattern is preferred:
   }, delay);
 })();
 ```
-loop() is recursively called inside setTimeout() after the logic has completed executing. While this pattern does not guarantee execution on a fixed interval, it does guarantee that the previous interval has completed before recursing.
+`loop()` is recursively called inside `setTimeout()` after the logic has completed executing. While this pattern does not guarantee execution on a fixed interval, it does guarantee that the previous interval has completed before recursing.
 
 
 ## Common using way in React
@@ -218,7 +219,7 @@ export default function Stopwatch() {
 
 ## FQA
 
-### What happen if not `clearInterval()`
+- What happen if not `clearInterval()`
 
 ## Reference
 
