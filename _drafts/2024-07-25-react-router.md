@@ -10,8 +10,13 @@ Routing is the skeleton of every web application. Many React framework come with
 But if you are using Create React App, It doesn't include page routing. And React Router is the most popular solution.
 
 Of course, you can write your own Router if your appllication is small and simple. 
-## Write your own Router
 
+## Write your own Router
+Basic ideas are: 
+- using `Context`. 
+- Using APIs: `window.location.pathname`, `window.addEventListener('popstate', handler)`, `window.removeEventListener('popstate', handler);`, `window.history.pushState({}, '', to);`
+- Create a Context and wrap all components in the application inside `Context.Provider`. 
+- This Context value like this `{ currentPath, navigate }`. Marking down current path and provide function `navigate` to route to next URL.
 
 ## React Router
 
