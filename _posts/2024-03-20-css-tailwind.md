@@ -6,9 +6,9 @@ category: CSS
 tags: CSS HTML
 toc:
   - name: What is Tailwind CSS
-  - name: Use Tailwind CSS
   - name: Tailwind Docs
   - name: Setup Tailwind CSS
+  - name: Use Tailwind
   - name: FQA
   - name: References
 ---
@@ -53,14 +53,13 @@ Cons:
 
 > Pro tip:
 > Using 'Inline fold' VSCode plugin can fix the Tailwind CSS pollution.
+> Using 'Tailwind CSS IntelliSense' can do 75% of Tailwind CSS coding directly.
 
 ### Tailwind CSS vs inline styles
 
 - Designing with **constraints**. Using inline styles, every value is a magic number. With utilities, you’re choosing styles from a predefined design system, which makes it much easier to build visually consistent UIs.
 - **Responsive design**. You can’t use media queries in inline styles, but you can use Tailwind’s responsive utilities to build fully responsive interfaces easily.
 - **Hover, focus, and other states**. Inline styles can’t target states like hover or focus, but Tailwind’s state variants make it easy to style those states with utility classes.
-
-## Use Tailwind CSS
 
 ### Tailwind CSS just is CSS 
 
@@ -206,9 +205,14 @@ When using this strategy Tailwind will not modify the provided selector in any w
 
 ## Setup Tailwind CSS
 
+Detail at Tailwind [Setup Doc](https://tailwindcss.com/docs/installation).
+Tailwind provide setup steps for many Frame plat. But basically it is using PostCSS to make tailwind work. 
+- Configure your template paths: Add the paths to all of your template files in your tailwind.config.js file.
+- Add the Tailwind directives to your CSS
+
 ### Using PostCSS
 
-Installing Tailwind CSS as a PostCSS plugin is the most seamless way to integrate it with build tools like webpack, Rollup, Vite, and Parcel.
+Installing Tailwind CSS as a PostCSS plugin is the **most seamless way** to integrate it with build tools like webpack, Rollup, Vite, and Parcel.
 1. Install Tailwind CSS
 Install tailwindcss and its peer dependencies via npm, and create your `tailwind.config.js` file.
 2. Add Tailwind to your PostCSS configuration
@@ -225,7 +229,7 @@ module.exports = {
 
 ### Using CLI
 
-The simplest and fastest way to get up and running with Tailwind CSS from scratch is with the Tailwind CLI tool. 
+The **simplest and fastest** way to get up and running with Tailwind CSS from scratch is with the Tailwind CLI tool. 
 1. Install Tailwind CSS.
 2. Configure your template paths. 
 Add the paths to all of your template files in your `tailwind.config.js` file.
@@ -260,6 +264,125 @@ Use the Play CDN to try Tailwind right in the browser without any build step. Th
   </h1>
 </body>
 ```
+
+## Use Tailwind
+
+### Flex
+- Container need `flex`.
+
+When apply utilities to flex items, usually, the following options are enough:
+- Use `flex-initial` to allow a flex item to shrink but not grow, taking into account its initial size.
+- Use `flex-1` to allow a flex item to grow and shrink as needed, **ignoring its initial size**. It is NOT equal to `flex: 1`.
+- Use `flex-auto` to allow a flex item to grow and shrink, **taking into account its initial size**.
+- Use `flex-none` to prevent a flex item from growing or shrinking.
+
+### Position
+
+- When Using the `absolute` utility to position an element outside of the normal flow of the document, causing neighboring elements to act as if the element doesn’t exist, you usually will use `relative` container.
+- Use the `fixed` utility to position an element relative to the browser window.
+- Use the `sticky` utility to position an element as `relative` until it crosses a specified threshold, then treat it as `fixed` until its parent is off screen.
+
+### Sizing
+
+- Utilities have `w-12	width: 3rem; /* 48px */` and `w-14	width: 3.5rem; /* 56px */`, but `w-13` make no sense.
+- Min and max width is easy to setup: `min-w-3`.
+- You Can use `size` to setup width and height.
+- `w-full` equal to `width: 100%;`
+- `w-screen`	equal to `width: 100vw;`
+- `w-svw`	equal to `width: 100svw;`
+- `w-lvw`	equal to `width: 100lvw;`
+- `w-dvw`	equal to `width: 100dvw;`
+- `w-min`	equal to `width: min-content;`
+- `w-max`	equal to `width: max-content;`
+- `w-fit`	equal to `width: fit-content;`
+
+### columns
+
+Utilities for controlling the **number of columns** within an element. like `columns-4`, `columns-md`.
+- You can setup columns based on **column count** or based on **column width**.
+- You can customize it like this: `columns-[10rem]`. Or Customizing your theme.
+
+### Pseudo-class references
+
+Usually, you will use Pseudo-class a lot! 
+Classic one is `hover`.
+```html
+<div class="bg-black hover:bg-white ...">
+  <!-- ... -->
+</div>
+```
+Also we have:
+- `focus`(:focus): when an element has focus.
+- `focus-within`(:focus-within): Style an element when it or one of its descendants has focus.
+- `active` (:active): When an element is **being pressed**, it is active.
+- visited (:visited)
+- target (:target)
+- first (:first-child): Style an element if it’s the first child 
+- last (:last-child)
+- only (:only-child)
+- odd (:nth-child(odd)) even (:nth-child(even))
+- first-of-type (:first-of-type) last-of-type (:last-of-type): Usful when displaying a list.
+- only-of-type (:only-of-type)
+- empty (:empty)
+
+#### For `input`
+- disabled (:disabled)
+- enabled (:enabled)
+- checked (:checked)
+- indeterminate (:indeterminate): Style a checkbox or radio button in an indeterminate state
+- default (:default): Style an option, checkbox or radio button that was the default value when the page initially loaded
+- required (:required)
+- valid (:valid) 
+- invalid (:invalid)
+- in-range (:in-range): Style an input when its value is within a specified range limit
+- out-of-range (:out-of-range)
+- placeholder-shown (:placeholder-shown): Style an input when the placeholder is shown
+- autofill (:autofill): Style an input when it has been autofilled by the browser
+- read-only (:read-only): Style an input when it is read-only
+
+### Use Pseudo-class 
+#### Styling based on sibling state (peer-{modifier})
+
+When you need to style an element based on the state of a sibling element, mark the sibling with the `peer` class, and use `peer-*` modifiers like `peer-invalid` to style the target element
+
+Example: Using `peer` to display warning information when email address is wrong without any JS:
+```html
+<form>
+  <label class="block">
+    <span class="block text-sm font-medium text-slate-700">Email</span>
+    <input type="email" class="peer ..."/>
+    <p class="mt-2 invisible peer-invalid:visible text-pink-600 text-sm">
+      Please provide a valid email address.
+    </p>
+  </label>
+</form>
+```
+
+- This pattern works with every **pseudo-class modifier**, for example `peer-invalid`, `peer-focus`, `peer-required`, and `peer-disabled`.
+
+#### Styling based on parent state 
+
+When you need to style an element based on the state of some parent element, mark the parent with the `group` class, and use `group-*` modifiers like `group-hover` to style the target element.
+
+#### Styling direct children (*-{modifier})
+
+While it’s generally preferable to put utility classes directly on child elements, you can use the * modifier in situations where you need to style direct children that you don’t have control over.
+
+```html
+<div>
+  <h2>Categories<h2>
+  <ul class="*:rounded-full *:border *:border-sky-100 *:bg-sky-50 *:px-2 *:py-0.5 dark:text-sky-300 dark:*:border-sky-500/15 dark:*:bg-sky-500/10 ...">
+    <li>Sales</li>
+    <li>Marketing</li>
+    <li>SEO</li>
+    <!-- ... -->
+  </ul>
+</div>
+```
+
+#### Styling based on descendants (has-{modifier})
+Use the has-* modifier to style an element based on the state or content of its descendants.
+
 
 ## FQA
 

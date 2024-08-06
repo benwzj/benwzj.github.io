@@ -3,15 +3,24 @@ layout: post
 title: Router in React
 date: 2024-07-25
 category: React
-tags: React Router Remix Next.js
+tags: React Router Remix Next.js Vite
+toc:
+  - name: Overview
+  - name: Write your own Router 
+  - name: React Router
+  - name: References
 ---
 
-Routing is the skeleton of every web application. Many React framework come with router, like Next.js. 
-But if you are using Create React App, It doesn't include page routing. And React Router is the most popular solution.
+## Overview
 
-Of course, you can write your own Router if your appllication is small and simple. 
+Routing is the skeleton of every web application. Many React framework come with router, like Next.js. 
+If you are using Create React App, It doesn't include page routing. React Router is the most popular solution.
+Nowaday, Using React framework is a popular way to write React app. So React Router create their framework as well. It is called Remix.
+
+You can write your own Router if your appllication is small and simple. 
 
 ## Write your own Router
+
 Basic ideas are: 
 - using `Context`. 
 - Using APIs: `window.location.pathname`, `window.addEventListener('popstate', handler)`, `window.removeEventListener('popstate', handler);`, `window.history.pushState({}, '', to);`

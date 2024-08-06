@@ -4,6 +4,9 @@ title: Using Icon in React
 date: 2024-02-19
 category: React
 tags: React Icon CSS
+toc: 
+  - name: react-icons
+  - name: Font Awesome
 ---
 
 ## react-icons

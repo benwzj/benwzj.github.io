@@ -6,6 +6,7 @@ updated: 2024-04-09
 categories: React
 tags: Context Redux React 
 toc: 
+  - name: Overview
   - name: What is Context
   - name: Use Context
   - name: Replace Redux 
@@ -15,6 +16,7 @@ toc:
   - name: References
 ---
 
+## Overview
 Usually, you will pass information from a parent component to a child component via props. And if you can use props to solve the problems, use props. **BUT** using Context is necessary in some cases. 
 
 For example: 
@@ -44,18 +46,18 @@ Context is not limited to static values. If you pass a different value on the ne
 
 `createContext()` API, `Context` object, `useContext()` Hook.
 
-#### `createContext()` API
+#### createContext() API
 createContext lets you create a `context` that components can provide or read.
 ```js
 const SomeContext = createContext(defaultValue)
 ```
 
-#### `Context` object
+#### Context object
 Every Context object comes with a `Provider` React component that allows consuming components to subscribe to context changes.
 The Provider component accepts a **`value`** prop to be passed to consuming components that are descendants of this Provider. One Provider can be connected to many consumers. Providers can be nested to override values deeper within the tree.
 All consumers that are descendants of a Provider will re-render whenever the Provider’s value prop changes. 
 
-#### `useContext()` Hook
+#### useContext() Hook
 useContext is a React Hook that lets you read and subscribe to context from your component.
 
 ```js
