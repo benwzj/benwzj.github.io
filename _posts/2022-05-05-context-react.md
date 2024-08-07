@@ -89,6 +89,7 @@ export const Provider = ({ children }) => {
 }
 ```
 It will export `Context` and `Provider`.
+> Usually, you will provide **function handler**: `setState` in value, which allow consumer to change the `state`.
 
 ### Secondly, Wrap Consuming Components in App.
 

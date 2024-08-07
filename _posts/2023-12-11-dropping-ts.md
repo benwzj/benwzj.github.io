@@ -2,8 +2,8 @@
 layout: post
 title: Should TypeScript be ditched
 date: 2023-12-11
-category: JavaScript
-tags: TypeScript 
+category: TypeScript
+tags: TypeScript JavaScript
 ---
 
 Many people answer question why using TS, they usually saying I can use inferface, I can use generic to make reuseful functions. Are them your main reasons?
