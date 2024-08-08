@@ -3,7 +3,7 @@ layout: post
 title: JRE Overview
 date: 2021-06-19
 category: JavaScript
-tags: JavaScript-Engine Web-API Event-loop
+tags: Web-API Event-loop
 toc:
   - name: JavaScript Engine
   - name: The Event Loop

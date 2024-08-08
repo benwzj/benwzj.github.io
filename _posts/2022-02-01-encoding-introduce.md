@@ -3,7 +3,7 @@ layout: post
 title: Encoding Introduction
 date: 2022-02-01
 category: Encoding
-tags: Unicode ACSII UTF-16 UTF-8 
+tags: Unicode ACSII
 ---
 
 Computer just deal with bytes! When communicating with computer, we need code encoding. 

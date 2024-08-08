@@ -3,7 +3,7 @@ layout: post
 title: Display Modal in React
 date: 2022-05-05
 category: React
-tags: React Motal
+tags: React
 ---
 
 ## Using ReactDOM.createPortal()

@@ -3,7 +3,7 @@ layout: post
 title: Navigation in Single-Page App
 date: 2023-01-20
 category: React
-tags: SPA Single-page Navigation Vue Angular React
+tags: Navigation Vue React
 ---
 
 A single-page application (SPA) is a web application that re-renders its content in response to navigation actions (e.g. clicking a link) without making a request to the server to fetch new HTML.

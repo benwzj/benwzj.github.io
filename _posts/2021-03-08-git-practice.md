@@ -15,7 +15,7 @@ toc:
 
 Git support Parallel Development. 
 Parallel Development means you can create branch.
-{% include figure.html path="assets/img/git-parallel.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.html path="assets/img/git-parallel.png" class="img-fluid rounded z-depth-1" width="60%" %}
 
 ## Basic git Operations
 
@@ -29,18 +29,18 @@ Parallel Development means you can create branch.
 `git checkout my_branch`
 - add file to my_branch, this command just add file to staging area:
 `git add file1.txt`
-add all untracked files to my_branch: 
+- add all untracked files to my_branch: 
 `git add -A`
-adds all modified and new (untracked) files in the current directory and all subdirectories to the staging area (a.k.a. the index), thus preparing them to be included in the next git commit . 
+- adds all modified and new (untracked) files in the current directory and all subdirectories to the staging area (a.k.a. the index), thus preparing them to be included in the next git commit . 
 `git add .`
-remove a file form staging area:
+- remove a file form staging area:
 `git reset file1.txt`
-remove all staging file:
+- remove all staging file:
 `git reset`
 
 - commit file to repository:
 `git commit -m “some information”`
-- merge my_branch to master
+- merge my_branch to master:
 `git checkout master`
 `git merge my_branch`
 - Now, you have two branch in you local repository: master and my_branch. If you want to push them to remote repository, then: 
@@ -58,8 +58,7 @@ Every push have a hash key, Unique hash key.
 `git pull origin master`
 then
 `git push origin master`
-- Branch
-list all branch in repository:
+- list all branch in repository:
 `git branch`
 - list all branch including remote repository:
 `git branch -a`
@@ -173,7 +172,7 @@ However, `git add` doesn't really affect the repository in any significant way�
 
 - `git add -p`, Begin an interactive staging session that lets you choose portions of a file to add to the next commit. 
 
-### Command `Git commit`
+### Command Git commit
 
 The `git commit` command captures a snapshot of the project's currently staged changes. 
 How it work
@@ -184,29 +183,34 @@ How it work
 - Git’s version control model is based on snapshots. 
 - Git records the entire contents of each file in every commit.
 
-### Command `Git diff`
+### Command Git diff
 
 Diffing is a function that takes two input data sets and outputs the changes between them.
 `git diff` is a multi-use Git command that when executed runs a diff function on Git data sources, like commits, branches, files.
 The `git diff` command is often used along with `git status` and `git log` to analyze the current state of a Git repo.
 
-Using `git diff`: 
-- By default `git diff` will show you any uncommitted changes since the last commit.
-- Comparing all changes: Invoking `git diff` without a file path will compare changes across the entire repository. 
-- Comparing files: 
-By default `git diff` will execute the comparison against HEAD. So
-`git diff HEAD ./path/to/file`
-equal to: 
-`git diff ./path/to/file`
-(filename is case sensitive.)
-- When git diff is invoked with the `--cached` option the diff will compare the staged changes with the local repository. The `--cached` option is synonymous with `--staged`.
-- Comparing files between two different commits
-`git diff` can be passed Git refs to commits to diff.
-`git diff c304ff4 8836b44`
-- Comparing branches
+#### Show any uncommitted changes since the last commit, across the entire repository: 
+Use `git diff`.
+
+#### Comparing files, showing the changes that are not staged yet:
+`git diff ./path/to/file` equal to: `git diff HEAD ./path/to/file`.
+It will compare file in the working directory, against the index, showing the changes that are not staged yet. 
+
+#### Compare the staged changes with the local repository: 
+Use `git diff --cached ./path/to/file`.
+(The `--cached` option is synonymous with `--staged`.)
+
+#### Comparing files between two different commits:
+You can pass Git refs (like HEAD, tags, and branch names) to `git diff` to commits to diff.
+Every commit in Git has a commit ID which you can get when you execute GIT LOG. You can also pass this commit ID to `git diff`.
+For example: `git diff 957fbc92b123030c389bf8b4b874522bdf2db72c ce489262a1ee34340440e55a0b99ea6918e19e7a`.
+
+#### Comparing branches:
 `git diff branch1..branch2`
-- Comparing files from two branches
-`git diff main new_branch ./diff_test.txt`
+#### Comparing a file from two branches:
+`git diff main new_branch ./path/to/file`
+#### Comparing a file from two commits????
+????
 
 ### Command `git stash` 
 
