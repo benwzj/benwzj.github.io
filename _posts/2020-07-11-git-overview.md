@@ -3,7 +3,7 @@ layout: post
 title: Git Concepts
 date: 2020-07-11
 category: Git
-tags: Git Overview
+tags: Git
 toc: 
   - name: What is Git
   - name: Three States
