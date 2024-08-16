@@ -1,6 +1,6 @@
 ---
 layout: post
-title: HTML Concepts
+title: HTML Practice
 date: 2024-02-24
 category: HTML
 tags: HTML CSS
@@ -9,6 +9,7 @@ toc:
   - name: Viewport
   - name: Metadata
   - name: text fundamentals
+  - name: FAQ
 ---
 
 
@@ -137,4 +138,9 @@ Description lists
 ### Emphasis and importance
 
 Here's the best rule you can remember: It's only appropriate to use `<b>, <i>, or <u>` to convey a meaning traditionally conveyed with bold, italics, or underline when there isn't a more suitable element; and there usually is. Consider whether `<strong>, <em>, <mark>, or <span>` might be more appropriate.
+
+
+## FAQ 
+
+- Why `scroll-behavior: smooth` not working? It is using tailwind, React and Vite.
 
