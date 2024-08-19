@@ -2,7 +2,7 @@
 layout: post
 title: React Overview with Function Component
 date: 2023-10-12
-tags: React Web-page Redux
+tags: React Redux
 category: React
 toc: 
   - name: React Rules
