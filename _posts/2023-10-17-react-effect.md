@@ -13,7 +13,7 @@ toc:
       - name: Common Patterns for Effect
       - name: Classic No Effect Cases
       - name: Classic Bugs - race conditions
-  - name: FQA
+  - name: FAQ
 ---
 
 Some components need to stay connected to the **network**, some **browser API**, or a **third-party library** while they are displayed on the page. These systems aren’t controlled by React, so they are called external.
@@ -95,16 +95,16 @@ In Strict Mode, Effect will be run twice. That is helpful for development. For e
 
 Most of the Effects you’ll write will fit into one of the common patterns below:
 
-- Controlling non-React widgets 
-Sometimes you need to add UI widgets that aren’t written to React. For example, let’s say you’re adding a map component to your page. It has a `setZoomLevel()` method, and you’d like to keep the zoom level in sync with a zoomLevel state variable in your React code.
-- Subscribing to events 
+- **Controlling non-React widgets**: 
+Sometimes you need to add UI widgets that aren’t written to React. For example, let’s say you’re adding a map component to your page. It has a `setZoomLevel()` method, and you’d like to keep the zoom level in sync with a `zoomLevel` state variable in your React code.
+- **Subscribing to events**: 
 If your Effect subscribes to something, the cleanup function should unsubscribe.
-- Triggering animations 
+- **Triggering animations**: 
 If your Effect animates something in, the cleanup function should reset the animation to the initial values.
-- Fetching data 
+- **Fetching data**: 
 If your Effect fetches something, the cleanup function should either abort the fetch or ignore its result. Please note, Fetching data in Effect is not an elegant way. If you use a framework, use its built-in data fetching mechanism. Otherwise, consider using or building a client-side cache. 
-- Sending analytics
-- (Not an Effect): Initializing the application 
+- **Sending analytics**: 
+- **(Not an Effect): Initializing the application**:  
 Some logic should only run once when the application starts. You can put it outside your components.
 
 ### Classic No Effect Cases 
@@ -204,7 +204,7 @@ The keys to understand this race conditions' resolusion are:
 - Clear the design of effect's `cleanup function`.
 - Clear asynchronous pattern and closure pattern in javascript.
 
-## FQA
+## FAQ
 
 ### What is `useLayoutEffect` and Why we need it
 
