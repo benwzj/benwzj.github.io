@@ -3,7 +3,7 @@ layout: post
 title: Shopify Dev Overview
 date: 2024-05-30
 category: Website
-tags: Shopify Ecommerce
+tags: Shopify Ecommerce Theme
 toc:
   - name: Apps
   - name: Theme

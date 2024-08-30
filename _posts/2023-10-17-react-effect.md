@@ -112,28 +112,28 @@ Some logic should only run once when the application starts. You can put it outs
 In normal data flow, you should calculate what you can during rendering, and adjust the state in the event handler. Effect is just escape hatch, and it should always be last choice.
 In Strict Mode, Effect will be run twice. This is a warning sign to tell whether your code should run in effect.
 
-- Updating state based on props or state.
+#### Updating state based on props or state.
 When something can be calculated from the existing props or state, don’t put it in state, don't use effect. Instead, calculate it during rendering.
 
-- Caching expensive calculations
+#### Caching expensive calculations
 You can cache (or “memoize”) an expensive calculation by wrapping it in a `useMemo` Hook.
 
-- Resetting all state when a prop changes.
+#### Resetting all state when a prop changes.
 By passing a new value as a `key` prop to the component, you’re asking React to treat two components with new `key` value as two different components that should not share any state. React will reset all state.
 
-- Adjusting some state when a prop changes.
+#### Adjusting some state when a prop changes.
 No matter how you do it, adjusting state based on props or other state makes your data flow more difficult to understand and debug. Always check whether you can reset all state with a key or calculate everything during rendering instead. 
 An escape hatch is Storing information from previous renders. It is hard to understand, but it’s better than updating the same state in an Effect. 
 
-- Sharing logic between event handlers.
+#### Sharing logic between event handlers.
 When you’re not sure whether some code should be in an Effect or in an event handler, ask yourself why this code needs to run. Use Effects only for code that should run because the component was displayed to the user.
 
-- Sending a POST request.
+#### Sending a POST request.
 The analytics POST request should remain in an Effect. This is because the reason to send the analytics event is that the form was displayed. But you should know that most POST request is not caused by the form being displayed.
 
-- Chains of computations 
+#### Chains of computations 
 
-- Initializing the application
+#### Initializing the application
 Some logic should only run once when the app loads.
 You can run it during module initialization and before the app renders:
 ```js
@@ -142,11 +142,11 @@ if (typeof window !== 'undefined') { // Check if we're running in the browser.
   checkAuthToken();
   loadDataFromLocalStorage();
 }
-
 function App() {
   // ...
 }
 ```
+
 or like below:
 ```js
 let didInit = false;
@@ -163,16 +163,16 @@ function App() {
 }
 ```
 
-- Notifying parent components about state changes
+#### Notifying parent components about state changes
 Usual way is calling the `onChange` function passed from a parent componen. Do this in event handler instead Effect.
 
-- Passing data to the parent 
+#### Passing data to the parent 
 This is a anti-pattern design. You should design your app which get data in perant and pass to child. It will be easier to trace and debug.
 
-- Subscribing to an external store
+#### Subscribing to an external store
 Although it’s common to use Effects for this, React has a purpose-built Hook for subscribing to an external store that is preferred instead. Delete the Effect and replace it with a call to `useSyncExternalStore`. Get more info form [here](https://react.dev/reference/react/useSyncExternalStore).
 
-- Fetching data
+#### Fetching data
 While component is visible, you want to keep states synchronized with data from the network for the current page and query. You can use an Effect. However, you need to **add a cleanup function** to ignore _stale_ responses, e.g. using `ignore` flag. 
 Also, you should think about caching when fetching data. It will make this logic more complicated. These issues apply to any UI library, not just React. Solving them is not trivial, which is why modern **frameworks** provide more efficient built-in data fetching mechanisms than fetching data in Effects.
 
@@ -227,4 +227,6 @@ All of this needs to happen before the browser repaints the screen.
 ### What do "paint the updated screen first before running your Effect" means? Why React run in this order. The code inside the useEffect may update the screen as well. Why not run Effect and updated Screen together.
 
 ### The life cycle of function component around useEffect?
+
+## References
 
