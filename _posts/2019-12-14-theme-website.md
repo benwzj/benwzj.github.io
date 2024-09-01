@@ -1,13 +1,14 @@
 ---
 layout: post
-title: Jekyll Theme system
+title: About Theme in website
 date: 2019-12-14
+updated: 2024-08-30
 featured: true
 categories: Website
 tags: Markdown Jekyll HTML Theme Website
 toc: 
   - name: What is Website Theme
-  - name: Implement theme swap
+  - name: Day Night Theme Swap
     subsections: 
       - name: Trigger Theme Change
       - name: Implement Theme Change
@@ -23,14 +24,16 @@ A website theme manages the front-end design, establishing the overall appearanc
 Themes determine all design components: page layouts, backgrounds, color palettes, headers and footers, positioning, sizing, and typography. 
 There are a word call **Theming**. Theming can be separate from functioning of the website. There are a separate position which is profession at creating website theming.
 
-For example, Day and night theme are for day night environment. Mobile and laptop should have different themes. Different topic website should have different themes.
+For example: 
+- Different topic website should have different themes.
+- Mobile and laptop should have different themes. 
+- Day and night theme are for day night environment. 
 
 > How Do Website Themes Work?
 > A website theme works via CSS HTML and JS all together! 
 
-## Implement theme swap
+## Day Night Theme Swap
 
-Toggle day night theme
 Generially, implement theme on website will do these steps:
 
 ### Trigger Theme Change
@@ -41,16 +44,20 @@ Like this:
 ``` javascript
 localStorage.setItem("theme", theme);
 ```
+
 #### `prefers-color-scheme`
 Use The `prefers-color-scheme` CSS media feature, A user indicates their preference through an operating system setting (e.g. light or dark mode) or a user agent setting.
 Read more in [MDN doc](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme).
 
 ### Implement Theme Change
-Use JavaScript function to toggle theme.
+
+Usually there are three strategy: `media` strategy, `class` strategy and `selector` strategy.
+
+Simply said, Using JavaScript function to toggle theme.
 - Use document elements `classList.toggle()` function to toggle `class` for toggling them.
 - Or use CSS Attribute selector to toggle theme.
 
-#### Toggle `class`
+#### `class` strategy
 Using `classList.toggle()` or `classList.add()`, `classList.remove()` to toggle `class` in element, e.g. `body`. Then the `class` which toggling will affect the whold wetsite.
 
 The main structure:
@@ -72,7 +79,7 @@ function myFunction() {
 </script>
 ```
 
-#### Use CSS Attribute Selector
+#### `Selector` strategy
 
 Use root element CSS Attribute Selector to toggle Dark Mode.
 
@@ -99,6 +106,8 @@ document.documentElement.removeAttribute("data-theme");
 > This website is using Attribute Selector to toggle Dark Mode.
 
 ## Jekyll Gem-based Theme
+
+Choosing different Theme, you can build different style website.
 
 Jekyll has an **extensive theme system**. This means it allows you to leverage community-maintained templates and styles to customize your site’s presentation. And also allow you override any of your theme's defaults by editing the theme's files. 
 
