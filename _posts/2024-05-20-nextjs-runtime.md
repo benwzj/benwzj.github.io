@@ -4,6 +4,13 @@ title: Next.js Runtime
 date: 2024-05-20
 category: React
 tags: Next.js Node.js Runtime
+toc: 
+  - name: What is Next.js Runtime
+  - name: Switch Runtime
+  - name: Node.js Runtime
+  - name: Edge Runtime
+  - name: FAQ
+  - name: References
 ---
 
 ## What is Next.js Runtime
@@ -12,7 +19,7 @@ In the context of Next.js, runtime refers to the set of libraries, APIs, and gen
 
 Next.js has two server runtimes to run your application: 
 - The **Node.js Runtime** (default) has access to all Node.js APIs and compatible packages from the ecosystem. For doing SSR, or serving API routes. Node.js runtime can be Server or Serverless.
-- The **Edge Runtime** is based on Web APIs. For Middlewar.
+- The **Edge Runtime** is based on Web APIs. For Middleware.
 
 There are many differences between these two runtimes. Here’s a quick comparison:
 
@@ -82,7 +89,7 @@ When developing and testing locally, the Edge Runtime will polyfill Web APIs and
 In production, the Edge Runtime uses the JavaScript V8 engine, not Node.js, so there is no access to Node.js APIs.
 
 
-## FQA
+## FAQ
 
 - Where is the Edge Runtime?
 

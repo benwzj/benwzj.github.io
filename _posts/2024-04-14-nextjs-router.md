@@ -16,7 +16,7 @@ toc:
   - name: Route Handler
   - name: Middleware
   - name: Internationalization
-  - name: FQA
+  - name: FAQ
 ---
 
 ## What is Routing
@@ -50,7 +50,7 @@ Routing is the skeleton of every web application. It is refer to the structure o
     ├── index.tsx
     └── team.tsx
 ```
-- In App Route, Components is	Server Components by default; In Page Route, component isClient Components by default.
+- In App Route, Components is	Server Components by default; In Page Route, component is Client Components by default.
 - In App Route, `fetch` function for data fetching;	In Page Route, It is using `getServerSideProps`, `getStaticProps`, `getInitialProps`.
 - In App Route, Layouts can be nested and dynamic; In Page Route, Layouts are static.
 
@@ -83,14 +83,14 @@ The React components defined in special files of a route segment are rendered in
 - Pages are Server Components by default, but can be set to a Client Component.
 - Pages can fetch data.
 
-### Layouts
+### Layout
 - A layout is UI that is **shared** between multiple routes. (HOW? the page at the same folder and all the subfolder pages share the layout!)
 - On navigation, layouts preserve state, remain interactive, and do not re-render.
-- You can define a layout by default exporting a React component from a `layout.js` file. The component should accept a children prop that will be populated with a child layout (if it exists) or a page during rendering.
+- You can define a layout by default exporting a React component from a `layout.js` file. The component should accept a `children` prop that will be populated with a child layout (if it exists) or a page during rendering.
 - Root Layout (Required)
 - Nesting Layouts, By default, layouts in the folder hierarchy are nested, which means they wrap child layouts via their children prop. 
 - Layouts are Server Components by default but can be set to a Client Component.
-- Passing data between a parent layout and its children is **not** possible. However, you can fetch the same data in a route more than once, and React will automatically dedupe the requests without affecting performance.
+- Passing data between a parent layout and its children is **NOT** possible. However, you can fetch the same data in a route more than once, and React will automatically dedupe the requests without affecting performance.
 - Layouts do not have access to the route segments below itself. To access all route segments, you can use `useSelectedLayoutSegment` or `useSelectedLayoutSegments` in a Client Component.
 - You can use `Route Groups` to opt specific route segments in and out of shared layouts.
 - You can use `Route Groups` to create multiple root layouts. 
@@ -408,6 +408,6 @@ Even the root layout can also be nested in the new folder (e.g. app/[lang]/layou
 
 You can use `generateStaticParams` with any page or layout to generate static routes for a given set of locales.
 
-## FQA
+## FAQ
 
 
