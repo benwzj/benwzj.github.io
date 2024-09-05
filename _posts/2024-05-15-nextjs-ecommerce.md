@@ -64,7 +64,7 @@ Also, you need to add 'page', 'menu' and 'Collections' in Shopify headless store
 ### Steps:
 - Shopping `<Cart>` component is rendered at the very beginning inside `<Suspense>` within `navbar`.
 - Cart component read cookie to get Cart ID.
-- Retrieve shopping cart items from Shopify DMS by GraphQL API according to Cart ID.
+- Fetch shopping cart items from Shopify DMS by GraphQL API according to Cart ID.
 - Pass cart items to `<CartModal>`.
 - `<CartModal>` is the main component to implement Shopping Cart. 
 

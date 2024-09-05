@@ -436,9 +436,14 @@ Next.js has a Client-side Router Cache that stores the route segments in the use
 ## Dynamic Route Segments
 
 Next.js allows you to create Dynamic Route Segments when you don't know the exact segment name and want to create routes based on data. 
-This could be product ID, blog post titles, product pages, etc. You can create dynamic route segments by wrapping a folder's name in square brackets. For example, [id], [post] or [slug].
+This could be product ID, blog post titles, product pages, etc. You can create dynamic route segments by wrapping a folder's name in **square brackets**. For example, [id], [post] or [slug].
 
 For example, you need a invoice update function. Then you need to Create a Dynamic Route Segment with the invoice id. 
+
+### How
+
+When reading the route, according to the App directory structure, Next.js can get the value of the dynamic segment and the target `page.js`. And then Next.js will pass the vaule as parameter to target `page.js` and show the page.
+- the value will correspond to square brackets segment.
 
 ### Steps:
 
