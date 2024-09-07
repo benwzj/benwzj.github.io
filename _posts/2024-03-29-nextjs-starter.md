@@ -538,14 +538,14 @@ There are a couple of ways you can validate forms on the client. The simplest wo
 
 - `useFormState` hook is from `react-dom` lib.
 - `useActionState` is the new hook to **replace** `useFormState`. `useActionState` is from `react` lib.
+- `useActionState` and `useFormState` are same.
+- It is a Hook that allows you to update state based on the result of a form action.
 - It is a messager between the component who use `form` and React Server Action function.
 - Use for Server-Side Form Validation.
+- Call `useActionState` at the top level of your component to create component state that is updated when a form action is invoked.
 - Basic usage: like Displaying form errors, structured information after submitting a form.
 
-#### What and How
-
-`useActionState` is a Hook that allows you to update state based on the result of a form action.
-It is a messager between the component who use `form` and React Server Action function.
+#### How to use
 
 Call `useActionState` at the top level of your component to create component state that is updated when a form action is invoked.
 
