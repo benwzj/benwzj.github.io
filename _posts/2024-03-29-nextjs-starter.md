@@ -547,13 +547,29 @@ There are a couple of ways you can validate forms on the client. The simplest wo
 
 #### How to use
 
-Call `useActionState` at the top level of your component to create component state that is updated when a form action is invoked.
-
 ```ts
 const [state, formAction] = useActionState(fn, initialState, permalink?);
 ```
 
-You pass `useActionState` an existing form action function as well as an initial state, and it returns a new action that you use in your form, along with the latest form state. The latest form state is also passed to the function that you provided.
+- Call `useActionState` at the top level of your component to create **component state** that is updated when a form action is invoked.
+- You pass `useActionState` an existing form action function as well as an initial state, and it returns a new action that you use in your form, along with the latest form state. The latest form state is also passed to the function that you provided.
+
+This example show you the basic usage.
+```js
+async function increment(previousState, formData) {
+  return previousState + 1;
+}
+
+function StatefulForm({}) {
+  const [state, formAction] = useActionState(increment, 0);
+  return (
+    <form>
+      {state}
+      <button formAction={formAction}>Increment</button>
+    </form>
+  )
+}
+```
 
 ### 'aria' labels 
 
