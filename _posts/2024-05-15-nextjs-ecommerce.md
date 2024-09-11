@@ -92,6 +92,19 @@ They defined in `components/cart/actions`.
 
 ## Add Login function
 
+### Login process
+
+- Create Login Dialog to collect user email and password.
+- Using `useFormState` submit to server action `authenticate`.
+- `authenticate` use `Zod` to validate formData.
+- `authenticate` create `customerAccessToken` from Shopify server according to username and password. This process is using Shopify Storefront GraphQL API: `mutation customerAccessTokenCreate`
+- Next, it use Shopify Storefront GraphQL API: `query customer` and `customerAccessToken` to fetch user information.
+- Implement cookie-based Session management.
+
+### Sign Up process
+
+- Create Sign Up Dialog to collect user information, including email and password etc.
+- it use Shopify Storefront GraphQL API: `mutation customerCreate` to create user.
 
 
 ## Admin Function

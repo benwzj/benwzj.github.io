@@ -6,7 +6,7 @@ category: React
 tags: Next.js JavaScript React Authentication Authorization
 toc: 
   - name: The Basic Authenticatin process
-  - name: NextAuth.js
+  - name: NextAuth.js Overview
   - name: Implement Authentication
   - name: Implement Authorization
   - name: Session Management
@@ -15,25 +15,25 @@ toc:
 ## The Basic Authenticatin process
 
 - Login button: 
-  - get user information from form.
-  - verify user information.
-  - create session:
+  - Get user information from form.
+  - Verify user information.
+  - Create session:
     - setup information in JWT, like create signature.
     - create cookie, setup expiration date, etc.
     - put JWT inside cookie
 
-- every request from browser will send with this session cookie. server check this JWT and confirm the state of the browser.
-  - also, you can use middleware to handle every request, for example refresh the session cookie.
+- Every request from browser will send with this session cookie. Server check this JWT and confirm the state of the browser.
+  - Also, you can use middleware to handle every request, for example refresh the session cookie.
 
 - Logout button:
-  - simply destroy the session cookie
+  - Simply destroy the session cookie
 
-## NextAuth.js
+## NextAuth.js Overview
 
 NextAuth.js is an open source auth layer for Next.js project.
-Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. 
+Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. Here is using "NextAuth" as well.
 
-There are 4 ways to authenticate users with Auth.js:
+There are 4 ways to authenticate users with NextAuth:
 
 - OAuth authentication (Sign in with Google, GitHub, LinkedIn, etc…)
 - Magic Links (Email Provider like Resend, Sendgrid, Nodemailer etc…)
@@ -333,6 +333,8 @@ export async function getSessionData(req) {
 
 - How NextAuth.js implement OIDC authentication?
 - What `signIn()` do in NextAuth.js?
+- How to implement Data Access Layer(DAL)
+
 
 ## References
 
