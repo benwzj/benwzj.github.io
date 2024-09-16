@@ -90,7 +90,14 @@ They defined in `components/cart/actions`.
 - `variables`: `cartId`, `line`. line is array of `{merchandiseId: string; quantity: number;}`
 - `query`: `addToCartMutation`
 
-## Add Login function
+## Implement Authentication without Next-Auth
+
+### Sign Up process
+
+- Create Sign Up Dialog to collect user information, including email and password etc.
+- Using `useFormState` submit to server action `signup`.
+- `signup` use `Zod` to validate formData.
+- It use Shopify Storefront GraphQL API: `mutation customerCreate` to create user.
 
 ### Login process
 
@@ -101,10 +108,9 @@ They defined in `components/cart/actions`.
 - Next, it use Shopify Storefront GraphQL API: `query customer` and `customerAccessToken` to fetch user information.
 - Implement cookie-based Session management.
 
-### Sign Up process
-
-- Create Sign Up Dialog to collect user information, including email and password etc.
-- it use Shopify Storefront GraphQL API: `mutation customerCreate` to create user.
+### How to get to know the state of authentication?
+Read Cookies can get the state of authentication, but the cookiet can be read only in Server action, middleware, Route handler. 
+For example, displaying login logout signou logo in main menu is deponding on authenticaiton state. How can i don this?
 
 
 ## Admin Function

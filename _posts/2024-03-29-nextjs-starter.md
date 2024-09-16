@@ -17,7 +17,7 @@ toc:
   - name: Dynamic Route Segments
   - name: Error Handler
   - name: Form Validation
-  - name: Adding Authentication
+  - name: Authentication
   - name: References
 ---
 
@@ -634,7 +634,7 @@ export const { auth, signIn, signOut } = NextAuth({
 
 #### The login form
 you create the login route and component. for example, create route `'/login'`.
-This login page UI should use `form` which is using authenticate() Server action to authenticate user.
+This login page UI should use `form` which is using `authenticate()` Server action to authenticate user.
 
 ## References
 

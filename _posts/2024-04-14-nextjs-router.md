@@ -345,6 +345,10 @@ Now, any Get Request at route `api/` will be handled by the export function `GET
 - Use Streaming with Large Language Models (LLMs), such as OpenAI, for AI-generated content.
 - You can use Request Body FormData.
 
+### When to use Route Handler??
+
+
+
 ## Middleware
 
 Next.js copy the middleware concept from Express.js. 
@@ -353,8 +357,9 @@ In Next.js, Middleware allows you to run code before a request is completed. The
 
 - Middleware let you share and reuse logic that is repeatable for every request.
 - Middleware runs before cached content and routes are matched. 
+- Use `matcher` to filter "Middleware" to run on specific paths.
 
-### Middleware use cases
+### When to use Middleware
 
 - Authentication and Authorization
 - Server-Side Redirects
@@ -362,6 +367,14 @@ In Next.js, Middleware allows you to run code before a request is completed. The
 - Bot Detection
 - Logging and Analytics
 - Feature Flagging
+
+### What Middleware can do
+
+- redirect the incoming request to a different URL
+- rewrite the response
+- Set request headers for API Routes, getServerSideProps, and rewrite destinations
+- Set response cookies
+- Set response headers
 
 ### How to use Middelware
 
@@ -386,15 +399,6 @@ export const config = {
   matcher: '/about/:path*',
 }
 ```
-
-### What Middleware can do
-
-- Use `NextResponse` API to:
-  - redirect the incoming request to a different URL
-  - rewrite the response by displaying a given URL
-  - Set request headers for API Routes, getServerSideProps, and rewrite destinations
-  - Set response cookies
-  - Set response headers
 
 ## Internationalization
 
