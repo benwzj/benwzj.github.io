@@ -423,6 +423,23 @@ Git branches are an integral part of your everyday workflow. Unlike SVN branches
 - You can think of them as a way to request a brand new working directory, staging area, and project history. New commits are recorded in the history for the current branch, which results in a fork in the history of the project.
 - Remember, branches are just names for commits?? NO! Branches are references.
 
+### Common operation
+
+- list all branch in repository:
+`git branch`
+- list all branch including remote repository:
+`git branch -a`
+- create my_branch:
+`git branch my_branch`
+- check out branch, means you are on my_branch now:
+`git checkout my_branch`
+- check which branch merge: 
+`git branch --merged`
+- delete branch my_branch:
+`git branch -d my_branch`
+- delete remote branch:
+`git push origin --delete my_branch`
+
 ### Command `git branch`
 
 The `git branch` command lets you create, list, rename, and delete branches. 

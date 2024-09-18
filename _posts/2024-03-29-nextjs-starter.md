@@ -614,12 +614,12 @@ The step roughly like this:
 - generate a secret key for your application. This key is used to encrypt cookies, ensuring the security of user sessions. Like this: `openssl rand -base64 32`
 - In your `.env` file, add your generated key to the AUTH_SECRET variable: `AUTH_SECRET=your-secret-key`
 
-#### `auth.config.ts` file
+#### "auth.config.ts" file
 Create an `auth.config.ts` file at the root of our project that exports an `authConfig` object. 
 - you can Add the login pages option in this config file.
 - configure Protecting your routes with Next.js Middleware.
 
-#### `auth.ts` file
+#### "auth.ts" file
 Spreads your `authConfig` object.
 ```ts
 import NextAuth from 'next-auth';

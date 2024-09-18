@@ -3,16 +3,16 @@ layout: post
 title: Implement Auth in Next.js
 date: 2024-06-13
 category: React
-tags: Next.js JavaScript React Authentication Authorization
+tags: Next.js JavaScript React Authentication Authorization JWT
 toc: 
-  - name: The Basic Authenticatin process
-  - name: NextAuth.js Overview
+  - name: Basic Authenticatin process
+  - name: NextAuth Overview
   - name: Implement Authentication
   - name: Implement Authorization
   - name: Session Management
 ---
 
-## The Basic Authenticatin process
+## Basic Authenticatin process
 
 - Login button: 
   - Get user information from form.
@@ -28,11 +28,12 @@ toc:
 - Logout button:
   - Simply destroy the session cookie
 
-## NextAuth.js Overview
+## NextAuth Overview
 
 NextAuth.js is an open source auth layer for Next.js project.
 Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. Here is using "NextAuth" as well.
 
+### 4 authenticate methods
 There are 4 ways to authenticate users with NextAuth:
 
 - OAuth authentication (Sign in with Google, GitHub, LinkedIn, etc…)
@@ -40,9 +41,18 @@ There are 4 ways to authenticate users with NextAuth:
 - Credentials (Username and Password, Integrating with external APIs, etc…)
 - WebAuthn (Passkeys, etc…)
 
-## Implement Authentication
+### Process Overview
 
-The step roughly like this:
+NextAuth provide the whole Auth framework structure. Your project will configure your authentication by using this structure. 
+How to configure your authentication? `auth.config.ts` and `auth.ts` are the files you need to configure.
+
+For example, 
+- To signin your users, make sure you have at least one authentication method setup. You then need to build a button which will call the `signin` function from your `Auth.js` framework package.
+- Once a user is logged in, You can get the session object: `const session = await auth()`. Then you can get user information, you can protect the routes. 
+
+## NextAuth Setup
+
+The steps roughly like these:
 
 ### Setting up NextAuth.js to your project
 - install it: `npm install next-auth@beta`

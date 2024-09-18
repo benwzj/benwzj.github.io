@@ -8,7 +8,7 @@ toc:
   - name: Setup Shopify
   - name: GraphQL APIs
   - name: Implement Shopping Cart
-  - name: Add Login function
+  - name: Authentication without Next-Aut
   - name: Admin Function
   - name: References
 ---
@@ -90,14 +90,14 @@ They defined in `components/cart/actions`.
 - `variables`: `cartId`, `line`. line is array of `{merchandiseId: string; quantity: number;}`
 - `query`: `addToCartMutation`
 
-## Implement Authentication without Next-Auth
+## Authentication without Next-Auth
 
 ### Sign Up process
 
 - Create Sign Up Dialog to collect user information, including email and password etc.
 - Using `useFormState` submit to server action `signup`.
 - `signup` use `Zod` to validate formData.
-- It use Shopify Storefront GraphQL API: `mutation customerCreate` to create user.
+- `signup` use Shopify Storefront GraphQL API: `mutation customerCreate` to create user.
 
 ### Login process
 
@@ -105,13 +105,17 @@ They defined in `components/cart/actions`.
 - Using `useFormState` submit to server action `authenticate`.
 - `authenticate` use `Zod` to validate formData.
 - `authenticate` create `customerAccessToken` from Shopify server according to username and password. This process is using Shopify Storefront GraphQL API: `mutation customerAccessTokenCreate`
-- Next, it use Shopify Storefront GraphQL API: `query customer` and `customerAccessToken` to fetch user information.
+- `authenticate` use Shopify Storefront GraphQL API: `query customer` and `customerAccessToken` to fetch user information.
 - Implement cookie-based Session management.
 
-### How to get to know the state of authentication?
-Read Cookies can get the state of authentication, but the cookiet can be read only in Server action, middleware, Route handler. 
-For example, displaying login logout signou logo in main menu is deponding on authenticaiton state. How can i don this?
+### Middelware.ts
 
+Middelware play big rold in authentication. Usually, it is used to update session expiration.
+
+### How to get to know the state of authentication?
+Read Cookies can get the state of authentication, but the cookiet can be read only in Server action, middleware, Route handler. For example, displaying login logout signou logo in main menu is deponding on authenticaiton state. How can i don this?
+
+Cookies can be read anywhere, Not just server actions middleware or route handler.
 
 ## Admin Function
 
