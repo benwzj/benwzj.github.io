@@ -41,13 +41,15 @@ There are 4 ways to authenticate users with NextAuth:
 - Credentials (Username and Password, Integrating with external APIs, etc…)
 - WebAuthn (Passkeys, etc…)
 
-### Process Overview
+### Framework Overview
 
 NextAuth provide the whole Auth framework structure. Your project will configure your authentication by using this structure. 
 How to configure your authentication? `auth.config.ts` and `auth.ts` are the files you need to configure.
 
-For example, 
-- To signin your users, make sure you have at least one authentication method setup. You then need to build a button which will call the `signin` function from your `Auth.js` framework package.
+For example signin process: 
+- NextAuth frameword provide `signin` function. 
+- To signin your users, make sure you have at least one authentication method setup.
+- For example use username and password or other external authentication mechanisms, we need to setup `Auth.js` use the `Credentials` provider.
 - Once a user is logged in, You can get the session object: `const session = await auth()`. Then you can get user information, you can protect the routes. 
 
 ## NextAuth Setup
