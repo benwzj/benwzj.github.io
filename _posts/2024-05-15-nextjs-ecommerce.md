@@ -10,6 +10,7 @@ toc:
   - name: Implement Shopping Cart
   - name: Authentication without Next-Aut
   - name: Admin Function
+  - name: FAQ
   - name: References
 ---
 
@@ -92,12 +93,14 @@ They defined in `components/cart/actions`.
 
 ## Authentication without Next-Auth
 
+Reference [nextjs.org/docs](https://nextjs.org/docs/app/building-your-application/authentication).
+
 ### Sign Up process
 
 - Create Sign Up Dialog to collect user information, including email and password etc.
 - Using `useFormState` submit to server action `signup`.
 - `signup` use `Zod` to validate formData.
-- `signup` use Shopify Storefront GraphQL API: `mutation customerCreate` to create user.
+- server action `signup` use Shopify Storefront GraphQL API: `mutation customerCreate` to create user. This user will be stored as custmer in Shopify server.
 
 ### Login process
 
@@ -108,11 +111,18 @@ They defined in `components/cart/actions`.
 - `authenticate` use Shopify Storefront GraphQL API: `query customer` and `customerAccessToken` to fetch user information.
 - Implement cookie-based Session management.
 
-### Middelware.ts
+### Session management
+- create a seesion.ts file 
+  - create `encrypt`, `decrypt` functions which are using `jose` to implement.
+  - create `createSession` function: set cookie().
+  - create `getSession()` function: get cookie().
+  - create `updateSession()` funciton: use in middelware.ts for extend cookie expire.
+  - create `deleteSession` function: delete cookie().
+- When user login or signup successfully, you can `createSession`. When logout, `deleteSession`.
+- use `updateSession()` funciton in `middelware.ts`.
+- You can use `getSession()` function to get state of login anywhere in your project.
 
-Middelware play big rold in authentication. Usually, it is used to update session expiration.
-
-### How to get to know the state of authentication?
+#### How to get to know the state of authentication?
 Read Cookies can get the state of authentication, but the cookiet can be read only in Server action, middleware, Route handler. For example, displaying login logout signou logo in main menu is deponding on authenticaiton state. How can i don this?
 
 Cookies can be read anywhere, Not just server actions middleware or route handler.

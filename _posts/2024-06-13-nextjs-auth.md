@@ -7,7 +7,8 @@ tags: Next.js JavaScript React Authentication Authorization JWT
 toc: 
   - name: Basic Authenticatin process
   - name: NextAuth Overview
-  - name: Implement Authentication
+  - name: Auth Framework
+  - name: Setup Steps
   - name: Implement Authorization
   - name: Session Management
 ---
@@ -36,12 +37,12 @@ Auth.js was born out of next-auth. And it try to support more frameworks. It kee
 ### 4 authenticate methods
 There are 4 ways to authenticate users with NextAuth:
 
-- OAuth authentication (Sign in with Google, GitHub, LinkedIn, etc…)
-- Magic Links (Email Provider like Resend, Sendgrid, Nodemailer etc…)
-- Credentials (Username and Password, Integrating with external APIs, etc…)
-- WebAuthn (Passkeys, etc…)
+- **"OAuth authentication"** (Sign in with Google, GitHub, LinkedIn, etc…)
+- **"Magic Links"** (Email Provider like Resend, Sendgrid, Nodemailer etc…)
+- **"Credentials"** (Username and Password, Integrating with external APIs, etc…)
+- **"WebAuthn"** (Passkeys, etc…)
 
-### Framework Overview
+### Auth Framework
 
 NextAuth provide the whole Auth framework structure. Your project will configure your authentication by using this structure. 
 How to configure your authentication? `auth.config.ts` and `auth.ts` are the files you need to configure.
@@ -49,10 +50,39 @@ How to configure your authentication? `auth.config.ts` and `auth.ts` are the fil
 For example signin process: 
 - NextAuth frameword provide `signin` function. 
 - To signin your users, make sure you have at least one authentication method setup.
-- For example use username and password or other external authentication mechanisms, we need to setup `Auth.js` use the `Credentials` provider.
+- For example use username and password or other external authentication mechanisms, we need to setup `auth.ts` use the `Credentials` provider. `authorize()` gives full control over how you handle the `credentials` received from the user. `authorize: (credentials, request) => Awaitable<null | User>;`
+
+```ts
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: [
+    Credentials({
+      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
+      // e.g. domain, username, password, 2FA token, etc.
+      credentials: {
+        email: {},
+        password: {},
+      },
+      authorize: async (credentials) => {
+        let user = null
+        // logic to salt and hash password
+        const pwHash = saltAndHashPassword(credentials.password)
+        // logic to verify if the user exists
+        user = await getUserFromDb(credentials.email, pwHash)
+        if (!user) {
+          // No user found, so this is their first attempt to login
+          // meaning this is also the place you could do registration
+          throw new Error("User not found.")
+        }
+        // return user object with their profile data
+        return user
+      },
+    }),
+  ],
+```
+
 - Once a user is logged in, You can get the session object: `const session = await auth()`. Then you can get user information, you can protect the routes. 
 
-## NextAuth Setup
+## Setup Steps
 
 The steps roughly like these:
 
@@ -304,6 +334,7 @@ export default async function Dashboard() {
 
 ## Session Management
 
+(When you use NextAuth, it provide all the function. If you gonna to do it by yourself, then fellowing can give you some hint.)
 Session management involves tracking and managing a user's interaction with the application over time, ensuring that their authenticated state is preserved across different parts of the application.
 
 This prevents the need for repeated logins, enhancing both security and user convenience. There are two primary methods used for session management: 
