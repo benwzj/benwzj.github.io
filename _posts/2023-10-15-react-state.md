@@ -31,6 +31,7 @@ toc:
   - name: FQA
     subsections: 
       - name: Why React choose Immutable
+      - name: the difference between key and state
 ---
 
 State is the core concept of React component. Imagine you was asked to write web-apps with JavaScript without React or other framework. Using global variables to manage the whole app states, manage update DOM, that will be your first idea to write robust app. State in React is the similar idea of it.
@@ -48,7 +49,7 @@ State is the core concept of React component. Imagine you was asked to write web
 - Unlike props, state is fully private to the component declaring it. If you render the same component twice, each copy will have completely isolated state! 
 - React batches state updates, it will queue all set functions and execute all set functions one by one before re-render.
 - React will reset all state of a component when it's `key` prop change! That means the `initializer function` of `setState function` will run again.
-- We usually use `Array.map()` to list content component in React. This require mark `key` prop for every list component. When causing re-render, `Array.map()` will re-run and recaculate all the list components. In this situation, the List component still can use useState() to store it's states! It just like other components, in re-render, React won't remove it and create a new component, React still keep state snapshot of the list component.
+- We usually use `Array.map()` to list content component in React. This require mark `key` prop for every list component. When causing re-render, `Array.map()` will re-run and recaculate all the list components. In this situation, the List component still can use `useState()` to store it's states! It just like other components, in re-render, React won't remove it and create a new component, React still keep state snapshot of the list component.
 
 ### Rules for structuring state 
 
@@ -158,7 +159,7 @@ Resetting state with a key is particularly useful when dealing with **forms**. F
 Also, use key prop to Presever state even the order of components change.
 
 #### Practice Hint
-- **Don't nest** component function definitions. Because every render will create new component, and React will reset it's states.
+- **Don't** nest component function definitions. Because every render will create new component, and React will reset it's states.
 - **How to Reset state at the same position**. By default, React preserves state of a component while it stays at the same position. Usually, this is exactly what you want, so it makes sense as the default behavior. But sometimes, you may want to reset a component’s state.
   - Rendering "different" position of the component.
   - Rendering with a `key`.
@@ -169,6 +170,51 @@ Also, use key prop to Presever state even the order of components change.
 - How to Preserve state when change order of a list of components. Using `key` prop!
 
 Maybe you can refer this as React instance concept.
+
+
+### key and state
+
+When you update a `state`, the component and the child components will be **re-render**. 
+But When you update the `key` prop of a component, all it's child components will be **re-initialised**.
+
+The example below is showing that, the `childState` of the `ChildComponent` will re-initialised when the `key` of  `ReRenderTest` change.
+```js
+function ChildComponent () {
+  const [childState, setChileState] = useState(0);
+  return (
+    <div className="border border-orange-500 p-2 m-2">
+      <button 
+        onClick={() => setChileState(current => current+1)}
+        className='w-40 border border-purple-500 rounded-md'
+      >
+        update child state: {childState}
+      </button>
+    </div>
+  )
+}
+function ReRenderTest (){
+  const [otherState, setOtherState] = useState(0);
+  const [key, setKey] = useState(0)
+
+  return (
+    <div key={key} className="flex flex-col gap-1 border border-orange-500 p-2 m-2">
+      <button 
+        onClick={() => setOtherState(current => current+1)}
+        className='w-40 border border-purple-500 rounded-md'
+      >
+        update state: {otherState}
+      </button>
+      <button 
+        onClick={() => setKey(current => current+1)}
+        className='w-40 border border-purple-500 rounded-md'
+      >
+        update key: {key}
+      </button>
+      <ChildComponent />
+    </div>
+  )
+}
+```
 
 ### State vs Ref
 
@@ -556,3 +602,4 @@ Keep these two tips in mind when writing reducers:
 > Important concept in Immutable: 
 > 'Nested' Objects are not really nested. Nesting is an inaccurate way to think about how objects behave. 
 {: .block-warning}
+
