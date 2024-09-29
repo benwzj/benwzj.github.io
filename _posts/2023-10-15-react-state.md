@@ -12,6 +12,7 @@ toc:
   - name: Understand State in React
     subsections: 
       - name: State is tied to a position in the render tree
+      - name: key and state
       - name: State vs Ref
       - name: State behaves as snapshot
       - name: How React update states
