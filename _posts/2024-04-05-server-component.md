@@ -245,5 +245,78 @@ Within those client subtrees, you can still nest Server Components or call Serve
 - How do Next.js know what codes need to be bundle and send to browser when Client and Server Components are interleaving together? 
 - How do React and Next.js connect together?
 
+### Update Server Component after data has been changed
+
+The only way to update a Server Component is to reload the page. As it's sent to the browser as static HTML without any JavaScript attached to it to have interactivity.
+
+To reload the page while keeping client side states, you could use `router.refresh()`, where router is the returned value by `useRouter()`. 
+
+Server component:
+```js
+// app/page.tsx
+
+import Todo from "./todo";
+async function getTodos() {
+  const res = await fetch("https://api.example.com/todos", { cache: 'no-store' });
+  const todos = await res.json();
+  return todos;
+}
+
+export default async function Page() {
+  const todos = await getTodos();
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <Todo key={todo.id} {...todo} />
+      ))}
+    </ul>
+  );
+}
+```
+client component:
+```js
+// app/todo.tsx
+"use client";
+
+import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
+
+export default function Todo(todo) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [isFetching, setIsFetching] = useState(false);
+
+  // Create inline loading UI
+  const isMutating = isFetching || isPending;
+
+  async function handleChange() {
+    setIsFetching(true);
+    // Mutate external data source
+    await fetch(`https://api.example.com/todo/${todo.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ completed: !todo.completed }),
+    });
+    setIsFetching(false);
+
+    startTransition(() => {
+      // Refresh the current route and fetch new data from the server without
+      // losing client-side browser or React state.
+      router.refresh();
+    });
+  }
+
+  return (
+    <li style={{ opacity: !isMutating ? 1 : 0.7 }}>
+      <input
+        type="checkbox"
+        checked={todo.completed}
+        onChange={handleChange}
+        disabled={isPending}
+      />
+      {todo.title}
+    </li>
+  );
+}
+```
 
 
