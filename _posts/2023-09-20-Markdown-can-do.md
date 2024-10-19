@@ -4,6 +4,16 @@ title: What Markdown can do
 date: 2023-09-20
 tags: HTML CSS Markdown
 category: Markdown
+toc: 
+  - name: It can embed HTML tags
+  - name: Display programm code
+  - name: Adding DISQUS comments
+  - name: Adding table of contents
+  - name: customized blockquotes
+  - name: Redirecting to another page
+  - name: Display tables Bootstrap Tables
+  - name: Video
+  - name: Audio
 ---
 
 Markdown was designed for the web, and also easy be read as plaintext.
@@ -100,6 +110,7 @@ int main(int argc, char const \*argv[])
 {% endhighlight %}
 
 #### Display liquid template code too
+Using `{ % raw % }` and `{ % endraw % }` to wrap liquid code and then, the liquid code can display:
 
 {% raw %}
 {% highlight c++ linenos %}  <br/> code code code <br/> {% endhighlight %}
@@ -118,7 +129,7 @@ MathJax will automatically number equations:
 \end{equation}
 
 
-## Adding DISQUS comments.
+## Adding DISQUS comments
 
 Turn `disqus_comments: true` on at the Front Matter.
 

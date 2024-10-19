@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Undterstand React Server Component
+title: Understand React Server Component
 date: 2024-04-04
 category: React
 tags: React Next.js Router Rendering
@@ -274,6 +274,7 @@ export default async function Page() {
 }
 ```
 client component:
+{% raw %}
 ```js
 // app/todo.tsx
 "use client";
@@ -318,5 +319,5 @@ export default function Todo(todo) {
   );
 }
 ```
-
+{% endraw %}
 
