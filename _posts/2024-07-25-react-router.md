@@ -32,7 +32,7 @@ Basic ideas are:
 ### What is React Router
 React Router is a collection of navigational components within your application. It enables the navigation among views of various components in a React Application, allows changing the browser URL, and keeps the UI in sync with the URL.
 
-### Whyt React Router popular in the past?
+### Why React Router popular in the past?
 In the past, Create React App (CRA) was the simplest way to bootstrap a React application. It handled and hid the complexity of setting up webpack and Babel, and when new features were added to React, `react-scripts` supported them from the beginning.
 
 However, CRA didn't provide a router, a data fetching solution, or any of the features listed above. That wasn't the purpose of CRA. It was a simple React app starter that allowed you to use whatever libraries from the React ecosystem you liked. Many projects bootstrapped with CRA use React Router for routing, which means there are a large number of "CRA apps" that are also "React Router apps".
