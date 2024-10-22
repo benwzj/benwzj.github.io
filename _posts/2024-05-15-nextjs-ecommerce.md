@@ -2,7 +2,7 @@
 layout: post
 title: Next.js Shopify Ecommerce Application
 date: 2024-05-15
-category: React
+category: Next.js
 tags: GraphQL Next.js Shopify Ecommerce
 toc:
   - name: Setup Shopify
@@ -127,16 +127,24 @@ Read Cookies can get the state of authentication, but the cookiet can be read on
 
 Cookies can be read anywhere, Not just server actions middleware or route handler.
 
+## Authentication with Next-Auth
+
+
+
 ## Admin Function
 
 ## FAQ
-- Where do it store items information in Cart? 
-Cookies store CartID. All cart information is store at Shopify CMS.
-- How to interact with Shopify? 
-Use Storefront GraphQL API.
+
 - What code style like when coding in Next.js? 
   - How do folders, files distribute?
   - How to make Components? 
+- How to refresh a server component?
+
+### Where do it store items information in Cart? 
+Cookies store CartID. All cart information is store at Shopify CMS.
+### How to interact with Shopify? 
+Use Storefront GraphQL API.
+
 
 ## References
 - Basa on [Next.js Commerce template](https://github.com/vercel/commerce).

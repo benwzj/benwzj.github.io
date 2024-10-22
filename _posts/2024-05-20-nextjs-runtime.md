@@ -2,7 +2,7 @@
 layout: post
 title: Next.js Runtime
 date: 2024-05-20
-category: React
+category: Next.js
 tags: Next.js Node.js Runtime
 toc: 
   - name: What is Next.js Runtime

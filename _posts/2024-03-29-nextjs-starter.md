@@ -2,7 +2,7 @@
 layout: post
 title: Next.js Starter Application
 date: 2024-03-29
-category: React
+category: Next.js
 tags: TypeScript JavaScript React Next.js
 toc: 
   - name: Overview

@@ -2,7 +2,7 @@
 layout: post
 title: Next.js App Router Introduction
 date: 2024-04-14
-category: React
+category: Next.js
 tags: React Next.js Router
 toc: 
   - name: What is Routing
@@ -413,5 +413,8 @@ Even the root layout can also be nested in the new folder (e.g. app/[lang]/layou
 You can use `generateStaticParams` with any page or layout to generate static routes for a given set of locales.
 
 ## FAQ
+
+### How to refresh a server component?
+- In the Client component, use `const router = useRouter();` and `router.refresh();`
 
 

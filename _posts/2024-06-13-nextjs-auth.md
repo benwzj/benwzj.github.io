@@ -2,7 +2,7 @@
 layout: post
 title: Implement Auth in Next.js
 date: 2024-06-13
-category: React
+category: Next.js
 tags: Next.js JavaScript React Authentication Authorization JWT
 toc: 
   - name: Basic Authenticatin process
