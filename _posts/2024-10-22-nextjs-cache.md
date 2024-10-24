@@ -1,12 +1,29 @@
 ---
 layout: post
-title: Next.js Cache introduction
+title: Next.js Caching introduction
 date: 2024-10-22
 category: Next.js
 tags: Next.js React Router
+toc:
+  - name: Caching Overview
+  - name: Some Concepts
+  - name: Next.js Caching Foundation
+  - name: Example of Using Caching when fetching
+  - name: In-depth Look
+  - name: Next.js APIs affect caching
 ---
 
-## Some concepts
+## Caching Overview
+
+Next.js is a framework, it provide the whole cache solusion. It use React Cache machinisum, also it provide it own machinisum. 
+Basically it can be divided into 4 categories:
+There are 4 different caching mechanisms:
+- Request Memoization: based on React extand `fetch` function
+- Data Cache: based on Next.js extand `fetch` function
+- Full Route Cache: Next.js prepare this at **Build-Time**, at Sever-side
+- Client-side Router Cache: Next.js caches the visited route segments and prefetches the routes the user is likely to navigate to at Client side. Simply say using `<link/>`
+
+## Some Concepts
 
 - `fetch` API
 - React cache
@@ -19,7 +36,7 @@ tags: Next.js React Router
   - Dynamic APIs: like `cookies`, `headers`, or reading the incoming `searchParams` from the page props etc. which will automatically make the page render dynamically.
 - RSC Payload and data are cached separately.
 
-## Foundation of Next.js caching
+## Next.js Caching Foundation
 
 If you use `next dev` to run the application. it won't cache the response. But when you run a production build by using `next build`, even for the server components, they will be revaluated during the build, and they will be set to be prerendered by default. (The same thing is applied for route handler.)
 
@@ -66,7 +83,7 @@ export default async function Page() {
 This example caches the result of the database query for 1 hour (3600 seconds). It also adds the cache tag posts which can then be invalidated with Incremental Static Regeneration.
 
 
-## In-depth look at Next.js caching mechanisms
+## In-depth Look
 
 There are 4 different caching mechanisms:
 - Request Memoization
@@ -130,6 +147,16 @@ This diagram shows the difference between statically and dynamically rendered ro
 Next.js has an in-memory client-side router cache that stores the RSC payload of route segments, split by layouts, loading states, and pages.
 
 When a user navigates between routes, Next.js caches the visited route segments and prefetches the routes the user is likely to navigate to. This results in instant back/forward navigation, no full-page reload between navigations, and preservation of React state and browser state.
+
+#### Duration and Invalidation
+The cache is stored in the browser's temporary memory. While a page refresh will clear all cached segments.
+
+There are two ways you can invalidate the Router Cache:
+- In a Server Action:
+  - Revalidating data on-demand by path with (`revalidatePath`) or by cache tag with (`revalidateTag`)
+  - Using `cookies.set` or `cookies.delete` invalidates the Router Cache to prevent routes that use cookies from becoming stale (e.g. authentication).
+- Calling `router.refresh` will invalidate the Router Cache and make a new request to the server for the current route.
+
 
 ## Next.js APIs affect caching
 
