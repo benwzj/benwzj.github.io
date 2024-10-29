@@ -54,6 +54,12 @@ Routing is the skeleton of every web application. It is refer to the structure o
 - In App Route, `fetch` function for data fetching;	In Page Route, It is using `getServerSideProps`, `getStaticProps`, `getInitialProps`.
 - In App Route, Layouts can be nested and dynamic; In Page Route, Layouts are static.
 
+### This two models are foundationally different
+- In the page router model, you write code the client components, everything is in the client components. For example you have a `event_handler` that will call `API route` which update some resource in server, and then that API route return some JSON to the client, and the client will handle the JSON and update the UI.
+- App router is totally server based! Form submit Server action, and server can update resource, revalidate cache, and return new UI data. 
+
+{% include figure.html path="assets/img/app_page_router.png" class="img-fluid rounded z-depth-1" width="80%" %}
+
 ## App Route Basic
 
 ### File Conventions

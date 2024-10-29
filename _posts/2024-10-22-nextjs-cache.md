@@ -117,6 +117,10 @@ The Data Cache is persistent across incoming requests and deployments unless you
   - On-demand Revalidation: Data can be revalidated on-demand by path (`revalidatePath`) or by cache tag (`revalidateTag`).
 - opt-out: using `let data = await fetch('https://api.example.app/blog', { cache: 'no-store' })`.
 
+#### Other than fetch
+
+If you are fetch data at server side or using 3rd party lib, you can use `unstable_cache` function.
+
 #### Differences between the Data Cache and Request Memoization
 
 While both caching mechanisms help improve performance by re-using cached data, the Data Cache is persistent across incoming requests and deployments, whereas memoization only lasts the lifetime of a request.
@@ -193,8 +197,8 @@ The Route Segment Config options can be used to override the route segment defau
 ### `generateStaticParams`
 For dynamic segments (e.g. app/blog/[slug]/page.js), paths provided by generateStaticParams are cached in the Full Route Cache at build time. At request time, Next.js will also cache paths that weren't known at build time the first time they're visited.
 
-### React cache function
-The React cache function allows you to memoize the return value of a function, allowing you to call the same function multiple times while only executing it once.
+### React `cache` function
+The React `cache` function allows you to memoize the return value of a function on the server, allowing you to call the same function multiple times while only executing it once.
 
 ## References
 
