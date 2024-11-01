@@ -7,10 +7,14 @@ tags: Next.js JavaScript React Authentication Authorization JWT
 toc: 
   - name: Basic Authenticatin process
   - name: NextAuth Overview
-  - name: Auth Framework
-  - name: Setup Steps
-  - name: Implement Authorization
+  - name: Implement Credentials Auth Method
+    subsections: 
+      - name: The login form
+      - name: Middleware in Authjs
+      - name: Data Access Layer(DAL)
   - name: Session Management
+  - name: FAQ
+  - name: References
 ---
 
 ## Basic Authenticatin process
@@ -34,8 +38,12 @@ toc:
 NextAuth.js is an open source auth layer for Next.js project.
 Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. Here is using "NextAuth" as well.
 
+The latest Authjs version is V5. It has big difference with V4. 
+
+Here are talking about V5. But there are not abundant official document for Authjs V5. 
+
 ### 4 authenticate methods
-There are 4 ways to authenticate users with NextAuth:
+NextAuth provide 4 ways to authenticate users:
 
 - **"OAuth authentication"** (Sign in with Google, GitHub, LinkedIn, etc…)
 - **"Magic Links"** (Email Provider like Resend, Sendgrid, Nodemailer etc…)
@@ -45,10 +53,10 @@ There are 4 ways to authenticate users with NextAuth:
 ### Auth Framework
 
 NextAuth provide the whole Auth framework structure. Your project will configure your authentication by using this structure. 
-How to configure your authentication? `auth.config.ts` and `auth.ts` are the files you need to configure.
+How to configure your authentication? `auth.config.ts` and `auth.ts` are the main files you need to configure.
 
 For example signin process: 
-- NextAuth frameword provide `signin` function. 
+- NextAuth frameword provide `Signin` function. 
 - To signin your users, make sure you have at least one authentication method setup.
 - For example use username and password or other external authentication mechanisms, we need to setup `auth.ts` use the `Credentials` provider. `authorize()` gives full control over how you handle the `credentials` received from the user. `authorize: (credentials, request) => Awaitable<null | User>;`
 
@@ -82,21 +90,29 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
 - Once a user is logged in, You can get the session object: `const session = await auth()`. Then you can get user information, you can protect the routes. 
 
-## Setup Steps
+### V5 Setup Steps
 
 The steps roughly like these:
 
-### Setting up NextAuth.js to your project
+#### Setting up NextAuth.js to your project
 - install it: `npm install next-auth@beta`
 - generate a secret key for your application. This key is used to encrypt cookies, ensuring the security of user sessions. Like this: `openssl rand -base64 32`
 - In your `.env` file, add your generated key to the AUTH_SECRET variable: `AUTH_SECRET=your-secret-key`
 
-### auth.config.ts file
+#### auth.config.ts file
 Create an `auth.config.ts` file at the root of our project that exports an `authConfig` object. 
 - you can Add the login pages option in this config file.
 - configure Protecting your routes with Next.js Middleware.
 
-### auth.ts file
+#### API route
+Inside the App folder, create:
+```ts
+// src/app/api/auth/[...nextauth]/route.ts
+
+export { GET, POST } from '@/auth';
+```
+
+#### auth.ts file
 `auth.ts` file spreads your `authConfig` object.
 ```ts
 import NextAuth from 'next-auth';
@@ -109,7 +125,11 @@ export const { auth, signIn, signOut } = NextAuth({
 });
 ```
 
-### The login form for email and password
+## Implement Credentials Auth Method
+
+### The login form
+
+The login form for email and password
 
 you create the login route and component where users can input their credentials. for example, create route `/login`.This login page UI should use `form` which is using `authenticate()` Server action to authenticate user.
 
@@ -144,49 +164,55 @@ export async function authenticate(_currentState: unknown, formData: FormData) {
 
 Now, you can add Form Validation implement using `useFormState` (`useActionState`) and `useFormStatus`.
 
-## Implement Authorization
+### Middleware in Authjs
 
-Once a user is authenticated, you'll need to think about What user can do:
-- visiting certain routes 
-- perform operations such as mutating data with Server Actions 
-- calling Route Handlers
+There are tow options to use Middelware in Auth.js: 
 
-### Protecting Routes with Middleware
-Middleware in Next.js helps you control who can access different parts of your website.
-
-Here's how to implement Middleware for authentication in Next.js:
-
-- Setting Up Middleware:
-  - Create a middleware.ts or .js file in your project's root directory.
-  - Include logic to authorize user access, such as checking for authentication tokens.
-- Defining Protected Routes:
-  - Not all routes require authorization. Use the matcher option in your Middleware to specify any routes that do not require authorization checks.
-- Middleware Logic:
-  - Write logic to verify if a user is authenticated. Check user roles or permissions for route authorization.
-- Handling Unauthorized Access:
-  - Redirect unauthorized users to a login or error page as appropriate.
-
-Middleware example:
+#### Option 1
+You can create a middleware.ts file in your root pages directory with the following contents.
 ```ts
-//middleware.ts
-import type { NextRequest } from 'next/server'
+// middleware.ts
+export { auth as middleware } from "@/auth"
+```
+Then define authorized callback in your auth.ts file. For more details check out the reference docs.
+```ts
+// auth.ts
+import NextAuth from "next-auth"
  
-export function middleware(request: NextRequest) {
-  const currentUser = request.cookies.get('currentUser')?.value
+export const { auth, handlers } = NextAuth({
+  callbacks: {
+    authorized: async ({ auth }) => {
+      // Logged in users are authenticated, otherwise redirect to login page
+      return !!auth
+    },
+  },
+})
+```
+
+#### Option 2
+You can also use the auth method as a wrapper if you’d like to implement more logic inside the middleware.
+```ts
+// middleware.ts
+import { auth } from "@/auth"
  
-  if (currentUser && !request.nextUrl.pathname.startsWith('/dashboard')) {
-    return Response.redirect(new URL('/dashboard', request.url))
+export default auth((req) => {
+  if (!req.auth && req.nextUrl.pathname !== "/login") {
+    const newUrl = new URL("/login", req.nextUrl.origin)
+    return Response.redirect(newUrl)
   }
- 
-  if (!currentUser && !request.nextUrl.pathname.startsWith('/login')) {
-    return Response.redirect(new URL('/login', request.url))
-  }
-}
- 
+})
+```
+
+#### Using matcher to difine routes
+You can also use a regex to match multiple routes or you can negate certain routes in order to protect all remaining routes. 
+The following example avoids running the middleware on paths such as the favicon or static images.
+```ts
+// middleware.ts
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 }
 ```
+Middleware will protect pages as defined by the matcher config export. 
 
 ### Data Access Layer(DAL)
 
@@ -378,9 +404,50 @@ export async function getSessionData(req) {
 - What `signIn()` do in NextAuth.js?
 - How to implement Data Access Layer(DAL)
 
+### Using middleware to protect routes when not using Authjs.
+
+Once a user is authenticated, you'll need to think about What user can do:
+- visiting certain routes 
+- perform operations such as mutating data with Server Actions 
+- calling Route Handlers
+
+Middleware in Next.js helps you control who can access different parts of your website.
+Here's how to implement Middleware for authentication in Next.js:
+
+- Setting Up Middleware:
+  - Create a middleware.ts or .js file in your project's root directory.
+  - Include logic to authorize user access, such as checking for authentication tokens.
+- Defining Protected Routes:
+  - Not all routes require authorization. Use the matcher option in your Middleware to specify any routes that do not require authorization checks.
+- Middleware Logic:
+  - Write logic to verify if a user is authenticated. Check user roles or permissions for route authorization.
+- Handling Unauthorized Access:
+  - Redirect unauthorized users to a login or error page as appropriate.
+
+Middleware example:
+```ts
+//middleware.ts
+import type { NextRequest } from 'next/server'
+ 
+export function middleware(request: NextRequest) {
+  const currentUser = request.cookies.get('currentUser')?.value
+ 
+  if (currentUser && !request.nextUrl.pathname.startsWith('/dashboard')) {
+    return Response.redirect(new URL('/dashboard', request.url))
+  }
+ 
+  if (!currentUser && !request.nextUrl.pathname.startsWith('/login')) {
+    return Response.redirect(new URL('/login', request.url))
+  }
+}
+ 
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+}
+```
 
 ## References
 
-- [NextAuth.js Doc](https://next-auth.js.org)
-- [Auth.js Doc](https://authjs.dev/reference/next-auth).
+- next-auth@4.x.y on [NextAuth.js.org](https://next-auth.js.org)
+- next-auth@5.0.0-beta on [authjs.dev](https://authjs.dev/reference/next-auth).
 - [Blog: Security in Next.js](https://nextjs.org/blog/security-nextjs-server-components-actions)
