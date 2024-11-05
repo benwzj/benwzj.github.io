@@ -16,7 +16,7 @@ Next.js copy the middleware concept from Express.js.
 
 In Next.js, Middleware allows you to run code before a request is completed. It is based on the incoming request, you can modify the response by rewriting, redirecting, modifying the request or response headers, or responding directly.
 
-It can be helpful such as checking user authentication status and redirecting unauthenticated users, handling internationalization by redirecting users to locale-specific paths, or implementing custom security measures like bot detection.
+But the Next.js documents is not good at all. 
 
 ## Features
 - Middleware let you share and reuse logic that is repeatable for every request.
@@ -41,24 +41,66 @@ It can be helpful such as checking user authentication status and redirecting un
 
 Middleware logic happen inside the request-response cycle. 
 
-### Middleware logic should be:
+### What is the Middleware logic 
+I believe it should be this at the first thought:
 Client (send Request) ----> Middleware(It do something) -----> Route page(handle the Request)
 Then:
 Route Page (rend back Response) ----> Middleware (then do something) ---> Client (get Response)
 
-### How Middleware handle this two directions logic?
-Next.js provide `NextResponse` and `NextRequest` API to write the logic.
-For example if you return `NextResponse.next();` in your middleware funciton, it means that it will pass to the next Middleware or route handler. 
+But after few days research, the logic maybe not like that. It may be like this: 
+Client (send Request) ----> Middleware(It do something) -----> Route page(handle the Request)
+Then:
+Route Page (rend back Response) ----> Client (get Response)
+
+Because it is easier for SW design.
 
 ### What do the returned value of the middleware funciton means?
 
-## Understand NextResponse
+What i get Till now is that:
+- Return `Response` or `NextResponse` object, then it will response back to client directly.
+- Return `NextResponse.next()` will pass the request to the next middleware or route.
+- Return `NextResponse.redirect('/login')` will redirect to `/login`.
+- How about no `return`?
 
-### What do NextResponse.next() mean?
+### Understand NextResponse
+
+#### What do NextResponse.next() mean?
 - In Middleware, The `NextResponse.next()` method allows you to return early and continue routing. What do it mean?
 The next() method passes the request to the next middleware or route.
 
-- In Middleware, The `NextResponse.next()` also allow you to forward headers when producing the response. What do it mean?
+- In Middleware, The `NextResponse.next()` also allow you to forward headers when producing the response. Like this: 
+```ts
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  // Add a new header x-current-path which passes the path to downstream components
+  const headers = new Headers(request.headers);
+  headers.set("x-current-path", request.nextUrl.pathname);
+  return NextResponse.next({ headers });
+}
+
+export const config = {
+  matcher: [
+    // match all routes except static files and APIs
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+  ],
+};
+```
+we can look for the `x-current-path` header in server component:
+```ts
+import { headers } from "next/headers";
+ 
+export default async function Sidebar() {
+  const headerList = headers();
+  const pathname = headerList.get("x-current-path");
+
+  // ...etc
+}
+```
+
+How this happen underneath? Why server component can get header information which set by `NextResponse.next`?
+
 
 ## Use Middleware in Next.js
 
@@ -105,7 +147,7 @@ import type { NextRequest } from 'next/server';
 
 export function customHeadersMiddleware(request: NextRequest) {
   const response = NextResponse.next();
-  response.headers.set('x-current-path', request.nextUrl.pathname); // this can pass current route to server component
+  response.headers.set('x-current-path', request.nextUrl.pathname); 
   response.cookies.set('Middleware-Set-Cookie', '123');
   return response;
 }
