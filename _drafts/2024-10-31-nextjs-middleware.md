@@ -5,20 +5,21 @@ date: 2024-10-31
 category: Next.js
 tags: React TypeScript Next.js
 toc: 
-  - name: Features
+  - name: Overview
   - name: Understand middleware
   - name: Use Middleware in Next.js
   - name: FAQ
 ---
 
 
+### Overview
 Next.js copy the middleware concept from Express.js. 
 
 In Next.js, Middleware allows you to run code before a request is completed. It is based on the incoming request, you can modify the response by rewriting, redirecting, modifying the request or response headers, or responding directly.
 
-But the Next.js documents is not good at all. 
+But the Next.js documents is not good enough. 
 
-## Features
+### Features
 - Middleware let you share and reuse logic that is repeatable for every request.
 - Middleware runs before cached content and routes are matched. 
 - Use `matcher` to filter "Middleware" to run on specific paths.
@@ -37,6 +38,22 @@ But the Next.js documents is not good at all.
   - Feature Flagging
 
 
+### Matching Paths
+Middleware will be invoked for every route in your project. The following is the execution order:
+
+1. headers from next.config.js
+2. redirects from next.config.js
+3. Middleware (rewrites, redirects, etc.)
+4. beforeFiles (rewrites) from next.config.js
+5. Filesystem routes (public/, _next/static/, pages/, app/, etc.)
+6. afterFiles (rewrites) from next.config.js
+7. Dynamic Routes (/blog/[slug])
+8. fallback (rewrites) from next.config.js
+
+There are two ways to define which paths Middleware will run on:
+1. Custom matcher config
+2. Conditional statements
+
 ## Understand middleware
 
 Middleware logic happen inside the request-response cycle. 
@@ -52,7 +69,7 @@ Client (send Request) ----> Middleware(It do something) -----> Route page(handle
 Then:
 Route Page (rend back Response) ----> Client (get Response)
 
-Because it is easier for SW design.
+It is easier for SW design.
 
 ### What do the returned value of the middleware funciton means?
 
