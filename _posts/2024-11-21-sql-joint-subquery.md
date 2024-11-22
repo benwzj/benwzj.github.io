@@ -10,7 +10,7 @@ tags: SQL Database
 
 Joins clause in SQL used to combine records from two or more tables. These tables are linked through common fields, and a join operation fetches data based on specified conditions. 
 
-Joins can be of various types, including INNER JOIN, OUTER JOIN, LEFT(OUTER) JOIN, RIGHT(OUTER) JOIN and CROSS JOIN. Here’s a brief overview:
+Joins can be of various types. Here’s a brief overview:
 
 - INNER JOIN: Returns only the rows that have matching values in both tables.
 - OUTER JOIN: Returns all rows from both tables, including unmatched rows.
@@ -23,9 +23,9 @@ This Figures do a good job on showing the difference:
 
 Joins are specified in the FROM clause of a query and can significantly enhance the efficiency of data retrieval. They are essential for fetching data from multiple tables based on relationships.
 
-### Some points
+Usually we just use INNER JOIN and LEFT(OUTER) JOIN.
 
-#### The INNER JOIN usually can be written without JOIN keyword: 
+### The INNER JOIN usually can be written without JOIN keyword: 
 ```sql
 SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
 FROM Orders
@@ -38,9 +38,23 @@ FROM Orders, Customers
 where Orders.CustomerID=Customers.CustomerID;
 ```
 
-#### Understand Full Join
+### Understand Full Join
 
 Full join means list all rows in tow table, if the rows meet condition, then join them together.
+But some popular DB like MySQL does not support the FULL OUTER JOIN syntax.
+
+### What is self join
+A self join is a regular join, but the table is joined with itself.
+
+The following SQL statement matches customers that are from the same city:
+```sql
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID <> B.CustomerID
+AND A.City = B.City
+ORDER BY A.City;
+```
+
 
 ## What is a Subquery
 
