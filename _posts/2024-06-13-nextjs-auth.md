@@ -35,7 +35,7 @@ toc:
 
 ## NextAuth Overview
 
-NextAuth.js is an open source auth layer for Next.js project.
+Auth.js is an open source auth layer for JavaScript project.
 Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. Here is using "NextAuth" as well.
 
 The latest Authjs version is V5. It has big difference with V4. 
@@ -53,12 +53,15 @@ NextAuth provide 4 ways to authenticate users:
 ### Auth Framework
 
 NextAuth provide the whole Auth framework structure. Your project will configure your authentication by using this structure. 
-How to configure your authentication? `auth.config.ts` and `auth.ts` are the main files you need to configure.
+How to configure your authentication? 
+- `auth.config.ts` and `auth.ts` are the main files you need to configure.
+- middleware play important role.
 
 For example signin process: 
 - NextAuth frameword provide `Signin` function. 
 - To signin your users, make sure you have at least one authentication method setup.
-- For example use username and password or other external authentication mechanisms, we need to setup `auth.ts` use the `Credentials` provider. `authorize()` gives full control over how you handle the `credentials` received from the user. `authorize: (credentials, request) => Awaitable<null | User>;`
+- You can use username and password or other external authentication mechanisms.
+- For example, using username and password, we need to setup `auth.ts` use the `Credentials` provider. `authorize()` gives full control over how you handle the `credentials` received from the user. `authorize: (credentials, request) => Awaitable<null | User>;`.
 
 ```ts
 export const { handlers, signIn, signOut, auth } = NextAuth({
