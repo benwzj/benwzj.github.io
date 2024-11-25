@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Implement Auth in Next.js
+title: About Auth.js
 date: 2024-06-13
 category: Next.js
 tags: Next.js JavaScript React Authentication Authorization JWT
@@ -33,7 +33,7 @@ toc:
 - Logout button:
   - Simply destroy the session cookie
 
-## NextAuth Overview
+## Auth.js Overview
 
 Auth.js is an open source auth layer for JavaScript project.
 Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. Here is using "NextAuth" as well.
@@ -50,7 +50,7 @@ NextAuth provide 4 ways to authenticate users:
 - **"Credentials"** (Username and Password, Integrating with external APIs, etc…)
 - **"WebAuthn"** (Passkeys, etc…)
 
-### Auth Framework
+### Auth.js Framework
 
 NextAuth provide the whole Auth framework structure. Your project will configure your authentication by using this structure. 
 How to configure your authentication? 
