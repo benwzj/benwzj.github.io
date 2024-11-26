@@ -7,7 +7,7 @@ tags: Next.js JavaScript React Authentication Authorization JWT
 toc: 
   - name: Basic Authenticatin process
   - name: NextAuth Overview
-  - name: Implement Credentials Auth Method
+  - name: Credentials
     subsections: 
       - name: The login form
       - name: Middleware in Authjs
@@ -93,7 +93,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
 - Once a user is logged in, You can get the session object: `const session = await auth()`. Then you can get user information, you can protect the routes. 
 
-### V5 Setup Steps
+### auth.js V5 Setup Steps
 
 The steps roughly like these:
 
@@ -105,7 +105,14 @@ The steps roughly like these:
 #### auth.config.ts file
 Create an `auth.config.ts` file at the root of our project that exports an `authConfig` object. 
 - you can Add the login pages option in this config file.
-- configure Protecting your routes with Next.js Middleware.
+- this is used to configure protecting your routes with Next.js Middleware.
+
+Basic logic is that 
+1. setup `authorized` callback function inside `authConfig` object. 
+2. `export authConfig` object.
+3. this `authConfig` object will be use in `middleware.ts`.
+
+> You don't have to use this way to setup auth in middleware. You can use next.js middleware.ts directly.
 
 #### API route
 Inside the App folder, create:
@@ -116,6 +123,7 @@ export { GET, POST } from '@/auth';
 ```
 
 #### auth.ts file
+
 `auth.ts` file spreads your `authConfig` object.
 ```ts
 import NextAuth from 'next-auth';
@@ -128,7 +136,7 @@ export const { auth, signIn, signOut } = NextAuth({
 });
 ```
 
-## Implement Credentials Auth Method
+## Credentials
 
 ### The login form
 
@@ -360,6 +368,12 @@ export default async function Dashboard() {
   }
 }
 ```
+
+## OAuth
+
+## Magic Links
+
+## WebAuthn (Passkeys)
 
 ## Session Management
 

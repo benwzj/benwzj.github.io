@@ -12,7 +12,8 @@ toc:
 ---
 
 
-### Overview
+## Overview
+
 Next.js copy the middleware concept from Express.js. 
 
 In Next.js, Middleware allows you to run code before a request is completed. It is based on the incoming request, you can modify the response by rewriting, redirecting, modifying the request or response headers, or responding directly.
@@ -70,6 +71,24 @@ Then:
 Route Page (rend back Response) ----> Client (get Response)
 
 It is easier for SW design.
+
+### export middleware function in middleware.ts
+
+Basic example:
+```ts
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+ 
+// This function can be marked `async` if using `await` inside
+export function middleware(request: NextRequest) {
+  return NextResponse.redirect(new URL('/home', request.url))
+}
+ 
+// See "Matching Paths" below to learn more
+export const config = {
+  matcher: '/about/:path*',
+}
+```
 
 ### What do the returned value of the middleware funciton means?
 
