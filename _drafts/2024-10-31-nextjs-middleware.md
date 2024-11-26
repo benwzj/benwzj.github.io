@@ -74,6 +74,8 @@ It is easier for SW design.
 
 ### export middleware function in middleware.ts
 
+The Middleware "/middleware" must export a `middleware` or a `default` function.
+
 Basic example:
 ```ts
 import { NextResponse } from 'next/server'
