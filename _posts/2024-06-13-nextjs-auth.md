@@ -6,7 +6,8 @@ category: Next.js
 tags: Next.js JavaScript React Authentication Authorization JWT
 toc: 
   - name: Basic Authenticatin process
-  - name: NextAuth Overview
+  - name: Auth.js Overview
+  - name: Auth.js Framework
   - name: Credentials
     subsections: 
       - name: The login form
@@ -17,8 +18,9 @@ toc:
   - name: References
 ---
 
-## Basic Authenticatin process
+## Normal Authenticatin framework
 
+- Using seesion object.
 - Login button: 
   - Get user information from form.
   - Verify user information.
@@ -35,11 +37,10 @@ toc:
 
 ## Auth.js Overview
 
-Auth.js is an open source auth layer for JavaScript project.
+Auth.js is an open source auth layer (can be called framework) for JavaScript project.
 Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. Here is using "NextAuth" as well.
 
-The latest Authjs version is V5. It has big difference with V4. 
-
+The latest Auth.js version is V5. It has big difference with V4. 
 Here are talking about V5. But there are not abundant official document for Authjs V5. 
 
 ### 4 authenticate methods
@@ -50,12 +51,28 @@ NextAuth provide 4 ways to authenticate users:
 - **"Credentials"** (Username and Password, Integrating with external APIs, etc…)
 - **"WebAuthn"** (Passkeys, etc…)
 
-### Auth.js Framework
+## Auth.js Framework
 
-NextAuth provide the whole Auth framework structure. Your project will configure your authentication by using this structure. 
-How to configure your authentication? 
-- `auth.config.ts` and `auth.ts` are the main files you need to configure.
-- middleware play important role.
+When using Auth.js, your project will configure your authentication under Auth.js structure. 
+Main concepts: 
+- Recommend using `auth.config.ts` and `auth.ts` to configure, But you still can do it on other way.
+- Using `authConfig` object to tell Auth.js your configuration.
+- middleware play core role.
+
+### `authConfig` Structure
+```ts
+export const authConfig = {
+  session: {
+  },
+  pages: {
+  },
+  callbacks: {
+    authorized({ auth }) {
+    },
+  },
+  providers: [],
+} satisfies NextAuthConfig;
+```
 
 For example signin process: 
 - NextAuth frameword provide `Signin` function. 
@@ -107,12 +124,13 @@ Create an `auth.config.ts` file at the root of our project that exports an `auth
 - you can Add the login pages option in this config file.
 - this is used to configure protecting your routes with Next.js Middleware.
 
-Basic logic is that 
+Basic logic is that: 
 1. setup `authorized` callback function inside `authConfig` object. 
 2. `export authConfig` object.
-3. this `authConfig` object will be use in `middleware.ts`.
+3. This `authConfig` object is used by Auth.js.
+4. And Auth.js is using `middleware.ts` to implement it's logic.
 
-> You don't have to use this way to setup auth in middleware. You can use next.js middleware.ts directly.
+> You don't have to use `auth.config.ts` file to setup auth. You can use auth.ts to tell `Auth.ts` your configuration.
 
 #### API route
 Inside the App folder, create:

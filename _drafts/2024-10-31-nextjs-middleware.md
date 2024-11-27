@@ -20,23 +20,29 @@ In Next.js, Middleware allows you to run code before a request is completed. It 
 
 But the Next.js documents is not good enough. 
 
-### Features
+### Important Points
+
+- Middleware will affect every request, so need to handle it carefully.
 - Middleware let you share and reuse logic that is repeatable for every request.
 - Middleware runs before cached content and routes are matched. 
-- Use `matcher` to filter "Middleware" to run on specific paths.
-- What Middleware can do:
-  - redirect the incoming request to a different URL
-  - rewrite the response
-  - Set request headers for API Routes, getServerSideProps, and rewrite destinations
-  - Set response cookies
-  - Set response headers
-- When to use Middleware:
-  - Authentication and Authorization
-  - Server-Side Redirects
-  - Path Rewriting, For example:  A/B testing, feature rollouts, or legacy paths 
-  - Bot Detection
-  - Logging and Analytics
-  - Feature Flagging
+- Middleware run for all request, Normally, you need to use `matcher` to filter "Middleware" to run on specific paths.
+- The Middleware file "/middleware.ts" must export a `middleware` or a `default` function.
+
+
+### What Middleware can do:
+- redirect the incoming request to a different URL
+- rewrite the response
+- Set request headers for API Routes, getServerSideProps, and rewrite destinations
+- Set response cookies
+- Set response headers
+
+### When to use Middleware:
+- Authentication and Authorization
+- Server-Side Redirects
+- Path Rewriting, For example:  A/B testing, feature rollouts, or legacy paths 
+- Bot Detection
+- Logging and Analytics
+- Feature Flagging
 
 
 ### Matching Paths
@@ -80,12 +86,12 @@ Basic example:
 ```ts
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
- 
+
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   return NextResponse.redirect(new URL('/home', request.url))
 }
- 
+
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: '/about/:path*',
@@ -144,7 +150,7 @@ How this happen underneath? Why server component can get header information whic
 
 - Use the file `middleware.ts` (or .js) in the **root** of your project to define Middleware.
 - Only one `middleware.ts` file is supported per project
-- Because Middleware will be invoked for every route in your project, so you can use `matchers` to precisely target or exclude specific routes. Or using Conditional Statements in `middleware.ts`.
+- Because Middleware will be invoked for every route in your project, so you should use `matchers` to precisely target or exclude specific routes. Or using Conditional Statements in `middleware.ts`.
 
 ### redirect
 - `redirect` the incoming request to a different URL.
