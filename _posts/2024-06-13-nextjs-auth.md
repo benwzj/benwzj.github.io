@@ -38,14 +38,14 @@ toc:
 ## Auth.js Overview
 
 Auth.js is an open source auth layer (can be called framework) for JavaScript project.
-Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js. Here is using "NextAuth" as well.
+Auth.js was born out of next-auth. And it try to support more frameworks. It keep using the name "NextAuth.js" for Next.js.
 
 The latest Auth.js version is V5. It has big difference with V4. 
 Here are talking about V5. But there are not abundant official document for Authjs V5. 
 
 ### 4 authenticate methods
-NextAuth provide 4 ways to authenticate users:
 
+Auth.js provide 4 ways to authenticate users:
 - **"OAuth authentication"** (Sign in with Google, GitHub, LinkedIn, etc…)
 - **"Magic Links"** (Email Provider like Resend, Sendgrid, Nodemailer etc…)
 - **"Credentials"** (Username and Password, Integrating with external APIs, etc…)
@@ -54,9 +54,12 @@ NextAuth provide 4 ways to authenticate users:
 ## Auth.js Framework
 
 When using Auth.js, your project will configure your authentication under Auth.js structure. 
-Main concepts: 
+
+### Main concepts: 
 - Recommend using `auth.config.ts` and `auth.ts` to configure, But you still can do it on other way.
-- Using `authConfig` object to tell Auth.js your configuration.
+- Using `authConfig` object to tell Auth.js your configuration. For example: 
+  - `authConfig.callbacks`: middleware session checking callback function
+  - `authConfig.providers.Credentials.authorize`: signin authenticate function for Credentials.
 - middleware play core role.
 
 ### `authConfig` Structure
@@ -70,47 +73,30 @@ export const authConfig = {
     authorized({ auth }) {
     },
   },
-  providers: [],
-} satisfies NextAuthConfig;
-```
-
-For example signin process: 
-- NextAuth frameword provide `Signin` function. 
-- To signin your users, make sure you have at least one authentication method setup.
-- You can use username and password or other external authentication mechanisms.
-- For example, using username and password, we need to setup `auth.ts` use the `Credentials` provider. `authorize()` gives full control over how you handle the `credentials` received from the user. `authorize: (credentials, request) => Awaitable<null | User>;`.
-
-```ts
-export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        email: {},
-        password: {},
       },
       authorize: async (credentials) => {
-        let user = null
-        // logic to salt and hash password
-        const pwHash = saltAndHashPassword(credentials.password)
-        // logic to verify if the user exists
-        user = await getUserFromDb(credentials.email, pwHash)
-        if (!user) {
-          // No user found, so this is their first attempt to login
-          // meaning this is also the place you could do registration
-          throw new Error("User not found.")
-        }
-        // return user object with their profile data
-        return user
       },
     }),
   ],
+} satisfies NextAuthConfig;
 ```
 
+### For example signin process: 
+- NextAuth frameword provide `Signin` function. 
+- To signin your users, make sure you have at least one authentication method setup.
+- You can use username and password or other external authentication mechanisms.
+- For example, using username and password, we need to setup `auth.ts` use the `Credentials` provider. `authorize()` gives full control over how you handle the `credentials` received from the user. `authorize: (credentials, request) => Awaitable<null | User>;`.
 - Once a user is logged in, You can get the session object: `const session = await auth()`. Then you can get user information, you can protect the routes. 
 
-### auth.js V5 Setup Steps
+
+## Credentials
+
+### Setup Steps
 
 The steps roughly like these:
 
@@ -153,8 +139,6 @@ export const { auth, signIn, signOut } = NextAuth({
   providers: [Credentials({})],
 });
 ```
-
-## Credentials
 
 ### The login form
 

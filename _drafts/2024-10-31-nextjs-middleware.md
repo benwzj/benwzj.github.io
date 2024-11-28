@@ -11,7 +11,6 @@ toc:
   - name: FAQ
 ---
 
-
 ## Overview
 
 Next.js copy the middleware concept from Express.js. 
@@ -27,7 +26,6 @@ But the Next.js documents is not good enough.
 - Middleware runs before cached content and routes are matched. 
 - Middleware run for all request, Normally, you need to use `matcher` to filter "Middleware" to run on specific paths.
 - The Middleware file "/middleware.ts" must export a `middleware` or a `default` function.
-
 
 ### What Middleware can do:
 - redirect the incoming request to a different URL
