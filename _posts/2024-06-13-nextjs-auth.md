@@ -13,6 +13,7 @@ toc:
       - name: The login form
       - name: Middleware in Authjs
       - name: Data Access Layer(DAL)
+  - name: OAuth
   - name: Session Management
   - name: FAQ
   - name: References
@@ -53,7 +54,7 @@ Auth.js provide 4 ways to authenticate users:
 
 ## Auth.js Framework
 
-When using Auth.js, your project will configure your authentication under Auth.js structure. 
+When using Auth.js, the main job of your project is configuring your authentication under Auth.js structure. 
 
 ### Main concepts: 
 - Recommend using `auth.config.ts` and `auth.ts` to configure, But you still can do it on other way.
@@ -105,6 +106,14 @@ The steps roughly like these:
 - generate a secret key for your application. This key is used to encrypt cookies, ensuring the security of user sessions. Like this: `openssl rand -base64 32`
 - In your `.env` file, add your generated key to the AUTH_SECRET variable: `AUTH_SECRET=your-secret-key`
 
+#### API route
+Inside the App folder, create:
+```ts
+// src/app/api/auth/[...nextauth]/route.ts
+
+export { GET, POST } from '@/auth';
+```
+
 #### auth.config.ts file
 Create an `auth.config.ts` file at the root of our project that exports an `authConfig` object. 
 - you can Add the login pages option in this config file.
@@ -117,14 +126,6 @@ Basic logic is that:
 4. And Auth.js is using `middleware.ts` to implement it's logic.
 
 > You don't have to use `auth.config.ts` file to setup auth. You can use auth.ts to tell `Auth.ts` your configuration.
-
-#### API route
-Inside the App folder, create:
-```ts
-// src/app/api/auth/[...nextauth]/route.ts
-
-export { GET, POST } from '@/auth';
-```
 
 #### auth.ts file
 
