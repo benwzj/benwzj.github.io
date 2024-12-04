@@ -447,7 +447,7 @@ When reading the route, according to the App directory structure, Next.js can ge
 
 ### Steps:
 
-- In your /invoices folder, create a new dynamic route called [id], then a new route called `edit` with a `page.tsx` file. 
+- In your `/invoices` folder, create a new dynamic route called [id], then a new route called `edit` with a `page.tsx` file. 
 
 - The Update Button for each invoice will do this: 
 
@@ -469,7 +469,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
 - Inside the `[id]/edit/page.tsx`, you will Fetch the specific invoice according to the `id` to fill the page.  
 
-- When user confirm update, You will update Database by using Server Action. At this moment, You can't just pass `id` to server action! Instead, you can pass id to the Server Action using JS bind. 
+- When user confirm update, You will update Database by using Server Action. At this moment, You can't just pass `id` to server action! Instead, you can pass `id` to the Server Action using JS bind. 
 
 ```ts
 const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
