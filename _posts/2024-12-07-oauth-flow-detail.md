@@ -83,7 +83,7 @@ Another one:
 Redirect_RUI need be defined in the Authorization Server. 
 And When User is using GET and POST to access Authorization Server, it can use the `redirect_uri` parameter. 
 - If left out, GitHub will redirect users to the callback URL configured in the OAuth app settings. 
-- If provided, the redirect URL's host (excluding sub-domains) and port must exactly match the callback URL. The redirect URL's path must reference a subdirectory of the callback URL.
+- If provided, the redirect URL's host (excluding sub-domains) and port must exactly match the callback URL. The redirect URL's path must reference a subdirectory of the callback URL.(I spent whole day to figure out this mismatch error)
 
 #### Loopback redirect urls
 The optional `redirect_uri` parameter can also be used for loopback URLs, which is useful for native applications running on a desktop computer. If the application specifies a loopback URL and a port, then after authorizing the application users will be redirected to the provided URL and port. The `redirect_uri` does not need to match the port specified in the callback URL for the app.
