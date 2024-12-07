@@ -18,7 +18,11 @@ Let's clear what are this apps.
 ### Definition
 OAuth apps are applications that use the OAuth protocol to allow users to grant third-party access to their data without sharing their password. 
 
-### Example
+### Example 1 
+
+Vercel provide Server platform for developer to deploy their application which code can be store in GitHub. If you want to allow Vercel to access GitHub to deploy your application, you need to install an OAuth app in your Repo. After the OAuth installation, Vercel can access that Reop.
+
+### Example 2
 
 When You build an application which support Google SignIn, you need to ceate a project which use **Credentials** APIs and services. From there you need to setup callback URIs and you will get an "OAuth 2.0 Client IDs" and "Client secret" for you application. 
 You can say this google project work as OAuth App. This OAuth App is using Google APIs to ask users login and access their profiles.
