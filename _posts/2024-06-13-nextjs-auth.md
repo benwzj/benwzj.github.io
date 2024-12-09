@@ -5,7 +5,7 @@ date: 2024-06-13
 category: Next.js
 tags: Next.js JavaScript React Authentication Authorization JWT
 toc: 
-  - name: Basic Authenticatin process
+  - name: Basic Authentication process
   - name: Auth.js Overview
   - name: Auth.js Framework
   - name: Credentials
@@ -19,7 +19,7 @@ toc:
   - name: References
 ---
 
-## Normal Authenticatin framework
+## Normal Authentication framework
 
 - Using seesion object.
 - Login button: 
@@ -373,6 +373,29 @@ export default async function Dashboard() {
 ```
 
 ## OAuth
+
+(Auth.js recommend to use OAuth for signin. )
+
+Auth.js have implemented all steps for OAuth flow. What you need to do are 1, configure Auth.js framework(a little bit work) and 2, setup your OAuth App in Authorization Server.
+
+### callback URL
+The callback URL is defined by Auth.js. 
+It is: `[origin\]/api/auth/callback/\[provider\]`. For example: `http://localhost:3000/api/auth/callback/github`
+You need to setup the Auth implement route in `api/auth/[...nextauth]/route.ts`.
+
+> The Auth.js office demo App is using `[origin\]/auth/callback/\[provider\]`.
+
+### There are two main jobs
+Auth.js have design that for us: 
+- `GET` method: to get signin dialog from Authorization Server. 
+- `POST` method: to get access token.
+
+What you nee to do is setup the Auth implement route:
+```ts
+// api/auth/[...nextauth]/route.ts
+import { handlers } from "@/auth";
+export const { GET, POST } = handlers;
+```
 
 ## Magic Links
 

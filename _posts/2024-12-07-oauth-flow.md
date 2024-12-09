@@ -7,6 +7,7 @@ tags: Authentication github Authorization OAuth
 toc: 
   - name: Web app flow
   - name: Single-page app flow
+  - name: References
 ---
 
 OAuth is a standard. There are many company implement OAuth according to this Standard. The implementation should be very similar.
@@ -18,7 +19,11 @@ In OAuth Flow, usually there are some Roles:
 - Browser
 - Website App
 - The Authorization Server
-- The API
+
+- resource owner (User)
+- resource server 
+- client (Website App)
+- authorization server
 
 There are different OAuth Flow for defferent app types:
 - Single-page app (SPA)
@@ -104,11 +109,13 @@ Many modern apps have a single-page app (SPA) front end written primarily in Jav
 
 Single-page apps (or browser-based apps) run entirely in the browser after loading the source code from a web page. Since the entire source code is available to the browser, they cannot maintain the confidentiality of a client secret, so the secret is not used in this case. 
 
-Previously, it was recommended that browser-based apps use the "Implicit" flow, which returns an access token immediately in the redirect and does not have a token exchange step. In the time since the spec was originally written, the industry best practice has changed to recommend that the authorization code flow be used without the client secret. This provides more opportunities to create a secure flow, such as using the `Proof Key for Code Exchange (PKCE)` extension.
+Previously, it was recommended that browser-based apps use the "Implicit" flow, which returns an access token immediately in the redirect and does not have a token exchange step. In the time since the spec was originally written, the industry best practice has changed to recommend that the **authorization code** flow be used without the client secret. This provides more opportunities to create a secure flow, such as using the `Proof Key for Code Exchange (PKCE)` extension.
 
 ### PKCE
 
 PKCE-enhanced Authorization Code Flow builds upon the standard Authorization Code Flow, the steps are very similar with Web app flow. But with the addition of a dynamically generated secret used on each request. This is known as the PKCE extension.
+
+> The main difference between Implicit and PKCE flow is ADDing **authorization code**.
 
 Definition of Proof Key for Code Exchange (PKCE) [OAuth 2.0 RFC 7636](https://datatracker.ietf.org/doc/html/rfc7636).
 ```
@@ -129,4 +136,11 @@ Definition of Proof Key for Code Exchange (PKCE) [OAuth 2.0 RFC 7636](https://da
        +--------+                                | +---------------+ |
                                                  +-------------------+
 ```
+
+
+## References
+
+- The OAuth 2.0 Authorization Framework[RFC 6749](https://datatracker.ietf.org/doc/html/rfc6749)
+- Proof Key for Code Exchange by OAuth Public Clients[RFC 7636](https://datatracker.ietf.org/doc/html/rfc7636)
+
 
