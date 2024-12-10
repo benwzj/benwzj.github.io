@@ -376,10 +376,12 @@ export default async function Dashboard() {
 
 (Auth.js recommend to use OAuth for signin. )
 
-Auth.js have implemented all steps for OAuth flow. What you need to do are 1, configure Auth.js framework(a little bit work) and 2, setup your OAuth App in Authorization Server.
+Auth.js have implemented all steps for OAuth flow. What you need to do are 
+1. configure Auth.js framework(a little bit work) and 
+2. setup your OAuth App in Authorization Server.
 
 ### callback URL
-The callback URL is defined by Auth.js. 
+Auth.js have defined the address for callback URL. 
 It is: `[origin\]/api/auth/callback/\[provider\]`. For example: `http://localhost:3000/api/auth/callback/github`
 You need to setup the Auth implement route in `api/auth/[...nextauth]/route.ts`.
 
@@ -390,7 +392,7 @@ Auth.js have design that for us:
 - `GET` method: to get signin dialog from Authorization Server. 
 - `POST` method: to get access token.
 
-What you nee to do is setup the Auth implement route:
+You need to create a route as below:
 ```ts
 // api/auth/[...nextauth]/route.ts
 import { handlers } from "@/auth";
