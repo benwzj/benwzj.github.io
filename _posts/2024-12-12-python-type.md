@@ -137,7 +137,7 @@ x[:,1] = array([0.1042432 , 0.18639614, 0.80351282])
 - Since the “get value by address” memory operation takes constant time, selecting an array item by index also takes O(1).
 
 #### Array vs. List
-{% include figure.html path="assets/img/python-list.jpg" class="img-fluid rounded z-depth-1" width="100%" %}
+{% include figure.html path="assets/img/python-list.jpg" class="img-fluid rounded z-depth-1" width="60%" %}
 
 #### List is kind of array
 The list is based on the array. 
@@ -324,33 +324,22 @@ NO, elements in set, key in dictionary, have to be hashable. That means it can�
 
 ### What is Dictionary
 
-Dictionaries are used to store data values in key:value pairs.
+Dictionaries are used to store data values in `key:value` pairs.
 A dictionary is a collection which is ordered*, mutable and do not allow duplicates.
 
 ### Features
 
 - keys, which can be any immutable type; strings and numbers can always be keys. Tuples can be used as keys if they contain only strings, numbers, or tuples; if a tuple contains any mutable object either directly or indirectly, it cannot be used as a key. 
-
 - As of Python version 3.7, dictionaries are ordered. In Python 3.6 and earlier, dictionaries are unordered.
-
-- Use curl bracket:
-thisdict = {
-  "brand": "Ford",
-  "model": "Mustang",
-  "year": 1964
-}
-
+- Use curl bracket.
 - The dict() constructor builds dictionaries directly from sequences of key-value pairs:
->>> dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])
-{'sape': 4139, 'guido': 4127, 'jack': 4098}
-
+`dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])` get
+`{'sape': 4139, 'guido': 4127, 'jack': 4098}`
 - dict comprehensions can be used to create dictionaries from arbitrary key and value expressions:
->>> {x: x**2 for x in (2, 4, 6)}
-{2: 4, 4: 16, 6: 36}
+`{x: x**2 for x in (2, 4, 6)}` get
+`{2: 4, 4: 16, 6: 36}`
 
-### Operation Methods
-
-#### Accessing Items
+### Accessing Items
 
 - Dictionary is in order. But have no idea to access it by order.
 Access directly:
@@ -361,12 +350,10 @@ thisdict = {
 }
 print(thisdict["model"])
 ```
-- using square bracket [] is equivalent to __getitem__()
-
-- if visit key that doesn’t exist
-It will raise KeyError.
-But you can override the __missing__(self, key) method defines the behavior of a dictionary subclass if you access a non-existent key. 
-More specifically, Python’s __getitem__() dictionary method internally calls the __missing__() method if the key doesn’t exist. The return value of __missing__() is the value to be returned when trying to access a non-existent key.
+- using square bracket [] is equivalent to `__getitem__()`
+- if visit key that doesn’t exist, It will raise KeyError.
+But you can override the `__missing__(self, key)` method defines the behavior of a dictionary subclass if you access a non-existent key. 
+More specifically, Python’s `__getitem__()` dictionary method internally calls the `__missing__()` method if the key doesn’t exist. The return value of `__missing__()` is the value to be returned when trying to access a non-existent key.
 - keys(), values(), items() 
 - return view objects for corresponded things. 
 - Dictionary view object provide a dynamic view on the dictionary’s entries, which means that when the dictionary changes, the view reflects these changes.
@@ -375,18 +362,18 @@ More specifically, Python’s __getitem__() dictionary method internally calls t
 - Values views are not treated as set-like.
 - For set-like views, all of the operations defined for the abstract base class collections.abc.Set are available (for example, ==, <, or ^).
 
--- setdefault(key[, default])
+- setdefault(key[, default])
 Returns the value of the specified key. If the key does not exist: insert the key, with the specified value. 
-- keyname is required
-- value is Optional. If the key exist, value has no effect.
+  - keyname is required
+  - value is Optional. If the key exist, value has no effect.
 If the key does not exist, this value becomes the key's value. Default value None. 
-print(thisdict.setdefault("model","Focus"))
+`print(thisdict.setdefault("model","Focus"))`
 
--- get(key[, default])
+- get(key[, default])
 Return the value for key if key is in the dictionary, else default. If default is not given, it defaults to None.
-- get() is different function from __getitem__(). They have no connection.
+  - get() is different function from `__getitem__()`. They have no connection.
 
-#### Remove items
+### Remove items
 
 - pop()
 The pop() method removes the item with the specified key name.
@@ -397,7 +384,7 @@ Can delete items or the dictionary
 - clear()
 Clear the dictionary
 
-#### Add items, Change items
+### Add items, Change items
 
 - add item directly, change directly
 (list can’t add item directly, but dict can)
@@ -410,9 +397,9 @@ thisdict["color"] = "red"
 thisdict["model"] = "Focus"
 ```
 
-- using square bracket [] is equivalent to __setitem__()
+- using square bracket [] is equivalent to `__setitem__()`
 
-#### update()
+### update()
 The update() method inserts the specified items to the dictionary.
 - update() can overwrite the exist key and it’s value. 
 - can concatenate dictionarys. 
@@ -420,46 +407,79 @@ The update() method inserts the specified items to the dictionary.
 dictionary.update(iterable)
  • iterable can be A dictionary or an iterable object with key value pairs, that will be inserted to the dictionary. 
 
-#### dict NOT support operator +
+### dict NOT support operator +
 But Counter can
 - setdefault()
 see above
 
-#### Create Dictionary
+### Create Dictionary
 
 - dict.fromkeys(keys, value)
 The fromkeys() method returns a dictionary with the specified keys and the specified value.
 
 - syntac
-dict.fromkeys(keys, value)
+`dict.fromkeys(keys, value)`
 keys: Required. An iterable specifying the keys of the new dictionary
 value: Optional. The value for all keys. Default value is None
 
 - an example of how to use dict as an ordered set to filter out duplicate items while preserving order, thereby emulating an ordered set:
->>> keywords = ['foo', 'bar', 'bar', 'foo', 'baz', 'foo']
->>> list(dict.fromkeys(keywords))
-['foo', 'bar', 'baz']
+`keywords = ['foo', 'bar', 'bar', 'foo', 'baz', 'foo']`
+`list(dict.fromkeys(keywords))`
+`['foo', 'bar', 'baz']`
 
--- zip()
+- zip()
 zip() returns an iterator of tuples, where the i-th tuple contains the i-th element from each of the argument iterables.
+```py
 keys = ['red', 'green', 'blue']
 values = ['#FF0000','#008000', '#0000FF']
 color_dictionary = dict(zip(keys, values))
+```
 
-#### Copy Dictionary
+### Copy Dictionary
 - copy()
 Dictionary method copy() can create a new dict according to the current dict.
 
 - dict()
 Another way to make a copy is to use the built-in function dict().
 
--- Loop over dict
+- Loop over dict
+```py
 for x in thisdict:
   print(x)
-
+```
 x is the key! no value. 
 
 ### Question
 
 - How to get the first item of a dict?
 
+
+## Time Complexity of Collections
+
+### list
+
+- Internally, a list is represented as an array; 
+- The largest costs come from growing beyond the current allocation size (because everything must move), or from inserting or deleting somewhere near the beginning (because everything after that must move). 
+- If you need to add/remove at both ends, consider using a collections.deque instead.
+
+{% include figure.html path="assets/img/python-list-timecomplexity.jpg" class="img-fluid rounded z-depth-1" width="30%" %}
+
+### dict 
+
+- There is a fast-path for dicts that (in practice) only deal with str keys; 
+- Python have a typical space-time tradeoff in dictionaries and lists. It means we can decrease the time necessary for our algorithm but we need to use more space in memory for dictionaries.
+- time complexity x in s operation for dict is O(1); But for list if O(n).
+
+{% include figure.html path="assets/img/python-dict-timecomplexity.jpg" class="img-fluid rounded z-depth-1" width="40%" %}
+
+### set
+
+See dict -- the implementation is intentionally very similar.
+
+{% include figure.html path="assets/img/python-set-timecomplexity.jpg" class="img-fluid rounded z-depth-1" width="70%" %}
+
+### collections.deque
+
+A deque (double-ended queue) is represented internally as a doubly linked list. (Well, a list of arrays rather than objects, for greater efficiency.) Both ends are accessible, but even looking at the middle is slow, and adding to or removing from the middle is slower still.
+
+{% include figure.html path="assets/img/python-deque-timecomplexity.jpg" class="img-fluid rounded z-depth-1" width="40%" %}
