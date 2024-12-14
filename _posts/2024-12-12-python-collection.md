@@ -1,9 +1,20 @@
 ---
 layout: post
-title: Python Type Overview
+title: Python Collection Overview
 date: 2024-12-12
 categories: Python
 tags: Python
+toc:
+  - name: Concepts of Containers, Collections, Sequences, Mappings
+  - name: List
+    subsections: 
+      - name: list comprehension syntax
+      - name: List methods
+      - name: Understanding Lists in Python
+  - name: Tuple
+  - name: Set
+  - name: Dictionary
+  - name: Time Complexity of Collections
 ---
 
 ## Concepts of Containers, Collections, Sequences, Mappings
@@ -133,7 +144,6 @@ x[:,1] = array([0.1042432 , 0.18639614, 0.80351282])
 - An array is a set of elements which 
   - have the same size, 
   - located in memory one after another, without gaps.
-
 - Since the “get value by address” memory operation takes constant time, selecting an array item by index also takes O(1).
 
 #### Array vs. List
@@ -167,16 +177,18 @@ For example:
 - remove an item from the end of the list .pop()
 
 ##### operations are “slow”:
-- Insert or delete an item by index. .insert(idx, item) and .pop(idx) take linear time `O(n)` because they shift all the elements after the target one.
-- Search or delete an item by value. item in lst, .index(item) and .remove(item) take linear time `O(n)` because they iterate over all the elements.
-- Select a slice of k elements. l`st[from:to]` takes `O(k)`.
+- Insert or delete an item by index. `.insert(idx, item)` and `.pop(idx)` take linear time `O(n)` because they shift all the elements after the target one.
+- Search or delete an item by value. item in lst, `.index(item)` and `.remove(item)` take linear time `O(n)` because they iterate over all the elements.
+- Select a slice of k elements. `lst[from:to]` takes `O(k)`.
 
 ### List questions
-- why Memory of list is like that: it depond on how many members instead of how big of the members? 
-- why some operations are quick, but some are slow?
-- Do Python allocate new memory for the following variable small_list?
-big_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-small_list = big_list[:5]
+#### why Memory of list is like that: it depond on how many members instead of how big of the members? 
+Because List = Array of Pointers.
+#### why some operations are quick, but some are slow?
+Understand from List = Array of Pointers.
+#### Do Python allocate new memory for the following variable small_list?
+`big_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`
+`small_list = big_list[:5]`
 Ask yourself if you modify small_list, do big_list modify as well? if not, then new memory.
 
 
@@ -222,110 +234,50 @@ fruits = ("apple", "banana", "cherry", "strawberry", "raspberry")
 
 ## Set
 
-### What is Set
-A set object is an unordered collection of distinct hashable objects.
-Like other collections, sets support x in set, len(set), and for x in set. 
-Python have set and frozen set.
-
+- A set object is an unordered collection of distinct hashable objects.
+- Like other collections, sets support `x in set`, `len(set)`, and `for x in set`. 
+- Python have set and frozen set.
 - Set support comprehension syntax as well, similar to list comprehension.
 
-### Common uses include 
+### When use Set 
 - membership testing, 
 - removing duplicates from a sequence, 
 - Provide computing mathematical operations such as intersection, union, difference, and symmetric difference. 
 
-### set
-These represent a mutable — the contents can be changed using methods like add() and remove(). 
-Since it is mutable, it has no hash value and cannot be used as either a dictionary key or as an element of another set. 
+### set and frozenset 
+#### set
+These represent a mutable — the contents can be changed using methods like `add()` and `remove()`. 
 
-- A set is a collection which is unordered, Not allow duplicates.
+> Since it is mutable, it has no hash value and cannot be used as either a dictionary key or as an element of another set. 
+
 - We cannot change the items after the set has been created. but you can remove items and add new items.
-- Sets are written with curly brackets:
-set1 = {"abc", 34, True, 40, "male"}
+- Sets are written with curly brackets: `set1 = {"abc", 34, True, 40, "male"}`
 
-### frozenset
+#### frozenset
 These represent an immutable set. 
 As a frozenset is immutable and hashable, it can be used again as an element of another set, or as a dictionary key.
 
-### Instances of set and frozenset provide the following operations:
-(You can tell what set and frozenset can do according this operations)
-
-- `len(s)`
-Return the number of elements in set s (cardinality of s).
-- `x in s`
-Test x for membership in s.
-- `x not in s`
-Test x for non-membership in s.
+### Some operations are supported by set and frozenset.
+Like: 
+- `len(s)` : Return the number of elements in set s (cardinality of s).
+- `x in s` :  Test x for membership in s.
 - `isdisjoint(other)`
-Return True if the set has no elements in common with other. Sets are disjoint if and only if their intersection is the empty set.
 - `issubset(other)`: `set <= other`
-Test whether every element in the set is in other.
-- `set < other`
-Test whether the set is a proper subset of other, that is, set <= other and set != other.
-- `issuperset(other)` : 
-`set >= other`
-Test whether every element in other is in the set.
--` set > other`
-Test whether the set is a proper superset of other, that is, set >= other and set != other.
 - `union(*others)`
-`set | other | ...`
-Return a new set with elements from the set and all others.
-- `intersection(*others)`
-`set & other & ...`
-Return a new set with elements common to the set and all others.
-- `difference(*others)`
-`set - other - ...`
-Return a new set with elements in the set that are not in the others.
-- `symmetric_difference(other)`
-`set ^ other`
-Return a new set with elements in either the set or other but not both.
-- `copy()`
-Return a shallow copy of the set.
+- `copy()` etc.
 
 ### operations available for set, but not frozenset
+Like: 
+- `update(*others)`
+- `add(elem)` etc.
 
-update(*others)
-set |= other | ...
-Update the set, adding elements from all others.
-
-intersection_update(*others)
-set &= other & ...
-Update the set, keeping only elements found in it and all others.
-
-difference_update(*others)
-set -= other | ...
-Update the set, removing elements found in others.
-
-symmetric_difference_update(other)
-set ^= other
-Update the set, keeping only elements found in either set, but not in both.
-
-add(elem)
-Add element elem to the set.
-
-remove(elem)
-Remove element elem from the set. Raises KeyError if elem is not contained in the set.
-
-discard(elem)
-Remove element elem from the set if it is present.
-
-pop()
-Remove and return an arbitrary element from the set. Raises KeyError if the set is empty.
-
-clear()
-Remove all elements from the set.
-
-### Questions
-
-#### Can Set contains mutable type, like list? 
-NO, elements in set, key in dictionary, have to be hashable. That means it can’t be list or other mutable type. Tuple can be elements of set if it haven’t mutable member.
+### Can Set contains mutable type, like list? 
+NO, elements in set, key in dictionary, have to be **hashable**. That means it can’t be list or other mutable type. Tuple can be elements of set if it haven’t mutable member.
 
 ## Dictionary
 
-### What is Dictionary
-
-Dictionaries are used to store data values in `key:value` pairs.
-A dictionary is a collection which is ordered*, mutable and do not allow duplicates.
+- Dictionaries are used to store data values in `key:value` pairs.
+- A dictionary is a collection which is ordered, mutable and do not allow duplicates.
 
 ### Features
 
@@ -336,8 +288,7 @@ A dictionary is a collection which is ordered*, mutable and do not allow duplica
 `dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])` get
 `{'sape': 4139, 'guido': 4127, 'jack': 4098}`
 - dict comprehensions can be used to create dictionaries from arbitrary key and value expressions:
-`{x: x**2 for x in (2, 4, 6)}` get
-`{2: 4, 4: 16, 6: 36}`
+`{x: x**2 for x in (2, 4, 6)}` get `{2: 4, 4: 16, 6: 36}`
 
 ### Accessing Items
 
@@ -400,35 +351,32 @@ thisdict["model"] = "Focus"
 - using square bracket [] is equivalent to `__setitem__()`
 
 ### update()
-The update() method inserts the specified items to the dictionary.
-- update() can overwrite the exist key and it’s value. 
+The `update()` method inserts the specified items to the dictionary.
+- `update()` can overwrite the exist key and it’s value. 
 - can concatenate dictionarys. 
 - can concatenate key value pair iterable object.
-dictionary.update(iterable)
- • iterable can be A dictionary or an iterable object with key value pairs, that will be inserted to the dictionary. 
+
+`dictionary.update(iterable)`
+`iterable` can be A dictionary or an iterable object with key value pairs, that will be inserted to the dictionary. 
 
 ### dict NOT support operator +
-But Counter can
-- setdefault()
-see above
+But `Counter` can.
 
 ### Create Dictionary
 
-- dict.fromkeys(keys, value)
-The fromkeys() method returns a dictionary with the specified keys and the specified value.
+The `fromkeys()` method returns a dictionary with the specified keys and the specified value.
 
-- syntac
-`dict.fromkeys(keys, value)`
-keys: Required. An iterable specifying the keys of the new dictionary
-value: Optional. The value for all keys. Default value is None
+- `dict.fromkeys(keys, value)`
+  - keys: Required. An iterable specifying the keys of the new dictionary
+  - value: Optional. The value for all keys. Default value is None
 
 - an example of how to use dict as an ordered set to filter out duplicate items while preserving order, thereby emulating an ordered set:
 `keywords = ['foo', 'bar', 'bar', 'foo', 'baz', 'foo']`
 `list(dict.fromkeys(keywords))`
 `['foo', 'bar', 'baz']`
 
-- zip()
-zip() returns an iterator of tuples, where the i-th tuple contains the i-th element from each of the argument iterables.
+- `zip()`
+`zip()` returns an iterator of tuples, where the i-th tuple contains the i-th element from each of the argument iterables.
 ```py
 keys = ['red', 'green', 'blue']
 values = ['#FF0000','#008000', '#0000FF']
@@ -436,10 +384,10 @@ color_dictionary = dict(zip(keys, values))
 ```
 
 ### Copy Dictionary
-- copy()
+- `copy()`
 Dictionary method copy() can create a new dict according to the current dict.
 
-- dict()
+- `dict()`
 Another way to make a copy is to use the built-in function dict().
 
 - Loop over dict
@@ -452,7 +400,6 @@ x is the key! no value.
 ### Question
 
 - How to get the first item of a dict?
-
 
 ## Time Complexity of Collections
 
