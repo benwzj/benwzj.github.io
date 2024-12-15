@@ -10,6 +10,10 @@ toc:
   - name: String module
   - name: String format
   - name: Unicode Support
+    subsections: 
+      - name: Unicode Sandwich theory
+      - name: 5 fact of life about unicode string in Python
+      - name: Reading files
   - name: Unicode in JavaScript
   - name: String interning
     subsections: 
@@ -392,11 +396,12 @@ String interning is a method of storing only one copy of each distinct string va
 
 ### Implicit String interning 
 Implicitly intern string depends on several factors:
-• All empty strings and strings of length 1 are interned.
-• Up until version 3.7, Python used peephole optimization, and all strings longer than 20 characters were not interned. However, now it uses the AST optimizer, and (most) strings up to 4096 characters are interned.
-• Names of functions, class, variables, arguments, etc. are implicitly interned.
-• The keys of dictionaries used to hold module, class, or instance attributes are interned.
-• Strings are interned only at compile-time, this means that they will not be interned if their value can't be computed at compile-time.
+- All empty strings and strings of length 1 are interned.
+- Up until version 3.7, Python used peephole optimization, and all strings longer than 20 characters were not interned. However, now it uses the AST optimizer, and (most) strings up to 4096 characters are interned.
+- Names of functions, class, variables, arguments, etc. are implicitly interned.
+- The keys of dictionaries used to hold module, class, or instance attributes are interned.
+- Strings are interned only at compile-time, this means that they will not be interned if their value can't be computed at compile-time.
+
 ```bash
 s1 = 'iambenwen'
 s2 = 'iambenwen'
