@@ -14,6 +14,8 @@ toc:
       - name: Middleware in Authjs
       - name: Data Access Layer(DAL)
   - name: OAuth
+  - name: Magic Links
+  - name: WebAuthn (Passkeys)
   - name: Session Management
   - name: FAQ
   - name: References
@@ -400,6 +402,29 @@ export const { GET, POST } = handlers;
 ```
 
 ## Magic Links
+
+The login mechanism of Magic Links:
+- The user providing their email address at the login form. 
+- Then a Verification Token is sent to the provided email address. 
+- The user then click the link in the email body to “consume” that token and register their account.
+
+Setup steps:
+- Register a Email Provider, like Sendgrid, Forward Email, etc. (I try to register some providers, but all are not free)
+- must still configure a database for Verification Token. 
+- setup providers at `auth.ts`.
+- setup Login dialog with `signIn()` with email address. 
+
+```ts
+// ./auth.ts
+
+import NextAuth from "next-auth"
+import ForwardEmail from "next-auth/providers/forwardemail"
+ 
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  providers: [ForwardEmail],
+})
+```
+
 
 ## WebAuthn (Passkeys)
 

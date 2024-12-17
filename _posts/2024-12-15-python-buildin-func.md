@@ -28,6 +28,21 @@ def enumerate(iterable, start=0):
         n += 1
 ```
 
+### When use enumerate function
+
+- When want something like this: `[(0, 'Spring'), (1, 'Summer'), (2, 'Fall'), (3, 'Winter')]`.
+- Using Enumerate Object in Loops.
+
+```py
+my_list = ['apple', 'banana', 'cherry']
+for index, value in enumerate(my_list):
+    print(index, value)
+# Output:
+# 0 apple
+# 1 banana
+# 2 cherry
+```
+
 ## hash(object)
 Return the hash value of the object (if it has one). Hash values are **integers**. They are used to quickly compare dictionary keys during a dictionary lookup. 
 > Numeric values that compare equal have the same hash value (even if they are of different types, as is the case for 1 and 1.0).
