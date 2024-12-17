@@ -17,6 +17,7 @@ toc:
   - name: Magic Links
   - name: WebAuthn (Passkeys)
   - name: Session Management
+  - name: Database
   - name: FAQ
   - name: References
 ---
@@ -468,12 +469,80 @@ export async function getSessionData(req) {
 }
 ```
 
+## Database
+
+Auth.js integrations save sessions in a cookie by default. Therefore, setting up a database is optional. 
+However, if you want to persist user information in your own database, or you want to implement certain flows, you will need to use a **Database Adapter**.
+
+Auth.js has integrated many DB adapter, like Prisma, MongoDB, etc. What you need to do is configuring them.
+
+### prisma Configuration: 
+#### Install prisma and setup Environment Variables
+
+```bash
+npm install @prisma/client @auth/prisma-adapter
+npm install prisma --save-dev
+```
+
+`DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA`
+
+#### Create prisma.ts file: 
+```ts
+// prisma.ts
+
+import { PrismaClient } from "@prisma/client"
+ 
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
+export const prisma = globalForPrisma.prisma || new PrismaClient()
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma
+```
+
+#### auth.ts
+```ts
+// ./auth.ts
+import NextAuth from "next-auth"
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { prisma } from "@/prisma"
+ 
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  adapter: PrismaAdapter(prisma),
+  providers: [],
+})
+```
+
 ## FAQ
 
 - How NextAuth.js implement OIDC authentication?
 - What `signIn()` do in NextAuth.js?
-- How to implement Data Access Layer(DAL)
+- How to implement Data Access Layer(DAL)?
 
+### How to configure Auth.js to use Cookie or Database to manage sessions?
+This is configured in `session` property in auth.ts:
+```ts
+session: {
+  // Choose how you want to save the user session.
+  // The default is `"jwt"`, an encrypted JWT (JWE) stored in the session cookie.
+  // If you use an `adapter` however, we default it to `"database"` instead.
+  // You can still force a JWT session by explicitly defining `"jwt"`.
+  // When using `"database"`, the session cookie will only contain a `sessionToken` value,
+  // which is used to look up the session in the database.
+  strategy: "database",
+
+  // Seconds - How long until an idle session expires and is no longer valid.
+  maxAge: 30 * 24 * 60 * 60, // 30 days
+
+  // Seconds - Throttle how frequently to write to database to extend a session.
+  // Use it to limit write operations. Set to 0 to always update the database.
+  // Note: This option is ignored if using JSON Web Tokens
+  updateAge: 24 * 60 * 60, // 24 hours
+
+  // The session token is usually either a random UUID or string, however if you
+  // need a more customized session token string, you can define your own generate function.
+  generateSessionToken: () => {
+    return randomUUID?.() ?? randomBytes(32).toString("hex")
+  }
+}
+```
 ### Using middleware to protect routes when not using Authjs.
 
 Once a user is authenticated, you'll need to think about What user can do:
