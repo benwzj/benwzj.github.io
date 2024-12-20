@@ -512,12 +512,29 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 ## FAQ
 
-- How NextAuth.js implement OIDC authentication?
-- What `signIn()` do in NextAuth.js?
 - How to implement Data Access Layer(DAL)?
 
+### What `signIn()` do in NextAuth.js?
+
+`signIn()` is the main enterance for Auth.js.
+
+`signIn()` will guide the flow to corresponsed process according to the parameters. 
+For example,  
+- `await signIn('credentials', formData);` will to the credentials process which you have configured in the auth.ts config file.
+- `await signIn("google")` will go to google OAuth process which have been setted by Auth.js. What you need to do just give Auth.js the AUTH_GOOGLE_ID and AUTH_GOOGLE_SECRET.
+
+### How NextAuth.js implement OIDC authentication?
+OIDC is the same thing as OAuth here.
+
 ### How to configure Auth.js to use Cookie or Database to manage sessions?
-This is configured in `session` property in auth.ts:
+This is configured in `session` property in the main auth.ts config file.
+
+Choose how you want to save the user session. The default is "jwt", an encrypted JWT (JWE) in the session cookie.
+
+If you use an adapter however, we default it to "database" instead. You can still force a JWT session by explicitly defining "jwt".
+
+When using "database", the session cookie will only contain a sessionToken value, which is used to look up the session in the database.
+
 ```ts
 session: {
   // Choose how you want to save the user session.
@@ -543,6 +560,7 @@ session: {
   }
 }
 ```
+
 ### Using middleware to protect routes when not using Authjs.
 
 Once a user is authenticated, you'll need to think about What user can do:

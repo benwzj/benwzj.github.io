@@ -151,6 +151,28 @@ For example, 'l' means `signed long`.  You  can do this: `array('l', [1, 2, 3, 4
 
 > The NumPy package defines another array type.
 
+## NumPy array
+
+- In Python we have lists that serve the purpose of arrays, but they are slow to process.
+NumPy aims to provide an array object that is up to 50x faster than traditional Python lists.
+- The array object in NumPy is called ndarray, it provides a lot of supporting functions that make working with ndarray very easy.
+- NumPy arrays are stored at one continuous place in memory unlike lists, so processes can access and manipulate them very efficiently.
+- NumPy is a Python library and is written partially in Python, but most of the parts that require fast computation are written in C or C++.
+
+```py
+import numpy as np
+
+arr = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+subarr = arr[0:2, 1:3]
+
+print(subarr) like this:
+[[2 3]
+ [6 7]]
+
+print(np.sum(arr))  # Output: 78
+print(np.mean(arr, axis=1))  # Output: [ 2.5  6.5 10.5]
+```
+
 ## References
 
 - [Python official doc on Array](https://docs.python.org/3/library/array.html).
