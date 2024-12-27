@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Regular Expression (RE)
-date: 2024-12-15
+date: 2024-12-27
 categories: Python
 tags: Python JavaScript RE
 toc: 
@@ -51,10 +51,12 @@ The `re` module provides an interface to the regular expression engine, allowing
 #### Firstly, Compiling RE to Pattern object
 Regular expressions are compiled into pattern objects, which have methods for various operations such as searching for pattern matches or performing string substitutions.
 
+```py
 import re
 p = re.compile('ab*')
+```
 
-- RE is handled as string in Python and is passed to re.complie(). No special syntax was created for expressing RE in Python. ( There are special syntax for RE in JavaScript, like /[a-z]/g )
+RE is handled as string in Python and is passed to `re.complie()`. No special syntax was created for expressing RE in Python. ( There are special syntax for RE in JavaScript, like `/[a-z]/g` )
 This keep Python simpler, but has one disadvantage: backslash plague! So it is recommend to use raw string r’rawstring’.
 
 #### Secondly, Use Pattern objects to Perform Matches
@@ -161,7 +163,7 @@ Return a tuple containing the (start, end) positions of the match
 ### RE Pattern Syntax
 
 metacharacters:
-. ^ $ * + ? { } [ ] \ | ( )
+`. ^ $ * + ? { } [ ] \ | ( )`
 
 #### Compilation Flag
 
@@ -181,9 +183,10 @@ Corresponds to the inline flag (?x)
 
 #### Character class
 
-- [ and ]. They’re used for specifying a character class. 
+- `[` and `]`. They’re used for specifying a character class. 
 - Metacharacters (except `\`) are not active inside classes. For example `[$]` can match $.
-- You can match the characters not listed within the class by complementing the set. This is indicated by including a '^' as the first character of the class. 
+- You can match the characters not listed within the class by complementing the set. This is indicated by including a '`^`' as the first character of the class. 
+
 ```
 \d  Matches any decimal digit; this is equivalent to the class [0-9].
 \D  [^0-9].
@@ -192,6 +195,7 @@ Corresponds to the inline flag (?x)
 \w  Matches any alphanumeric character; this is equivalent to the class [a-zA-Z0-9_].
 \W  [^a-zA-Z0-9_].
 ```
+
 #### backslash `\`
 
 Perhaps the most important metacharacter is the backslash, `\`.
@@ -207,8 +211,9 @@ If the regex pattern is a string, `\w` will match all the characters marked as l
 Repetitions such as * are greedy;
 (This part is similar with JavaScript)
 
-- do *? work in Python?
+Do `*?` work in Python?
 It works!
+
 ```
 >>> s = '<html><head><title>Title</title>'
 >>> print(re.match('<.*>', s).group())
@@ -261,6 +266,7 @@ Because Frequently you need to obtain more information than just whether the RE 
 >>> print(p.match('ababababab').span())
 (0, 10)
 ```
+
 - Backreferences in a pattern allow you to specify that the contents of an earlier capturing group must also be found at the current location in the string.
 
 ```
@@ -295,13 +301,14 @@ The syntax for a named group is one of the Python-specific extensions: `(?P<name
 ```
 It’s obviously much easier to retrieve group.
 
-- backreferences can like this:
-(?P=name) indicates that the contents of the group called name should again be matched at the current point. 
+backreferences can like this:
+`(?P=name)` indicates that the contents of the group called name should again be matched at the current point. 
 ```
 >>> p = re.compile(r'\b(?P<word>\w+)\s+(?P=word)\b')
 >>> p.search('Paris in the the spring').group()
 'the the'
 ```
+
 #### Lookahead Assertions
 
 (?=...) Positive lookahead assertion.
