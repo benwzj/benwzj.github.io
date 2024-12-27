@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python Data model Overview
+title: Python Data Model Overview
 date: 2024-12-12
 categories: Python
 tags: Python
