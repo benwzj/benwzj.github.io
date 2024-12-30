@@ -56,10 +56,10 @@ Return a k length, new list of unique elements chosen from the population sequen
 ### Real-valued distributions
 
 #### random.random()
-Return the next random floating point number in the range 0.0 <= X < 1.0
+Return the next random floating point number in the range `0.0 <= X < 1.0`
 
 #### random.uniform(a, b)
-Return a random floating point number N such that a <= N <= b for a <= b and b <= N <= a for b < a.
+Return a random floating point number N such that `a <= N <= b` for `a <= b` and `b <= N <= a` for `b < a`.
 
 ## heapq
 
