@@ -4,6 +4,11 @@ title: TypeScript Utility Types
 date: 2024-11-26
 category: TypeScript
 tags: TypeScript
+toc: 
+  - name: Record
+  - name: Pick
+  - name: Omit
+  - name: ReturnType
 ---
 
 TypeScript provides several utility types to facilitate common type transformations. These utilities are available globally.
