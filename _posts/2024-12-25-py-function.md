@@ -7,6 +7,9 @@ tags: Python Function
 toc: 
   - name: Function Object
   - name: Function definitions
+    subsections:
+      - name: Decorator
+      - name: Annotation
   - name: Parameter, argument
   - name: Return value
   - name: Lambda
