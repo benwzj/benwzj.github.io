@@ -20,15 +20,27 @@ for (let i = 0; i < 9; i++) {
 
 ## for...of
 
-The `for...of` statement executes a loop that operates on a sequence of values sourced from an **iterable** object. Iterable objects include instances of built-ins such as Array, String, TypedArray, Map, Set, NodeList (and other DOM collections), as well as the arguments object, generators produced by generator functions, and user-defined iterables.
+The `for...of` statement executes a loop that operates on a sequence of values sourced from an **iterable** object. 
+
+Iterable objects include instances of built-ins such as **Array**, String, TypedArray, Map, Set, NodeList (and other DOM collections), as well as the arguments object, generators produced by generator functions, and user-defined iterables.
 
 When a `for...of` loop iterates over an iterable, it first calls the iterable's `[@@iterator]()` method, which returns an iterator, and then repeatedly calls the resulting iterator's `next()` method to produce the sequence of values to be assigned to variable.
+
+```js
+const array1 = ['a', 'b', 'c'];
+for (const element of array1) {
+  console.log(element);
+}
+// Expected output: "a"
+// Expected output: "b"
+// Expected output: "c"
+```
 
 ## for...in
 
 The `for...in` statement iterates over all enumerable string properties of an object (ignoring properties keyed by symbols), including inherited enumerable properties.
 
-### `for...of` vs `for...in`
+## for...of vs for...in
 
 When loop over an Array, unlike `for...of`, `for...in` uses property enumeration instead of the array's iterator. In sparse arrays, `for...of` will visit the empty slots, but `for...in` will not.
 
