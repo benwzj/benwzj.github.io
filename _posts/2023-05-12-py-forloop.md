@@ -6,13 +6,17 @@ categories: Python
 tags: Iteration Python
 ---
 
-**In short:**
-it is a lazy processing.
 
-I am going to make two example to display how _for...in_ loop work underneath the cover.  
+> ##### Important: 
+> `for loop` iterating an iterable is a lazy processing.
+{: .block-warning }
+
+## Understand this lazy processing
+
+I am going to make two example to display how `for...in` loop work underneath the cover.  
 First one is loop over a enumerate object, and second one is loop over a range object. Both of them will modify the list inside the loop.
 
-## First example:
+### First example:
 
 ```python
 lst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -22,7 +26,8 @@ for i, value in enumerate(lst):
 print(lst)
 ```
 
-**There are No error raising for these codes, but they are not work as expected.**
+> There are No error raising for these codes, but they are not work as expected.
+{: .block-danger }
 
 The code print below:
 
@@ -30,11 +35,10 @@ The code print below:
 [1, 3, 5, 7, 9]
 ```
 
-enumerate object is generator object which will yield value from _lst_. It is lazy process.
-When _lst_ change, _value_ from enumerate object change as well, but _i_ is keep going.
+enumerate object is generator object which will yield value from `lst`. It is lazy process.
+When `lst` change, `value` from enumerate object change as well, but `i` is keep going.
 
 **for...in is equivalent to:**
-
 ```python
 _iter = iter(enumerate_obj)
 while 1:
@@ -46,7 +50,6 @@ while 1:
 ```
 
 **enumerate() is equivalent to:**
-
 ```python
 def enumerate(lst):
     n = 0
@@ -55,7 +58,7 @@ def enumerate(lst):
         n += 1
 ```
 
-## Second example:
+### Second example:
 
 ```python
 lst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
