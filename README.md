@@ -4,6 +4,7 @@
 $ bundle install
 $ pip install jupyter
 $ bundle exec jekyll serve --draft
+$ bundle exec jekyll serve
 ```
 
 ## deploy
