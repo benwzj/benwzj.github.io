@@ -4,13 +4,17 @@ title: Prompt for LLM
 date: 2025-03-05
 categories: AI
 tags: AI Prompt
+toc: 
+  - name: Prompt design strategies
+  - name: Useful tips
+  - name: File prompting strategies
 ---
 
 AI is a Revolution! Many part of activities in the society will shift to AI. Now Prompting is obviously a biggest capability, skill to stay informed.
 
 > Prompt design is the process of creating prompts that elicit the desired response from language models. Writing well structured prompts is an essential part of ensuring accurate, high quality responses from a language model.
 
-## prompt design strategies
+## Prompt design strategies
 
 Here list some concepts:
 
@@ -88,5 +92,34 @@ If the model responds with a fallback response, try increasing the temperature.
   - Chain of thought prompting
   - Tree of thought prompting
 - if you stuck with prompt somewhere, you can ask AI to help with Prompt for you. This is call meta prompting.
+
+## File prompting strategies
+
+Like Gemini, ChatGPT, Clause models, Most LLMs are built to handle various types of input data, including text,files, images, and audio. 
+
+AI can understand files, images, videos just like you! It can be even better than you. 
+
+When you do this:
+{% include figure.html path="assets/img/timetable.png" class="img-fluid rounded z-depth-1" width="60%" %}
+
+```Parse the time and city from the airport board shown in this image into a list.```
+AI can response this:
+```
+- 10:50 Moscow
+- 11:05 Edinburgh
+- 11:05 London
+- 11:10 Bucharest
+- 11:30 Kiev
+- 11:35 Dublin
+- 11:45 East Midlands
+- 12:15 Sofia
+- 12:30 London
+- 12:30 Newcastle
+- 12:40 St Petersburg
+- 12:40 London
+- 12:45 Manchester
+```
+
+## Imagen prompt guide 
 
 
