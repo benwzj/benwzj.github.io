@@ -77,7 +77,7 @@ If the model responds with a fallback response, try increasing the temperature.
 - Use with care on math and logic problems.
 
 
-## Useful tips
+## Useful tips for Prompt
 
 - Use persona, the role of AI itself. For example, 'act as anime expert to suggest a anime gife for my friend birthday gift'. 
 - You can order the data into a table.
@@ -92,6 +92,11 @@ If the model responds with a fallback response, try increasing the temperature.
   - Chain of thought prompting
   - Tree of thought prompting
 - if you stuck with prompt somewhere, you can ask AI to help with Prompt for you. This is call meta prompting.
+
+### Example
+
+{% include figure.html path="assets/img/prompt-example.png" class="img-fluid rounded z-depth-1" width="80%" %}
+
 
 ## File prompting strategies
 
