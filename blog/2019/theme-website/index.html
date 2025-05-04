@@ -16,12 +16,12 @@
 <span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
 </span></code></pre></div></div> <h4 id="selector-strategy"> <code class="language-plaintext highlighter-rouge">Selector</code> strategy</h4> <p>Use root element CSS Attribute Selector to toggle Dark Mode.</p> <ul> <li>First, use <code class="language-plaintext highlighter-rouge">variable</code> and <code class="language-plaintext highlighter-rouge">Attribute Selector</code> to implement website theme: <div class="language-css highlighter-rouge"> <div class="highlight"><pre class="highlight"><code><span class="nd">:root</span> <span class="p">{</span>
 <span class="py">--font-size</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
-<span class="py">--background</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="py">--background</span><span class="p">:</span> <span class="nx">white</span><span class="p">;</span>
 <span class="err">...</span>
 <span class="p">}</span>
 <span class="nt">html</span><span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s1">"dark"</span><span class="o">]</span> <span class="p">{</span>
 <span class="py">--font-size</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
-<span class="py">--background</span><span class="p">:</span> <span class="no">black</span><span class="p">;</span>
+<span class="py">--background</span><span class="p">:</span> <span class="nx">black</span><span class="p">;</span>
 <span class="err">...</span>
 <span class="p">}</span>
 </code></pre></div> </div> </li> <li>Second, Using <strong>set</strong> and <strong>delete</strong> root element’s <code class="language-plaintext highlighter-rouge">data-theme</code> attribute to toggle website theme: <div class="language-javascript highlighter-rouge"> <div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nf">setAttribute</span><span class="p">(</span><span class="dl">"</span><span class="s2">data-theme</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">dark</span><span class="dl">"</span><span class="p">);</span> 

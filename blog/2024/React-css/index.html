@@ -40,12 +40,12 @@
   An example heading
 <span class="nt">&lt;/h1&gt;</span>
 </code></pre></div></div> <p>Our generated CSS might look like this:</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">._styles__title_309571057</span> <span class="p">{</span>
-  <span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nx">red</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div> <h3 id="importing-and-applying-styles">Importing and applying styles</h3> <p>A CSS Module stylesheet is similar to a regular stylesheet, only with a different extension (e.g. styles.module.css). CSS Modules allows us to use the same class name in multiple files without clashes.</p> <blockquote class="block-warning"> <p>The CSS inside a module is available only for the component that imported it.</p> </blockquote> <ol> <li>Create the CSS module with the <code class="language-plaintext highlighter-rouge">.module.css</code> extension, example: <code class="language-plaintext highlighter-rouge">my-style.module.css</code>. my-style.module.css: <div class="language-css highlighter-rouge"> <div class="highlight"><pre class="highlight"><code><span class="nc">.bigblue</span> <span class="p">{</span>
-  <span class="nl">color</span><span class="p">:</span> <span class="n">DodgerBlue</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="nx">DodgerBlue</span><span class="p">;</span>
   <span class="nl">padding</span><span class="p">:</span> <span class="m">40px</span><span class="p">;</span>
-  <span class="nl">font-family</span><span class="p">:</span> <span class="n">Sans-Serif</span><span class="p">;</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="nb">Sans-Serif</span><span class="p">;</span>
   <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div> </div> </li> <li>Import the stylesheet in your component: <div class="language-js highlighter-rouge"> <div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">styles</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./my-style.module.css</span><span class="dl">'</span><span class="p">;</span> 
@@ -55,8 +55,8 @@
 <span class="k">export</span> <span class="k">default</span> <span class="nx">Car</span><span class="p">;</span>
 </code></pre></div> </div> <p>Because it is referenced as a js object, so No clashes from other <code class="language-plaintext highlighter-rouge">.bigblue</code> class names</p> </li> </ol> <p>Any valid <code class="language-plaintext highlighter-rouge">.css</code> file can be a CSS module. You don’t have to add <code class="language-plaintext highlighter-rouge">.module</code> in the file name.</p> <h3 id="creating-and-composing-css-modules">Creating and composing CSS modules</h3> <p>The <code class="language-plaintext highlighter-rouge">composes</code> property is used in CSS module files to combine local style definitions. The following example creates a CSS module that applies the <code class="language-plaintext highlighter-rouge">.heading</code> style definition wherever <code class="language-plaintext highlighter-rouge">.titleHighlighted</code> is used.</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/** ./styles.css */</span>
 <span class="nc">.heading</span> <span class="p">{</span>
-  <span class="nl">color</span><span class="p">:</span> <span class="no">yellow</span><span class="p">;</span>
-  <span class="nl">background-color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="nx">yellow</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nx">blue</span><span class="p">;</span>
   <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1rem</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -67,8 +67,8 @@
 <span class="p">}</span>
 </code></pre></div></div> <p>You can Compose from another file. To reuse a definition from another file, use the <code class="language-plaintext highlighter-rouge">from</code> keyword.</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* default_heading.css */</span>
 <span class="nc">.baseHeading</span> <span class="p">{</span>
-  <span class="nl">color</span><span class="p">:</span> <span class="no">yellow</span><span class="p">;</span>
-  <span class="nl">background-color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="nx">yellow</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nx">blue</span><span class="p">;</span>
   <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1rem</span><span class="p">;</span>
 <span class="p">}</span>
 

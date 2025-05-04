@@ -28,10 +28,10 @@
  <span class="nt">&lt;title&gt;</span>SVG animation using CSS<span class="nt">&lt;/title&gt;</span>
  <span class="nt">&lt;style </span><span class="na">type=</span><span class="s">"text/css"</span><span class="nt">&gt;</span>
   <span class="k">@keyframes</span> <span class="n">rot_kf</span> <span class="p">{</span>
-    <span class="nt">from</span> <span class="p">{</span> <span class="nl">transform</span><span class="p">:</span> <span class="n">rotate</span><span class="p">(</span><span class="m">0deg</span><span class="p">);</span> <span class="p">}</span>
-    <span class="nt">to</span>   <span class="p">{</span> <span class="nl">transform</span><span class="p">:</span> <span class="n">rotate</span><span class="p">(</span><span class="m">360deg</span><span class="p">);</span> <span class="p">}</span>
+    <span class="nt">from</span> <span class="p">{</span> <span class="nl">transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">0deg</span><span class="p">);</span> <span class="p">}</span>
+    <span class="nt">to</span>   <span class="p">{</span> <span class="nl">transform</span><span class="p">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="m">360deg</span><span class="p">);</span> <span class="p">}</span>
   <span class="p">}</span>
-  <span class="nc">.rot</span> <span class="p">{</span> <span class="nl">animation</span><span class="p">:</span> <span class="n">rot_kf</span> <span class="m">1s</span> <span class="n">linear</span> <span class="n">infinite</span><span class="p">;</span> <span class="p">}</span>
+  <span class="nc">.rot</span> <span class="p">{</span> <span class="nl">animation</span><span class="p">:</span> <span class="n">rot_kf</span> <span class="m">1s</span> <span class="nb">linear</span> <span class="nb">infinite</span><span class="p">;</span> <span class="p">}</span>
  <span class="nt">&lt;/style&gt;</span>
  <span class="nt">&lt;circle</span> <span class="na">class=</span><span class="s">"rot"</span> 
   <span class="na">cx=</span><span class="s">"0"</span> <span class="na">cy=</span><span class="s">"1"</span> <span class="na">r=</span><span class="s">"2"</span> <span class="na">stroke=</span><span class="s">"blue"</span> <span class="na">fill=</span><span class="s">"none"</span><span class="nt">/&gt;</span>
@@ -90,7 +90,7 @@
  <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span><span class="p">);</span>
 </code></pre></div></div> <p>Usually you can change color like this:</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.change-my-color</span> <span class="p">{</span>
-  <span class="py">fill</span><span class="p">:</span> <span class="no">green</span><span class="p">;</span>
+  <span class="py">fill</span><span class="p">:</span> <span class="nx">green</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div> <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>

@@ -6,7 +6,7 @@
 <span class="nl">float</span><span class="p">:</span> <span class="nb">right</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div> <p>It means the image with float at right. And then, the text can wrap image at left.</p> <h3 id="the-clear-property">The <code class="language-plaintext highlighter-rouge">clear</code> property</h3> <ul> <li>specify what elements can float beside the cleared elements and on which side.</li> <li>can be 5 values: <code class="language-plaintext highlighter-rouge">none</code>, <code class="language-plaintext highlighter-rouge">left</code> (means NO float elements allow on left side), <code class="language-plaintext highlighter-rouge">right</code>, <code class="language-plaintext highlighter-rouge">both</code>, <code class="language-plaintext highlighter-rouge">inherit</code> </li> <li>most common way to use <code class="language-plaintext highlighter-rouge">clear</code> is after you have used a float property on an element.</li> <li>use float property, it is easy to float boxes of content side by side</li> </ul> <p>For example: <code class="language-plaintext highlighter-rouge">div2</code> just next to <code class="language-plaintext highlighter-rouge">div1</code>, then</p> <ul> <li>if <code class="language-plaintext highlighter-rouge">div1</code> is set <code class="language-plaintext highlighter-rouge">float : left</code>, then the text in <code class="language-plaintext highlighter-rouge">div2</code> will float right around of div1. usually that is not what you want;</li> <li>if also set div2 <code class="language-plaintext highlighter-rouge">clear : left</code>. then the text will go under the div1.</li> </ul> <h3 id="box-sizing-border-box">box-sizing: border-box;</h3> <p>An element padding and border are included in width and heigth.</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">*</span> <span class="p">{</span>
-<span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+<span class="nl">box-sizing</span><span class="p">:</span> <span class="nb">border-box</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div> <p>allow this to all elements is safe and wise.</p> <h3 id="the-overflow-property">The <code class="language-plaintext highlighter-rouge">overflow</code> property</h3> <ul> <li>specifies what should happen if content overflows an element’s box.</li> <li>specifies whether to clip content or to add scrollbars when an element’s content is too big to fit in a specified area.</li> <li>Note: The overflow property only works for block elements with a specified height.</li> </ul> <p>The <code class="language-plaintext highlighter-rouge">overflow</code> property Can be:</p> <table> <tbody> <tr> <td>visible</td> <td>hidden</td> <td>clip</td> <td>scroll</td> <td>auto</td> <td>initial</td> <td>inherit</td> </tr> </tbody> </table> <ul> <li> <code class="language-plaintext highlighter-rouge">overflow: visible</code> (default), The overflow is not clipped. It renders outside the element’s box.</li> <li> <code class="language-plaintext highlighter-rouge">overflow: hidden</code>, The overflow is clipped, and the rest of the content will be invisible. Content can be scrolled programmatically (e.g. by setting scrollLeft or scrollTo())</li> <li> <code class="language-plaintext highlighter-rouge">overflow: clip</code>, The overflow is clipped, and the rest of the content will be invisible. Forbids scrolling, including programmatic scrolling.</li> <li> <code class="language-plaintext highlighter-rouge">overflow: scroll</code>, The overflow is clipped, but a scroll-bar is added to see the rest of the content</li> <li> <code class="language-plaintext highlighter-rouge">overflow: auto</code>, If overflow is clipped, a scroll-bar should be added to see the rest of the content When element is taller than it’s container, this property <code class="language-plaintext highlighter-rouge">overflow: auto</code> can make container fit the element inside.</li> </ul> <p>voerflow Example:</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.clearfix</span> <span class="p">{</span>
   <span class="nl">overflow</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
@@ -14,7 +14,7 @@
 </code></pre></div></div> <p>The CSS above have same effect with follow:</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.clearfix</span><span class="nd">::after</span><span class="p">{</span>
   <span class="py">context</span><span class="p">:</span> <span class="s1">""</span><span class="p">;</span>
   <span class="nl">clear</span><span class="p">:</span> <span class="nb">both</span><span class="p">;</span>
-  <span class="nl">display</span><span class="p">:</span> <span class="n">table</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="nb">table</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div> <h3 id="float-layout-example">Float Layout example</h3> <p>This can be responsive layout for mobile.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html&gt;</span>
@@ -22,7 +22,7 @@
 <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;style&gt;</span>
 <span class="o">*</span> <span class="p">{</span>
-  <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+  <span class="nl">box-sizing</span><span class="p">:</span> <span class="nb">border-box</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="nc">.menu</span> <span class="p">{</span>
@@ -32,12 +32,12 @@
 <span class="p">}</span>
 
 <span class="nc">.menu</span> <span class="nt">a</span> <span class="p">{</span>
-  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#e5e5e5</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nx">#e5e5e5</span><span class="p">;</span>
   <span class="nl">padding</span><span class="p">:</span> <span class="m">8px</span><span class="p">;</span>
   <span class="nl">margin-top</span><span class="p">:</span> <span class="m">7px</span><span class="p">;</span>
   <span class="nl">display</span><span class="p">:</span> <span class="nb">block</span><span class="p">;</span>
   <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
-  <span class="nl">color</span><span class="p">:</span> <span class="no">black</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="nx">black</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="nc">.main</span> <span class="p">{</span>
@@ -47,7 +47,7 @@
 <span class="p">}</span>
 
 <span class="nc">.right</span> <span class="p">{</span>
-  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#e5e5e5</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nx">#e5e5e5</span><span class="p">;</span>
   <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
   <span class="nl">width</span><span class="p">:</span> <span class="m">20%</span><span class="p">;</span>
   <span class="nl">padding</span><span class="p">:</span> <span class="m">15px</span><span class="p">;</span>
@@ -55,7 +55,7 @@
   <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">@media</span> <span class="n">only</span> <span class="n">screen</span> <span class="n">and</span> <span class="p">(</span><span class="n">max-width</span><span class="p">:</span> <span class="m">620px</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">@media</span> <span class="n">only</span> <span class="nb">screen</span> <span class="n">and</span> <span class="p">(</span><span class="n">max-width</span><span class="p">:</span> <span class="m">620px</span><span class="p">)</span> <span class="p">{</span>
   <span class="c">/* For mobile phones: */</span>
   <span class="nc">.menu</span><span class="o">,</span> <span class="nc">.main</span><span class="o">,</span> <span class="nc">.right</span> <span class="p">{</span>
     <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>

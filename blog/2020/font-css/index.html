@@ -18,7 +18,7 @@
 <span class="nt">font-size</span><span class="o">:</span> <span class="nt">larger</span><span class="o">;</span>
 </code></pre></div></div> <h4 id="a-positive--value">A positive <length> value.</length> </h4> <p>For most font-relative units (such as em and ex), the font size is relative to the parent element’s font size.</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">font-size</span><span class="o">:</span> <span class="err">12</span><span class="nt">px</span><span class="o">;</span>
 <span class="nt">font-size</span><span class="o">:</span> <span class="err">0</span><span class="o">.</span><span class="err">8</span><span class="nt">em</span><span class="o">;</span>
-</code></pre></div></div> <h4 id="a-positive--value-1">A positive <percentage> value</percentage> </h4> <p>relative to the parent element’s font size.</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">font-size</span><span class="o">:</span> <span class="err">80</span><span class="o">%;</span>
+</code></pre></div></div> <h4 id="a-positive--value-1">A positive <percentage> value</percentage> </h4> <p>relative to the parent element’s font size.</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">font-size</span><span class="o">:</span> <span class="m">80%</span><span class="o">;</span>
 </code></pre></div></div> <h4 id="math-value">math value</h4> <p>Scaling rules are applied when determining the computed value of the font-size property for math elements relative to the font-size of the containing parent.</p> <h4 id="the-font-size-property-is-specified-in-one-of-the-following-ways">The font-size property is specified in one of the following ways:</h4> <ol> <li>As one of the absolute-size, relative-size or math keywords</li> <li>As a <length> or a <percentage>, relative to the element's font size.</percentage></length> </li> </ol> <ul> <li> <p>Em Using an em value creates a dynamic or computed font size. The numeric value acts as a multiplier of the font-size property of the element on which it is used.</p> </li> <li> <p>Rem rem values were invented in order to sidestep the compounding problem. rem values are relative to the root html element, not the parent element.</p> </li> </ul> <h3 id="font-weight">font-weight</h3> <p>The font-weight CSS property sets the weight (or boldness) of the font. The weights available depend on the font-family that is currently set.</p> <h4 id="keyword-values">keyword values</h4> <p>font-weight: normal; font-weight: bold;</p> <h4 id="numeric-values-11000">numeric values [1,1000]</h4> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">font-weight</span><span class="o">:</span> <span class="err">100</span><span class="o">;</span>
 <span class="nt">font-weight</span><span class="o">:</span> <span class="err">200</span><span class="o">;</span>
 <span class="nt">font-weight</span><span class="o">:</span> <span class="err">300</span><span class="o">;</span>
@@ -39,16 +39,16 @@
 <span class="nt">&lt;head&gt;</span>
 <span class="nt">&lt;style&gt;</span>
 <span class="nt">body</span> <span class="p">{</span>
-  <span class="nl">background-color</span><span class="p">:</span> <span class="no">black</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nx">black</span><span class="p">;</span>
   <span class="nl">font-family</span><span class="p">:</span> <span class="n">Verdana</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
   <span class="nl">font-size</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
-  <span class="nl">color</span><span class="p">:</span> <span class="no">gray</span><span class="p">;</span>  
+  <span class="nl">color</span><span class="p">:</span> <span class="nx">gray</span><span class="p">;</span>  
 <span class="p">}</span>
 
 <span class="nt">h1</span> <span class="p">{</span>
   <span class="nl">font-family</span><span class="p">:</span> <span class="n">Georgia</span><span class="p">,</span> <span class="nb">serif</span><span class="p">;</span>
   <span class="nl">font-size</span><span class="p">:</span> <span class="m">60px</span><span class="p">;</span>
-  <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="nx">white</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="nt">&lt;/style&gt;</span>
 <span class="nt">&lt;/head&gt;</span>
@@ -72,7 +72,7 @@
 <span class="nt">&lt;/head&gt;</span>
 </code></pre></div></div> <h2 id="web-fonts">Web Fonts</h2> <p>Web fonts allow Web designers to use fonts that are not installed on the user’s computer.</p> <p>When you have found/bought the font you wish to use, just include the font file on your web server, and it will be automatically downloaded to the user when needed.</p> <p>Your “own” fonts are defined within the CSS @font-face rule.</p> <h3 id="font-face-rule">@font-face rule</h3> <p>In the @font-face rule; first define a name for the font (e.g. myFirstFont) and then point to the font file.</p> <p>To use the font for an HTML element, refer to the name of the font (myFirstFont) through the font-family property:</p> <p>Example:</p> <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@font-face</span> <span class="p">{</span>
   <span class="nl">font-family</span><span class="p">:</span> <span class="n">myFirstFont</span><span class="p">;</span>
-  <span class="nl">src</span><span class="p">:</span> <span class="sx">url(sansation_light.woff)</span><span class="p">;</span>
+  <span class="nl">src</span><span class="p">:</span> <span class="nf">url</span><span class="p">(</span><span class="n">sansation_light</span><span class="p">.</span><span class="n">woff</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="nt">div</span> <span class="p">{</span>
