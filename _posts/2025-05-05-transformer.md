@@ -15,7 +15,7 @@ Transformer is a type of neural network architecture.
 - Unlike traditional recurrent or convolutional models that process data sequentially, the Transformer leverages a mechanism called **self-attention** to process all input data simultaneously. This allows for much greater parallelization, leading to faster training and the ability to handle longer sequences of data effectively.
 - Transformers are widely used in various fields, including natural language processing (NLP) for tasks like translation, text generation, and question answering, as well as computer vision. 
 - In essence, transformer models have revolutionized the way we process and understand sequential data by leveraging the power of attention and parallel processing. 
-- Like GPT, BERT, they are based on Transformers.
+- Like GPT(Generative Pre-trained Transformer), BERT(Bidirectional Encoder Representations from Transformers), they are based on Transformers.
 - Self-Attention and Positional Encoding are the main innovations.
 
 ## Key Concepts
