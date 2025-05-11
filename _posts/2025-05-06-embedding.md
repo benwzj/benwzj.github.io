@@ -4,6 +4,13 @@ title: Embedding
 date: 2025-05-06
 categories: AI
 tags: AI Embedding Vector ML
+toc: 
+  - name: What are Embeddings
+  - name: Word Embedding
+  - name: Pre-trained Models
+  - name: What is Word2vec exactly
+  - name: Create Your Own Embeddings
+  - name: FAQ
 ---
 
 Embeddings is the basic key point to understand Machine Learning. And it is Machine Learning's Most Useful Multitool.
