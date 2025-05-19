@@ -127,7 +127,7 @@ In other words, hyperparameters are values that you control; parameters are valu
 #### Learning rate
 The learning rate determines the magnitude of the changes to make to the weights and bias during each step of the gradient descent process. 
 
-The model multiplies the gradient by the learning rate to determine the model's parameters (weight and bias values) for the next iteration.
+The model multiplies the gradient by the learning rate to determine the model's parameters (weight and bias values) for the next iteration. For example, if the **gradient's magnitude** is 2.5 and the learning rate is 0.01, then the model will change the parameter by 0.025.
 
 Learning rate is a floating point number you set that influences how quickly the model converges.
 
