@@ -6,7 +6,7 @@ categories: AI
 tags: AI Diffusion
 toc: 
   - name: what is Diffusion Model
-  - name: Some Concepts
+  - name: Main Concepts
   - name: How it works
   - name: Examples of Diffusion Models
 ---
@@ -15,11 +15,16 @@ toc:
 
 A diffusion model is a type of generative model, meaning it's used to create new data instances that resemble the data it was trained on. 
 
+There are two Steps: 
+- Model need to understand your input: it can be text or image. How? 
+- When Model know your meaning, it need to craft the image. How?
+
 At a high level, a diffusion model is a type of deep neural network what learn to add noise to a picture and then learn how to reverse that process to recontruct a clear image.
 
 The logic like this: the model have been trained lots of images, and store them as noises and embedding. when it is ask to generate a specific image, it can retrive noises and reverse back to image.
 
-## Some Concepts
+
+## Main Concepts
 
 ### Forward Diffusion (or Diffusion Process): 
 This process gradually adds Gaussian noise to a **training image** over a series of small timesteps until the image becomes pure noise, losing all its original information. This is a Markov chain process, meaning each step only depends on the previous step.
