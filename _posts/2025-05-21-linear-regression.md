@@ -1,15 +1,23 @@
 ---
 layout: post
 title: Linear Regression 
-date: 2025-05-06
+date: 2025-05-21
 categories: AI
 tags: AI ML
+toc: 
+  - name: What is Linear Regression
+  - name: Loss
+  - name: Gradient descent
+  - name: Hyperparameters
+  - name: Generate a correlation matrix
+  - name: Visualize relationships in dataset
+  - name: References
 ---
 
 ## What is Linear Regression
 
 Training data to form a model, simply say, it is to find the bias and weights among the data.
-linear regression is one of the methods that find the relationship between features and a label to get the bias and weights.
+linear regression is one of the **methods** that find the relationship between features and a label to get the bias and weights.
 
 {% include figure.html path="assets/img/car-data-points-with-model.png" class="img-fluid rounded z-depth-1" width="80%" %}
 
@@ -47,10 +55,9 @@ A model trained with MAE is farther from the outliers.
 
 ## Gradient descent
 
-Gradient descent is an iterative process that finds the best weights and bias that minimize the loss.
+Gradient descent is a **mathematical technique** that iteratively finds the weights and bias that produce the model with the lowest loss. 
 
-Gradient descent is a **mathematical technique** that iteratively finds the weights and bias that produce the model with the lowest loss. Gradient descent finds the best weight and bias by repeating the following process for a number of user-defined iterations.
-
+Gradient descent finds the best weight and bias by repeating the following process for a number of user-defined iterations.
 The model begins training with randomized weights and biases near zero, and then repeats the following steps:
 - Calculate the loss with the current weight and bias.
 - Determine the direction to move the weights and bias that reduce loss.
@@ -127,3 +134,4 @@ dataframe provide such function:
 
 ## References
 
+- [Google crash course](https://developers.google.com/machine-learning/crash-course/linear-regression)

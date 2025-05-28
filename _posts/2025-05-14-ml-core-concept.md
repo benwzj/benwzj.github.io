@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Core concepts behind ML 
-date: 2025-05-06
+date: 2025-05-14
 categories: AI
 tags: AI ML
 ---
@@ -55,3 +55,7 @@ At a high-level, generative models learn patterns in data with the goal to produ
 
 To produce unique and creative outputs, generative models are initially trained using an unsupervised approach, where the model learns to mimic the data it's trained on. The model is sometimes trained further using supervised or reinforcement learning on specific data related to tasks the model might be asked to perform, for example, summarize an article or edit a photo.
 
+## ML Model types
+Linear Regression
+Logistic Regression 
+Classification
