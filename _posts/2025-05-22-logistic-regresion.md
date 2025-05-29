@@ -6,6 +6,7 @@ categories: AI
 tags: AI ML
 toc: 
   - name: What is Logistic Regression
+  - name: Logistic regression trainning
 ---
 
 ## What is Logistic Regression
@@ -16,15 +17,19 @@ Classic example is spam-prediction model.
 
 ## Sigmoid function
 
-There's a family of functions called logistic functions whose output represents a probability, always outputting a value between 0 and 1. The standard logistic function, also known as the sigmoid function (sigmoid means "s-shaped"), has the formula: $$f(x) = \frac{1}{1 + e^{-x}}$$
-The 'e' is Euler’s number, a fundamental mathematical constant. `e≈2.71828...`
-Logistic functions is one of The most important exponential function.
+There's a family of functions called logistic functions whose output represents a probability, always outputting a value between 0 and 1. 
+The standard logistic function, also known as the sigmoid function (sigmoid means "s-shaped"), has the formula: 
 
+$$f(x) = \frac{1}{1 + e^{-x}}$$
+
+- The 'e' is Euler’s number, a fundamental mathematical constant. `e≈2.71828...`
+- Logistic functions is one of The most important exponential function.
+
+Here are the classic corresponding graph of the sigmoid function:
 {% include figure.html path="assets/img/sigmoid_function_with_axes.png" class="img-fluid rounded z-depth-1" width="80%" %}
-
-As the input, x, increases, the output of the sigmoid function approaches but never reaches 1. Similarly, as the input decreases, the sigmoid function's output approaches but never reaches 0.
-
-The sigmoid function will bend the linear equation straight line into an s-shape.
+- As the input, x, increases, the output of the sigmoid function approaches but never reaches 1. 
+- Similarly, as the input decreases, the sigmoid function's output approaches but never reaches 0.
+- The sigmoid function will bend the linear equation straight line into an s-shape.
 
 ### What is Exponent
 
@@ -39,6 +44,12 @@ The sigmoid function will bend the linear equation straight line into an s-shape
 | $$27^{1/3}$$ | $$\sqrt[3]{27}$$                | 3      | Cube root                               |
 | $$16^{3/4}$$ | $$\left(\sqrt[4]{16}\right)^3$$ | 8      | Root first, then power                  |
 
+### Transforming linear output using the sigmoid function
+
+Left: graph of the linear function z = 2x + 5, with three points highlighted. Right: Sigmoid curve with the same three points highlighted after being transformed by the sigmoid function:
+{% include figure.html path="assets/img/linear_to_logistic.png" class="img-fluid rounded z-depth-1" width="80%" %}
+
+
 ## Logistic regression trainning
 
 Logistic regression models are trained using the same process as linear regression models, with two key distinctions:
@@ -51,8 +62,14 @@ loss function for logistic regression is Log Loss.
 
 {% include figure.html path="assets/img/logloss-func.png" class="img-fluid rounded z-depth-1" width="80%" %}
 
-### Regularization in logistic regression
-Regularization, a mechanism for penalizing model complexity during training, is extremely important in logistic regression modeling. Without regularization, the asymptotic nature of logistic regression would keep driving loss towards 0 in cases where the model has a large number of features. Consequently, most logistic regression models use one of the following two strategies to decrease model complexity:
+### Regularization
+
+Regularization, a mechanism for penalizing model complexity during training.
+
+Regularization is extremely important in logistic regression modeling. 
+Without regularization, the asymptotic nature of logistic regression would keep driving loss towards 0 in cases where the model has a large number of features. 
+
+Consequently, most logistic regression models use one of the following two strategies to decrease model complexity:
 - L2 regularization
 - Early stopping: Limiting the number of training steps to halt training while loss is still decreasing.
 
