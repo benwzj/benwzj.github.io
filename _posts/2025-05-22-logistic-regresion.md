@@ -6,6 +6,7 @@ categories: AI
 tags: AI ML
 toc: 
   - name: What is Logistic Regression
+  - name: Sigmoid function
   - name: Logistic regression trainning
 ---
 
