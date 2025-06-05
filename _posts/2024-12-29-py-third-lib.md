@@ -3,7 +3,7 @@ layout: post
 title: Popular Third party lib For Python
 date: 2024-12-29
 categories: Python
-tags: Python
+tags: Python Pandas NumPy
 toc: 
   - name: NumPy
   - name: SciPy
@@ -19,7 +19,7 @@ toc:
 - NumPy is the fundamental package for scientific computing in Python.
 - It provides a multi-dimensional array object, various derived objects (such as masked arrays and matrices), and an assortment of routines for fast operations on arrays.
 
-### Why Use NumPy?
+### Why NumPy
 - In Python we have lists that serve the purpose of arrays, but they are slow to process.
 NumPy aims to provide an array object that is up to 50x faster than traditional Python lists.
 - The array object in NumPy is called ndarray, it provides a lot of supporting functions that make working with ndarray very easy.
@@ -63,10 +63,104 @@ Pandas is a Python library used for working with data sets.
 It has functions for analyzing, cleaning, exploring, and manipulating data.
 The name "Pandas" has a reference to both "Panel Data", and "Python Data Analysis" and was created by Wes McKinney in 2008.
 
-### Why Use Pandas?
+Pandas is build on NumPy.
+
+### Why Pandas
 Pandas allows us to analyze big data and make conclusions based on statistical theories.
 Pandas can clean messy data sets, and make them readable and relevant.
 Relevant data is very important in data science.
+
+### Pandas DataFrame
+
+DataFrame is most common class in Pandas.
+
+```py
+import numpy as np
+import pandas as pd
+
+# Create and populate a 5x2 NumPy array.
+my_data = np.array([[0, 3], [10, 7], [20, 9], [30, 14], [40, 15]])
+
+# Create a Python list that holds the names of the two columns.
+my_column_names = ['temperature', 'activity']
+
+# Create a DataFrame.
+my_dataframe = pd.DataFrame(data=my_data, columns=my_column_names)
+
+# Print the entire DataFrame
+print(my_dataframe)
+```
+You should get:
+```
+   temperature  activity
+0            0         3
+1           10         7
+2           20         9
+3           30        14
+4           40        15
+```
+
+Common operation:
+You may add a new column to an existing pandas DataFrame just by assigning values to a new column name. For example, the following code creates a third column named adjusted in my_dataframe:
+```py
+# Create a new column named adjusted.
+my_dataframe["adjusted"] = my_dataframe["activity"] + 2
+
+# Print the entire DataFrame
+print(my_dataframe)
+
+'''
+   temperature  activity  adjusted
+0            0         3         5
+1           10         7         9
+2           20         9        11
+3           30        14        16
+4           40        15        17
+'''
+```
+
+Pandas provide multiples ways to isolate specific rows, columns, slices or cells in a DataFrame.
+```py
+print("Rows #0, #1, and #2:")
+print(my_dataframe.head(3), '\n')
+
+print("Row #2:")
+print(my_dataframe.iloc[[2]], '\n')
+
+print("Rows #1, #2, and #3:")
+print(my_dataframe[1:4], '\n')
+
+print("Column 'temperature':")
+print(my_dataframe['temperature'])
+```
+
+### Pandas can read csv
+
+```py
+rice_dataset_raw = pd.read_csv("https://download.mlcc.google.com/mledu-datasets/Rice_Cammeo_Osmancik.csv")
+
+# specific columns
+rice_dataset = rice_dataset_raw[[
+    'Area',
+    'Perimeter',
+    'Major_Axis_Length',
+    'Minor_Axis_Length',
+    'Eccentricity',
+    'Convex_Area',
+    'Extent',
+    'Class',
+]]
+
+# print top 200 rows
+rice_dataset.head(200)
+```
+### pandas.DataFrame.describe Function
+
+Generate descriptive statistics.
+
+```py
+rice_dataset.describe()
+```
 
 
 ## Matplotlib 
