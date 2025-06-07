@@ -5,61 +5,11 @@ date: 2024-12-29
 categories: Python
 tags: Python
 toc: 
-  - name: Random module
   - name: heapq
   - name: json
   - name: io module 
 ---
 
-## Random module
-
-This module implements pseudo-random number generators for various distributions.
-
-- For integers, there is uniform selection from a range. 
-- For sequences, there is uniform selection of a random element, a function to generate a random permutation of a list in-place, and a function for random sampling without replacement.
-- Almost all module functions depend on the basic function random(), which generates a random float uniformly in the half-open range 0.0 <= X < 1.0. 
-- Python uses the Mersenne Twister as the core generator.
-- It produces 53-bit precision floats and has a period of 2**19937-1.
-- It is completely unsuitable for cryptographic purposes.
-- For security or cryptographic uses, see the secrets module.
-- The functions supplied by this module are actually bound methods of a hidden instance of the random.Random class. You can instantiate your own instances of Random to get generators that don’t share state.
-
-### Bookkeeping functions
-
-#### `random.seed(a=None, version=2)`
-Initialize the random number generator.
-- If a is omitted or None, the current system time is used. 
-- If a is an int, it is used directly.
-
-#### `random.getstate()`
-Return an object capturing the current internal state of the generator. This object can be passed to setstate() to restore the state.
-
-#### `random.setstate(state)`
-
-### Functions for integers
-
-#### random.randrange(start, stop[, step])
-Return a randomly selected element from range(start, stop, step)
-
-### Functions for sequences
-
-#### random.choice(seq)
-Return a random element from the non-empty sequence seq.
-
-#### random.shuffle(x)
-Shuffle the sequence x in place. (please note that, it will mutate the sequence). 
-- To shuffle an immutable sequence and return a new shuffled list, use sample(x, k=len(x)) instead.
-
-#### random.sample(population, k, *, counts=None)
-Return a k length, new list of unique elements chosen from the population sequence or set. Used for random sampling without replacement.
-
-### Real-valued distributions
-
-#### random.random()
-Return the next random floating point number in the range `0.0 <= X < 1.0`
-
-#### random.uniform(a, b)
-Return a random floating point number N such that `a <= N <= b` for `a <= b` and `b <= N <= a` for `b < a`.
 
 ## heapq
 

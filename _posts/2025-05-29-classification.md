@@ -147,6 +147,21 @@ Multi-class classification can be treated as an extension of binary classificati
 
 For example, in a three-class multi-class classification problem, where you're classifying examples with the labels A, B, and C, you could turn the problem into two separate binary classification problems. First, you might create a binary classifier that categorizes examples using the label A+B and the label C. Then, you could create a second binary classifier that reclassifies the examples that are labeled A+B using the label A and the label B.
 
+
+## Normalize data
+
+When creating a model with multiple features, the values of each feature should span roughly the same range. If one feature's values range from 500 to 100,000 and another feature's values range from 2 to 12, the model will need to have weights of extremely low or extremely high values to be able to combine these features effectively. This could result in a low quality model. To avoid this, normalize features in a multi-feature model.
+
+This can be done by converting each raw value to its **Z-score**. 
+
+> The Z-score for a given value is how many standard deviations away from the mean the value is.
+
+Consider a feature with a mean of 60 and a standard deviation of 10.
+The raw value 75 would have a Z-score of +1.5:
+  `Z-score = (75 - 60) / 10 = +1.5`
+The raw value 38 would have a Z-score of -2.2:
+  `Z-score = (38 - 60) / 10 = -2.2`
+
 ## References
 
 - [Google crash course](https://developers.google.com/machine-learning/crash-course/classification)

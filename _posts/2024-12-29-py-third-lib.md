@@ -63,12 +63,21 @@ Pandas is a Python library used for working with data sets.
 It has functions for analyzing, cleaning, exploring, and manipulating data.
 The name "Pandas" has a reference to both "Panel Data", and "Python Data Analysis" and was created by Wes McKinney in 2008.
 
-Pandas is build on NumPy.
-
-### Why Pandas
 Pandas allows us to analyze big data and make conclusions based on statistical theories.
 Pandas can clean messy data sets, and make them readable and relevant.
 Relevant data is very important in data science.
+
+Pandas makes it easy to:
+- Read data from files like CSV, Excel, or databases.
+- Clean and preprocess data (handle missing values, convert types).
+- Perform operations like filtering, groupi- ng, sorting, and merging.
+- Analyze data using built-in statistical and aggregation methods.
+- Visualize data when used with libraries like Matplotlib or Seaborn.
+
+### The core components of Pandas are:
+
+- Series: a one-dimensional labeled array.
+- DataFrame: a two-dimensional labeled table, similar to a spreadsheet or SQL table.
 
 ### Pandas DataFrame
 
@@ -136,10 +145,13 @@ print(my_dataframe['temperature'])
 
 ### Pandas can read csv
 
+pd.read_csv() Returns DataFrame or TextFileReader.
+A comma-separated values (csv) file is returned as two-dimensional data structure with labeled axes.
+
 ```py
 rice_dataset_raw = pd.read_csv("https://download.mlcc.google.com/mledu-datasets/Rice_Cammeo_Osmancik.csv")
 
-# specific columns
+# specify columns
 rice_dataset = rice_dataset_raw[[
     'Area',
     'Perimeter',
