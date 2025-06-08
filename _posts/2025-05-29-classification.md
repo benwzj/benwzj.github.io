@@ -8,6 +8,9 @@ toc:
   - name: Threshold
   - name: Measure Model Metrics
   - name: ROC and AUC
+  - name: Prediction bias
+  - name: Multi-class classification
+  - name: Normalize data
   - name: References
 ---
 
@@ -139,7 +142,8 @@ Understand AUC and ROC:
 
 ## Prediction bias
 
-Prediction bias is the difference between the mean of a model's predictions and the mean of ground-truth labels in the data. A model trained on a dataset where 5% of the emails are spam should predict, on average, that 5% of the emails it classifies are spam. In other words, the mean of the labels in the ground-truth dataset is 0.05, and the mean of the model's predictions should also be 0.05. If this is the case, the model has zero prediction bias. Of course, the model might still have other problems.
+Prediction bias is the difference between the mean of a model's predictions and the mean of ground-truth labels in the data. 
+A model trained on a dataset where 5% of the emails are spam should predict, on average, that 5% of the emails it classifies are spam. In other words, the mean of the labels in the ground-truth dataset is 0.05, and the mean of the model's predictions should also be 0.05. If this is the case, the model has zero prediction bias. Of course, the model might still have other problems.
 
 ## Multi-class classification
 
@@ -156,7 +160,7 @@ This can be done by converting each raw value to its **Z-score**.
 
 > The Z-score for a given value is how many standard deviations away from the mean the value is.
 
-Consider a feature with a mean of 60 and a standard deviation of 10.
+Consider a feature with a **mean** of 60 and a **standard deviation** of 10.
 The raw value 75 would have a Z-score of +1.5:
   `Z-score = (75 - 60) / 10 = +1.5`
 The raw value 38 would have a Z-score of -2.2:
