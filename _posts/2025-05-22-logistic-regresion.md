@@ -16,6 +16,8 @@ Logistic regression is designed to predict the probability of a given outcome.
 
 Classic example is spam-prediction model.
 
+Simply saying, Logistic regression = Logistic function + linear regression.
+
 ## Sigmoid function
 
 There's a family of functions called logistic functions whose output represents a probability, always outputting a value between 0 and 1. 
