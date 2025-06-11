@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Core concepts behind ML 
+title: Machine Learning Overview 
 date: 2025-05-14
 categories: AI
 tags: AI ML

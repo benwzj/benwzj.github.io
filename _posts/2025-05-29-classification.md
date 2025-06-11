@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Classification 
+title: Classification in ML
 date: 2025-05-22
 categories: AI
 tags: AI ML
@@ -8,15 +8,15 @@ toc:
   - name: Threshold
   - name: Measure Model Metrics
   - name: ROC and AUC
-  - name: Prediction bias
-  - name: Multi-class classification
+  - name: Some other concepts
+  - name: Conclusion
   - name: References
 ---
 
 Classification is the task of predicting which of a set of classes (categories) an example belongs to. 
 Classification is converting a **logistic regression model** that predicts a probability into a binary classification model that predicts one of two classes. 
 
-There are some terms you need to be understood and clear:
+There are some terms you need to be understood and remembered:
 - TP, FP, TN, FN
 - Threshold
 - Accuracy
@@ -139,17 +139,37 @@ If false positives (false alarms) are highly costly, it may make sense to choose
 Understand AUC and ROC:
 {% include figure.html path="assets/img/AUC.png" class="img-fluid rounded z-depth-1" width="80%" %}
 
-## Prediction bias
+## Some other concepts
+
+### Prediction bias
 
 Prediction bias is the difference between the mean of a model's predictions and the mean of ground-truth labels in the data. 
 A model trained on a dataset where 5% of the emails are spam should predict, on average, that 5% of the emails it classifies are spam. In other words, the mean of the labels in the ground-truth dataset is 0.05, and the mean of the model's predictions should also be 0.05. If this is the case, the model has zero prediction bias. Of course, the model might still have other problems.
 
-## Multi-class classification
+### Multi-class classification
 
 Multi-class classification can be treated as an extension of binary classification to more than two classes. 
 
 For example, in a three-class multi-class classification problem, where you're classifying examples with the labels A, B, and C, you could turn the problem into two separate binary classification problems. First, you might create a binary classifier that categorizes examples using the label A+B and the label C. Then, you could create a second binary classifier that reclassifies the examples that are labeled A+B using the label A and the label B.
 
+## Conclusion
+
+### Clear TP, TN, FP, FN terms.
+All these terms are connected to threshold. When threshold change, they are changed. For example, when threshold increase, FN should increase.
+
+### The core Metrics are TPR and FPR. 
+
+$$\text{TPR} = \frac{TP}{\text{all actual positives}}$$
+
+Use when false negatives are more expensive than false positives. 
+
+$$FPR = \frac{FP}{\text{all actual negatives}}$$
+
+Use when false positives are more expensive than false negatives.                
+
+### ROC and AUC
+
+ROC and AUC are metrics which using TPR and FPR to train model.
 
 ## References
 

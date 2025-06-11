@@ -157,10 +157,8 @@ This can be done by converting each raw value to its **Z-score**.
 > The Z-score for a given value is how many standard deviations away from the mean the value is.
 
 Consider a feature with a **mean** of 60 and a **standard deviation** of 10.
-The raw value 75 would have a Z-score of +1.5:
-  `Z-score = (75 - 60) / 10 = +1.5`
-The raw value 38 would have a Z-score of -2.2:
-  `Z-score = (38 - 60) / 10 = -2.2`
+- The raw value 75 would have a Z-score of +1.5: `Z-score = (75 - 60) / 10 = +1.5`
+- The raw value 38 would have a Z-score of -2.2: `Z-score = (38 - 60) / 10 = -2.2`
 
 ## Label Leakage
 
