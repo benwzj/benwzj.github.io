@@ -33,6 +33,10 @@ For a dataset with values x1, x2,...,xn:
 
 $$\sigma = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2}$$
 
+- $$\bar{x}$$ is the mean.
+- $$x_i$$ are the data values.
+- The expression inside the square root is called the variance
+
 ## Data Distribution
 
 Understanding data distribution is key in statistics, data analysis, and machine learning. 
