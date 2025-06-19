@@ -34,19 +34,6 @@ Here are the classic corresponding graph of the sigmoid function:
 - Similarly, as the input decreases, the sigmoid function's output approaches but never reaches 0.
 - The sigmoid function will bend the linear equation straight line into an s-shape.
 
-### What is Exponent
-
-| Expression   | Meaning                         | Result | Explanation                             |
-| ----------   | ------------------------------- | ------ | --------------------------------------- |
-| $$2^3$$      | $$2 \times 2 \times 2$$         | 8      | Multiply 2 three times                  |
-| $$5^2$$      | $$5 \times 5$$                  | 25     | Square of 5                             |
-| $$10^0$$     | —                               | 1      | Any non-zero number to the 0 power is 1 |
-| $$2^{-3}$$   | $$\frac{1}{2^3} = \frac{1}{8}$$ | 0.125  | Negative = reciprocal                   |
-| $$4^{-1}$$   | $$\frac{1}{4}$$                 | 0.25   | Negative exponent = 1 over base         |
-| $$9^{1/2}$$  | $$\sqrt{9}$$                    | 3      | Fractional = root                       |
-| $$27^{1/3}$$ | $$\sqrt[3]{27}$$                | 3      | Cube root                               |
-| $$16^{3/4}$$ | $$\left(\sqrt[4]{16}\right)^3$$ | 8      | Root first, then power                  |
-
 ### Transforming linear output using the sigmoid function
 
 Left: graph of the linear function z = 2x + 5, with three points highlighted. Right: Sigmoid curve with the same three points highlighted after being transformed by the sigmoid function:

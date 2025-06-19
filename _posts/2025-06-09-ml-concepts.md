@@ -8,6 +8,7 @@ toc:
   - name: Standard Deviation
   - name: Data Distribution
   - name: Normalize data
+  - name: Polynomial transforms
   - name: Label Leakage
 ---
 
@@ -151,18 +152,122 @@ plt.ylabel("Frequency")
 plt.show()
 ```
 
-
 ## Normalize data
 
 When creating a model with multiple features, the values of each feature should span roughly the same range. If one feature's values range from 500 to 100,000 and another feature's values range from 2 to 12, the model will need to have weights of extremely low or extremely high values to be able to combine these features effectively. This could result in a low quality model. To avoid this, normalize features in a multi-feature model.
 
-This can be done by converting each raw value to its **Z-score**. 
+The goal of normalization is to transform features to be on a similar scale.
+
+Three popular normalization methods:
+- linear scaling
+- Z-score scaling
+- log scaling
+
+> The distribution of data should decide which method is going to be used.
+{: .block-warning }
+
+- The technique of Normalize data: Clipping
+
+### Linear scaling
+
+Linear scaling (more commonly shortened to just scaling) means converting floating-point values from their natural range into a standard range—usually 0 to 1 or -1 to +1.
+
+Linear scaling is a good choice when all of the following conditions are met:
+- Stable range:The lower and upper bounds of your data don't change much over time.
+- No Outliers: The feature contains few or no outliers, and those outliers aren't extreme.
+- **uniformly distributed**: The feature is approximately uniformly distributed across its range. That is, a histogram would show roughly even bars for most values.
+
+Here are the examples:
+- If human age is a feature, Linear scaling is a good normalization technique for age. because:
+  - lower and upper bounds are 0 to 100.
+  - age contains a relatively small percentage of outliers. Only about 0.3% of the population is over 100.
+  - 
+- if net_worth is a feature that holds the net worth of different people. Linear scaling would be a poor choice, because:
+  - This feature contains many outliers.
+  - the values are not uniformly distributed across its primary range. Most people would be squeezed within a very narrow band of the overall range.
+
+
+### Z-score scaling
 
 > The Z-score for a given value is how many standard deviations away from the mean the value is.
 
 Consider a feature with a **mean** of 60 and a **standard deviation** of 10.
 - The raw value 75 would have a Z-score of +1.5: `Z-score = (75 - 60) / 10 = +1.5`
 - The raw value 38 would have a Z-score of -2.2: `Z-score = (38 - 60) / 10 = -2.2`
+
+Z-score is a good choice when the data follows a **normal distribution** or a distribution somewhat like a normal distribution.
+
+> What is normal distribution?
+> a classic normal distribution:
+> - At least 68.27% of data has a Z-score between -1.0 and +1.0.
+> - At least 95.45% of data has a Z-score between -2.0 and +2.0.
+> - At least 99.73% of data has a Z-score between -3.0 and +3.0.
+> - At least 99.994% of data has a Z-score between -4.0 and +4.0.
+
+Suppose your model trains on a feature named height that holds the adult heights of ten million women. Z-score scaling is a good normalization technique. Because this feature conforms to a normal distribution.
+
+### Log scaling
+
+Log scaling computes the logarithm of the raw value. In practice, log scaling usually calculates the natural logarithm (ln).
+
+Log scaling is helpful when the data conforms to a **power law distribution**. Casually speaking, a power law distribution looks as follows:
+- Low values of X have very high values of Y.
+- As the values of X increase, the values of Y quickly decrease. Consequently, high values of X have very low values of Y.
+
+#### Understand Log scaling
+
+Book sales conform to a power law distribution because:
+- Most published books sell a tiny number of copies, maybe one or two hundred.
+- Some books sell a moderate number of copies, in the thousands.
+- Only a few bestsellers will sell more than a million copies.
+
+Suppose you are training a linear model to find the relationship of, say, book covers to book sales. A linear model training on raw values would have to find something about book covers on books that sell a million copies that is 10,000 more powerful than book covers that sell only 100 copies. However, log scaling all the sales figures makes the task far more feasible. For example, 
+- the log of 100 is:`~4.6 = ln(100)`
+- while the log of 1,000,000 is:`~13.8 = ln(1,000,000)`
+
+So, the log of 1,000,000 is only about three times larger than the log of 100. You probably could imagine a bestseller book cover being about three times more powerful (in some way) than a tiny-selling book cover.
+
+Log scaling changes the distribution, which helps train a model that will make better predictions.
+
+### Clipping
+
+Clipping is a technique to minimize the influence of extreme outliers. 
+> In brief, clipping usually caps (reduces) the value of outliers to a specific maximum value. 
+
+Clipping is a strange idea, and yet, it can be very effective.
+
+You can also clip values after applying other forms of normalization.
+
+Clipping prevents your model from overindexing on unimportant data. However, some outliers are actually important, so clip values carefully.
+
+### References
+- [Google doc](https://developers.google.com/machine-learning/crash-course/numerical-data/normalization)
+
+## Polynomial transforms
+
+A Polynomial Transform is a technique used to map your original input features into a higher-dimensional space by generating polynomial combinations of the original features.
+
+Sometimes, when the ML practitioner has domain knowledge suggesting that one variable is related to the square, cube, or other power of another variable, it's useful to create a synthetic feature from one of the existing numerical features.
+
+Sometime, it's not possible to draw a straight line that cleanly separates the two classes, but it is possible to draw a curve that does so:
+
+{% include figure.html path="assets/img/ft_cross1.png" class="img-fluid rounded z-depth-1" width="80%" %}
+
+Gradient descent finds the weight (or weights `w1`, `w2`, `w3`, in the case of additional features) that minimizes the loss of the model. But the data points shown cannot be separated by a line. What can be done?
+
+It's possible to keep both the linear equation and allow nonlinearity by defining a new term, `x2`, that is simply 
+`x1` squared: 
+
+$$x_2 = x_1^2$$
+
+This synthetic feature, called a **polynomial transform**, is treated like any other feature. The previous linear formula becomes:
+
+$$y = b + w_1x_1 + w_2x_2$$
+
+This can still be treated like a linear regression problem, and the weights determined through gradient descent, as usual, despite containing a hidden squared term, the polynomial transform. 
+
+> Usually the numerical feature of interest is multiplied by itself, that is, raised to some power. Sometimes an ML practitioner can make an informed guess about the appropriate exponent. For example, many relationships in the physical world are related to squared terms, including acceleration due to gravity, the attenuation of light or sound over distance, and elastic potential energy.
+
 
 ## Label Leakage
 
