@@ -21,12 +21,10 @@ In machine learning, an embedding is a way of representing data as points in n-d
 
 ## What are Embeddings
 
-Abstractively, embeddings allow us to find similar data points. The machine can understand things because of embedding.
-Realistically, embeddings store semantically meaning in arrays of number.
-
-What kinds of things can be embedded? All The Things! Text, Images, Videos, Music.
-
-Embeddings are typically learned from large datasets using machine learning techniques.
+- Abstractively, embeddings allow us to find similar data points. The machine can understand things because of embedding.
+- Realistically, embeddings store semantically meaning in arrays of number.
+- What kinds of things can be embedded? All The Things! Text, Images, Videos, Music.
+- Embeddings are typically learned from large datasets using machine learning techniques.
 
 ### Understand Embeddings
 
