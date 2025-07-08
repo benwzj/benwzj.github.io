@@ -90,8 +90,8 @@ Learning rate is a floating point number you set that influences how quickly the
 
 The ideal learning rate helps the model to converge within a reasonable number of iterations.
 
-What do it means when Learning Rate is 1?
-A learning rate of 1 means that the model updates its weights by the full amount of the calculated gradient. This almost inevitably leads to highly unstable training and the model failing to converge to a good solution.
+> ##### What do it means when Learning Rate is 1?
+> A learning rate of 1 means that the model updates its weights by the full amount of the calculated gradient. This almost inevitably leads to highly unstable training and the model failing to converge to a good solution.
 
 ### Batch size
 Batch size is a hyperparameter that refers to the number of examples the model processes before updating its weights and bias.
@@ -122,15 +122,20 @@ Correlation values have the following meanings:
 - 1.0: perfect positive correlation; that is, when one attribute rises, the other attribute rises.
 - -1.0: perfect negative correlation; that is, when one attribute rises, the other attribute falls.
 - 0.0: no correlation; the two columns are not linearly related.
+
 In general, the higher the absolute value of a correlation value, the greater its predictive power.
 
-dataframe can provide such function:
-`training_df.corr(numeric_only = True)`
+Pandas's dataframe provide such function:
+```py
+training_df.corr(numeric_only = True)
+```
 
 ## Visualize relationships in dataset
 
-dataframe provide such function:
-`sns.pairplot(training_df, x_vars=["FARE", "TRIP_MILES", "TRIP_SECONDS"], y_vars=["FARE", "TRIP_MILES", "TRIP_SECONDS"])`
+Pandas's dataframe provide function to visualize:
+```py
+sns.pairplot(training_df, x_vars=["FARE", "TRIP_MILES", "TRIP_SECONDS"], y_vars=["FARE", "TRIP_MILES", "TRIP_SECONDS"])
+```
 
 ## References
 

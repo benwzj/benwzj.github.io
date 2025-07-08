@@ -159,11 +159,14 @@ When creating a model with multiple features, the values of each feature should 
 The goal of normalization is to transform features to be on a similar scale.
 
 Three popular normalization methods:
-- linear scaling
-- Z-score scaling
-- log scaling
+- linear scaling 
+- Z-score scaling 
+- log scaling 
 
 > The distribution of data should decide which method is going to be used.
+> uniformly distributed -> linear scaling ;
+> normal distribution -> Z-score scaling;
+> power law distributiong -> log scalin;
 {: .block-warning }
 
 - The technique of Normalize data: Clipping
@@ -181,11 +184,9 @@ Here are the examples:
 - If human age is a feature, Linear scaling is a good normalization technique for age. because:
   - lower and upper bounds are 0 to 100.
   - age contains a relatively small percentage of outliers. Only about 0.3% of the population is over 100.
-  - 
 - if net_worth is a feature that holds the net worth of different people. Linear scaling would be a poor choice, because:
   - This feature contains many outliers.
   - the values are not uniformly distributed across its primary range. Most people would be squeezed within a very narrow band of the overall range.
-
 
 ### Z-score scaling
 
