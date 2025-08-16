@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://benwzj.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://benwzj.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-08-14T03:53:05+00:00</updated><id>https://benwzj.github.io/feed.xml</id><title type="html">BEN WEN</title><subtitle>A website to show the world of Ben Wen
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://benwzj.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://benwzj.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-08-16T02:37:35+00:00</updated><id>https://benwzj.github.io/feed.xml</id><title type="html">BEN WEN</title><subtitle>A website to show the world of Ben Wen
 </subtitle><entry><title type="html">Basic Math concepts in Machine Learning</title><link href="https://benwzj.github.io/blog/2025/math-in-ml/" rel="alternate" type="text/html" title="Basic Math concepts in Machine Learning" /><published>2025-06-18T00:00:00+00:00</published><updated>2025-06-18T00:00:00+00:00</updated><id>https://benwzj.github.io/blog/2025/math-in-ml</id><content type="html" xml:base="https://benwzj.github.io/blog/2025/math-in-ml/"><![CDATA[<h2 id="exponent">Exponent</h2>
 
 <table>
@@ -199,7 +199,7 @@ Quantiles split data into parts of equal probability. For example:</p>
   <li>If you divide data into 4 parts, you get quartiles</li>
   <li>If you divide it into 100 parts, you get percentiles</li>
   <li>If you divide it into 10 parts, you get deciles</li>
-</ul>]]></content><author><name></name></author><category term="AI" /><category term="Python" /><category term="ML" /><summary type="html"><![CDATA[Exponent]]></summary></entry><entry><title type="html">Numerical and Categorial Data</title><link href="https://benwzj.github.io/blog/2025/ml-data/" rel="alternate" type="text/html" title="Numerical and Categorial Data" /><published>2025-06-16T00:00:00+00:00</published><updated>2025-06-16T00:00:00+00:00</updated><id>https://benwzj.github.io/blog/2025/ml-data</id><content type="html" xml:base="https://benwzj.github.io/blog/2025/ml-data/"><![CDATA[<p>ML practitioners spend far more time evaluating, cleaning, and transforming data than building models. 
+</ul>]]></content><author><name></name></author><category term="AI" /><category term="Python" /><category term="ML" /><summary type="html"><![CDATA[Exponent]]></summary></entry><entry><title type="html">Numerical and Categorial Data</title><link href="https://benwzj.github.io/blog/2025/ml-num-cate/" rel="alternate" type="text/html" title="Numerical and Categorial Data" /><published>2025-06-16T00:00:00+00:00</published><updated>2025-06-16T00:00:00+00:00</updated><id>https://benwzj.github.io/blog/2025/ml-num-cate</id><content type="html" xml:base="https://benwzj.github.io/blog/2025/ml-num-cate/"><![CDATA[<p>ML practitioners spend far more time evaluating, cleaning, and transforming data than building models. 
 Here introduce how to handle dataset before training a model.</p>
 
 <p>We devide data into tow types:</p>
@@ -439,7 +439,45 @@ Since the <code class="language-plaintext highlighter-rouge">1</code> is in posi
 <ul>
   <li>Domain knowledge can suggest a useful combination of features to cross. Without that domain knowledge, it can be difficult to determine effective feature crosses or polynomial transforms by hand.</li>
   <li>It’s often possible, if computationally expensive, to use <strong>neural networks</strong> to automatically find and apply useful feature combinations during training.</li>
-</ul>]]></content><author><name></name></author><category term="AI" /><category term="Python" /><category term="ML" /><summary type="html"><![CDATA[ML practitioners spend far more time evaluating, cleaning, and transforming data than building models. Here introduce how to handle dataset before training a model.]]></summary></entry><entry><title type="html">Important Concepts in ML</title><link href="https://benwzj.github.io/blog/2025/ml-concepts/" rel="alternate" type="text/html" title="Important Concepts in ML" /><published>2025-06-09T00:00:00+00:00</published><updated>2025-06-09T00:00:00+00:00</updated><id>https://benwzj.github.io/blog/2025/ml-concepts</id><content type="html" xml:base="https://benwzj.github.io/blog/2025/ml-concepts/"><![CDATA[<h2 id="standard-deviation">Standard Deviation</h2>
+</ul>]]></content><author><name></name></author><category term="AI" /><category term="Python" /><category term="ML" /><summary type="html"><![CDATA[ML practitioners spend far more time evaluating, cleaning, and transforming data than building models. Here introduce how to handle dataset before training a model.]]></summary></entry><entry><title type="html">Datasets Overview</title><link href="https://benwzj.github.io/blog/2025/ml-dataset/" rel="alternate" type="text/html" title="Datasets Overview" /><published>2025-06-16T00:00:00+00:00</published><updated>2025-06-16T00:00:00+00:00</updated><id>https://benwzj.github.io/blog/2025/ml-dataset</id><content type="html" xml:base="https://benwzj.github.io/blog/2025/ml-dataset/"><![CDATA[<p>There are some concepts need to understand about dataset:</p>
+<ul>
+  <li>There are four different characteristics of data and datasets.</li>
+  <li>There are four different causes of data unreliability.</li>
+  <li>what is label.</li>
+  <li>You can improve the quality of human-rated labels.</li>
+  <li>When you train a model, you will subdivide a dataset into a training set, validation set, and test set.</li>
+  <li>What is overfitting.</li>
+  <li>What is regularization.</li>
+</ul>
+
+<h2 id="data-characteristics">Data characteristics</h2>
+
+<p>Tables are an intuitive input format for machine learning models. You can imagine each row of the table as an example and each column as a potential feature or label.</p>
+
+<p>Such as</p>
+<ul>
+  <li>comma-separated values (CSV)</li>
+  <li>directly from spreadsheets</li>
+  <li>database tables.</li>
+</ul>
+
+<h3 id="types-of-data">Types of data</h3>
+<ul>
+  <li>numerical data</li>
+  <li>categorical data</li>
+  <li>human language, including individual words and sentences</li>
+  <li>multimedia (such as images, videos, and audio files)</li>
+  <li>outputs from other ML systems</li>
+  <li>embedding vectors</li>
+</ul>
+
+<h3 id="quantity-of-data">Quantity of data</h3>
+
+<h3 id="quality-and-reliability-of-data">Quality and reliability of data</h3>
+
+<h3 id="complete-vs-incomplete">Complete vs. incomplete</h3>
+
+<p>Real-world examples are often incomplete, meaning that at least one feature value is missing.</p>]]></content><author><name></name></author><category term="AI" /><category term="Python" /><category term="ML" /><summary type="html"><![CDATA[There are some concepts need to understand about dataset: There are four different characteristics of data and datasets. There are four different causes of data unreliability. what is label. You can improve the quality of human-rated labels. When you train a model, you will subdivide a dataset into a training set, validation set, and test set. What is overfitting. What is regularization.]]></summary></entry><entry><title type="html">Important Concepts in ML</title><link href="https://benwzj.github.io/blog/2025/ml-concepts/" rel="alternate" type="text/html" title="Important Concepts in ML" /><published>2025-06-09T00:00:00+00:00</published><updated>2025-06-09T00:00:00+00:00</updated><id>https://benwzj.github.io/blog/2025/ml-concepts</id><content type="html" xml:base="https://benwzj.github.io/blog/2025/ml-concepts/"><![CDATA[<h2 id="standard-deviation">Standard Deviation</h2>
 
 <p>Standard deviation measures how spread out the values in a dataset are from the mean (average).</p>
 
@@ -1796,59 +1834,4 @@ Think of it like a spreadsheet or SQL table.</p>
 
 <ul>
   <li><a href="https://pandas.pydata.org/docs">Pandas website</a></li>
-</ul>]]></content><author><name></name></author><category term="Python" /><category term="ML" /><category term="Python" /><summary type="html"><![CDATA[Pandas is a powerful Python library for data manipulation and analysis.]]></summary></entry><entry><title type="html">Machine Learning Overview</title><link href="https://benwzj.github.io/blog/2025/ml-overview/" rel="alternate" type="text/html" title="Machine Learning Overview" /><published>2025-05-14T00:00:00+00:00</published><updated>2025-05-14T00:00:00+00:00</updated><id>https://benwzj.github.io/blog/2025/ml-overview</id><content type="html" xml:base="https://benwzj.github.io/blog/2025/ml-overview/"><![CDATA[<p>ML is the <strong>process</strong> of training a piece of software, called a model, to make useful predictions or generate content (like text, images, audio, or video) from data.</p>
-
-<h2 id="types-of-ml-systems">Types of ML Systems</h2>
-
-<p>ML systems fall into one or more of the following categories based on how they learn to make predictions or generate content:</p>
-<ul>
-  <li>Supervised learning</li>
-  <li>Unsupervised learning</li>
-  <li>Reinforcement learning</li>
-  <li>Generative AI</li>
-</ul>
-
-<h3 id="supervised-learning">Supervised learning</h3>
-<p>Supervised learning models can make predictions after seeing lots of data with the correct answers and then discovering the connections between the elements in the data that produce the correct answers.</p>
-
-<p>Supervised ML models are trained using datasets with labeled examples.</p>
-
-<p>Two of the most common use cases for supervised learning are regression and classification.</p>
-
-<h4 id="regression">Regression</h4>
-<p>A regression model predicts <strong>a numeric value</strong>. For example, a weather model that predicts the amount of rain, in inches or millimeters, is a regression model.</p>
-
-<h4 id="classification">Classification</h4>
-<p>Classification models predict the likelihood that something belongs to a category.</p>
-
-<p>Classification models are divided into two groups: binary classification and multiclass classification.</p>
-
-<h3 id="unsupervised-learning">Unsupervised learning</h3>
-<p>Unsupervised learning models make predictions by being given data that does not contain any correct answers. 
-An unsupervised learning model’s goal is to identify meaningful patterns among the data. In other words, the model has no hints on how to categorize each piece of data, but instead it must infer its own rules.</p>
-
-<p>A commonly used unsupervised learning model employs a technique called clustering. The model finds data points that demarcate natural groupings.</p>
-
-<p>Clustering differs from classification because the categories aren’t defined by you.</p>
-
-<h3 id="reinforcement-learning">Reinforcement learning</h3>
-<p>Reinforcement learning models make predictions by getting rewards or penalties based on actions performed within an environment. A reinforcement learning system generates a policy that defines the best strategy for getting the most rewards.</p>
-
-<p>Reinforcement learning is used to train robots to perform tasks, like walking around a room, and software programs like AlphaGo to play the game of Go.</p>
-
-<h3 id="generative-ai">Generative AI</h3>
-<p>Generative AI is a class of models that creates content from user input.</p>
-
-<p>At a high-level, generative models learn patterns in data with the goal to produce new but similar data. Generative models are like the following:</p>
-<ul>
-  <li>Comedians who learn to imitate others by observing people’s behaviors and style of speaking</li>
-  <li>Artists who learn to paint in a particular style by studying lots of paintings in that style</li>
-  <li>Cover bands that learn to sound like a specific music group by listening to lots of music by that group</li>
-</ul>
-
-<p>To produce unique and creative outputs, generative models are initially trained using an unsupervised approach, where the model learns to mimic the data it’s trained on. The model is sometimes trained further using supervised or reinforcement learning on specific data related to tasks the model might be asked to perform, for example, summarize an article or edit a photo.</p>
-
-<h2 id="ml-model-types">ML Model types</h2>
-<p>Linear Regression
-Logistic Regression 
-Classification</p>]]></content><author><name></name></author><category term="AI" /><category term="AI" /><category term="ML" /><summary type="html"><![CDATA[ML is the process of training a piece of software, called a model, to make useful predictions or generate content (like text, images, audio, or video) from data.]]></summary></entry></feed>
+</ul>]]></content><author><name></name></author><category term="Python" /><category term="ML" /><category term="Python" /><summary type="html"><![CDATA[Pandas is a powerful Python library for data manipulation and analysis.]]></summary></entry></feed>
