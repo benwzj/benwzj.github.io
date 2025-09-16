@@ -47,10 +47,14 @@ Such as
 
 ### Quantity of data
 
-
 ### Quality and reliability of data
 
 ### Complete vs. incomplete
 
 Real-world examples are often incomplete, meaning that at least one feature value is missing.
+What you can do?
+- Delete incomplete examples or,
+- Impute missing values
+
+## Labels
 
