@@ -3,7 +3,7 @@ layout: post
 title: Build-in Data type in JS
 date: 2021-06-22
 category: JavaScript
-tags: JavaScript  
+tags: JavaScript String
 toc: 
   - name: String
   - name: Number
@@ -121,6 +121,21 @@ undefined || 0 //-> 0
 '' || undefined //->undefined
 undefined || '' //->''
 null || '' //->''
+```
+
+### Template Strings
+
+Template Strings use back-ticks (``) rather than the quotes ("") to define a string:
+```js
+let text = `Hello World!`;
+```
+Template Strings allow both single and double quotes inside a string.
+Template Strings allow multiline strings.
+Template Strings allow variables in strings.
+```js
+let firstName = "John";
+let lastName = "Doe";
+let text = `Welcome ${firstName}, ${lastName}!`;
 ```
 
 ## Number
