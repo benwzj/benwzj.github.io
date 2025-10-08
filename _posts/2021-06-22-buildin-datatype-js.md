@@ -253,14 +253,96 @@ console.log([...iterable1]);
 ## Array
 
 ### Overview:
-- Array is an special object, but it store data in the same way with object. For example, when you visit data through `arr[2]`, The `2` in `arr[2]` is coerced into a **string** by the JavaScript engine through an implicit toString conversion. As a result, '2' and '02' would refer to two different slot.
+- Array is an special buildin object, but it store data in the same way with object. For example, when you visit data through `arr[2]`, The `2` in `arr[2]` is coerced into a **string** by the JavaScript engine through an implicit toString conversion. As a result, '2' and '02' would refer to two different slot.
 - Support Group concept by `Array.prototype.groupBy()`
-- Create an array from array-like object or iterable object through static method Array.from().
-- Can Check if an array contains a certain item: includes(), and indexOf().
+- Create an array from array-like object or iterable object through static method `Array.from()`.
+- Can Check if an array contains a certain item: `includes()`, and `indexOf()`.
+
+### Basic Loop Over
+`for...of` is the basic way:
+```js
+const users = [
+  { id: 1, name: "Alice", age: 25 },
+  { id: 2, name: "Bob", age: 30 },
+  { id: 3, name: "Charlie", age: 35 }
+];
+
+let foundUser = null;
+for (const user of users) {
+  if (user.name === "Charlie") {
+    foundUser = user;
+    break;
+  }
+}
+console.log(foundUser);
+```
+
+### Group concept
+
+The group concept in arrays means categorizing elements based on a shared property or condition. — turning a list of items into categories or collections. The `groupBy()` method makes it clean and easy to organize data into meaningful groups — perfect for sorting lists, products, or datasets.
+
+#### Object.groupBy function
+```js
+const people = [
+  { name: 'Alice', age: 21 },
+  { name: 'Bob', age: 25 },
+  { name: 'Charlie', age: 21 },
+];
+
+const grouped = Object.groupBy(people, person => person.age);
+console.log(grouped);
+```
+Output:
+```js
+{
+  21: [
+    { name: 'Alice', age: 21 },
+    { name: 'Charlie', age: 21 }
+  ],
+  25: [
+    { name: 'Bob', age: 25 }
+  ]
+}
+```
+
+#### group() function
+
+Syntax:
+`group(callbackFn)`
+
+Example:
+```js
+const inventory = [
+  { name: 'asparagus', type: 'vegetables', quantity: 5 },
+  { name: 'bananas',  type: 'fruit', quantity: 0 },
+  { name: 'goat', type: 'meat', quantity: 23 },
+  { name: 'cherries', type: 'fruit', quantity: 5 },
+  { name: 'fish', type: 'meat', quantity: 22 }
+];
+
+let result = inventory.group( ({ type }) => type );
+
+// the 'result' is:
+{
+  vegetables: [
+    { name: 'asparagus', type: 'vegetables', quantity: 5 },
+  ],
+  fruit: [
+    { name: "bananas", type: "fruit", quantity: 0 },
+    { name: "cherries", type: "fruit", quantity: 5 }
+  ],
+  meat: [
+    { name: "goat", type: "meat", quantity: 23 },
+    { name: "fish", type: "meat", quantity: 22 }
+  ]
+}
+
+```
 
 ### Length can be weird
 
-- Set menber by bracket notation
+#### Set menber by bracket notation
+
 ```js
 const fruits = [];
 fruits.push('banana');
@@ -269,7 +351,8 @@ console.log(fruits); //Array ["banana", undefined, undefined, "apple"]
 console.log(Object.keys(fruits).length) // 2
 console.log(fruits.length); // 4
 ```
-- Set length directly
+#### Set length directly
+
 ```js
 const fruits = [];
 fruits.push('banana');
@@ -281,7 +364,8 @@ const numbers = [1, 2, 3, 4, 5];
 numbers.length = 3;
 console.log(numbers); // [1, 2, 3]
 ```
-- delete a member with keyword delete.
+
+#### delete a member with keyword delete.
 ```js
 const fruits = [];
 fruits.push('banana', 'apple', 'grape');
@@ -398,41 +482,6 @@ for ( let node of actionArr ){
 }
 ```
 
-#### group()
-
-Syntax:
-`group(callbackFn)`
-
-Example:
-```js
-const inventory = [
-  { name: 'asparagus', type: 'vegetables', quantity: 5 },
-  { name: 'bananas',  type: 'fruit', quantity: 0 },
-  { name: 'goat', type: 'meat', quantity: 23 },
-  { name: 'cherries', type: 'fruit', quantity: 5 },
-  { name: 'fish', type: 'meat', quantity: 22 }
-];
-
-let result = inventory.group( ({ type }) => type );
-
-/* Result is:
-{
-  vegetables: [
-    { name: 'asparagus', type: 'vegetables', quantity: 5 },
-  ],
-  fruit: [
-    { name: "bananas", type: "fruit", quantity: 0 },
-    { name: "cherries", type: "fruit", quantity: 5 }
-  ],
-  meat: [
-    { name: "goat", type: "meat", quantity: 23 },
-    { name: "fish", type: "meat", quantity: 22 }
-  ]
-}
-*/
-```
-### Questions
-- What is the Group concept in Array?
 
 ## Set
 
