@@ -4,7 +4,12 @@ title: JavaScript Overview
 date: 2024-03-17
 category: JavaScript
 tags: JavaScript TypeScript
+toc: 
+  - name: Some Notes
+  - name: Some Skills
 ---
+
+## Some Notes
 
 - JavaScript is single-threaded non-blocking asynchronous concurrent language. 
 
@@ -34,7 +39,9 @@ null === undefined // false
 
 - In JavaScript, only objects and arrays are mutable. All primitive values are immutable.
 
-- avoid some code in Javascript:
+## Some Skills
+
+### avoid some code in Javascript:
 ```js
 eval() 
 arguments
@@ -45,3 +52,13 @@ Hidden class
 inline caching
 ```
 
+### Use the Nullish Coalescing Operator (??) 
+
+```js
+function getUsername(name) {
+  return name ?? "Guest";
+}
+console.log (getUsername("Ben")); // "Ben"
+console.log (getUsername(null));  // "Guest"
+console.log (getUsername(undefined)); // "Guest"
+```
